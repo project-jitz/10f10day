@@ -421,7 +421,7 @@ body.touch #toasts{top:calc(64px + env(safe-area-inset-top,0px))!important}
     <div class="lface" id="lface"><img id="faceA" alt=""><img id="faceB" alt=""></div>
     <div class="ltag"><h3>열흘 안에, 1층으로.</h3><p>문밖에서 들리는 발소리. 더는 이웃이 아니다.<br>남은 시간은 열흘. 이 건물에서 나가야 한다.</p></div>
     <div class="lhint">ENTER 시작 · ↑↓ 선택</div>
-    <div class="lver"><span id="lplay"></span> · v0.9.44 · 2026.11.08</div>
+    <div class="lver"><span id="lplay"></span> · v0.9.45 · 2026.11.09</div>
     <div class="llogo"><div class="lnum"><span id="logoF">10F</span><span class="sl">/</span><span class="dy" id="logoD">10DAY</span></div><div class="proj">project.<b>Jitz</b></div></div>
     <nav class="lmenu" id="lmenu" aria-label="메인 메뉴">
       <button type="button" data-act="new" class="on">새 게임</button>
@@ -1259,7 +1259,7 @@ function spawnBigHead(x,z,state,face){const g=bhGeo();if(!g)return null;
   const dummy=()=>{const o=new THREE.Group();root.add(o);return o;};
   const c={x,z,face,state,home:{x,z,face},hp:ct.hp,maxHp:ct.hp,baseHp:ct.hp,ct,headYaw:0,headTarget:0,tx:x,tz:z,timer:0,atkT:0,stun:0,anim:0,lost:0,dead:false,deadT:0,kx:0,kz:0,growlT:4,stepT:0,flinch:0,atkAnim:0,twitchT:2,path:[],repath:0,lsx:x,lsz:z,lampT:0,seed:Math.random()*100,type:'bighead',
     pitch:lerp(ct.pitch[0],ct.pitch[1],Math.random()),hunt:false,sobT:9,zone:{hx:0,y0:0,y1:0,hz:0},big:true,boss:true,vt:'bhd',meshN:1,
-    root,body,hm:me,glb:me,geoHi:g,geoLo:g.userData.lo,torso:me,spine:dummy(),neck:dummy(),head:dummy(),hips:dummy(),arms:[],legs:[],
+    root,body,hm:me,glb:me,geoHi:g,geoLo:null,/* 11/9: 보스(대두왕·고릴라)는 간략 모델 안 씀 — UV 조각이 잘아 구멍·검은 얼룩 */torso:me,spine:dummy(),neck:dummy(),head:dummy(),hips:dummy(),arms:[],legs:[],
     hopT:0,air:false,hy:0,sq:1,sqV:0,spitT:2,butT:0,mode:'move',dazeT:0,butDir:[0,1],sx:1,sz:1};
   c.home.wander=false;unstick(c,.27);c.home.x=c.x;c.home.z=c.z;creatures.push(c);poseBig(c,0);return c;}
 // 사방 벽까지 여유를 재서 머리 폭·깊이를 그만큼 찌그러뜨린다(부피 유지하듯 위로 늘어남)
@@ -1381,7 +1381,7 @@ function spawnGorilla(x,z,face){const g=gaGeo();if(!g)return null;
   const dummy=()=>{const o=new THREE.Group();root.add(o);return o;};
   const c={x,z,face,state:'dorm',home:{x,z,face,wander:false},hp:GA.hp,maxHp:GA.hp,baseHp:GA.hp,ct,headYaw:0,headTarget:0,tx:x,tz:z,timer:0,atkT:0,stun:0,anim:0,lost:0,dead:false,deadT:0,kx:0,kz:0,growlT:3,stepT:0,flinch:0,atkAnim:0,twitchT:2,path:[],repath:0,lsx:x,lsz:z,lampT:0,seed:Math.random()*100,type:'gorilla',
     pitch:1,hunt:false,sobT:9,zone:{hx:0,y0:0,y1:0,hz:0},gor:true,boss:true,vt:'gor',meshN:1,
-    root,body,hm:me,glb:me,geoHi:g,geoLo:g.userData.lo,torso:me,spine:dummy(),neck:dummy(),head:dummy(),hips:dummy(),arms:[],legs:[],armL:bL,armR:bR,
+    root,body,hm:me,glb:me,geoHi:g,geoLo:null,/* 11/9: 보스(대두왕·고릴라)는 간략 모델 안 씀 — UV 조각이 잘아 구멍·검은 얼룩 */torso:me,spine:dummy(),neck:dummy(),head:dummy(),hips:dummy(),arms:[],legs:[],armL:bL,armR:bR,
     mode:'rest',modeT:0,hy:0,sq:1,sqV:0,sx:1,hideT:0,leapD:0};
   unstick(c,GA.r);c.home.x=c.x;c.home.z=c.z;creatures.push(c);poseGor(c,0);return c;}
 function poseGor(c,dt){const H=ASSET.gaMeta.h*GA.scale,W=.95*GA.scale;
