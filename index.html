@@ -421,7 +421,7 @@ body.touch #toasts{top:calc(64px + env(safe-area-inset-top,0px))!important}
     <div class="lface" id="lface"><img id="faceA" alt=""><img id="faceB" alt=""></div>
     <div class="ltag"><h3>열흘 안에, 1층으로.</h3><p>문밖에서 들리는 발소리. 더는 이웃이 아니다.<br>남은 시간은 열흘. 이 건물에서 나가야 한다.</p></div>
     <div class="lhint">ENTER 시작 · ↑↓ 선택</div>
-    <div class="lver"><span id="lplay"></span> · v0.9.45 · 2026.11.09</div>
+    <div class="lver"><span id="lplay"></span> · v0.9.46 · 2026.11.09</div>
     <div class="llogo"><div class="lnum"><span id="logoF">10F</span><span class="sl">/</span><span class="dy" id="logoD">10DAY</span></div><div class="proj">project.<b>Jitz</b></div></div>
     <nav class="lmenu" id="lmenu" aria-label="메인 메뉴">
       <button type="button" data-act="new" class="on">새 게임</button>
@@ -4085,7 +4085,7 @@ function snapshot(){return JSON.parse(JSON.stringify({hasSling:P.hasSling,shoes:
 function restore(s){P.hasSling=s.hasSling!==false;P.shoes=!!s.shoes;G.notesRead=[...(s.notes||[])];G.min=s.min;G.day=Math.floor(G.min/1440)+1;P.hp=s.hp;P.hunger=s.hunger;P.thirst=s.thirst;P.inv=Object.assign({},s.inv);P.crowbars=[...s.crowbars];P.tier=s.tier;P.ammoType=s.ammoType;G.kills=s.kills;G.run=s.run?Object.assign({},s.run):null;}
 function initialSave(){return{hasSling:false,notes:[],min:CFG.startMin,hp:100,hunger:100,thirst:100,inv:{steel:30,water:2,bar:2,canned:1},crowbars:[],tier:0,ammoType:'steel',kills:0};}
 function die(why,by){if(P.dead)return;if(by)G.deathBy=by;if(by==='starve'&&typeof metaAdd==='function')metaAdd('d_starve');P.dead=true;cancelDraw();setTimeout(()=>ending('dead',why),900);}
-function ending(kind,why){
+function ending(kind,why){hideBossUI();
   if(G.state!=='play')return;G.state='end';{const el=$('evac');if(el)el.hidden=true;}cancelDraw();$('prog').hidden=true;if(!TEST&&document.pointerLockElement)document.exitPointerLock();
   const E={dead:[G.floor+'층 · '+G.day+'일차','쓰러졌다',why+' '+G.floor+'층에 들어선 시점부터 다시 시작한다.'],
     fail:['10일 경과','공기 감염','열흘째 밤, 숨을 쉴 때마다 목이 탔다. 거울 속 눈동자가 붉게 번졌다. 나도 그들이 되었다.'],
@@ -4276,7 +4276,8 @@ function lobbyWalkers(){const cv=$('lwalk');if(!cv)return;const x=cv.getContext(
     x.save();x.beginPath();x.rect(CX0,CY0,CX1-CX0,FY-CY0+1);x.clip();x.translate(cur.x,FY);if(cur.dir>0)x.scale(-1,1); /* 그림은 왼쪽을 봄 */
     x.globalAlpha=.96;x.drawImage(im,-w/2,-h,w,h);x.restore();};
   window.__lw={force(px,dir,k){cur={k:k||'ls',dir:dir||1,t:.3,x:px,spd:0};}};requestAnimationFrame(loop);}
-function toLobby(){G.state='title';$('endP').hidden=true;stopEndMusic();setTimeout(()=>{if(G.state==='title')lobbyMusic(true);},600);$('hud').hidden=true;$('titleP').hidden=false;updateLogo();}
+function hideBossUI(){['bossBar','evac','prog'].forEach(id=>{const el=$(id);if(el)el.hidden=true;});document.body.classList.remove('bossOn');}
+function toLobby(){G.state='title';$('endP').hidden=true;hideBossUI();stopEndMusic();setTimeout(()=>{if(G.state==='title')lobbyMusic(true);},600);$('hud').hidden=true;$('titleP').hidden=false;updateLogo();}
 $('endLobby').onclick=toLobby;
 
 /* ================= 부팅 ================= */
