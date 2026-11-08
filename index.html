@@ -421,7 +421,7 @@ body.touch #toasts{top:calc(64px + env(safe-area-inset-top,0px))!important}
     <div class="lface" id="lface"><img id="faceA" alt=""><img id="faceB" alt=""></div>
     <div class="ltag"><h3>열흘 안에, 1층으로.</h3><p>문밖에서 들리는 발소리. 더는 이웃이 아니다.<br>남은 시간은 열흘. 이 건물에서 나가야 한다.</p></div>
     <div class="lhint">ENTER 시작 · ↑↓ 선택</div>
-    <div class="lver"><span id="lplay"></span> · v0.9.41 · 2026.11.08</div>
+    <div class="lver"><span id="lplay"></span> · v0.9.42 · 2026.11.08</div>
     <div class="llogo"><div class="lnum"><span id="logoF">10F</span><span class="sl">/</span><span class="dy" id="logoD">10DAY</span></div><div class="proj">project.<b>Jitz</b></div></div>
     <nav class="lmenu" id="lmenu" aria-label="메인 메뉴">
       <button type="button" data-act="new" class="on">새 게임</button>
@@ -1188,7 +1188,7 @@ function spawnFloorCreatures(){const fc=FLOORS[G.floor]||{sh:6,ls:1};const r=mul
   for(let i=0;i<nIn;i++){let U=pick(units),k=0,x,z;do{U=pick(units);[x,z]=uMap(U,U.W*.5,U.D*.6);}while((used.has(U.num)||!far(x,z,8))&&k++<40);used.add(U.num);UCFG[U.num].cr=1;
     [x,z]=uMap(U,U.W*(.3+r()*.4),U.D*(.45+r()*.3));
     /* 11/6: 절반쯤은 그 집 화장실·방 안(닫힌 방문 뒤)에 — 문을 쾅쾅 쳐서 안에 뭔가 있다고 알림 */
-    const rm=r()<.5?DOORS.find(o=>o.inUnit===U.num&&o.inP&&!o.roomC):null;let fc0=uFace(U)+Math.PI*(r()<.5?1:0)+(r()-.5);
+    const rms=DOORS.filter(o=>o.inUnit===U.num&&o.inP&&!o.roomC);const rmo=rms.slice(1);const rm=r()<.5&&rms.length?(rmo.length&&r()<.6?rmo[Math.floor(r()*rmo.length)]:rms[0]):null; /* 첫 안문=화장실, 나머지=방 — 방이 있으면 60%는 방 */ /* 11/8: 화장실만 아니라 방문 뒤에도 랜덤 */let fc0=uFace(U)+Math.PI*(r()<.5?1:0)+(r()-.5);
     if(rm){x=rm.inP[0];z=rm.inP[1];rm.open=false;rm.ang=0;rm.pivot.rotation.y=rm.a0;rm.roomC=true;fc0=Math.atan2(rm.cx-x,rm.cz-z);}
     placed.push([x,z]);const cc=spawnCreature(x,z,'idle',fc0);cc.unum=U.num;cc.knockT=3+r()*5;if(rm){cc.room=rm;cc.knockT=1.5+r()*3;unstick(cc,.27);cc.home.x=cc.x;cc.home.z=cc.z;}}
   const corr=CORR.filter(c=>c.name!=='H');
@@ -1361,7 +1361,7 @@ function updateBig(c,dt){
 function bigZone(c,x,y,z){if(c.dead)return null;const p=new THREE.Vector3(x,y,z);c.hm.updateWorldMatrix(true,false);const l=c.hm.worldToLocal(p);// 모델 단위(높이 ~0.82)
   const e=Math.hypot(l.x/.31,(l.y-.46)/.38,l.z/.37);const neck=l.y>-.02&&l.y<.24&&Math.hypot(l.x/.22,l.z/.24)<1;
   if(e>1&&!neck)return null;if(wallBetween(c.x,c.z,x,z))return null;
-  if(l.z>.17&&Math.abs(l.x)<.17&&l.y>.24&&l.y<.62)return'head';return'torso';}
+  if(l.z>.14&&Math.abs(l.x)<.21&&l.y>.2&&l.y<.66)return'head';return'torso';}
 /* ================= 4층 보스: 고릴라(사용자 11/5, Tripo GLB → gor/) =================
    관리실(TPS)에 웅크려 있다가 문이 열려 김수민이 보이면 깨어난다. 걷지 않는다:
    1.5초 차징 → 최대 5.5m 도약 → 쾅 내려찍기(반경 2.5m·35·밀쳐냄) → 2초 숨 고르기(이때 맞히면 1.5배) → 반복. 죽으면 계단 열쇠 */
@@ -1469,7 +1469,7 @@ function updateGor(c,dt){
   poseGor(c,dt);}
 function gorZone(c,x,y,z){if(c.dead)return null;const p=new THREE.Vector3(x,y,z);c.hm.updateWorldMatrix(true,false);const l=c.hm.worldToLocal(p);// 모델 단위(높이 1.88)
   if(wallBetween(c.x,c.z,x,z))return null;
-  if(l.z>.42&&Math.abs(l.x)<.3&&l.y>1.2&&l.y<1.9)return'head';
+  if(l.z>.36&&Math.abs(l.x)<.37&&l.y>1.12&&l.y<1.95)return'head';
   if(Math.hypot(l.x/.95,(l.y-.94)/.96,l.z/.82)<1.02)return'torso';return null;}
 /* ================= 3층부터: 천장 기어다니는 놈(사용자 11/6, 2번 시안 → Tripo 4면 → crw/) =================
    천장에 거꾸로 붙어 다님(몸을 뒤로 꺾은 브릿지 자세 그대로 뒤집음). 눈이 있어 보고 듣는다. 빠름(3.4m/s), 천장에서 할퀴기.
@@ -1505,7 +1505,7 @@ function crawlDead(c,dt){c.deadT=Math.min(1,c.deadT+dt*2);if(c.fallY===0&&!c.lan
   poseCrawl(c,0);}
 function crawlZone(c,x,y,z){if(c.dead)return null;const p=new THREE.Vector3(x,y,z);c.hm.updateWorldMatrix(true,false);const l=c.hm.worldToLocal(p);
   if(wallBetween(c.x,c.z,x,z))return null;
-  if(l.z>.19&&Math.abs(l.x)<.12&&l.y>.33&&l.y<.66)return'head';
+  if(l.z>.16&&Math.abs(l.x)<.15&&l.y>.30&&l.y<.69)return'head';
   if(Math.hypot(l.x/.38,(l.y-.5)/.5,l.z/.42)<1.05)return'torso';return null;}
 function crawlStep(c){at(c.x,c.z,()=>{for(let i=0;i<3;i++)nz(.03,2600+Math.random()*1800,3,.12,i*.05,'bandpass');nz(.05,500,1,.08,.02,'lowpass');});}
 /* ================= 비척이 3D 모델(사용자 Meshy GLB → glb/mk_sh.py) ================= */
@@ -2154,10 +2154,11 @@ function clearFrac(c,dx,dz,reach,base){for(const f of[1,.75,.5,.25]){if(!wallBet
 function guardPose(c){const dt=clamp(G.t-(c.gt??G.t),0,.1);c.gt=G.t;const fx=Math.sin(c.face),fz=Math.cos(c.face),rx=Math.cos(c.face),rz=-Math.sin(c.face);
   const L=c.type==='listener';const tf=clearFrac(c,fx,fz,L?.5:.55,L?.22:.3);c.lk=c.lk??tf;c.lk+=(tf-c.lk)*Math.min(1,dt*8);
   if(L){c.sk=c.sk||[1,1];[-1,1].forEach((sd,i)=>{const t=clearFrac(c,rx*sd,rz*sd,.95,.25);c.sk[i]+=(t-c.sk[i])*Math.min(1,dt*8);});}}
+const HEADK=1.25; /* 11/8 친구 피드백: 헤드샷 판정 1.25배 */
 function creatureZone(c,x,y,z){
   if(c.big)return bigZone(c,x,y,z);if(c.gor)return gorZone(c,x,y,z);if(c.crawl)return crawlZone(c,x,y,z);
   if(c.dead||Math.hypot(x-c.x,z-c.z)>1.0||y>2.2)return null;if(wallBetween(c.x,c.z,x,z))return null;const p=new THREE.Vector3(x,y,z);
-  c.hm.getWorldPosition(_v);if(_v.distanceTo(p)<(c.headR||.31))return'head';
+  c.hm.getWorldPosition(_v);if(_v.distanceTo(p)<(c.headR||.31)*HEADK)return'head';
   const lp=c.torso.worldToLocal(p.clone());const Z=c.zone;if(Math.abs(lp.x)<Z.hx&&lp.y>Z.y0&&lp.y<Z.y1&&Math.abs(lp.z)<Z.hz)return'torso';
   if(y<.9&&Math.hypot(x-c.x,z-c.z)<.2)return'limb';
   for(const a of c.arms){const s=a.sh.getWorldPosition(new THREE.Vector3()),e=a.el.getWorldPosition(new THREE.Vector3()),h=a.hd.getWorldPosition(new THREE.Vector3());if(segDist(p,s,e)<.085||segDist(p,e,h)<.075)return'limb';}
@@ -2215,7 +2216,7 @@ function pickMesh(k){
     case'bar':m(new THREE.BoxGeometry(.12,.02,.04),0x5a5450,.01);break;case'bandage':m(new THREE.CylinderGeometry(.03,.03,.05,10),0xd8d4cc,.03);break;case'painkiller':m(new THREE.CylinderGeometry(.018,.018,.06,8),0xc8c2b6,.03);m(new THREE.CylinderGeometry(.019,.019,.015,8),0x7a1e22,.068);break;case'steel':m(new THREE.SphereGeometry(.03,6,4),0xb8bcc2,.03);break;
     case'junk':for(let i=0;i<4;i++){const b=m(new THREE.BoxGeometry(.05,.015,.015),0x6e6a64,.01+i*.012);b.rotation.y=i;}break;
     case'crowbar':{const b=m(new THREE.BoxGeometry(.6,.025,.03),0x7a1a20,.015);b.rotation.y=.4;}break;
-    case'flash':{const b=m(new THREE.CylinderGeometry(.03,.03,.11,8),0x4a5a3a,.03);b.rotation.z=Math.PI/2;}break;default:m(new THREE.BoxGeometry(.08,.08,.08),0x777777,.04);}
+    case'flash':{const b=m(new THREE.CylinderGeometry(.03,.03,.11,8),0x4a5a3a,.03);b.rotation.z=Math.PI/2;}break;case'medkit':{m(new THREE.BoxGeometry(.3,.11,.2),0xc8c0b4,.055);m(new THREE.BoxGeometry(.11,.004,.035),0xc0201c,.112);m(new THREE.BoxGeometry(.035,.004,.11),0xc0201c,.112);m(new THREE.BoxGeometry(.1,.02,.02),0x3a3634,.125);}break;default:m(new THREE.BoxGeometry(.08,.08,.08),0x777777,.04);}
   return g;}
 function dropPickup(k,n,x,z,uses){
   let i=gi(x,z);if(i<0||cellBlocks(i)){x=P.x;z=P.z;}
@@ -2480,7 +2481,7 @@ function promptFor(t){
       if(t.type==='survivor')return k(n+' 문 두드리기');
       if(t.type==='crowbar')return P.crowbars.length?(TOUCH?'<kbd>길게 터치</kbd>':'<kbd>E 길게</kbd>')+n+' 빠루로 따기 · 소음':n+' — 잠겨 있다. 빠루가 필요하다';return k(n+' 문 열기');}
     case'cont':return (t.searched?t.name+' — 비어 있다':k(t.name+' 뒤지기'+(t.free?' · 시간 안 듦':' · '+CFG.time.searchEmpty+'~'+CFG.time.search+'분')))+(t.hide?(TOUCH?' &nbsp; <kbd>숨기</kbd>버튼으로 숨기':' &nbsp; <kbd>R</kbd>안에 숨기'):'');
-    case'pick':{if(t.k==='insanBag')return k('낯익은 가방 열기');if(t.k==='stairKey')return k('계단실 열쇠 줍기');if(t.k==='sling1')return k('개량형 01 새총 줍기');const it=ITEMS[t.k];const nm=t.k==='crowbar'?'빠루 ('+t.uses+'/10)':it.name+(t.n>1?' '+t.n+(t.k==='junk'?'발':'개'):'');const w=t.k==='crowbar'?2:it.w*t.n;
+    case'pick':{if(t.k==='insanBag')return k('낯익은 가방 열기');if(t.k==='medkit')return k('구급키트 쓰기 · 체력 전부 회복');if(t.k==='stairKey')return k('계단실 열쇠 줍기');if(t.k==='sling1')return k('개량형 01 새총 줍기');const it=ITEMS[t.k];const nm=t.k==='crowbar'?'빠루 ('+t.uses+'/10)':it.name+(t.n>1?' '+t.n+(t.k==='junk'?'발':'개'):'');const w=t.k==='crowbar'?2:it.w*t.n;
       return(freeKg()+1e-9<(t.k==='junk'?it.w:w))?nm+' — 가방이 꽉 찼다':k(nm+' 줍기 · '+(+w.toFixed(2))+'kg');}
     case'note':return k('인산이 쪽지 읽기');
     case'tip':return k('메모 읽기');
@@ -2551,7 +2552,7 @@ function interact(t){
       const got=[],dropped=[];t.loot.forEach(({k,n})=>{const a=addItem(k,n);if(a)got.push(ITEMS[k].name+(n>1&&k!=='crowbar'?' '+a:''));if(a<n)dropped.push([k,n-a]);});
       dropped.forEach(([k,n],i)=>dropPickup(k,n,P.x+Math.sin(i)*.3,P.z+Math.cos(i)*.3));
       if(got.length)toast('획득: '+got.join(', '));if(dropped.length){toast('가방이 꽉 차서 발밑에 두었다',true);mono('bagFull');}if(sfx.useSnd)fx(PICKFX[(t.loot[0]||{}).k]||'pick_scrap',{delay:.7});else sfx.pickup();return;}
-    case'pick':{if(t.k==='stairKey'){gotKey();removePickup(t);return;}if(t.k==='insanBag'){[['bandage',2],['canned',1],['water',1],['steel',8]].forEach(([k,n])=>addItem(k,n));toast('인산이 가방: 붕대 2 · 통조림 · 생수 · 쇠구슬 8',true);mono('insanBag',{prio:true});sfx.pickup();removePickup(t);return;}
+    case'pick':{if(t.k==='stairKey'){gotKey();removePickup(t);return;}if(t.k==='medkit'){P.hp=100;toast('구급키트 — 체력이 전부 회복됐다',true);if(sfx.pickup)sfx.pickup();removePickup(t);return;}if(t.k==='insanBag'){[['bandage',2],['canned',1],['water',1],['steel',8]].forEach(([k,n])=>addItem(k,n));toast('인산이 가방: 붕대 2 · 통조림 · 생수 · 쇠구슬 8',true);mono('insanBag',{prio:true});sfx.pickup();removePickup(t);return;}
       if(t.k==='sling1'){if(P.tier<1){P.tier=1;toast('개량형 01을 손에 넣었다',true);}else toast('이미 더 좋은 새총이 있다');mono('gotSling',{prio:true});sfx.craft();removePickup(t);return;}
       const a=addItem(t.k,t.n,t.uses);if(!a){toast('가방이 꽉 찼다',true);mono('bagFull');return;}sfx.pickup(t.k);if(t.k==='crowbar')toast('빠루를 챙겼다 ('+t.uses+'/10)');if(a>=t.n)removePickup(t);else{t.n-=a;toast('일부만 챙겼다',true);}return;}
     case'note':openNote(t.floor);return;
@@ -2706,6 +2707,16 @@ function updateHands(t){const dt=clamp(t-(HUP.lt??t),0,.1);HUP.lt=t;
   hand.visible=!P.dead&&!!handMat.map&&G.state==='play'&&HUP.up>.01;
 }
 
+/* 11/8 친구 피드백: 최종형 레이저 포인터 — 조준 방향으로 광선을 쏴서 맞는 곳(벽·바닥·천장·가구·크리쳐)에 빨간 점 + 희미한 빛줄기 */
+const LZ={};function laserInit(){if(LZ.dot)return;const c=document.createElement('canvas');c.width=c.height=32;const x=c.getContext('2d');const g=x.createRadialGradient(16,16,0,16,16,16);g.addColorStop(0,'rgba(255,240,230,1)');g.addColorStop(.18,'rgba(255,40,30,1)');g.addColorStop(.5,'rgba(255,0,0,.35)');g.addColorStop(1,'rgba(255,0,0,0)');x.fillStyle=g;x.fillRect(0,0,32,32);
+  LZ.dot=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c),color:0xffffff,transparent:true,depthTest:true,depthWrite:false,blending:THREE.AdditiveBlending,fog:false}));LZ.dot.material.depthTest=false;LZ.scene=new THREE.Scene();LZ.scene.add(LZ.dot);
+  LZ.geo=new THREE.BufferGeometry();LZ.geo.setAttribute('position',new THREE.Float32BufferAttribute([0,0,0,0,0,1],3));LZ.beam=new THREE.Line(LZ.geo,new THREE.LineBasicMaterial({color:0xff2a1a,transparent:true,opacity:.16,blending:THREE.AdditiveBlending,depthWrite:false,fog:false}));LZ.beam.frustumCulled=false;scene.add(LZ.beam);LZ.dot.visible=LZ.beam.visible=false;}
+function laserTick(fwd){laserInit();const on=P.tier>=3&&G.state==='play'&&!P.dead&&!P.hide&&!P.peep&&!G.cine&&HUP.up>.5;LZ.dot.visible=LZ.beam.visible=on;if(!on)return;
+  const o=camera.position,st=.04;let x=o.x,y=o.y,z=o.z,d=0,hit=false;const near=creatures.filter(c=>!c.dead&&!c.pooled&&Math.hypot(c.x-o.x,c.z-o.z)<26);
+  for(;d<25;d+=st){x=o.x+fwd.x*d;y=o.y+fwd.y*d;z=o.z+fwd.z*d;if(y<=0.005||y>=2.39){hit=true;break;}const i=gi(x,z);if(i<0||cellBlocksSight(i)||(grid[i]===3&&y<.8)){hit=true;break;}
+    if(near.length&&((d/st)|0)%2===0){let hc=false;for(const c of near){if(Math.hypot(c.x-x,c.z-z)<1.3){let zn=null;try{zn=creatureZone(c,x,y,z);}catch(e){}if(zn){hc=true;break;}}}if(hc){hit=true;break;}}}
+  d=Math.max(.3,d-.03);x=o.x+fwd.x*d;y=o.y+fwd.y*d;z=o.z+fwd.z*d;LZ.dot.position.set(x,y,z);const s=Math.max(.06,d*.02)*(.9+Math.random()*.2);LZ.dot.scale.set(s,s,1);LZ.dot.material.opacity=hit?1:.4;
+  const r=new THREE.Vector3(Math.cos(P.yaw),0,-Math.sin(P.yaw));const a=LZ.geo.attributes.position;a.setXYZ(0,o.x+fwd.x*.35+r.x*.05,o.y-.06+fwd.y*.35,o.z+fwd.z*.35+r.z*.05);a.setXYZ(1,x,y,z);a.needsUpdate=true;}
 /* ================= 김수민 독백 (대사는 MONO_LINES만 고치면 된다) ================= */
 const MONO_LINES={ // 11/5 사용자: 말 줄이기 — 정보가 되는 말만 남김(나머지 키는 빈 값이라 안 나옴)
   stairsLocked:'잠겼네. 메모에 적힌 집에 열쇠가 있을 거야.',
@@ -3141,8 +3152,10 @@ const TIPS=[
   {title:'옷장 문에 끼워진 메모',text:['쫓기면 옷장.','옷장 앞에서 [R]로 숨고 다시 [R]로 나온다.','숨는 걸 들키면 소용없다. 모퉁이를 돌고 나서 숨어.']},
   {title:'복도 바닥에 떨어진 메모',text:['그것들은 소리를 따라간다.','벽이나 문에 한 발 쏘면 그쪽으로 몰려간다.','눈 없는 여자는 발소리까지 듣는다. [C]로 웅크리고 천천히.']},
   {title:'계단 쪽 벽에 붙은 메모',text:['헤드랜턴([F])은 멀리서도 보인다.','어두운 데선 끄고, 놈들 앞 바닥의 붉은 빛을 피해서.','계단 문 열쇠는 관리 메모에 적힌 집에 있다.']},
-  {title:'관리실 옆 벽에 붙은 쪽지',text:['현관 앞에 가면 쓴 게 있다. 파란 정장.','새총은 안 먹힌다. 쏴 봤자 소리만 난다.','굴러오는 드럼통을 끝까지 피해. 계속 피하면 놈이 먼저 지쳐서 쓰러진다.','빨간 원이 보이면 바로 비켜. 기름통이다.']}];
-function placeTips(){if(G.floor===1){placeWallTip1();return;}if(G.floor!==10)return;G.tipsRead=G.tipsRead||[];
+  {title:'관리실 옆 벽에 붙은 쪽지',text:['현관 앞에 가면 쓴 게 있다. 파란 정장.','새총은 안 먹힌다. 쏴 봤자 소리만 난다.','굴러오는 드럼통을 끝까지 피해. 계속 피하면 놈이 먼저 지쳐서 쓰러진다.','빨간 원이 보이면 바로 비켜. 기름통이다.']},
+  {title:'공동현관 옆에 붙은 메모',text:['이 문, 밀기 시작하면 엄청 시끄럽다.','소리 듣고 층의 놈들이 떼로 몰려온다. 한번 시작하면 쉴 틈이 없다.','열기 전에 층을 충분히 돌아. 물자부터 챙겨.','붕대 · 진통제 · 쇠구슬 — 넉넉히.']},
+  {title:'2층 계단실 벽에 붙은 메모',text:['여기서부터는 진짜 위험하다.','구급약 — 붕대 · 진통제를 보이는 대로 전부 챙겨.','아래층에서 쓸 일이 많을 거다. 아끼지 마.']}];
+function placeTips(){if(G.floor===1){placeWallTip1();placeExitTip();placeMedkit1();return;}if(G.floor===2){placeStairTip(6);return;}if(G.floor!==10)return;G.tipsRead=G.tipsRead||[];
   const U2=UNITS.find(u=>u.num===1002),U3=UNITS.find(u=>u.num===1003);
   const spots=[U2&&uMap(U2,U2.W/2,1.4),U3&&uMap(U3,U3.W/2,4.2),TIP_C,[13.5,20.6]];
   spots.forEach((p,i)=>{if(!p)return;let[x,z]=p;if(blockedCircle(x,z,.2)){for(let k=0;k<30;k++){const a=k*2.4,r=.3+k*.06,nx=x+Math.cos(a)*r,nz=z+Math.sin(a)*r;if(!blockedCircle(nx,nz,.2)){x=nx;z=nz;break;}}}
@@ -3153,6 +3166,15 @@ function placeWallTip1(){G.tipsRead=G.tipsRead||[];const U=UNITS.find(u=>u.num==
   if(!best)return;const[x,z,cx,cz]=best;const m=noteMesh(x,1.45,z,0,false);
   const pin=new THREE.Mesh(new THREE.SphereGeometry(.012,6,4),phong(null,{color:0xb02020,shininess:60}));pin.position.set(x,1.57,z+.01);world.add(pin);
   INTER.push({kind:'tip',tip:4,x:cx,z:cz,r:1.4,hy:1.45,mesh:m});}
+/* 11/8 친구 피드백: 1층 비상문 바로 앞 구급키트(즉시 체력 100) · 공동현관 옆 메모 · 2층 계단실 메모 */
+function placeMedkit1(){let[x,z]=STAIR_OUT;z+=.5;if(blockedCircle(x,z,.2)){for(let k=0;k<30;k++){const a=k*2.4,r=.3+k*.06,nx=x+Math.cos(a)*r,nz=z+Math.sin(a)*r;if(!blockedCircle(nx,nz,.2)){x=nx;z=nz;break;}}}const p=dropPickup('medkit',1,x,z);p.r=2.2;}
+function placeStairTip(i){const x=15.45,z=19.3-.007;const m=noteMesh(x,1.45,z,Math.PI,false);const pin=new THREE.Mesh(new THREE.SphereGeometry(.012,6,4),phong(null,{color:0xb02020,shininess:60}));pin.position.set(x,1.57,z-.01);pin.userData.keep=true;world.add(pin);
+  INTER.push({kind:'tip',tip:i,x,z:z-.45,r:1.4,hy:1.45,mesh:m});}
+function placeExitTip(){const X=G.exitDoor;if(!X)return;let best=null; /* 남복도 양쪽 벽 중 현관 가까운 빈 벽(문 아님)에 압정 */
+  for(const dx of[1.2,1.6,2.0,2.5,3.0,3.6])for(const sd of[-1,1]){const x=BW-dx,wz=sd<0?ZS0:ZS1,i=gi(x,wz+sd*-.05),j=gi(x,wz+sd*.06);const cz=wz-sd*.5;
+    if(i>=0&&grid[i]===0&&j>=0&&grid[j]===1&&!blockedCircle(x,cz,.18)&&grid[gi(x-.12,wz+sd*.06)]===1&&grid[gi(x+.12,wz+sd*.06)]===1){best=[x,wz-sd*.007,sd,cz];break;}if(best)break;}
+  if(!best)return;const[x,z,sd,cz]=best;const ry=sd<0?0:Math.PI;const m=noteMesh(x,1.45,z,ry,false);const pin=new THREE.Mesh(new THREE.SphereGeometry(.012,6,4),phong(null,{color:0xb02020,shininess:60}));pin.position.set(x,1.57,z-sd*.01);world.add(pin);
+  INTER.push({kind:'tip',tip:5,x,z:cz,r:1.4,hy:1.45,mesh:m});G.exitTipP=[x,z];}
 function openTip(i){const N=TIPS[i];if(!N)return;openNote(null,N);G.tipsRead=G.tipsRead||[];if(!G.tipsRead.includes(i))G.tipsRead.push(i);}
 function openNote(f,TN){const N=TN||NOTES[f];if(!N)return;G.ui='note';G.paused=true;cancelDraw();for(const k in keys)keys[k]=false;if(!TEST&&document.pointerLockElement)document.exitPointerLock();
   $('noteTitle').textContent=N.title;$('noteBody').innerHTML=N.text.map(t=>'<p>'+t+'</p>').join('')+(N.torn?'<p class="torn">(뒤는 찢겨 있다)</p>':'');$('noteP').hidden=false;
@@ -3415,8 +3437,8 @@ function render(){
   {const fv=P.peep?118:P.fov;if(Math.abs(camera.fov-fv)>.01){camera.fov=fv;camera.updateProjectionMatrix();handCam.fov=P.fov;handCam.updateProjectionMatrix();layoutHands();}}
   const fwd=new THREE.Vector3(0,0,-1).applyEuler(camera.rotation);
   lamp.position.set(P.x+fwd.x*.05,camera.position.y+.08,P.z+fwd.z*.05);lamp.target.position.copy(camera.position).addScaledVector(fwd,5);lamp.intensity=P.lamp&&!P.hide&&G.state==='play'?1.55:0;renderer.shadowMap.autoUpdate=lamp.intensity>0; // 랜턴 꺼지면 그림자 지도 안 그림(셰이더는 그대로라 재컴파일 없음)
-  updateHands(G.t);postMat.uniforms.time.value=G.t;postMat.uniforms.hurt.value=G.hurt;
-  renderer.setRenderTarget(rt);renderer.clear();renderer.render(scene,camera);renderer.clearDepth();renderer.render(handScene,handCam);
+  updateHands(G.t);laserTick(fwd);postMat.uniforms.time.value=G.t;postMat.uniforms.hurt.value=G.hurt;
+  renderer.setRenderTarget(rt);renderer.clear();renderer.render(scene,camera);renderer.clearDepth();renderer.render(handScene,handCam);if(LZ.scene&&LZ.dot.visible)renderer.render(LZ.scene,camera);
   renderer.setRenderTarget(null);renderer.clear();renderer.render(postScene,postCam);
 }
 let lastT=performance.now();
