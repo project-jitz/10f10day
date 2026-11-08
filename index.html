@@ -421,7 +421,7 @@ body.touch #toasts{top:calc(64px + env(safe-area-inset-top,0px))!important}
     <div class="lface" id="lface"><img id="faceA" alt=""><img id="faceB" alt=""></div>
     <div class="ltag"><h3>열흘 안에, 1층으로.</h3><p>문밖에서 들리는 발소리. 더는 이웃이 아니다.<br>남은 시간은 열흘. 이 건물에서 나가야 한다.</p></div>
     <div class="lhint">ENTER 시작 · ↑↓ 선택</div>
-    <div class="lver"><span id="lplay"></span> · v0.9.43 · 2026.11.08</div>
+    <div class="lver"><span id="lplay"></span> · v0.9.44 · 2026.11.08</div>
     <div class="llogo"><div class="lnum"><span id="logoF">10F</span><span class="sl">/</span><span class="dy" id="logoD">10DAY</span></div><div class="proj">project.<b>Jitz</b></div></div>
     <nav class="lmenu" id="lmenu" aria-label="메인 메뉴">
       <button type="button" data-act="new" class="on">새 게임</button>
@@ -2711,7 +2711,7 @@ function updateHands(t){const dt=clamp(t-(HUP.lt??t),0,.1);HUP.lt=t;
 const LZ={};function laserInit(){if(LZ.dot)return;const c=document.createElement('canvas');c.width=c.height=32;const x=c.getContext('2d');const g=x.createRadialGradient(16,16,0,16,16,16);g.addColorStop(0,'rgba(255,240,230,1)');g.addColorStop(.18,'rgba(255,40,30,1)');g.addColorStop(.5,'rgba(255,0,0,.35)');g.addColorStop(1,'rgba(255,0,0,0)');x.fillStyle=g;x.fillRect(0,0,32,32);
   LZ.dot=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c),color:0xffffff,transparent:true,depthTest:true,depthWrite:false,blending:THREE.AdditiveBlending,fog:false}));LZ.dot.material.depthTest=false;LZ.scene=new THREE.Scene();LZ.scene.add(LZ.dot);
   LZ.geo=new THREE.BufferGeometry();LZ.geo.setAttribute('position',new THREE.Float32BufferAttribute([0,0,0,0,0,1],3));LZ.beam=new THREE.Line(LZ.geo,new THREE.LineBasicMaterial({color:0xff2a1a,transparent:true,opacity:.16,blending:THREE.AdditiveBlending,depthWrite:false,fog:false}));LZ.beam.frustumCulled=false;scene.add(LZ.beam);LZ.dot.visible=LZ.beam.visible=false;}
-function laserTick(fwd){laserInit();const on=P.tier>=3&&G.state==='play'&&!P.dead&&!P.hide&&!P.peep&&!G.cine&&HUP.up>.5;LZ.dot.visible=LZ.beam.visible=on;if(!on)return;
+function laserTick(fwd){laserInit();const on=P.hasSling&&G.state==='play'&&!P.dead&&!P.hide&&!P.peep&&!G.cine&&HUP.up>.5;LZ.dot.visible=LZ.beam.visible=on;if(!on)return;
   const o=camera.position,st=.04;let x=o.x,y=o.y,z=o.z,d=0,hit=false;const near=creatures.filter(c=>!c.dead&&!c.pooled&&Math.hypot(c.x-o.x,c.z-o.z)<26);
   for(;d<25;d+=st){x=o.x+fwd.x*d;y=o.y+fwd.y*d;z=o.z+fwd.z*d;if(y<=0.005||y>=2.39){hit=true;break;}const i=gi(x,z);if(i<0||cellBlocksSight(i)||(grid[i]===3&&y<.8)){hit=true;break;}
     if(near.length&&((d/st)|0)%2===0){let hc=false;for(const c of near){if(Math.hypot(c.x-x,c.z-z)<1.3){let zn=null;try{zn=creatureZone(c,x,y,z);}catch(e){}if(zn){hc=true;break;}}}if(hc){hit=true;break;}}}
