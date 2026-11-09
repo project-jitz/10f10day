@@ -421,7 +421,7 @@ body.touch #toasts{top:calc(64px + env(safe-area-inset-top,0px))!important}
     <div class="lface" id="lface"><img id="faceA" alt=""><img id="faceB" alt=""></div>
     <div class="ltag"><h3>열흘 안에, 1층으로.</h3><p>문밖에서 들리는 발소리. 더는 이웃이 아니다.<br>남은 시간은 열흘. 이 건물에서 나가야 한다.</p></div>
     <div class="lhint">ENTER 시작 · ↑↓ 선택</div>
-    <div class="lver"><span id="lplay"></span> · v1.0.4 · 2026.11.09</div>
+    <div class="lver"><span id="lplay"></span> · v1.0.5 · 2026.11.09</div>
     <div class="llogo"><div class="lnum"><span id="logoF">10F</span><span class="sl">/</span><span class="dy" id="logoD">10DAY</span></div><div class="proj">project.<b>Jitz</b></div></div>
     <nav class="lmenu" id="lmenu" aria-label="메인 메뉴">
       <button type="button" data-act="new" class="on">새 게임</button>
@@ -4315,8 +4315,7 @@ function lobbyModalOpen(){return [...document.querySelectorAll('.lmodal')].some(
 function lobbyAct(act){
   initAudio();if(AC)tone(900,700,.05,.06,'square');
   if(act==='new'&&typeof META!=='undefined'&&(META.esc>=1||(META.reach||10)<10)){renderFloorPick();$('mFloor').hidden=false;return;}
-  if(act==='new'||act==='new10'){if(typeof monoRunReset==='function')monoRunReset();G.floor=10;FLOOR_SAVE=initialSave();FLOOR_SAVE.run={d:OPT.diff,full:true};try{localStorage.removeItem('f10_save');}catch(e){}if(typeof prewarm==='function')prewarm();playIntro(()=>{startFloor();lockPointer();setTimeout(()=>{if(!locked)toast('화면을 클릭하면 시점 조작이 시작됩니다');},400);});}
-  if(typeof REST_SAVE!=='undefined')REST_SAVE=null;
+  if(act==='new'||act==='new10'){if(typeof REST_SAVE!=='undefined')REST_SAVE=null;if(typeof monoRunReset==='function')monoRunReset();G.floor=10;FLOOR_SAVE=initialSave();FLOOR_SAVE.run={d:OPT.diff,full:true};try{localStorage.removeItem('f10_save');}catch(e){}if(typeof prewarm==='function')prewarm();playIntro(()=>{startFloor();lockPointer();setTimeout(()=>{if(!locked)toast('화면을 클릭하면 시점 조작이 시작됩니다');},400);});}
   else if(act==='cont'){let o=null;try{o=readSave();}catch(e){}
     if(o&&o.s){G.floor=o.floor;FLOOR_SAVE=o.s;REST_SAVE=o.rest||null;$('titleP').hidden=true;startFloor();lockPointer();setTimeout(()=>{if(!locked)toast('화면을 클릭하면 시점 조작이 시작됩니다');},400);}
     else{$('contText').textContent=(G.saveBroken?'저장 데이터가 손상돼 지웠습니다. ':'')+'저장된 진행이 없습니다. 비상계단으로 한 층 내려가면 그 층 진입 시점이 저장됩니다.';$('mCont').hidden=false;}}
