@@ -421,7 +421,7 @@ body.touch #toasts{top:calc(64px + env(safe-area-inset-top,0px))!important}
     <div class="lface" id="lface"><img id="faceA" alt=""><img id="faceB" alt=""></div>
     <div class="ltag"><h3>열흘 안에, 1층으로.</h3><p>문밖에서 들리는 발소리. 더는 이웃이 아니다.<br>남은 시간은 열흘. 이 건물에서 나가야 한다.</p></div>
     <div class="lhint">ENTER 시작 · ↑↓ 선택</div>
-    <div class="lver"><span id="lplay"></span> · v1.0.3 · 2026.11.09</div>
+    <div class="lver"><span id="lplay"></span> · v1.0.4 · 2026.11.09</div>
     <div class="llogo"><div class="lnum"><span id="logoF">10F</span><span class="sl">/</span><span class="dy" id="logoD">10DAY</span></div><div class="proj">project.<b>Jitz</b></div></div>
     <nav class="lmenu" id="lmenu" aria-label="메인 메뉴">
       <button type="button" data-act="new" class="on">새 게임</button>
@@ -2713,7 +2713,7 @@ addEventListener('keydown',e=>{
   // 테스트용 무적 치트: 플레이 중 i d d q d 를 차례로 누르면 켜고/끔(둠 오마주). 화면 오른쪽 아래에 '무적' 표시
   if(DEV&&/^(Digit|Numpad)\d$/.test(e.code)&&G.fjumpT&&performance.now()-G.fjumpT<4000){G.fjumpT=0;jumpFloor(+e.code.slice(-1)||10);return;} // 개발용: A N G 누르고 숫자(1~9, 0=10층) → 그 층으로
   if(DEV&&/^Key[A-Z]$/.test(e.code)&&!e.repeat&&e.code==='KeyG'&&(G.cheatBuf||'').endsWith('AN')&&performance.now()-(G.cheatT||0)<1500){G.fjumpT=performance.now();G.cheatBuf='';toast('층 이동: 숫자 키 (1~9, 0 = 10층)',true);return;} /* 11/6 개발용 층 이동: A N G 차례로(0.7초 안) → 숫자. G(섬광탄)는 이때 안 던짐 */
-  if(/^Key[A-Z]$/.test(e.code)&&!e.repeat){const now=performance.now();if(now-(G.cheatT||0)>1500)G.cheatBuf='';G.cheatT=now;G.cheatBuf=((G.cheatBuf||'')+e.code[3]).slice(-3);if(DEV&&G.cheatBuf.endsWith('ZZ')){P.god=!P.god;G.cheatBuf='';if(P.god)P.hp=100;toast(P.god?'무적 켬 (테스트용)':'무적 끔',true);tone(P.god?880:440,P.god?1320:330,.18,.12,'square');}}
+  if(/^Key[A-Z]$/.test(e.code)&&!e.repeat){const now=performance.now();if(now-(G.cheatT||0)>1500)G.cheatBuf='';G.cheatT=now;G.cheatBuf=((G.cheatBuf||'')+e.code[3]).slice(-3);if((DEV||!TOUCH)&&G.cheatBuf.endsWith("ZZ")){P.god=!P.god;G.cheatBuf='';if(P.god)P.hp=100;toast(P.god?'무적 켬 (테스트용)':'무적 끔',true);tone(P.god?880:440,P.god?1320:330,.18,.12,'square');}}
   if(e.code==='KeyF'){P.lamp=!P.lamp;tone(2400,1800,.025,.08,'square');}
   if(e.code==='KeyH'&&!P.drawing)quickHeal();
   if(e.code==='KeyG'&&!P.drawing&&!P.hide)throwFlash();
