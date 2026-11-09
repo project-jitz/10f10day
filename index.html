@@ -421,7 +421,7 @@ body.touch #toasts{top:calc(64px + env(safe-area-inset-top,0px))!important}
     <div class="lface" id="lface"><img id="faceA" alt=""><img id="faceB" alt=""></div>
     <div class="ltag"><h3>열흘 안에, 1층으로.</h3><p>문밖에서 들리는 발소리. 더는 이웃이 아니다.<br>남은 시간은 열흘. 이 건물에서 나가야 한다.</p></div>
     <div class="lhint">ENTER 시작 · ↑↓ 선택</div>
-    <div class="lver"><span id="lplay"></span> · v1.0 · 2026.11.09</div>
+    <div class="lver"><span id="lplay"></span> · v1.0.1 · 2026.11.09</div>
     <div class="llogo"><div class="lnum"><span id="logoF">10F</span><span class="sl">/</span><span class="dy" id="logoD">10DAY</span></div><div class="proj">project.<b>Jitz</b></div></div>
     <nav class="lmenu" id="lmenu" aria-label="메인 메뉴">
       <button type="button" data-act="new" class="on">새 게임</button>
@@ -530,7 +530,7 @@ function makeCard(cb){const C=G.card;if(!C)return;const W=1200,H=630,cv=document
     x.fillStyle='rgba(235,220,210,.75)';x.font=F('700',22);x.fillText(C.eye,60,206);
     x.fillStyle=C.kind==='escape'?'#f2e6dc':'#ff5a4a';x.font=F('900',64,'"Black Han Sans","Noto Sans KR",sans-serif');x.fillText(C.title,58,282);
     const D={easy:'쉬움',normal:'보통',hard:'어려움'}[C.diff]||C.diff;
-    const rows=[['시각',C.day+'일차 '+C.clock],['도달',C.floor+'층'],['처치',C.kills+''],['새총',C.sling],['쪽지',C.notes+' / '+C.nT],['난이도',D]];
+    const rows=[['시각',C.day+'일차 '+C.clock],['도달',C.floor+'층'],['처치',C.kills+''],['새총',C.sling],['쪽지',C.notes+' / '+C.nT],['난이도',D]];if(C.kind==='escape')rows.push(['죽은 횟수',C.deaths?C.deaths+'번':'0번 · 노데스']);
     rows.forEach((r,i)=>{const cx=60+(i%2)*270,cy=350+Math.floor(i/2)*62;x.fillStyle='rgba(216,38,31,.9)';x.fillRect(cx,cy-24,3,34);x.fillStyle='rgba(235,220,210,.55)';x.font=F('700',16);x.fillText(r[0],cx+14,cy-6);x.fillStyle='#f3e8e0';x.font=F('700',26);x.fillText(r[1],cx+14,cy+22);});
     let tn=0;try{tn=Object.keys(META.t||{}).length;}catch(e){}x.fillStyle='rgba(235,220,210,.5)';x.font=F('400',16);x.fillText('칭호 '+tn+'개 · '+new Date().toLocaleDateString('ko-KR'),60,H-36);
     try{cb(cv.toDataURL('image/png'));}catch(e){if(img)draw(null);}};
@@ -1422,7 +1422,7 @@ function bigZone(c,x,y,z){if(c.dead)return null;const p=new THREE.Vector3(x,y,z)
 /* ================= 4층 보스: 고릴라(사용자 11/5, Tripo GLB → gor/) =================
    관리실(TPS)에 웅크려 있다가 문이 열려 김수민이 보이면 깨어난다. 걷지 않는다:
    1.5초 차징 → 최대 5.5m 도약 → 쾅 내려찍기(반경 2.5m·35·밀쳐냄) → 2초 숨 고르기(이때 맞히면 1.5배) → 반복. 죽으면 계단 열쇠 */
-const GA={hp:4000, /* 11/9 사용자: 4000 */scale:.85,charge:.75,leapMax:5.5,leapT:.9,slamR:2.5,slamDmg:35,rest:1,restMul:1.5,wake:7.5,r:.38};
+const GA={hp:4000, /* 11/9 사용자: 4000 */scale:.85,charge:.75,leapMax:5.5,leapT:.9,slamR:2.5,slamDmg:35,rest:1,restMul:3,wake:7.5,r:.38};
 let GAGEO=null,GAMAT=null;
 function gaGeo(){if(GAGEO||!ASSET.gaGeo)return GAGEO;const m=ASSET.gaMeta,nv=m.nv,ni=m.ni;let u8;const b64=ASSET.gaGeo;if(b64 instanceof ArrayBuffer)u8=new Uint8Array(b64.slice(0));else{const bs=atob(b64);u8=new Uint8Array(bs.length);for(let i=0;i<bs.length;i++)u8[i]=bs.charCodeAt(i);}
   const B=u8.buffer;let o=0;const pos=new Float32Array(B,o,nv*3);o+=nv*12;const nq=new Int8Array(B,o,nv*3);o+=nv*3;o+=(4-o%4)%4;const uv=new Uint16Array(B,o,nv*2);o+=nv*4;const idx=new Uint16Array(B.slice(o,o+ni*2));
@@ -4166,7 +4166,7 @@ function ending(kind,why){hideBossUI();
    if(pic)escFxStart(pic.slice(4));
    endMusic(kind==='escape'?'hope':'dirge');G.deathBy=null;}
   $('endEye').textContent=E[0];$('endTitle').textContent=E[1];
-  G.card={kind,eye:E[0],title:E[1],day:G.day,clock:fmtClock(G.min),floor:G.floor,kills:G.kills,notes:(G.notesRead||[]).length,nT:Object.keys(NOTES).length,sling:CFG.sling[P.tier].name,diff:OPT.diff,pic:(($('endPic')&&$('endPic').style.backgroundImage.match(/(end_[a-z]+)\.jpg/))||[])[1]||'end_creature'};
+  G.card={kind,eye:E[0],title:E[1],day:G.day,clock:fmtClock(G.min),floor:G.floor,kills:G.kills,notes:(G.notesRead||[]).length,nT:Object.keys(NOTES).length,sling:CFG.sling[P.tier].name,diff:OPT.diff,deaths:(G.run&&G.run.deaths)||0,pic:(($('endPic')&&$('endPic').style.backgroundImage.match(/(end_[a-z]+)\.jpg/))||[])[1]||'end_creature'};
   {/* 11/6 기록: 이번 판 vs 최고 기록(탈출 최단 시간·최다 처치·최다 쪽지·가장 깊은 층). 판을 넘어 META.best에 쌓임 */
    const nN=(G.notesRead||[]).length,nT=Object.keys(NOTES).length,M_=typeof META!=='undefined'?META:null;let B=null,nw={};
    if(M_){B=M_.best=M_.best||{};
@@ -4175,7 +4175,10 @@ function ending(kind,why){hideBossUI();
      if(B.floor==null||G.floor<B.floor){nw.f=B.floor!=null;B.floor=G.floor;}try{metaSave();}catch(e){}}
    const tag=(isNew,best)=>isNew?' <b class="newrec">최고 기록!</b>':best!=null?' <small class="bestrec">최고 '+best+'</small>':'';
    const escB=B&&B.escMin!=null?(Math.floor(B.escMin/1440)+1)+'일차 '+fmtClock(B.escMin):null;
-   $('endStat').innerHTML=`<dt>시각</dt><dd>${G.day}일차 ${fmtClock(G.min)}${kind==='escape'?tag(nw.t,escB):escB?' <small class="bestrec">최단 탈출 '+escB+'</small>':''}</dd><dt>도달</dt><dd>${G.floor}층${tag(nw.f,B&&B.floor!=null?B.floor+'층':null)}</dd><dt>처치</dt><dd>${G.kills}${tag(nw.k,B?B.kills:null)}</dd><dt>새총</dt><dd>${CFG.sling[P.tier].name}</dd><dt>쪽지</dt><dd>${nN} / ${nT}${tag(nw.n,B&&B.notes!=null?B.notes+' / '+nT:null)}</dd>`;}
+   $('endStat').innerHTML=`<dt>시각</dt><dd>${G.day}일차 ${fmtClock(G.min)}${kind==='escape'?tag(nw.t,escB):escB?' <small class="bestrec">최단 탈출 '+escB+'</small>':''}</dd><dt>도달</dt><dd>${G.floor}층${tag(nw.f,B&&B.floor!=null?B.floor+'층':null)}</dd><dt>처치</dt><dd>${G.kills}${tag(nw.k,B?B.kills:null)}</dd><dt>새총</dt><dd>${CFG.sling[P.tier].name}</dd><dt>쪽지</dt><dd>${nN} / ${nT}${tag(nw.n,B&&B.notes!=null?B.notes+' / '+nT:null)}</dd>${kind==='escape'?`<dt>죽은 횟수</dt><dd>${(G.run&&G.run.deaths)||0}번${!((G.run&&G.run.deaths)||0)?' <b class="newrec">노데스!</b>':''}</dd>`:''}`;}
+  /* 11/9: 죽은 횟수(이번 판 누적) — 층 진입 저장·휴식 저장에도 같이 올려서 다시 해도 유지 */
+  if(kind==='dead'||kind==='fail'){const inc=o=>{if(!o)return;o.run=o.run||{d:OPT.diff,full:false};o.run.deaths=(o.run.deaths||0)+1;};G.run=G.run||{d:OPT.diff,full:false};G.run.deaths=(G.run.deaths||0)+1;
+    if(FLOOR_SAVE&&FLOOR_SAVE.run!==G.run)inc(FLOOR_SAVE);if(typeof REST_SAVE!=='undefined'&&REST_SAVE&&REST_SAVE.s)inc(REST_SAVE.s);if(kind==='dead'&&typeof saveGame==='function')saveGame();}
   if(kind!=='dead'&&typeof REST_SAVE!=='undefined')REST_SAVE=null;
   if(kind==='fail'&&FLOOR_SAVE){FLOOR_SAVE.min=Math.min(FLOOR_SAVE.min,CFG.deadlineMin-1440);if(typeof saveGame==='function')saveGame();} /* 11/6 감염: 그 층 처음 + 최소 하루 */
   $('endBtn').textContent=kind==='dead'?((typeof REST_SAVE!=='undefined'&&REST_SAVE&&REST_SAVE.floor===G.floor)?'마지막 휴식(침대)부터 다시':G.floor+'층 처음부터 다시'):kind==='fail'?G.floor+'층 처음부터 다시 (하루 남김)':'10층 처음부터';
