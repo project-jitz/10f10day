@@ -351,8 +351,9 @@ body.touch #sub{bottom:calc(8px + env(safe-area-inset-bottom,0px));max-width:44v
 body.touch #prompt{top:60%;font-size:13px;padding:2px 8px}
 body.touch #prompt kbd{font-family:"Noto Sans KR",sans-serif;font-size:12px;font-weight:700}
 body.touch #prog{top:68%}
-body.touch .lsound{left:520px;top:790px;bottom:auto;font-size:26px}
+body.touch .lsound{left:560px;top:790px;bottom:auto;font-size:26px}
 body.touch .lnote{left:520px;top:750px}
+body.touch .lver{left:104px;right:auto;top:792px;bottom:auto;font-size:20px} /* 폰은 위아래가 잘려서 버전이 안 보였음 */
 body.touch #gear{right:auto;bottom:auto;left:calc(178px + env(safe-area-inset-left,0px));top:calc(10px + env(safe-area-inset-top,0px));text-align:left;transform:scale(.68);transform-origin:0 0} /* 11/7: 시계 오른쪽으로(초상화와 겹쳤음) */
 body.touch .panel .box .btns{position:sticky;bottom:0;z-index:2;background:#0d0b0b;padding-block:8px}
 body.touch .panel{-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
@@ -432,7 +433,7 @@ body.touch #toasts{top:calc(64px + env(safe-area-inset-top,0px))!important}
     <div class="lface" id="lface"><img id="faceA" alt=""><img id="faceB" alt=""></div>
     <div class="ltag"><h3>열흘 안에, 1층으로.</h3><p>문밖에서 들리는 발소리. 더는 이웃이 아니다.<br>남은 시간은 열흘. 이 건물에서 나가야 한다.</p></div>
     <div class="lhint">ENTER 시작 · ↑↓ 선택</div>
-    <div class="lver"><span id="lplay"></span> · v1.0.9 · 2026.11.11</div>
+    <div class="lver"><span id="lplay"></span> · v1.0.10 · 2026.11.11</div>
     <div class="llogo"><div class="lnum"><span id="logoF">10F</span><span class="sl">/</span><span class="dy" id="logoD">10DAY</span></div><div class="proj">project.<b>Jitz</b></div></div>
     <nav class="lmenu" id="lmenu" aria-label="메인 메뉴">
       <div class="lmain">
@@ -4480,7 +4481,7 @@ function mlTick(){const now=performance.now();if(now-(mlTick.t||0)<120&&MLB.got<
 function waitModels(F,cb){if(modelsReady(F)){cb();return true;}if(MLW)return false;MLW={F,cb,wasPlay:G.state==='play'&&!G.paused};if(MLW.wasPlay)G.paused=true;const bp=$('bootP');if(bp){bp.hidden=false;bp.classList.remove('done');}bootTips(true);mlTick();return false;}
 async function loadData(){const t=$('bootTxt');for(let i=0;;i++){if(i)await new Promise(r=>setTimeout(r,Math.min(10,1.5*i)*1000));try{if(t)t.textContent='데이터 불러오는 중…'+(i?' (재시도 '+i+')':'')+(i>=2?' · 인터넷 연결을 확인해 주세요':'');const ac=new AbortController();const tm=setTimeout(()=>ac.abort(),90000);clearTimeout(tm);let got=0;const blob=await fetchProg('data.json',n=>{got+=n;const now=performance.now();if(now-(loadData.t||0)>150){loadData.t=now;bootShow('기본 데이터 · '+Math.round(got/1048576)+' / 14MB'+(i?' (재시도 '+i+')':''),Math.min(1,got/14.7e6));}});const d=JSON.parse(await blob.text());Object.assign(ASSET,d.a);Object.assign(LOBBY_SRC,d.l);Object.assign(SND_SRC,d.s);Object.assign(WIN_SRC,d.w);return true;}catch(e){console.warn('data.json',e);}}return false;}
 const OPTUI=[];function syncOptUI(){OPTUI.forEach(f=>{try{f();}catch(e){}});}
-async function boot(){setTimeout(()=>{if(window.__mig==='ok')toast('예전 주소의 진행 상황을 그대로 옮겨 왔어요',true);},4000);setTimeout(()=>{try{rankFlush();}catch(e){}},8000);
+async function boot(){try{if(location.protocol.startsWith('http')){const cur=((document.querySelector('.lver')||{}).textContent||'').replace(/.*?(v[\d.]+).*/,'$1');fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===cur)return;const k='f10_upd_'+j.v;if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,1);location.replace(location.pathname+'?v='+encodeURIComponent(j.v)+location.hash);}).catch(()=>{});}}catch(e){} /* 11/11 폰 홈 화면 앱이 예전 index.html을 붙들고 있으면 새 버전으로 한 번 새로고침 */setTimeout(()=>{if(window.__mig==='ok')toast('예전 주소의 진행 상황을 그대로 옮겨 왔어요',true);},4000);setTimeout(()=>{try{rankFlush();}catch(e){}},8000);
   {const im=new Image();im.onload=()=>{G.closetPic=true;};im.src='end_closet.jpg';}
   bootTips(true);
   if(!await loadData()){const t=$('bootTxt');if(t)t.textContent='데이터를 못 불러왔어요 · 새로고침해 주세요';return;}
