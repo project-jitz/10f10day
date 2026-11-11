@@ -433,7 +433,7 @@ body.touch #toasts{top:calc(64px + env(safe-area-inset-top,0px))!important}
     <div class="lface" id="lface"><img id="faceA" alt=""><img id="faceB" alt=""></div>
     <div class="ltag"><h3>열흘 안에, 1층으로.</h3><p>문밖에서 들리는 발소리. 더는 이웃이 아니다.<br>남은 시간은 열흘. 이 건물에서 나가야 한다.</p></div>
     <div class="lhint">ENTER 시작 · ↑↓ 선택</div>
-    <div class="lver"><span id="lplay"></span> · v1.0.11 · 2026.11.11</div>
+    <div class="lver"><span id="lplay"></span> · v1.0.12 · 2026.11.11</div>
     <div class="llogo"><div class="lnum"><span id="logoF">10F</span><span class="sl">/</span><span class="dy" id="logoD">10DAY</span></div><div class="proj">project.<b>Jitz</b></div></div>
     <nav class="lmenu" id="lmenu" aria-label="메인 메뉴">
       <div class="lmain">
@@ -3239,7 +3239,7 @@ function warmFonts(){try{if(!document.fonts||!document.fonts.load)return;const n
   Promise.all([document.fonts.load('25px "Nanum Pen Script"',nt),document.fonts.load('400 11px "Noto Sans KR"',nt+mt),document.fonts.load('800 17px "Nanum Myeongjo"',mt+nt)]).then(()=>{FONT_READY=true;}).catch(()=>{FONT_READY=true;});setTimeout(()=>{FONT_READY=true;},8000);}catch(e){FONT_READY=true;}}
 /* ===== 11/6 크리쳐 이름 · 보스 체력바 · 층 지도 · 크레딧 ===== */
 const TIP_C=[11,8.7];
-const CNAME={shambler:'DRIFTER',runner:'DRIFTER',listener:'WEEPER',crawl:'INVERSE',pipe:'SLUGGER',bottle:'BOTTLER',chief:'BOSS',big:'THE HEAD',gor:'WARDEN',hidden:'???'};
+const CNAME={shambler:'DRIFTER',runner:'DRIFTER',listener:'CHASER',crawl:'WATCHER',pipe:'SLUGGER',bottle:'BOTTLER',chief:'BOSS',big:'THE HEAD',gor:'WARDEN',hidden:'???'};
 const BOSS_SUB={big:'8F · what is left of him',gor:'4F · keeper of the office',hidden:''};
 const BB={c:null,show:0,fill:1,lag:1,lagT:0,deadT:0};
 function bossOf(){return creatures.find(c=>(c.big||c.gor)&&!c.pooled&&(c.dead?BB.c===c:(c.hidden||(c.gor&&c.state!=='dorm')||(c.big&&(['chase','closet','bang'].includes(c.state)||c.mode!=='move'||(c.hp<c.maxHp&&Math.hypot(c.x-P.x,c.z-P.z)<16))))))||null;}
@@ -3275,7 +3275,7 @@ function drawFloorMap(){const cv=$('invMap');if(!cv)return;const x=cv.getContext
   const px=W(P.x),pz=Z(P.z),a=P.yaw;x.save();x.translate(px,pz);x.rotate(-a+Math.PI);x.fillStyle='#f2e4c8';x.strokeStyle='#000';x.lineWidth=2;x.beginPath();x.moveTo(0,-16);x.lineTo(10,12);x.lineTo(0,6);x.lineTo(-10,12);x.closePath();x.stroke();x.fill();x.restore();}
 function toggleMap(on){const w=$('invMapW');if(!w)return;const show=on==null?w.hidden:on;w.hidden=!show;['invList','invStat'].forEach(id=>{const e=$(id);if(e)e.hidden=show;});const wb=document.querySelector('#invP .wbar');if(wb)wb.hidden=show;$('invMapBtn').textContent=show?'가방':'층 지도';if(show)drawFloorMap();}
 const CREDITS={staff:[['기획 · 감독','Production San'],['시나리오 · 대사 · 쪽지','Production San'],['캐릭터 · 크리쳐 디자인','Production San'],['아트 디렉션','Production San'],['레벨 · 게임 디자인','Production San'],['사운드 · 음악 디렉션','Production San'],['효과음 · 음성 제작','Production San'],['플레이 테스트','Production San'],['프로듀서','Production San']],
-  cast:[['주인공','김수민'],['인산이','Production San<small>쪽지로만 출연</small>'],['DRIFTER <small>비척이</small>','김준형'],['WEEPER <small>듣는 놈</small>','김지훈'],['SLUGGER <small>빠따 약탈자</small>','박세용'],['BOTTLER <small>병 던지는 약탈자</small>','송용휘'],['INVERSE <small>천장을 기는 것</small>','연정흔 · 남상현'],['THE HEAD <small>8층 보스</small>','박호제'],['WARDEN <small>4층 보스</small>','박승욱'],['???','???']],
+  cast:[['주인공','김수민'],['인산이','Production San<small>쪽지로만 출연</small>'],['DRIFTER <small>비척이</small>','김준형'],['CHASER <small>추격자</small>','김지훈'],['SLUGGER <small>빠따 약탈자</small>','박세용'],['BOTTLER <small>병 던지는 약탈자</small>','송용휘'],['WATCHER <small>주시자</small>','연정흔 · 남상현'],['THE HEAD <small>8층 보스</small>','박호제'],['WARDEN <small>4층 보스</small>','박승욱'],['???','???']],
   tools:[['코드 · 3D 가공','Claude'],['이미지 · 3D 모델','Higgsfield · Meshy · Tripo'],['효과음','ElevenLabs']]};
 let CRED_T=null;
 function openCredits(){const el=$('credP'),r=$('credRoll');if(!el)return;const row=a=>'<div class="crow"><span>'+a[0]+'</span><span>'+a[1]+'</span></div>';
