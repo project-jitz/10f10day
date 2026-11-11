@@ -433,7 +433,7 @@ body.touch #toasts{top:calc(64px + env(safe-area-inset-top,0px))!important}
     <div class="lface" id="lface"><img id="faceA" alt=""><img id="faceB" alt=""></div>
     <div class="ltag"><h3>열흘 안에, 1층으로.</h3><p>문밖에서 들리는 발소리. 더는 이웃이 아니다.<br>남은 시간은 열흘. 이 건물에서 나가야 한다.</p></div>
     <div class="lhint">ENTER 시작 · ↑↓ 선택</div>
-    <div class="lver"><span id="lplay"></span> · v1.0.10 · 2026.11.11</div>
+    <div class="lver"><span id="lplay"></span> · v1.0.11 · 2026.11.11</div>
     <div class="llogo"><div class="lnum"><span id="logoF">10F</span><span class="sl">/</span><span class="dy" id="logoD">10DAY</span></div><div class="proj">project.<b>Jitz</b></div></div>
     <nav class="lmenu" id="lmenu" aria-label="메인 메뉴">
       <div class="lmain">
@@ -1937,6 +1937,12 @@ function poseCreature(c,mv){
   c.spine.rotation.x=(c.type==='raider'?.06:.42)*c.lk+br*.03-c.flinch*.5+(c.atkAnim>0?.25*c.lk:0);c.spine.rotation.y=Math.sin(G.t*.5+c.seed)*.05;
   const atk=c.atkAnim>0?Math.sin((1-c.atkAnim/.45)*Math.PI):0;
   c.arms.forEach((a,i)=>{const A=(c.type==='raider'&&c.designed)?(i?0:atk):atk;a.sh.rotation.x=-w*.3*mv*(i?1:-1)+(c.state==='chase'?-.5:0)-A*(c.type==='raider'&&c.designed?2.3:1.6);a.el.rotation.x=-.25-(c.state==='chase'?.3:0)-A*.4;});
+  if(c.type==='raider'&&c.designed){/* 11/11: 앞으로만 휘두르면 정면(김수민 시점)에선 팔이 카메라를 향해 안 보였음 → 옆 위로 치켜들었다 대각선으로 내리찍기·던지기 */
+    c.arms.forEach((a,i)=>{a.sh.rotation.z=(i?1:-1)*.08;a.sh.rotation.y=0;});
+    if(c.atkAnim>0){const a=c.arms[0],t=clamp(1-c.atkAnim/.45,0,1),thr=c.role==='thrower';
+      const K=thr?[[0,0,-.08,-.25],[.4,.45,-2.35,-1.5],[.62,-1.5,-.9,-.15],[1,-.5,-.08,-.3]]:[[0,0,-.08,-.25],[.42,-.35,-2.5,-.75],[.66,-1.35,-.35,-.1],[1,-.5,-.08,-.3]];
+      let k=0;while(k<K.length-2&&t>K[k+1][0])k++;const A0=K[k],A1=K[k+1],u=(t-A0[0])/(A1[0]-A0[0]),e=u*u*(3-2*u);
+      a.sh.rotation.x=lerp(A0[1],A1[1],e);a.sh.rotation.z=lerp(A0[2],A1[2],e);a.el.rotation.x=lerp(A0[3],A1[3],e);c.spine.rotation.y+=(thr?-.25:-.3)*Math.sin(t*Math.PI);}}
   if(c.glb&&c.type!=='raider'){// 김수민을 쫓을 땐 오른손을 머리 위로 번쩍 든 채(겨드랑이가 보이게) 다가와 내리찍는다
     const tgt=c.runner?0:c.hidden?(c.atkAnim>0?1:0):(c.state==='chase'||c.atkAnim>0)?1:0;c.raise+=(tgt-c.raise)*.08;const r=c.raise,a=c.arms[1],o=c.arms[0];
     a.sh.rotation.z=lerp(.08,c.boss?2.15:2.55,r)-atk*1.5*r;a.sh.rotation.x=lerp(a.sh.rotation.x,-.3-atk*1.1,r);a.el.rotation.x=lerp(a.el.rotation.x,-.55+atk*.35,r);
