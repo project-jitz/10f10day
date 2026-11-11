@@ -433,7 +433,7 @@ body.touch #toasts{top:calc(64px + env(safe-area-inset-top,0px))!important}
     <div class="lface" id="lface"><img id="faceA" alt=""><img id="faceB" alt=""></div>
     <div class="ltag"><h3>열흘 안에, 1층으로.</h3><p>문밖에서 들리는 발소리. 더는 이웃이 아니다.<br>남은 시간은 열흘. 이 건물에서 나가야 한다.</p></div>
     <div class="lhint">ENTER 시작 · ↑↓ 선택</div>
-    <div class="lver"><span id="lplay"></span> · v1.0.13 · 2026.11.11</div>
+    <div class="lver"><span id="lplay"></span> · v1.0.14 · 2026.11.11</div>
     <div class="llogo"><div class="lnum"><span id="logoF">10F</span><span class="sl">/</span><span class="dy" id="logoD">10DAY</span></div><div class="proj">project.<b>Jitz</b></div></div>
     <nav class="lmenu" id="lmenu" aria-label="메인 메뉴">
       <div class="lmain">
@@ -2669,7 +2669,7 @@ function occupiesDoor(o,d,r=.26){const a=Math.floor((o.x-r-OX)/CELL),b=Math.floo
   for(let cz=c;cz<=e;cz++)for(let cx=a;cx<=b;cx++){if(cx<0||cz<0||cx>=GW||cz>=GH)continue;const i=cz*GW+cx;if(grid[i]!==2||doorId[i]!==d.id)continue;
     const x0=OX+cx*CELL,z0=OZ+cz*CELL,px=clamp(o.x,x0,x0+CELL),pz=clamp(o.z,z0,z0+CELL);if((o.x-px)**2+(o.z-pz)**2<r*r)return true;}return false;}
 function interact(t){
-  if(!t)return;
+  if(!t||P.dead)return; /* 11/11 쓰러진 뒤 0.9초 사이 E로 계단 내려가 저장되던 구멍 막음 */
   switch(t.kind){
     case'door':
       if(t.open&&t.broken){toast('부서진 문이다. 닫히지 않는다.');return;}
@@ -2783,7 +2783,7 @@ document.addEventListener('pointerlockchange',()=>{locked=document.pointerLockEl
 addEventListener('keydown',e=>{
   if(G.ui==='note'){if(['KeyE','Escape','Space','Enter'].includes(e.code)){e.preventDefault();closeNote();}return;}
   if(e.code==='Tab'){e.preventDefault();if(G.state==='play'&&!P.dead){if(G.ui==='inv')closeUI();else if(!G.ui)openInv();}return;}
-  if(G.state!=='play'||G.paused)return;if(inputLocked()){e.preventDefault();return;}keys[e.code]=true;if(e.repeat)return;
+  if(G.state!=='play'||G.paused)return;if(inputLocked()){e.preventDefault();return;}keys[e.code]=true;if(e.repeat||P.dead)return;
   if(P.peep&&e.code!=='KeyR')exitPeep();
   if(e.code==='KeyR'){if(P.peep)exitPeep();else if(P.hide)exitHide();else{const t=currentTarget();if(t&&t.hide)enterHide(t.hide);else{const pd=peepDoor();if(pd)enterPeep(pd);}}}
   if(P.hide)return;
@@ -4400,7 +4400,7 @@ function lobbyItems(){return[...document.querySelectorAll('#lmenu button')];}
 function lobbySel(i){const it=lobbyItems();i=(i+it.length)%it.length;it.forEach((b,j)=>b.classList.toggle('on',j===i));G.lsel=i;}
 function lobbyModalOpen(){return [...document.querySelectorAll('.lmodal')].some(m=>!m.hidden);}
 function lobbyAct(act){
-  initAudio();if(AC)tone(900,700,.05,.06,'square');
+  if(!G.booted)return;initAudio();if(AC)tone(900,700,.05,.06,'square');
   if((act==='new'||act==='new10')&&!G.nameOk&&typeof askName==='function'){askName(()=>{G.nameOk=true;lobbyAct(act);});return;}
   if(act==='new'&&typeof META!=='undefined'&&(META.esc>=1||(META.reach||10)<10)){renderFloorPick();$('mFloor').hidden=false;return;}
   if(act==='new'||act==='new10'){G.nameOk=false;if(typeof REST_SAVE!=='undefined')REST_SAVE=null;if(typeof monoRunReset==='function')monoRunReset();G.floor=10;FLOOR_SAVE=initialSave();FLOOR_SAVE.run={d:OPT.diff,full:true};try{localStorage.removeItem('f10_save');}catch(e){}if(typeof prewarm==='function')prewarm();playIntro(()=>{startFloor();lockPointer();setTimeout(()=>{if(!locked)toast('화면을 클릭하면 시점 조작이 시작됩니다');},400);});}
@@ -4513,7 +4513,7 @@ async function boot(){try{if(location.protocol.startsWith('http')){const cur=((d
   initHands();installFx();warmFonts();try{setupTouch();}catch(e){console.warn(e);}
   if((!TOUCH||!DEV)&&$('devRow'))$('devRow').style.display='none';{const q=$('quitBtn');let arm=0,tm=0;q.onclick=e=>{e.stopPropagation();if(!arm){arm=1;q.textContent='한 번 더 누르면 로비로 (이 층 진행은 사라짐)';clearTimeout(tm);tm=setTimeout(()=>{arm=0;q.textContent='로비로 나가기';},3500);return;}arm=0;clearTimeout(tm);q.textContent='로비로 나가기';quitToLobby();};} /* 11/6 PC는 키 치트(ZZ 무적·ANG+숫자 층 이동)만, 폰은 버튼 유지 */
   document.querySelectorAll('[data-dev]').forEach(b=>b.addEventListener('click',()=>{const v=b.dataset.dev; /* 테스트용 임시: 무적·층 이동(폰에서도) */
-    if(v==='god'){P.god=!P.god;if(P.god)rankTaint();if(P.god)P.hp=100;toast(P.god?'무적 켬 (테스트용)':'무적 끔',true);}else jumpFloor(+v);}));buildTextures();FLOOR_SAVE=initialSave();restore(FLOOR_SAVE);resize();addEventListener('resize',resize);requestAnimationFrame(loop);updateLogo();
+    if(v==='god'){P.god=!P.god;if(P.god)rankTaint();if(P.god)P.hp=100;toast(P.god?'무적 켬 (테스트용)':'무적 끔',true);}else jumpFloor(+v);}));buildTextures();FLOOR_SAVE=initialSave();restore(FLOOR_SAVE);resize();addEventListener('resize',resize);requestAnimationFrame(loop);updateLogo();G.booted=true; /* 11/11 로딩 끝나기 전 Enter로 시작하면 텍스처가 없어 buildFloor 크래시 → 로딩 끝까지 로비 입력 막음 */
   const bp=$('bootP');if(bp){bp.classList.add('done');setTimeout(()=>bp.hidden=true,700);}
 }
 if(typeof THREE==='undefined'){const t=document.getElementById('bootTxt');if(t)t.textContent='3D 엔진(three.js)을 못 불러왔어요 · 새로고침해 주세요';}
