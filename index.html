@@ -433,7 +433,7 @@ body.touch #toasts{top:calc(64px + env(safe-area-inset-top,0px))!important}
     <div class="lface" id="lface"><img id="faceA" alt=""><img id="faceB" alt=""></div>
     <div class="ltag"><h3>열흘 안에, 1층으로.</h3><p>문밖에서 들리는 발소리. 더는 이웃이 아니다.<br>남은 시간은 열흘. 이 건물에서 나가야 한다.</p></div>
     <div class="lhint">ENTER 시작 · ↑↓ 선택</div>
-    <div class="lver"><span id="lplay"></span> · v1.0.12 · 2026.11.11</div>
+    <div class="lver"><span id="lplay"></span> · v1.0.13 · 2026.11.11</div>
     <div class="llogo"><div class="lnum"><span id="logoF">10F</span><span class="sl">/</span><span class="dy" id="logoD">10DAY</span></div><div class="proj">project.<b>Jitz</b></div></div>
     <nav class="lmenu" id="lmenu" aria-label="메인 메뉴">
       <div class="lmain">
@@ -3252,7 +3252,7 @@ function bossBarTick(dt){const el=$('bossBar');if(!el)return;el.style.visibility
   $('bossFill').style.transform='scaleX('+Math.max(0,BB.fill).toFixed(4)+')';$('bossLag').style.transform='scaleX('+Math.max(0,BB.lag).toFixed(4)+')';
   if(BB.c.dead){BB.deadT+=dt;if(BB.deadT>2.2&&!el.classList.contains('fade')){el.classList.add('fade');const cc=BB.c;setTimeout(()=>{if(BB.c===cc){BB.c=null;el.hidden=true;}},900);}}}
 function bossFrac(c){if(c.dead)return 0;if(c.hidden)return clamp(1-(c.dodged||0)/hbNeed(),0,1);return clamp(c.hp/(c.maxHp||1),0,1);}
-function visitTick(){const U=unitAt(P.x,P.z);if(U&&G.visited)G.visited.add(U.num);}
+function visitTick(){const U=unitAt(P.x,P.z);if(!U)return;if(!(G.visited instanceof Set))G.visited=new Set(Array.isArray(G.visited)?G.visited:[]);G.visited.add(U.num);}
 function unitBoxes(U){return CONTAINERS.filter(c=>(c.U||unitAt(c.x,c.z))===U);}
 function drawFloorMap(){const cv=$('invMap');if(!cv)return;const x=cv.getContext('2d'),S=cv.width/GW;const im=x.createImageData(GW,GH),d=im.data;
   for(let i=0;i<GW*GH;i++){const g=grid[i];let r=26,gg=22,b=21;if(g===1){r=118;gg=106;b=102;}else if(g===3){r=40;gg=34;b=32;}else if(g===2){r=92;gg=58;b=40;}d[i*4]=r;d[i*4+1]=gg;d[i*4+2]=b;d[i*4+3]=255;}
@@ -4333,11 +4333,11 @@ function saveGame(){if(REST_SAVE&&REST_SAVE.floor!==G.floor)REST_SAVE=null;try{l
 function markSearched(t){t.key=false;t.meshes.forEach(m=>{if(m.material&&m.material.color){m.material=m.material.clone();m.material.userData.perFloor=true;m.material.color.multiplyScalar(.6);if(m.material.emissive)m.material.emissive.setHex(0);}});t.glowM=null;}
 function tagFloor(){INTER.forEach((t,i)=>t._i=i);pickups.forEach((p,i)=>p._pi=i);G.crN0=creatures.length;}
 function makeRest(){const r2=v=>Math.round(v*100)/100;
-  return JSON.parse(JSON.stringify({floor:G.floor,s:snapshot(),x:r2(P.x),z:r2(P.z),yaw:r2(P.yaw),hasKey:!!G.hasKey,visited:G.visited||null,survIdx:G.survIdx||{},
+  return JSON.parse(JSON.stringify({floor:G.floor,s:snapshot(),x:r2(P.x),z:r2(P.z),yaw:r2(P.yaw),hasKey:!!G.hasKey,visited:G.visited instanceof Set?[...G.visited]:null,survIdx:G.survIdx||{},
     cont:CONTAINERS.map(c=>[c.searched?1:0,c.loot]),doors:DOORS.map(d=>[d.open?1:0,d.broken?1:0,d.type]),
     crN:G.crN0,cr:creatures.slice(0,G.crN0).map(c=>c.dead?0:[r2(c.x),r2(c.z),Math.round(c.hp)]),
     inter:INTER.filter(t=>t._i!=null).map(t=>t._i),picks:pickups.filter(p=>p._pi!=null).map(p=>[p._pi,p.n]),dyn:pickups.filter(p=>p._pi==null).map(p=>[p.k,p.n,r2(p.x),r2(p.z),p.uses])}));}
-function applyRest(R){try{restore(R.s);P.x=R.x;P.z=R.z;P.yaw=R.yaw;P.pitch=0;G.hasKey=R.hasKey;if(R.visited)G.visited=R.visited;G.survIdx=R.survIdx||{};
+function applyRest(R){try{restore(R.s);P.x=R.x;P.z=R.z;P.yaw=R.yaw;P.pitch=0;G.hasKey=R.hasKey;if(R.visited)G.visited=new Set(Array.isArray(R.visited)?R.visited:[]);G.survIdx=R.survIdx||{};
   if(R.cont&&R.cont.length===CONTAINERS.length)CONTAINERS.forEach((c,i)=>{const[sr,l]=R.cont[i];c.loot=l||[];if(sr&&!c.searched){c.searched=true;if(typeof markSearched==='function')markSearched(c);}});
   if(R.doors&&R.doors.length===DOORS.length)DOORS.forEach((d,i)=>{const[o,b,t]=R.doors[i];d.open=!!o;d.broken=!!b;if(t)d.type=t;d.ang=d.open?1:0;});
   if(R.crN===G.crN0&&R.cr){const rm=[];creatures.slice(0,G.crN0).forEach((c,i)=>{const v=R.cr[i];if(!v)rm.push(c);else{c.x=v[0];c.z=v[1];c.hp=Math.min(c.maxHp||v[2],v[2]);c.state=c.state==='chase'?'idle':c.state;if(c.home){}}});
