@@ -176,6 +176,43 @@ button:focus-visible{outline:2px solid var(--blood-hi);outline-offset:2px}
 .lmenu button.off{color:#5f5853}.lmain button.off i{color:#3e2a2a}
 .lmenu button:focus-visible{outline:2px solid #ff3343;outline-offset:2px}
 .lnote{position:absolute;left:104px;top:868px;font-size:15px;color:#8a817a;max-width:600px}
+.lui{position:absolute;left:0;top:0;width:1672px;height:941px;pointer-events:none;transform-origin:0 50%}.lui .lmenu{pointer-events:auto} /* 11/12: 글자·메뉴 묶음 — 폰에서 잘린 만큼 fitStage가 옮기고 줄임 */
+.lbest{position:absolute;left:106px;top:470px;font-family:"VT323",monospace;font-size:24px;letter-spacing:.1em;color:#b7aea4;text-shadow:0 2px 0 #000}.lbest b{color:#e0202c;font-weight:400}
+
+/* 11/12 층 타이틀 카드 · 날짜 컷 */
+#tcard{position:fixed;inset:0;z-index:38;pointer-events:none;display:grid;place-items:center;background:rgba(3,2,2,var(--tca,1));color:#e8e1d4;text-align:center;overflow:hidden}
+#tcBg{position:absolute;inset:0;background-size:cover;background-position:center;filter:saturate(.85) brightness(.5) contrast(1.1);-webkit-mask-image:radial-gradient(ellipse at center,#000 20%,transparent 82%);mask-image:radial-gradient(ellipse at center,#000 20%,transparent 82%);image-rendering:pixelated}
+#tcard.awake #tcBg{opacity:.55!important}
+#tcard .tcIn{position:relative;display:grid;gap:6px;justify-items:center;padding:0 24px}
+#tcEye{font-family:"VT323",monospace;font-size:18px;letter-spacing:.34em;color:#8a817a;text-indent:.34em}
+#tcBig{font-family:var(--f-num);font-size:min(150px,34vh);line-height:.86;letter-spacing:.02em;text-shadow:0 0 34px rgba(0,0,0,.95),0 0 4px #000}#tcBig i{font-style:normal;color:#c4141f}#tcBig b{font-weight:400;color:#e0202c}
+#tcSub{font-family:"VT323",monospace;font-size:min(26px,6.4vh);letter-spacing:.16em;color:#c9c0b4;min-height:1.2em;text-shadow:0 2px 0 #000}
+#tcLine{font-family:"Nanum Myeongjo",serif;font-weight:800;font-size:min(21px,5.4vh);letter-spacing:.3em;text-indent:.3em;color:#e3dacd;margin-top:min(12px,2vh);text-shadow:0 2px 0 #000}
+#tcLine:not(:empty)::before{content:"";display:block;width:46px;height:2px;background:#c4141f;margin:0 auto min(14px,2.4vh);box-shadow:0 0 10px #c4141f}
+/* 11/12 자막·독백·알림 글자 크기(설정) */
+#sub,#mono,#toasts,#prompt{zoom:var(--fs,1)}
+/* 11/12 터치 버튼 눌림 */
+.tb{transition:transform .07s ease-out,box-shadow .12s,background .1s}.tb:active,.tb.on{transform:scale(.9);box-shadow:0 0 0 3px rgba(255,90,70,.22),0 0 18px rgba(255,70,50,.45)}
+
+/* 11/12 엔딩 갤러리(칭호 창 아래) · 순위 메달 · 홈 화면 안내 · 로비 진행도 */
+.egh{margin-top:18px!important}.egrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin:10px 0}
+.ecard{all:unset;box-sizing:border-box;display:grid;gap:6px;padding:6px 6px 10px;background:#120f0e;border:1px solid #2a2422;text-align:center;cursor:default}
+.ecard i{display:block;aspect-ratio:16/9;background:#0a0808 center/cover no-repeat;position:relative;font-style:normal}
+.ecard:not(.on) i::after{content:"?";position:absolute;inset:0;display:grid;place-items:center;font-family:"VT323",monospace;font-size:44px;color:#3a302e}
+.ecard b{font-family:"Noto Sans KR",sans-serif;font-size:14px;font-weight:700;color:#5f5853}.ecard.on{border-color:#5a2a2a;background:#1a1212;cursor:pointer}.ecard.on b{color:#ece5d8}.ecard.on:hover i,.ecard.on:focus-visible i{outline:2px solid #e0202c}
+.ecard span{font-size:11px;color:#8a817a}
+#galP{position:fixed;inset:0;z-index:8990;background:rgba(0,0,0,.94);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:max(10px,env(safe-area-inset-top,0px)) max(12px,env(safe-area-inset-right,0px)) max(10px,env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px));box-sizing:border-box;cursor:pointer}
+#galP img{max-width:100%;max-height:calc(100% - 44px);min-height:0;box-shadow:0 10px 50px rgba(0,0,0,.8)}#galCap{font-family:"Nanum Myeongjo",serif;font-weight:800;font-size:18px;letter-spacing:.2em;color:#e3dacd}
+#galX{position:absolute;top:max(10px,env(safe-area-inset-top,0px));right:max(14px,env(safe-area-inset-right,0px));width:46px;height:46px;border-radius:50%;border:2px solid #cdc9c2;background:#8a1414;color:#fff;font-size:20px;font-weight:700;line-height:1;padding:0;cursor:pointer}
+/* 11/12 사용자: 최초 생존자 — 실제 순위(서버)와 무관한 고정 문구, 순위 목록 밖에 은은하게 */
+.rkfirst{margin:10px 0 2px;padding-top:10px;border-top:1px solid rgba(255,255,255,.07);display:flex;justify-content:center;align-items:baseline;gap:10px;font-family:"Nanum Myeongjo",serif;font-size:12px;letter-spacing:.32em;color:#6f6660;opacity:.85}.rkfirst b{font-weight:800;font-size:14px;letter-spacing:.18em;color:#b9a67a}.rkfirst i{font-style:normal;font-size:10px;color:#8c7a4e}
+.rkbox .rkl li:nth-child(-n+3) i{display:inline-grid;place-items:center;min-width:1.5em;border-radius:5px;color:#16100e;font-weight:700}
+.rkbox .rkl li:nth-child(1) i{background:linear-gradient(160deg,#f6dc8a,#c99a2e);box-shadow:0 0 10px rgba(240,200,90,.45)}.rkbox .rkl li:nth-child(2) i{background:linear-gradient(160deg,#eceff3,#9aa3ad)}.rkbox .rkl li:nth-child(3) i{background:linear-gradient(160deg,#e3a877,#9a5a2c)}
+.rkbox .rkl li:nth-child(1) em{color:#f6dc8a}
+#a2hs{position:absolute;left:50%;top:calc(10px + env(safe-area-inset-top,0px));transform:translateX(-50%);display:flex;align-items:center;gap:10px;max-width:min(560px,82vw);padding:8px 8px 8px 14px;border-radius:12px;background:rgba(12,9,9,.86);box-shadow:inset 0 0 0 1px rgba(224,32,44,.55),0 8px 30px rgba(0,0,0,.5);font:13px/1.45 "Noto Sans KR",sans-serif;color:#eadfd6}
+#a2hs[hidden]{display:none}#a2hs button{all:unset;flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:#8a1414;color:#fff;font-weight:700;cursor:pointer}
+.lface img{transition:filter 1.2s}.lface[data-hp="1"] img{filter:saturate(.84) brightness(.95)}.lface[data-hp="2"] img{filter:saturate(.62) brightness(.86) contrast(1.04)}.lface[data-hp="3"] img{filter:saturate(.36) brightness(.76) contrast(1.1)}
+#saProbe{position:fixed;left:0;top:0;visibility:hidden;pointer-events:none;padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)}
 .lgrain{position:absolute;inset:0;width:1672px;height:941px;opacity:.045;pointer-events:none;image-rendering:pixelated;mix-blend-mode:screen}
 .lmodal{position:absolute;inset:0;background:rgba(0,0,0,.82);display:flex;align-items:flex-start;padding-block:24px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));overflow:auto}
 @media (prefers-reduced-motion:reduce){.lface{animation:none}}
@@ -390,6 +427,7 @@ body.touch #toasts{top:calc(64px + env(safe-area-inset-top,0px))!important}
 #credP .croll .crow span:first-child{text-align:right;color:#9d8a86}
 #credP .croll .crow span:last-child{text-align:left;color:#f2e6e2;font-weight:600}
 #credP .croll .crow small{display:block;font-weight:400;color:#8a7672;font-size:11px}
+#credP .croll .cthx{max-width:520px;margin:0 auto 22px;display:grid;gap:5px;justify-items:center}#credP .croll .cthx b{font-size:16px;font-weight:700;color:#f2e6e2;letter-spacing:.08em}#credP .croll .cthx small{font-size:12px;color:#9d8a86;letter-spacing:.04em}
 #credP .croll .end{margin:120px 0 40vh;font:400 16px "Nanum Myeongjo",serif;color:#d8c8c4;line-height:1.9}
 #credP #credSkip{display:none;position:absolute;right:14px;top:14px;background:rgba(40,28,26,.8);color:#e8dcd8;border:1px solid #5a4440;border-radius:9px;padding:8px 14px;font-size:13px}body.touch #credP #credSkip{display:block}body.touch #credP .cskip .cpc{display:none}
 #credP .cskip{position:absolute;right:16px;bottom:12px;font-size:11px;color:#6d5a56;letter-spacing:.1em}
@@ -431,9 +469,10 @@ body.touch #toasts{top:calc(64px + env(safe-area-inset-top,0px))!important}
     <canvas class="lwalk" id="lwalk" width="418" height="235" aria-hidden="true"></canvas>
     <div class="lflick" id="lflick"></div>
     <div class="lface" id="lface"><img id="faceA" alt=""><img id="faceB" alt=""></div>
+    <div class="lui" id="lui">
     <div class="ltag"><h3>열흘 안에, 1층으로.</h3><p>문밖에서 들리는 발소리. 더는 이웃이 아니다.<br>남은 시간은 열흘. 이 건물에서 나가야 한다.</p></div>
     <div class="lhint">ENTER 시작 · ↑↓ 선택</div>
-    <div class="lver"><span id="lplay"></span> · v1.0.14 · 2026.11.11</div>
+    <div class="lver"><span id="lplay"></span> · v1.0.15 · 2026.11.12</div>
     <div class="llogo"><div class="lnum"><span id="logoF">10F</span><span class="sl">/</span><span class="dy" id="logoD">10DAY</span></div><div class="proj">project.<b>Jitz</b></div></div>
     <nav class="lmenu" id="lmenu" aria-label="메인 메뉴">
       <div class="lmain">
@@ -448,10 +487,13 @@ body.touch #toasts{top:calc(64px + env(safe-area-inset-top,0px))!important}
       </div>
     </nav>
     <div class="lnote" id="saveNote"></div>
+    <div class="lbest" id="lbest" hidden></div>
     <div class="lsound" id="soundHint">클릭하거나 아무 키나 누르면 소리가 켜집니다</div>
+    </div>
     <canvas class="lgrain" id="lgrain" width="418" height="235"></canvas>
   </div>
-  <div class="lmodal" id="mSet" hidden><div class="box"><h2>설정</h2><div class="vols"><label for="volSfx2">효과음</label><input type="range" id="volSfx2" data-vol="sfx" min="0" max="100"><label for="volBgm2">배경음</label><input type="range" id="volBgm2" data-vol="bgm" min="0" max="100"></div><div class="opts"><label>난이도</label><select data-opt="diff"><option value="easy">쉬움 — 적 체력 절반 · 듣는 놈 감지 좁음</option><option value="normal">보통</option><option value="hard">어려움 — 적 체력 1.5배</option></select><em data-optv="diff"></em><label>마우스 감도</label><input type="range" data-opt="sens" min="30" max="250"><em data-optv="sens"></em><label>밝기</label><input type="range" data-opt="gamma" min="70" max="150"><em data-optv="gamma"></em><label>해상도</label><select data-opt="res"><option value="360">360p 픽셀감 강함</option><option value="540">540p 기본</option><option value="720">720p 선명</option><option value="1080">1080p 최고 화질</option></select><em data-optv="res"></em><label class="chk"><input type="checkbox" data-opt="bob"> 걸을 때 시점 흔들림</label><em data-optv="bob"></em><label class="chk"><input type="checkbox" data-opt="lod"> 성능 절약(먼 크리쳐 간략화)</label><em data-optv="lod"></em><label class="chk"><input type="checkbox" data-opt="autoQ"> 렉 걸리면 화질 자동으로 낮추기</label><em data-optv="autoQ"></em><label class="chk"><input type="checkbox" data-opt="low"> 저사양 모드(그림자·조명 줄임 · 다시 켜면 적용)</label><em data-optv="low"></em></div><div class="svx"><div class="svh">저장 옮기기 <small>진행·칭호·설정을 코드로 복사해 다른 기기에 붙여 넣기</small></div><textarea id="svTx" placeholder="여기에 저장 코드를 붙여 넣으세요"></textarea><div class="svb"><button type="button" id="svOut">내 저장 코드 복사</button><button type="button" id="svIn">붙여 넣은 코드 불러오기</button></div><div id="svMsg"></div></div><div class="btns"><button type="button" class="ghost" data-close>닫기</button></div></div></div><style>.svx{margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,.12)}.svh{font-size:14px;margin-bottom:6px}.svh small{opacity:.6;font-size:11px;margin-left:6px}#svTx{width:100%;height:56px;box-sizing:border-box;background:rgba(0,0,0,.4);color:#ddd;border:1px solid rgba(255,255,255,.18);border-radius:8px;font:10px/1.3 monospace;padding:6px;resize:none}.svb{display:flex;gap:8px;margin-top:6px}.svb button{flex:1}#svMsg{font-size:12px;margin-top:6px;min-height:16px;color:#e8b9a8}</style>
+  <div id="a2hs" hidden><span></span><button type="button" aria-label="닫기">✕</button></div>
+  <div class="lmodal" id="mSet" hidden><div class="box"><h2>설정</h2><div class="vols"><label for="volSfx2">효과음</label><input type="range" id="volSfx2" data-vol="sfx" min="0" max="100"><label for="volBgm2">배경음</label><input type="range" id="volBgm2" data-vol="bgm" min="0" max="100"></div><div class="opts"><label>난이도</label><select data-opt="diff"><option value="easy">쉬움 — 적 체력 절반 · 듣는 놈 감지 좁음</option><option value="normal">보통</option><option value="hard">어려움 — 적 체력 1.5배</option></select><em data-optv="diff"></em><label>마우스 감도</label><input type="range" data-opt="sens" min="30" max="250"><em data-optv="sens"></em><label>밝기</label><input type="range" data-opt="gamma" min="70" max="150"><em data-optv="gamma"></em><label>해상도</label><select data-opt="res"><option value="360">360p 픽셀감 강함</option><option value="540">540p 기본</option><option value="720">720p 선명</option><option value="1080">1080p 최고 화질</option></select><em data-optv="res"></em><label>글자 크기</label><input type="range" data-opt="fs" min="80" max="150" step="5"><em data-optv="fs"></em><label class="chk"><input type="checkbox" data-opt="bob"> 걸을 때 시점 흔들림</label><em data-optv="bob"></em><label class="chk"><input type="checkbox" data-opt="lod"> 성능 절약(먼 크리쳐 간략화)</label><em data-optv="lod"></em><label class="chk"><input type="checkbox" data-opt="autoQ"> 렉 걸리면 화질 자동으로 낮추기</label><em data-optv="autoQ"></em><label class="chk"><input type="checkbox" data-opt="low"> 저사양 모드(그림자·조명 줄임 · 다시 켜면 적용)</label><em data-optv="low"></em></div><div class="svx"><div class="svh">저장 옮기기 <small>진행·칭호·설정을 코드로 복사해 다른 기기에 붙여 넣기</small></div><textarea id="svTx" placeholder="여기에 저장 코드를 붙여 넣으세요"></textarea><div class="svb"><button type="button" id="svOut">내 저장 코드 복사</button><button type="button" id="svIn">붙여 넣은 코드 불러오기</button></div><div id="svMsg"></div></div><div class="btns"><button type="button" class="ghost" data-close>닫기</button></div></div></div><style>.svx{margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,.12)}.svh{font-size:14px;margin-bottom:6px}.svh small{opacity:.6;font-size:11px;margin-left:6px}#svTx{width:100%;height:56px;box-sizing:border-box;background:rgba(0,0,0,.4);color:#ddd;border:1px solid rgba(255,255,255,.18);border-radius:8px;font:10px/1.3 monospace;padding:6px;resize:none}.svb{display:flex;gap:8px;margin-top:6px}.svb button{flex:1}#svMsg{font-size:12px;margin-top:6px;min-height:16px;color:#e8b9a8}</style>
   <div class="lmodal" id="mName" hidden><div class="box"><h2>당신의 이름은?</h2><p class="note">순위표와 결과 카드에 이 이름으로 올라갑니다. (최대 12자)</p><input id="nameIn" type="text" maxlength="12" autocomplete="off" spellcheck="false" placeholder="이름"><p id="nameMsg"></p><div class="btns"><button type="button" id="nameOk" class="red">시작</button><button type="button" class="ghost" data-close>취소</button></div></div></div>
   <div class="lmodal" id="mKeys" hidden><div class="box"><h2>조작법</h2>
     <div class="keys">
@@ -466,9 +508,9 @@ body.touch #toasts{top:calc(64px + env(safe-area-inset-top,0px))!important}
     </div>
     <div class="note">벽이나 물건을 쏘면 그 자리에서 소리가 납니다. 크리쳐는 소리를 따라가고 문은 못 엽니다. 크리쳐 그림은 임시입니다.</div>
     <div class="btns"><button type="button" class="ghost" data-close>닫기</button></div></div></div>
-  <div class="lmodal" id="mTitles" hidden><div class="box wide"><h2>칭호 <small id="titleCount"></small></h2><div class="tgrid" id="titleGrid"></div><p class="note" id="statLine"></p><div class="btns"><button type="button" class="ghost" data-close>닫기</button></div></div></div>
+  <div class="lmodal" id="mTitles" hidden><div class="box wide"><h2>칭호 <small id="titleCount"></small></h2><div class="tgrid" id="titleGrid"></div><p class="note" id="statLine"></p><h2 class="egh">엔딩 <small id="endCount"></small></h2><div class="egrid" id="endGrid"></div><div class="btns"><button type="button" class="ghost" data-close>닫기</button></div></div></div>
   <div class="lmodal" id="mFloor" hidden><div class="box wide"><h2>층 선택</h2><p class="lede">한 번이라도 도착한 층부터 다시 시작할 수 있습니다. 그 층에서 이미 해금된 가장 센 새총(8층 보스 뒤 개량형 01 · 6층 작업대 뒤 02 · 3층 작업대 뒤 최종형)과 기본 물자·날짜로 시작하고, 새로 저장됩니다.<br><small>※ 난이도 칭호(소녀감성·생존자·생존마스터)는 10층부터 1층까지 같은 난이도로 탈출해야 열립니다. 층 선택으로 시작했거나 도중에 난이도를 바꾼 판은 인정되지 않아요.</small></p><div class="fgrid" id="floorGrid"></div><div class="btns"><button type="button" class="ghost" data-close>닫기</button></div></div></div>
-  <div class="lmodal" id="mRank" hidden><div class="box wide rkw"><h2>순위 <small>10층부터 1층까지 · 탈출 시각 빠른 순</small></h2><div class="rktab" id="rankTabs"><button type="button" data-d="easy">쉬움</button><button type="button" data-d="normal">보통</button><button type="button" data-d="hard">어려움</button></div><div class="rkbox" id="rankL"></div><div class="btns"><button type="button" class="ghost" data-close>닫기</button></div></div></div>
+  <div class="lmodal" id="mRank" hidden><div class="box wide rkw"><h2>순위 <small>10층부터 1층까지 · 탈출 시각 빠른 순</small></h2><div class="rktab" id="rankTabs"><button type="button" data-d="easy">쉬움</button><button type="button" data-d="normal">보통</button><button type="button" data-d="hard">어려움</button></div><div class="rkbox" id="rankL"></div><div class="rkfirst" aria-label="최초 생존자 김준형"><i>✦</i>최초 생존자<b>김준형</b></div><div class="btns"><button type="button" class="ghost" data-close>닫기</button></div></div></div>
   <div class="lmodal" id="mCont" hidden><div class="box"><h2>이어하기</h2><p class="lede" id="contText"></p><div class="btns"><button type="button" class="ghost" data-close>닫기</button></div></div></div>
 </div>
 <div id="bootP"><div class="bl"><div class="bt">10F <span>/</span> 10DAY</div><div class="bp">project.Jitz</div><div class="bbar"><i id="bootBar"></i></div><div class="bs" id="bootTxt">불러오는 중…</div><div class="btip" id="bootTip"></div></div></div>
@@ -481,6 +523,9 @@ body.touch #toasts{top:calc(64px + env(safe-area-inset-top,0px))!important}
   <button class="tb" id="tLamp" data-k="KeyF">랜턴</button><button class="tb" id="tAmmo" data-k="KeyQ">탄</button>
   <button class="tb" id="tBag" data-k="Tab">가방</button><button class="tb" id="tPause">Ⅱ</button>
 </div>
+<div id="saProbe"></div>
+<div id="galP" hidden><button id="galX" type="button" aria-label="닫기">✕</button><img id="galImg" alt=""><div id="galCap"></div></div>
+<div id="tcard" hidden><div id="tcBg"></div><div class="tcIn"><div id="tcEye"></div><div id="tcBig"></div><div id="tcSub"></div><div id="tcLine"></div></div></div>
 <div id="tRotate">폰을 가로로 돌려 주세요<br><small>10F / 10DAY는 가로 화면 전용입니다</small></div>
 <div id="evac" hidden></div>
 <div id="bossBar" hidden><div class="bn" id="bossName"></div><div class="bt"><i id="bossLag"></i><b id="bossFill"></b></div></div>
@@ -488,11 +533,19 @@ body.touch #toasts{top:calc(64px + env(safe-area-inset-top,0px))!important}
 <div id="cineBars" hidden><i></i><i></i></div>
 <div id="errP" hidden><div class="eBox"><div class="eT">오류가 났어요</div><div class="eS">아래 내용을 복사해서 제작자에게 보내 주세요.</div><textarea id="errTx" readonly></textarea><div class="eB"><button id="errCopy">복사</button><button id="errGo">계속하기</button><button id="errLob">로비로</button></div></div></div>
 <style>#errP{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.72);display:flex;align-items:center;justify-content:center;font-family:"Noto Sans KR",sans-serif}#errP .eBox{width:min(560px,92vw);background:#16110f;border:1px solid #6b2a26;border-radius:14px;padding:18px;color:#e9dcd4}#errP .eT{font-size:18px;font-weight:700;color:#ff6a5a}#errP .eS{font-size:13px;opacity:.8;margin:6px 0 10px}#errP textarea{width:100%;height:150px;box-sizing:border-box;background:#0b0908;color:#cdbdb2;border:1px solid #3a2a26;border-radius:8px;font:11px/1.4 monospace;padding:8px;resize:none}#errP .eB{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}#errP button{flex:1;min-width:90px;padding:9px;border-radius:9px;border:1px solid #6b2a26;background:#2a1714;color:#f1e4dc;font-size:14px;cursor:pointer}</style>
-<div id="cardP" hidden><div class="cBox"><img id="cardImg" alt="결과 카드"><div class="cHint" id="cardHint"></div><div class="cB"><button id="cardSave">이미지 저장</button><button id="cardClose">닫기</button></div></div></div>
-<style>#cardP{position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.82);display:flex;align-items:center;justify-content:center;font-family:"Noto Sans KR",sans-serif}#cardP .cBox{width:min(900px,94vw);text-align:center;color:#e9dcd4}#cardP img{width:100%;border-radius:10px;box-shadow:0 10px 40px rgba(0,0,0,.6);-webkit-touch-callout:default;user-select:auto}#cardP .cHint{font-size:12px;opacity:.7;margin:8px 0}#cardP .cB{display:flex;gap:8px;justify-content:center}#cardP button{min-width:120px;padding:9px 14px;border-radius:9px;border:1px solid #6b2a26;background:#2a1714;color:#f1e4dc;font-size:14px;cursor:pointer}</style>
+<div id="cardP" hidden><button id="cardX" type="button" aria-label="닫기">✕</button><div class="cBox"><div class="cTab" id="cardTab"><button type="button" data-f="wide" class="on">가로</button><button type="button" data-f="tall">세로 · 스토리용</button></div><div class="cImg"><img id="cardImg" alt="결과 카드"></div><div class="cHint" id="cardHint"></div><div class="cB"><button id="cardSave">이미지 저장</button><button id="cardClose">닫기</button></div></div></div>
+<style>#cardP{position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.86);display:flex;align-items:center;justify-content:center;font-family:"Noto Sans KR",sans-serif;padding:max(10px,env(safe-area-inset-top,0px)) max(12px,env(safe-area-inset-right,0px)) max(10px,env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px));box-sizing:border-box}
+#cardP .cBox{width:min(900px,100%);height:100%;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;color:#e9dcd4;min-height:0}
+#cardP .cImg{flex:1 1 0;min-height:0;position:relative;width:100%}
+#cardP img{position:absolute;inset:0;margin:auto;max-width:100%;max-height:100%;width:auto;height:auto;border-radius:10px;box-shadow:0 10px 40px rgba(0,0,0,.6);-webkit-touch-callout:default;-webkit-user-select:auto;user-select:auto} /* 11/12: 폰 가로 화면에선 카드가 화면보다 커서 닫기 버튼이 밖으로 밀려났음 → 그림이 남는 높이에 맞춰 줄어듦 */
+#cardP .cHint{font-size:12px;opacity:.75;flex:none}#cardP .cB,#cardP .cTab{display:flex;gap:8px;justify-content:center;flex:none}
+#cardP button{min-width:110px;padding:9px 14px;border-radius:9px;border:1px solid #6b2a26;background:#2a1714;color:#f1e4dc;font-size:14px;cursor:pointer;font-family:inherit}
+#cardP .cTab button{min-width:0;padding:6px 14px;font-size:13px;background:transparent;border-color:#4a2a26;color:#b9aaa2}#cardP .cTab button.on{background:#a3141c;border-color:#a3141c;color:#fff}
+#cardP #cardSave{background:#a3141c;border-color:#a3141c}
+#cardX{position:absolute;z-index:2;top:max(10px,env(safe-area-inset-top,0px));right:max(14px,env(safe-area-inset-right,0px));min-width:0!important;width:46px;height:46px;padding:0!important;border-radius:50%!important;border:2px solid #cdc9c2!important;background:#8a1414!important;color:#fff;font-size:20px!important;font-weight:700;line-height:1}</style>
 <div id="introP" class="panel" hidden><div class="box intro"><div id="introText"></div><div class="note">스페이스 · 클릭으로 건너뛰기</div></div></div>
 <div id="pauseP" class="panel" hidden>
-  <div class="box"><h2>일시정지</h2><p class="lede">클릭하면 이어서 진행합니다.</p><div id="devRow" style="margin:8px 0 12px;padding:8px;border:1px dashed #6a2a26;display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12px;color:#c9a9a4"><b style="width:100%">테스트용 (임시) <span id="sndState" style="font-weight:400;opacity:.8"></span></b><button type="button" class="ghost" data-dev="god">무적 켬/끔</button><button type="button" class="ghost" data-dev="10">10F</button><button type="button" class="ghost" data-dev="9">9F</button><button type="button" class="ghost" data-dev="8">8F</button><button type="button" class="ghost" data-dev="7">7F</button><button type="button" class="ghost" data-dev="6">6F</button><button type="button" class="ghost" data-dev="5">5F</button><button type="button" class="ghost" data-dev="4">4F</button><button type="button" class="ghost" data-dev="3">3F</button><button type="button" class="ghost" data-dev="2">2F</button><button type="button" class="ghost" data-dev="1">1F</button></div><div class="vols"><label for="volSfx">효과음</label><input type="range" id="volSfx" data-vol="sfx" min="0" max="100"><label for="volBgm">배경음</label><input type="range" id="volBgm" data-vol="bgm" min="0" max="100"></div><div class="opts"><label>난이도</label><select data-opt="diff"><option value="easy">쉬움 — 적 체력 절반 · 듣는 놈 감지 좁음</option><option value="normal">보통</option><option value="hard">어려움 — 적 체력 1.5배</option></select><em data-optv="diff"></em><label>마우스 감도</label><input type="range" data-opt="sens" min="30" max="250"><em data-optv="sens"></em><label>밝기</label><input type="range" data-opt="gamma" min="70" max="150"><em data-optv="gamma"></em><label>해상도</label><select data-opt="res"><option value="360">360p 픽셀감 강함</option><option value="540">540p 기본</option><option value="720">720p 선명</option><option value="1080">1080p 최고 화질</option></select><em data-optv="res"></em><label class="chk"><input type="checkbox" data-opt="bob"> 걸을 때 시점 흔들림</label><em data-optv="bob"></em><label class="chk"><input type="checkbox" data-opt="lod"> 성능 절약(먼 크리쳐 간략화)</label><em data-optv="lod"></em><label class="chk"><input type="checkbox" data-opt="autoQ"> 렉 걸리면 화질 자동으로 낮추기</label><em data-optv="autoQ"></em><label class="chk"><input type="checkbox" data-opt="low"> 저사양 모드(그림자·조명 줄임 · 다시 켜면 적용)</label><em data-optv="low"></em></div><div class="btns"><button id="resumeBtn">계속하기</button><button id="quitBtn" class="ghost">로비로 나가기</button></div></div>
+  <div class="box"><h2>일시정지</h2><p class="lede">클릭하면 이어서 진행합니다.</p><div id="devRow" style="margin:8px 0 12px;padding:8px;border:1px dashed #6a2a26;display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12px;color:#c9a9a4"><b style="width:100%">테스트용 (임시) <span id="sndState" style="font-weight:400;opacity:.8"></span></b><button type="button" class="ghost" data-dev="god">무적 켬/끔</button><button type="button" class="ghost" data-dev="10">10F</button><button type="button" class="ghost" data-dev="9">9F</button><button type="button" class="ghost" data-dev="8">8F</button><button type="button" class="ghost" data-dev="7">7F</button><button type="button" class="ghost" data-dev="6">6F</button><button type="button" class="ghost" data-dev="5">5F</button><button type="button" class="ghost" data-dev="4">4F</button><button type="button" class="ghost" data-dev="3">3F</button><button type="button" class="ghost" data-dev="2">2F</button><button type="button" class="ghost" data-dev="1">1F</button></div><div class="vols"><label for="volSfx">효과음</label><input type="range" id="volSfx" data-vol="sfx" min="0" max="100"><label for="volBgm">배경음</label><input type="range" id="volBgm" data-vol="bgm" min="0" max="100"></div><div class="opts"><label>난이도</label><select data-opt="diff"><option value="easy">쉬움 — 적 체력 절반 · 듣는 놈 감지 좁음</option><option value="normal">보통</option><option value="hard">어려움 — 적 체력 1.5배</option></select><em data-optv="diff"></em><label>마우스 감도</label><input type="range" data-opt="sens" min="30" max="250"><em data-optv="sens"></em><label>밝기</label><input type="range" data-opt="gamma" min="70" max="150"><em data-optv="gamma"></em><label>해상도</label><select data-opt="res"><option value="360">360p 픽셀감 강함</option><option value="540">540p 기본</option><option value="720">720p 선명</option><option value="1080">1080p 최고 화질</option></select><em data-optv="res"></em><label>글자 크기</label><input type="range" data-opt="fs" min="80" max="150" step="5"><em data-optv="fs"></em><label class="chk"><input type="checkbox" data-opt="bob"> 걸을 때 시점 흔들림</label><em data-optv="bob"></em><label class="chk"><input type="checkbox" data-opt="lod"> 성능 절약(먼 크리쳐 간략화)</label><em data-optv="lod"></em><label class="chk"><input type="checkbox" data-opt="autoQ"> 렉 걸리면 화질 자동으로 낮추기</label><em data-optv="autoQ"></em><label class="chk"><input type="checkbox" data-opt="low"> 저사양 모드(그림자·조명 줄임 · 다시 켜면 적용)</label><em data-optv="low"></em></div><div class="btns"><button id="resumeBtn">계속하기</button><button id="quitBtn" class="ghost">로비로 나가기</button></div></div>
 </div>
 
 <div id="invP" class="panel" hidden>
@@ -539,25 +592,61 @@ body.touch #toasts{top:calc(64px + env(safe-area-inset-top,0px))!important}
 <script>if(!window.THREE)document.write('<script src="https://unpkg.com/three@0.128.0/build/three.min.js"><\/script>');</script>
 <script>if(!window.THREE){var _t=document.getElementById('bootTxt');if(_t)_t.textContent='3D 엔진을 못 불러왔어요 · 새로고침해 주세요';}</script>
 <script>
-/* 11/9: 결과 공유 카드 — 엔딩 그림 + 기록을 1200×630 이미지로(폰은 길게 눌러 저장, PC는 저장 버튼) */
-function makeCard(cb){const C=G.card;if(!C)return;const W=1200,H=630,cv=document.createElement('canvas');cv.width=W;cv.height=H;const x=cv.getContext('2d');
-  const draw=img=>{x.fillStyle='#0b0706';x.fillRect(0,0,W,H);if(img){const s=Math.max(W/img.width,H/img.height),w=img.width*s,h=img.height*s;x.globalAlpha=.92;x.drawImage(img,(W-w)/2,(H-h)/2,w,h);x.globalAlpha=1;}
+/* 11/9: 결과 공유 카드 — 엔딩 그림 + 기록을 이미지로. 11/12: 가로(1200×630) + 세로 스토리용(1080×1920), 폰은 공유 시트로 저장 */
+const CARD_URL='project-jitz.github.io/10f10day';
+function makeCard(cb,fmt){const C=G.card;if(!C)return;const TALL=fmt==='tall',W=TALL?1080:1200,H=TALL?1920:630,cv=document.createElement('canvas');cv.width=W;cv.height=H;const x=cv.getContext('2d');
+  const F=(w,sz,f)=>`${w} ${sz}px ${f||'"Noto Sans KR",sans-serif'}`,BH='"Black Han Sans","Noto Sans KR",sans-serif',VT='"VT323",monospace';
+  const D={easy:'쉬움',normal:'보통',hard:'어려움'}[C.diff]||C.diff;
+  const rows=[['시각',C.day+'일차 '+C.clock],['도달',C.floor+'층'],['처치',C.kills+''],['새총',C.sling],['쪽지',C.notes+' / '+C.nT],['난이도',D]];if(C.kind==='escape')rows.push(['죽은 횟수',C.deaths?C.deaths+'번':'0번 · 노데스']);if(C.who)rows.push(['마지막 상대',C.who]);if(C.rank)rows.push(['순위',C.rank+'위'+(C.rankTot?' / '+C.rankTot+'명':'')]);
+  let tn=0;try{tn=Object.keys(META.t||{}).filter(k=>META.t[k]).length;}catch(e){}
+  const foot='칭호 '+tn+'개 · '+new Date().toLocaleDateString('ko-KR');
+  const grain=(a)=>{x.save();x.globalAlpha=a;for(let i=0;i<W*H/900;i++){x.fillStyle=Math.random()<.5?'#fff':'#000';x.fillRect(Math.random()*W|0,Math.random()*H|0,2,2);}x.restore();};
+  const fit=(txt,font,max)=>{let sz=font[1];do{x.font=F(font[0],sz,font[2]);if(x.measureText(txt).width<=max)break;sz-=2;}while(sz>18);};
+  const wide=img=>{x.fillStyle='#0b0706';x.fillRect(0,0,W,H);if(img){const s=Math.max(W/img.width,H/img.height),w=img.width*s,h=img.height*s;x.globalAlpha=.92;x.drawImage(img,(W-w)/2,(H-h)/2,w,h);x.globalAlpha=1;}
     let g=x.createLinearGradient(0,0,W*.75,0);g.addColorStop(0,'rgba(5,3,3,.94)');g.addColorStop(.55,'rgba(5,3,3,.72)');g.addColorStop(1,'rgba(5,3,3,0)');x.fillStyle=g;x.fillRect(0,0,W,H);
     g=x.createLinearGradient(0,H*.6,0,H);g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(1,'rgba(0,0,0,.7)');x.fillStyle=g;x.fillRect(0,0,W,H);
-    const F=(w,sz,f)=>`${w} ${sz}px ${f||'"Noto Sans KR",sans-serif'}`;x.textBaseline='alphabetic';
-    x.fillStyle='#d8261f';x.font=F('900',58,'"Black Han Sans","Noto Sans KR",sans-serif');x.fillText('10F / 10DAY',60,100);x.fillStyle='rgba(235,220,210,.6)';x.font=F('400',20);x.fillText('project.Jitz',64,132);
+    x.textBaseline='alphabetic';x.fillStyle='#d8261f';x.font=F('400',58,BH);x.fillText('10F / 10DAY',60,100);x.fillStyle='rgba(235,220,210,.6)';x.font=F('400',20);x.fillText('project.Jitz',64,132);
     x.fillStyle='rgba(235,220,210,.75)';x.font=F('700',22);x.fillText(C.eye+(C.name?'  ·  '+C.name:''),60,206);
-    x.fillStyle=C.kind==='escape'?'#f2e6dc':'#ff5a4a';x.font=F('900',64,'"Black Han Sans","Noto Sans KR",sans-serif');x.fillText(C.title,58,282);
-    const D={easy:'쉬움',normal:'보통',hard:'어려움'}[C.diff]||C.diff;
-    const rows=[['시각',C.day+'일차 '+C.clock],['도달',C.floor+'층'],['처치',C.kills+''],['새총',C.sling],['쪽지',C.notes+' / '+C.nT],['난이도',D]];if(C.kind==='escape')rows.push(['죽은 횟수',C.deaths?C.deaths+'번':'0번 · 노데스']);
-    rows.forEach((r,i)=>{const cx=60+(i%2)*270,cy=350+Math.floor(i/2)*62;x.fillStyle='rgba(216,38,31,.9)';x.fillRect(cx,cy-24,3,34);x.fillStyle='rgba(235,220,210,.55)';x.font=F('700',16);x.fillText(r[0],cx+14,cy-6);x.fillStyle='#f3e8e0';x.font=F('700',26);x.fillText(r[1],cx+14,cy+22);});
-    let tn=0;try{tn=Object.keys(META.t||{}).length;}catch(e){}x.fillStyle='rgba(235,220,210,.5)';x.font=F('400',16);x.fillText('칭호 '+tn+'개 · '+new Date().toLocaleDateString('ko-KR'),60,H-36);
-    try{cb(cv.toDataURL('image/png'));}catch(e){if(img)draw(null);}};
-  const im=new Image();im.onload=()=>draw(im);im.onerror=()=>draw(null);im.src=C.pic+'.jpg';}
-function cardSetup(){const q=id=>document.getElementById(id);if(!q('endCard'))return;
-  q('endCard').onclick=()=>{q('cardHint').textContent='만드는 중…';q('cardP').hidden=false;makeCard(u=>{q('cardImg').src=u;q('cardHint').textContent=TOUCH?'이미지를 길게 눌러 사진에 저장하세요.':'저장 버튼을 누르거나 이미지를 오른쪽 클릭해 복사하세요.';});};
-  q('cardClose').onclick=()=>{q('cardP').hidden=true;};
-  q('cardSave').onclick=()=>{const u=q('cardImg').src;if(!u)return;try{const a=document.createElement('a');a.href=u;a.download='10F10DAY_'+(G.card?G.card.kind:'result')+'.png';document.body.appendChild(a);a.click();a.remove();}catch(e){}q('cardHint').textContent='저장이 안 되면 이미지를 '+(TOUCH?'길게 눌러':'오른쪽 클릭해')+' 저장하세요.';};}
+    x.fillStyle=C.kind==='escape'?'#f2e6dc':'#ff5a4a';fit(C.title,['400',64,BH],620);x.fillText(C.title,58,282);
+    rows.forEach((r,i)=>{const cx=60+(i%2)*270,cy=346+Math.floor(i/2)*58;x.fillStyle='rgba(216,38,31,.9)';x.fillRect(cx,cy-24,3,34);x.fillStyle='rgba(235,220,210,.55)';x.font=F('700',16);x.fillText(r[0],cx+14,cy-6);x.fillStyle='#f3e8e0';x.font=F('700',25);x.fillText(r[1],cx+14,cy+21);});
+    x.fillStyle='rgba(235,220,210,.5)';x.font=F('400',16);x.fillText(foot,60,H-32);x.textAlign='right';x.fillStyle='rgba(235,220,210,.7)';x.font=F('400',22,VT);x.fillText(CARD_URL,W-40,H-30);x.textAlign='left';};
+  const tall=img=>{x.fillStyle='#070505';x.fillRect(0,0,W,H);
+    /* 위: 엔딩 그림(가로 그림을 세로 화면 위쪽 절반에 꽉 채워 자르고 아래로 녹임) */
+    const PH=1060;if(img){const s=Math.max(W/img.width,PH/img.height),w=img.width*s,h=img.height*s;x.save();x.beginPath();x.rect(0,0,W,PH);x.clip();x.globalAlpha=.95;x.drawImage(img,(W-w)/2,(PH-h)/2,w,h);x.restore();}
+    let g=x.createLinearGradient(0,0,0,360);g.addColorStop(0,'rgba(5,3,3,.92)');g.addColorStop(1,'rgba(5,3,3,0)');x.fillStyle=g;x.fillRect(0,0,W,360);
+    g=x.createLinearGradient(0,PH-520,0,PH);g.addColorStop(0,'rgba(7,5,5,0)');g.addColorStop(.75,'rgba(7,5,5,.9)');g.addColorStop(1,'#070505');x.fillStyle=g;x.fillRect(0,PH-520,W,522);
+    g=x.createRadialGradient(W/2,H*.78,40,W/2,H*.78,900);g.addColorStop(0,'rgba(150,18,22,.20)');g.addColorStop(1,'rgba(150,18,22,0)');x.fillStyle=g;x.fillRect(0,PH-200,W,H-PH+200);
+    x.textBaseline='alphabetic';x.textAlign='left';
+    x.fillStyle='#f0e8dc';x.font=F('400',120,VT);x.fillText('10F',76,196);const w1=x.measureText('10F').width+26;x.fillStyle='#7a716a';x.fillText('/',76+w1,196);const w2=x.measureText('/').width+26;x.fillStyle='#d8261f';x.fillText('10DAY',76+w1+w2,196);
+    x.fillStyle='rgba(235,220,210,.7)';x.font=F('400',40,VT);x.fillText('project.Jitz',80,246);
+    let y=PH-96;x.fillStyle='rgba(235,220,210,.8)';x.font=F('700',34);fit(C.eye+(C.name?'  ·  '+C.name:''),['700',34],W-152);x.fillText(C.eye+(C.name?'  ·  '+C.name:''),76,y);
+    y+=128;x.fillStyle=C.kind==='escape'?'#f2e6dc':'#ff5a4a';fit(C.title,['400',118,BH],W-152);x.fillText(C.title,72,y);
+    x.fillStyle='#d8261f';x.fillRect(76,y+44,120,6);
+    const y0=y+170;rows.forEach((r,i)=>{const cx=76+(i%2)*480,cy=y0+Math.floor(i/2)*132;x.fillStyle='rgba(216,38,31,.9)';x.fillRect(cx,cy-44,5,74);x.fillStyle='rgba(235,220,210,.55)';x.font=F('700',28);x.fillText(r[0],cx+26,cy-12);x.fillStyle='#f3e8e0';x.font=F('700',46);x.fillText(r[1],cx+26,cy+40);});
+    x.fillStyle='rgba(235,220,210,.25)';x.fillRect(76,H-190,W-152,2);
+    x.fillStyle='rgba(235,220,210,.55)';x.font=F('400',28);x.fillText(foot,76,H-128);
+    x.fillStyle='#f0e8dc';x.font=F('400',50,VT);x.fillText(CARD_URL,76,H-70);
+    grain(.035);};
+  const draw=img=>{(TALL?tall:wide)(img);try{cb(cv.toDataURL(TALL?'image/jpeg':'image/png',.92),cv);}catch(e){if(img)draw(null);}};
+  const go=()=>{const im=new Image();im.onload=()=>draw(im);im.onerror=()=>draw(null);im.src=C.pic+'.jpg';};
+  try{(document.fonts&&document.fonts.load?Promise.all([['400 60px "Black Han Sans"','10F / 10DAY'+C.title],['400 60px "VT323"','10F / 10DAY project.Jitz'+CARD_URL],['700 30px "Noto Sans KR"',C.eye+C.name+rows.map(r=>r.join('')).join('')+foot],['400 30px "Noto Sans KR"',foot+'project.Jitz']].map(f=>document.fonts.load(f[0],f[1]))):Promise.resolve()).then(go,go);}catch(e){go();}}
+function cardBlob(u){const [h,b]=u.split(','),mime=(h.match(/:(.*?);/)||[])[1]||'image/png',s=atob(b),a=new Uint8Array(s.length);for(let i=0;i<s.length;i++)a[i]=s.charCodeAt(i);return new Blob([a],{type:mime});}
+function cardSetup(){const q=id=>document.getElementById(id);if(!q('endCard'))return;let fmt='wide',busy=false;
+  const hintIdle=()=>TOUCH?'공유 버튼이 안 되면 이미지를 길게 눌러 사진에 저장하세요.':'저장 버튼을 누르거나 이미지를 오른쪽 클릭해 복사하세요.';
+  const show=()=>{q('cardHint').textContent='만드는 중…';document.querySelectorAll('#cardTab button').forEach(b=>b.classList.toggle('on',b.dataset.f===fmt));makeCard(u=>{q('cardImg').src=u;q('cardHint').textContent=hintIdle();},fmt);};
+  const close=()=>{q('cardP').hidden=true;};
+  q('endCard').onclick=()=>{q('cardSave').textContent=TOUCH?'공유 · 저장':'이미지 저장';q('cardP').hidden=false;show();};
+  document.querySelectorAll('#cardTab button').forEach(b=>b.onclick=e=>{e.stopPropagation();fmt=b.dataset.f;show();});
+  q('cardClose').onclick=close;q('cardX').onclick=close;q('cardP').addEventListener('click',e=>{if(e.target===q('cardP'))close();});
+  addEventListener('keydown',e=>{if(e.code==='Escape'&&!q('cardP').hidden){e.stopPropagation();close();}},true);
+  /* 11/12: 아이폰 홈 화면 앱에서 다운로드 링크(a.download)를 누르면 화면이 그림 주소로 통째로 넘어가 돌아올 방법이 없었음(앱 강제 종료) → 폰은 절대 화면을 옮기지 않고 공유 시트만 씀 */
+  q('cardSave').onclick=async()=>{const u=q('cardImg').src;if(!u||busy)return;const ext=/^data:image\/jpeg/.test(u)?'jpg':'png',name='10F10DAY_'+(G.card?G.card.kind:'result')+(fmt==='tall'?'_story':'')+'.'+ext;
+    if(TOUCH||(navigator.standalone===true)){busy=true;try{const f=new File([cardBlob(u)],name,{type:ext==='jpg'?'image/jpeg':'image/png'});
+        if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f]});q('cardHint').textContent=hintIdle();}
+        else q('cardHint').textContent='이 기기는 공유가 안 돼요. 이미지를 길게 눌러 사진에 저장하세요.';}
+      catch(e){q('cardHint').textContent=(e&&e.name==='AbortError')?hintIdle():'공유가 안 됐어요. 이미지를 길게 눌러 사진에 저장하세요.';}busy=false;return;}
+    try{const a=document.createElement('a');a.href=URL.createObjectURL(cardBlob(u));a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000);}catch(e){}
+    q('cardHint').textContent='저장이 안 되면 이미지를 오른쪽 클릭해 저장하세요.';};}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',cardSetup);else cardSetup();
 /* 11/9: 저장 코드 내보내기/가져오기(기기 옮기기·브라우저 기록 삭제 대비) */
 const SVKEYS=['f10_save','f10_best','f10_meta','f10_opt','f10_mono','f10_rankq'];
@@ -644,7 +733,7 @@ const renderer=new THREE.WebGLRenderer({canvas:view,antialias:false,preserveDraw
 renderer.setPixelRatio(1);renderer.autoClear=false;renderer.shadowMap.enabled=true;renderer.shadowMap.type=TOUCH?THREE.PCFShadowMap:THREE.PCFSoftShadowMap; /* 11/6 PC는 고화질(부드러운 그림자), 폰은 가볍게 */
 const scene=new THREE.Scene();scene.background=new THREE.Color(0x030202);scene.fog=new THREE.FogExp2(0x030202,.075);
 const camera=new THREE.PerspectiveCamera(72,16/9,.03,60);camera.rotation.order='YXZ';
-const OPT={sens:1,gamma:1,bob:true,res:1080,lod:false,diff:'normal'};if(TOUCH){OPT.res=360;OPT.lod=true;OPT.sens=1.2;}try{Object.assign(OPT,JSON.parse(localStorage.getItem('f10_opt')||'{}'));}catch(e){}
+const OPT={sens:1,gamma:1,bob:true,res:1080,lod:false,diff:'normal',fs:1};if(TOUCH){OPT.res=360;OPT.lod=true;OPT.sens=1.2;}try{Object.assign(OPT,JSON.parse(localStorage.getItem('f10_opt')||'{}'));}catch(e){}
 if(!TOUCH&&OPT.qv!==2&&OPT.qv!==3){OPT.qv=2;if(OPT.res<1080)OPT.res=1080;OPT.lod=false;} /* 11/7 사용자: PC는 최대 화질 — 한 번만 1080p·간략화 끔으로 올림(이후 설정에서 바꾼 건 존중) */ // 폰은 기본 360p·먼 크리쳐 간략화
 /* 11/11 친구 PC 렉 핫픽스: 내장 그래픽(인텔·라이젠 APU 등)이면 처음 한 번 720p·간략화·저사양 모드로 시작 + 플레이 중 프레임이 낮으면 자동으로 화질을 낮춤(올리지는 않음) */
 const GPU_NAME=(()=>{try{const gl=renderer.getContext(),e=gl.getExtension('WEBGL_debug_renderer_info');return String(e?gl.getParameter(e.UNMASKED_RENDERER_WEBGL):gl.getParameter(gl.RENDERER));}catch(e){return'';}})();
@@ -659,21 +748,23 @@ function DK(){return DIFF[OPT.diff]||DIFF.normal;}
 let RH=OPT.res;let RW=Math.round(RH*16/9);
 const rt=new THREE.WebGLRenderTarget(640,360,{minFilter:THREE.NearestFilter,magFilter:THREE.NearestFilter});
 const postMat=new THREE.ShaderMaterial({
-  uniforms:{t:{value:rt.texture},time:{value:0},res:{value:new THREE.Vector2(640,360)},hurt:{value:0},gain:{value:OPT.gamma},peep:{value:0}},
+  uniforms:{t:{value:rt.texture},time:{value:0},res:{value:new THREE.Vector2(640,360)},hurt:{value:0},gain:{value:OPT.gamma},peep:{value:0},hdir:{value:new THREE.Vector2(0,1)},hk:{value:0},low:{value:0},beat:{value:0}},
   vertexShader:'varying vec2 vUv;void main(){vUv=uv;gl_Position=vec4(position.xy,0.,1.);}',
-  fragmentShader:`uniform sampler2D t;uniform float time;uniform vec2 res;uniform float hurt;uniform float gain;uniform float peep;varying vec2 vUv;
+  fragmentShader:`uniform sampler2D t;uniform float time;uniform vec2 res;uniform float hurt;uniform float gain;uniform float peep;uniform vec2 hdir;uniform float hk;uniform float low;uniform float beat;varying vec2 vUv;
   float h(vec2 p){return fract(sin(dot(p,vec2(12.9898,78.233)))*43758.5453);}
   void main(){vec2 px=1./res;vec2 uv=vUv;float ca=.55*px.x;float pm=1.;if(peep>.5){vec2 dd=vUv-.5;float r=length(dd*vec2(res.x/res.y,1.));uv=.5+dd*(.42+1.9*r*r);pm=smoothstep(.47,.43,r)*(1.-r*r*1.6)*1.45;ca*=1.+r*5.;}
     vec3 c=vec3(texture2D(t,uv+vec2(ca,0.)).r,texture2D(t,uv).g,texture2D(t,uv-vec2(ca,0.)).b);
     c*=gain;float l=dot(c,vec3(.299,.587,.114));c=mix(vec3(l),c,.74);c=pow(max(c,0.),vec3(1.06));c+=vec3(.016,.002,.0)*(1.-l);
     vec2 d=uv-.5;c*=1.-dot(d,d)*1.15;vec2 g=floor(uv*res);
     c+=(h(g+fract(time*7.)*113.)-.5)*.05;c=floor(c*56.+h(g*1.37)-.5)/56.;c*=1.-.025*step(.5,fract(uv.y*res.y*.5));
+    float dl=length(d);if(low>0.){c=mix(c,vec3(dot(c,vec3(.299,.587,.114))),low*.6);c*=1.-low*(.3+.3*beat)*smoothstep(.16,.7,dl);c.r+=low*.07*beat*smoothstep(.25,.75,dl);} /* 11/12 저체력: 채도 빠지고 심장 박동에 맞춰 가장자리가 조여 옴 */
+    if(hk>0.){float hd=max(0.,dot(d/max(dl,.0001),hdir));c=mix(c,vec3(.78,.05,.04),clamp(hk*pow(hd,2.5)*smoothstep(.2,.58,dl),0.,1.)*.85);} /* 11/12 맞은 방향 가장자리 붉은 번짐 */
     float hv=hurt*(.6+.4*length(d)*2.);c=mix(c,vec3(c.r*.9+.22,c.g*.35,c.b*.35),clamp(hv,0.,1.)*.55);
     gl_FragColor=vec4(c*pm,1.);}`,depthTest:false,depthWrite:false});
 const postScene=new THREE.Scene(),postCam=new THREE.OrthographicCamera(-1,1,1,-1,0,1);postScene.add(new THREE.Mesh(new THREE.PlaneGeometry(2,2),postMat));
 const handScene=new THREE.Scene(),handCam=new THREE.PerspectiveCamera(72,16/9,.01,10);
 function saveOpt(){try{localStorage.setItem('f10_opt',JSON.stringify(OPT));}catch(e){}}
-function applyOpt(){postMat.uniforms.gain.value=OPT.gamma;if(RH!==OPT.res){RH=OPT.res;resize();}}
+function applyOpt(){postMat.uniforms.gain.value=OPT.gamma;try{document.documentElement.style.setProperty('--fs',clamp(+OPT.fs||1,.8,1.6));}catch(e){}if(RH!==OPT.res){RH=OPT.res;resize();}}
 function resize(){RW=Math.max(320,Math.round(RH*innerWidth/innerHeight));rt.setSize(RW,RH);postMat.uniforms.res.value.set(RW,RH);
   renderer.setSize(innerWidth,innerHeight,false);camera.aspect=RW/RH;camera.updateProjectionMatrix();handCam.aspect=camera.aspect;handCam.updateProjectionMatrix();layoutHands();}
 
@@ -2053,7 +2144,7 @@ async function rankOnEnd(kind){const tok=++RANK_TOK;const b=$('rankBox');if(b){b
   try{await rankFlush();if(rankQ().some(o=>o.run_id===rec.run_id))throw new Error('queued');
     const top=await rankTop(OPT.diff,10),better=await rankCount(OPT.diff,'or=(esc_min.lt.'+rec.esc_min+',and(esc_min.eq.'+rec.esc_min+',deaths.lt.'+rec.deaths+'))'),tot=await rankCount(OPT.diff,'');
     const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-    rankRender('<div class="rkh">순위 · '+D+' <span>내 순위 <b>'+(better+1)+'위</b> / '+tot+'명</span></div><ol class="rkl">'+top.map((o,i)=>'<li'+(o.run_id===rec.run_id?' class="me"':'')+'><i>'+(i+1)+'</i><em>'+esc(o.name)+'</em><span>'+rankFmt(o.esc_min)+'</span><small>'+(o.deaths?o.deaths+'번 죽음':'노데스')+'</small></li>').join('')+'</ol>',tok);}
+    if(tok===RANK_TOK&&G.card){G.card.rank=better+1;G.card.rankTot=tot;}rankRender('<div class="rkh">순위 · '+D+' <span>내 순위 <b>'+(better+1)+'위</b> / '+tot+'명</span></div><ol class="rkl">'+top.map((o,i)=>'<li'+(o.run_id===rec.run_id?' class="me"':'')+'><i>'+(i+1)+'</i><em>'+esc(o.name)+'</em><span>'+rankFmt(o.esc_min)+'</span><small>'+(o.deaths?o.deaths+'번 죽음':'노데스')+'</small></li>').join('')+'</ol>',tok);}
   catch(e){rankRender('<div class="rkh">순위 · '+D+'</div><p class="rkn">인터넷 연결이 안 돼서 기록을 저장해 뒀어요. 다음에 켤 때 자동으로 올라가요.</p>',tok);}}
 /* 로비 '순위' 창: 난이도 탭 · 상위 20 · 내 이름 강조 */
 let RANKV_TOK=0;
@@ -2370,7 +2461,7 @@ function advanceTime(min,label){
   if((P.hunger<=0||P.thirst<=0)&&!P.god){P.hp-=CFG.starveHpPerMin*min*((P.hunger<=0)+(P.thirst<=0));if(P.hp<=0){P.hp=0;die('굶주림과 갈증 끝에 쓰러졌다.','starve');}}
   G.day=Math.floor(G.min/1440)+1;
   const dt=$('dtime');dt.textContent='+'+(min>=60?(min/60)+'시간':min+'분')+(label?' · '+label:'');dt.style.opacity=1;clearTimeout(dt._t);dt._t=setTimeout(()=>dt.style.opacity=0,1600);
-  if(G.day!==before){applyDay();toast(G.day+'일차. 창밖이 더 붉어졌다.',true);mono('day'+G.day,{prio:true});}
+  if(G.day!==before){applyDay();toast(G.day+'일차. 창밖이 더 붉어졌다.',true);mono('day'+G.day,{prio:true});if(G.min<CFG.deadlineMin)dayCard(label==='수면');}
   if(G.min>=CFG.deadlineMin)ending('fail');
 }
 
@@ -2726,12 +2817,12 @@ function updateCrowbar(dt,target){
     P.crowbars.sort((a,b)=>a-b);P.crowbars[0]--;if(P.crowbars[0]<=0){P.crowbars.shift();toast('빠루가 휘어 못 쓰게 됐다',true);}else toast('문이 열렸다. 빠루 '+P.crowbars[0]+'/10');
     advanceTime(CFG.time.crowbar,'빠루 개방');}
 }
-function damagePlayer(n,by,kind){if(P.dead||G.cine)return;kind=kind||(by==='drum'?'drum':by==='gorilla'||by==='bighead'?'heavy':null);if(P.god){G.hurt=.3;pHurt(n,kind);return;} // 테스트용 무적(IDDQD)
-P.hp-=n;G.hurt=1;P.kick=Math.max(P.kick,.4);if(!by&&LAST_ATK&&LAST_ATK.hidden&&!LAST_ATK.dead)by='drum'; /* 108차: 1층 보스 죽음은 전부 드럼통 엔딩 */if(P.hp<=0&&by!=='drum'&&LAST_ATK&&LAST_ATK.type==='listener'&&!LAST_ATK.dead&&!G.cine){P.hp=0;pHurt(n,kind,true);listenerKillCine(LAST_ATK);return;}if(P.hp<=0){P.hp=0;pHurt(n,kind,true);die(by==='gorilla'?'거대한 주먹에 짓이겨졌다.':by==='bighead'?'거대한 머리에 짓눌렸다.':by==='drum'?'드럼통에 깔렸다.':'놈들에게 붙잡혔다.',by||'creature');}else pHurt(n,kind);}
+function damagePlayer(n,by,kind){if(P.dead||G.cine)return;const kind0=kind;kind=kind||(by==='drum'?'drum':by==='gorilla'||by==='bighead'?'heavy':null);if(P.god){G.hurt=.3;pHurt(n,kind);return;} // 테스트용 무적(IDDQD)
+hitFrom();P.hp-=n;G.hurt=1;P.kick=Math.max(P.kick,.4);if(!by&&LAST_ATK&&LAST_ATK.hidden&&!LAST_ATK.dead)by='drum'; /* 108차: 1층 보스 죽음은 전부 드럼통 엔딩 */if(P.hp<=0&&by!=='drum'&&LAST_ATK&&LAST_ATK.type==='listener'&&!LAST_ATK.dead&&!G.cine){P.hp=0;G.deathWho='CHASER';pHurt(n,kind,true);listenerKillCine(LAST_ATK);return;}if(P.hp<=0){P.hp=0;pHurt(n,kind,true);const di=deathInfo(by,kind0||kind);G.deathWho=di[1];die(di[0],by||'creature');}else pHurt(n,kind);}
 
 /* ================= 입력 ================= */
 // 폰 터치 조작(11/6): 왼쪽 = 이동 스틱(끝까지 밀면 달리기) · 오른쪽 = 시점 드래그 · 새총 버튼 누르면 당김/떼면 발사(누른 채 끌면 조준)
-function setupTouch(){if(!TOUCH)return;document.body.classList.add('touch');try{fitStage();addEventListener('resize',fitStage);}catch(e){}const T=$('touchUI'),st=$('tStick'),kn=st.querySelector('i');
+function setupTouch(){if(!TOUCH)return;document.body.classList.add('touch');try{fitStage();addEventListener('resize',fitStage);}catch(e){}a2hsHint();const T=$('touchUI'),st=$('tStick'),kn=st.querySelector('i');
   const kd=c=>dispatchEvent(new KeyboardEvent('keydown',{code:c})),ku=c=>dispatchEvent(new KeyboardEvent('keyup',{code:c}));
   const look=new Map();let mv=null;const R=60;
   const pt=(e,f)=>{e.preventDefault();e.stopPropagation();for(const t of e.changedTouches)f(t);};
@@ -3278,8 +3369,10 @@ const CREDITS={staff:[['기획 · 감독','Production San'],['시나리오 · �
   cast:[['주인공','김수민'],['인산이','Production San<small>쪽지로만 출연</small>'],['DRIFTER <small>비척이</small>','김준형'],['CHASER <small>추격자</small>','김지훈'],['SLUGGER <small>빠따 약탈자</small>','박세용'],['BOTTLER <small>병 던지는 약탈자</small>','송용휘'],['WATCHER <small>주시자</small>','연정흔 · 남상현'],['THE HEAD <small>8층 보스</small>','박호제'],['WARDEN <small>4층 보스</small>','박승욱'],['???','???']],
   tools:[['코드 · 3D 가공','Claude'],['이미지 · 3D 모델','Higgsfield · Meshy · Tripo'],['효과음','ElevenLabs']]};
 let CRED_T=null;
+/* 11/12 사용자: 엔딩 크레딧 SPECIAL THANKS */
+const SPECIAL_THANKS=[['김준형','최초 클리어 · 버그 제보 · 플레이 피드백'],['김수민','주인공 역할 참여 · 플레이 리액션 · 아이디어 제공']];
 function openCredits(){const el=$('credP'),r=$('credRoll');if(!el)return;const row=a=>'<div class="crow"><span>'+a[0]+'</span><span>'+a[1]+'</span></div>';
-  r.innerHTML='<h1>10F / 10DAY</h1><div class="sub">PROJECT.JITZ</div><h3>제작진</h3>'+CREDITS.staff.map(row).join('')+'<h3>출연</h3>'+CREDITS.cast.map(row).join('')+'<h3>도움</h3>'+CREDITS.tools.map(row).join('')+'<div class="end">끝까지 내려와 줘서 고마워요.<br>붉은 하늘 아래, 어딘가에서.</div>';
+  r.innerHTML='<h1>10F / 10DAY</h1><div class="sub">PROJECT.JITZ</div><h3>제작진</h3>'+CREDITS.staff.map(row).join('')+'<h3>출연</h3>'+CREDITS.cast.map(row).join('')+'<h3>도움</h3>'+CREDITS.tools.map(row).join('')+'<h3>SPECIAL THANKS</h3>'+SPECIAL_THANKS.map(a=>'<div class="cthx"><b>'+a[0]+'</b><small>'+a[1]+'</small></div>').join('')+'<div class="end">끝까지 내려와 줘서 고마워요.<br>붉은 하늘 아래, 어딘가에서.</div>';
   el.hidden=false;r.style.transition='none';r.style.transform='translateY(0)';void r.offsetHeight;const H=r.offsetHeight+window.innerHeight,v=H/Math.max(26,H/55);
   /* 11/7: 누르고 있으면 6배 빠르게, 짧게 누르면 닫기 */
   clearTimeout(CRED_T);const C=CRED={y:0,held:0,t0:0,last:performance.now()};
@@ -3319,6 +3412,7 @@ function openTip(i){const N=TIPS[i];if(!N)return;openNote(null,N);G.tipsRead=G.t
 function openNote(f,TN){const N=TN||NOTES[f];if(!N)return;G.ui='note';G.paused=true;cancelDraw();for(const k in keys)keys[k]=false;if(!TEST&&document.pointerLockElement)document.exitPointerLock();
   $('noteTitle').textContent=N.title;$('noteBody').innerHTML=N.text.map(t=>'<p>'+t+'</p>').join('')+(N.torn?'<p class="torn">(뒤는 찢겨 있다)</p>':'');$('noteP').hidden=false;
   {const pp=$('notePaper');if(!FONT_READY&&document.fonts&&document.fonts.load){pp.style.visibility='hidden';const show=()=>{pp.style.visibility='';};Promise.race([document.fonts.load('25px "Nanum Pen Script"',N.text.join('')),new Promise(r=>setTimeout(r,1500))]).then(show,show);}else pp.style.visibility='';}
+  noteWear(TN?null:f);
   G.noteIsTip=!!TN;if(!TN&&!G.notesRead.includes(f)){G.notesRead.push(f);}if(sfx.uiNote)sfx.uiNote();}
 function closeNote(){$('noteP').hidden=true;G.ui=null;G.paused=false;lockPointer();if(G.noteIsTip){G.noteIsTip=false;return;}const first=G.notesRead.length===1;mono(first?'note1':'noteN');}
 
@@ -3577,7 +3671,7 @@ function render(){
   {const fv=P.peep?118:P.fov;if(Math.abs(camera.fov-fv)>.01){camera.fov=fv;camera.updateProjectionMatrix();handCam.fov=P.fov;handCam.updateProjectionMatrix();layoutHands();}}
   const fwd=new THREE.Vector3(0,0,-1).applyEuler(camera.rotation);
   lamp.position.set(P.x+fwd.x*.05,camera.position.y+.08,P.z+fwd.z*.05);lamp.target.position.copy(camera.position).addScaledVector(fwd,5);lamp.intensity=P.lamp&&!P.hide&&G.state==='play'?1.55:0;renderer.shadowMap.autoUpdate=lamp.intensity>0; // 랜턴 꺼지면 그림자 지도 안 그림(셰이더는 그대로라 재컴파일 없음)
-  updateHands(G.t);laserTick(fwd);postMat.uniforms.time.value=G.t;postMat.uniforms.hurt.value=G.hurt;
+  updateHands(G.t);laserTick(fwd);postMat.uniforms.time.value=G.t;postMat.uniforms.hurt.value=G.hurt;fxFrame();
   renderer.setRenderTarget(rt);renderer.clear();renderer.render(scene,camera);renderer.clearDepth();renderer.render(handScene,handCam);if(LZ.scene&&LZ.dot.visible)renderer.render(LZ.scene,camera);
   renderer.setRenderTarget(null);renderer.clear();renderer.render(postScene,postCam);
 }
@@ -4247,7 +4341,8 @@ function ending(kind,why){hideBossUI();
    if(pic)escFxStart(pic.slice(4));
    endMusic(kind==='escape'?'hope':'dirge');G.deathBy=null;}
   $('endEye').textContent=E[0];$('endTitle').textContent=E[1];
-  G.card={name:(typeof META!=='undefined'&&META.name)||'',kind,eye:E[0],title:E[1],day:G.day,clock:fmtClock(G.min),floor:G.floor,kills:G.kills,notes:(G.notesRead||[]).length,nT:Object.keys(NOTES).length,sling:CFG.sling[P.tier].name,diff:OPT.diff,deaths:(G.run&&G.run.deaths)||0,pic:(($('endPic')&&$('endPic').style.backgroundImage.match(/(end_[a-z]+)\.jpg/))||[])[1]||'end_creature'};
+  G.card={name:(typeof META!=='undefined'&&META.name)||'',kind,eye:E[0],title:E[1],day:G.day,clock:fmtClock(G.min),floor:G.floor,kills:G.kills,notes:(G.notesRead||[]).length,nT:Object.keys(NOTES).length,sling:CFG.sling[P.tier].name,diff:OPT.diff,deaths:(G.run&&G.run.deaths)||0,pic:(($('endPic')&&$('endPic').style.backgroundImage.match(/(end_[a-z]+)\.jpg/))||[])[1]||'end_creature',who:kind==='dead'?(G.deathWho||''):''};
+  try{if((kind==='dead'||kind==='fail'||kind==='escape')&&typeof META!=='undefined'){META.e=META.e||{};const k=G.card.pic.slice(4);META.e[k]=(META.e[k]||0)+1;if(typeof metaSave==='function')metaSave();}}catch(e){} /* 11/12 본 엔딩 기록(엔딩 갤러리) */
   {/* 11/6 기록: 이번 판 vs 최고 기록(탈출 최단 시간·최다 처치·최다 쪽지·가장 깊은 층). 판을 넘어 META.best에 쌓임 */
    const nN=(G.notesRead||[]).length,nT=Object.keys(NOTES).length,M_=typeof META!=='undefined'?META:null;let B=null,nw={};
    if(M_){B=M_.best=M_.best||{};
@@ -4256,7 +4351,7 @@ function ending(kind,why){hideBossUI();
      if(B.floor==null||G.floor<B.floor){nw.f=B.floor!=null;B.floor=G.floor;}try{metaSave();}catch(e){}}
    const tag=(isNew,best)=>isNew?' <b class="newrec">최고 기록!</b>':best!=null?' <small class="bestrec">최고 '+best+'</small>':'';
    const escB=B&&B.escMin!=null?(Math.floor(B.escMin/1440)+1)+'일차 '+fmtClock(B.escMin):null;
-   $('endStat').innerHTML=`<dt>시각</dt><dd>${G.day}일차 ${fmtClock(G.min)}${kind==='escape'?tag(nw.t,escB):escB?' <small class="bestrec">최단 탈출 '+escB+'</small>':''}</dd><dt>도달</dt><dd>${G.floor}층${tag(nw.f,B&&B.floor!=null?B.floor+'층':null)}</dd><dt>처치</dt><dd>${G.kills}${tag(nw.k,B?B.kills:null)}</dd><dt>새총</dt><dd>${CFG.sling[P.tier].name}</dd><dt>쪽지</dt><dd>${nN} / ${nT}${tag(nw.n,B&&B.notes!=null?B.notes+' / '+nT:null)}</dd>${kind==='escape'?`<dt>죽은 횟수</dt><dd>${(G.run&&G.run.deaths)||0}번${!((G.run&&G.run.deaths)||0)?' <b class="newrec">노데스!</b>':''}</dd>`:''}`;}
+   $('endStat').innerHTML=`<dt>시각</dt><dd>${G.day}일차 ${fmtClock(G.min)}${kind==='escape'?tag(nw.t,escB):escB?' <small class="bestrec">최단 탈출 '+escB+'</small>':''}</dd><dt>도달</dt><dd>${G.floor}층${tag(nw.f,B&&B.floor!=null?B.floor+'층':null)}</dd><dt>처치</dt><dd>${G.kills}${tag(nw.k,B?B.kills:null)}</dd><dt>새총</dt><dd>${CFG.sling[P.tier].name}</dd><dt>쪽지</dt><dd>${nN} / ${nT}${tag(nw.n,B&&B.notes!=null?B.notes+' / '+nT:null)}</dd>${kind==='dead'&&G.deathWho?`<dt>마지막 상대</dt><dd>${G.deathWho}</dd>`:''}${kind==='escape'?`<dt>죽은 횟수</dt><dd>${(G.run&&G.run.deaths)||0}번${!((G.run&&G.run.deaths)||0)?' <b class="newrec">노데스!</b>':''}</dd>`:''}`;}
   /* 11/9: 죽은 횟수(이번 판 누적) — 층 진입 저장·휴식 저장에도 같이 올려서 다시 해도 유지 */
   if(kind==='dead'||kind==='fail'){const inc=o=>{if(!o)return;o.run=o.run||{d:OPT.diff,full:false};o.run.deaths=(o.run.deaths||0)+1;};G.run=G.run||{d:OPT.diff,full:false};G.run.deaths=(G.run.deaths||0)+1;
     if(FLOOR_SAVE&&FLOOR_SAVE.run!==G.run)inc(FLOOR_SAVE);if(typeof REST_SAVE!=='undefined'&&REST_SAVE&&REST_SAVE.s)inc(REST_SAVE.s);if(kind==='dead'&&typeof saveGame==='function')saveGame();}
@@ -4280,6 +4375,7 @@ function startFloor(){document.body.classList.remove('cineOn');if(typeof worldMu
   G.holdCrow=null;G.survIdx={};G.ev={};G.hurt=0;MONO.q=[];MONO.cur=null;MONO.shown={};MONO.gap=1.2;Object.keys(MONO).forEach(k=>{if(/^u\d/.test(k)||k==='home')delete MONO[k];});if($('mono'))$('mono').hidden=true;
   enterFloor(false);const RS=REST_SAVE&&REST_SAVE.floor===G.floor?REST_SAVE:null;if(RS)applyRest(RS);G.state='play';G.paused=false;G.ui=null;$('hud').hidden=false;$('endP').hidden=true;
   if(RS){say('','침대 옆. 잠들기 직전으로 돌아왔다.');toast(G.floor+'층 · 마지막 휴식에서 다시',true);return;}
+  G.deathWho=null;floorCard();
   if(G.floor===10){say('','1002호. 비상계단은 건물 한가운데, 남쪽 복도 쪽에 있다.');toast('목표 · 물자를 챙겨 비상계단으로 (남쪽 복도 가운데)');}
   else{say('',G.floor+'층 비상계단. 다시 아래로 내려갈 계단을 찾아야 한다.');toast(G.floor+'층',true);}
 }
@@ -4294,7 +4390,7 @@ function quitToLobby(){if(G.state!=='play')return;silenceWorld();if(AC){const t=
 /* 11/7: 친구 배포판 — 테스트 치트(무적 ZZ·층 이동 ANG·폰 테스트 버튼) 끔. ?dev 주소로 열면 켜짐 */
 const DEV=/[?&]dev\b/.test(location.search);
 function jumpFloor(n){if(!DEV)return;if(G.state!=='play'||n<LAST_FLOOR||n>10)return;if(G.run)G.run.full=false;if(!modelsReady(n)){waitModels(n,()=>jumpFloor(n));return;}G.floor=n;P.hasSling=true;if(n<=5)P.shoes=true;P.tier=Math.max(P.tier,floorKit(n).tier);P.hp=Math.max(P.hp,100);REST_SAVE=null;FLOOR_SAVE=snapshot();saveGame();enterFloor(true);warmFloor();fadeIn(.8);toast(n+'층으로 이동 (개발용)',true);}
-function descend(){if(!modelsReady(G.floor-1)){waitModels(G.floor-1,descend);return;}G.floor--;if(G.floor<(META.reach||10)){META.reach=G.floor;metaSave();}REST_SAVE=null;FLOOR_SAVE=snapshot();saveGame();enterFloor(true);warmFloor();fadeIn(.8);toast(G.floor+'층 · 여기까지 저장됨',true);say('',G.floor+'층 비상계단. 구조는 같지만, 같은 층이 아니다.');
+function descend(){if(!modelsReady(G.floor-1)){waitModels(G.floor-1,descend);return;}G.floor--;if(G.floor<(META.reach||10)){META.reach=G.floor;metaSave();}REST_SAVE=null;FLOOR_SAVE=snapshot();saveGame();enterFloor(true);warmFloor();fadeIn(.8);toast(G.floor+'층 · 여기까지 저장됨',true);say('',G.floor+'층 비상계단. 구조는 같지만, 같은 층이 아니다.');floorCard();
   const ARR={4:'raidBase',3:'darkFloor',2:'hordeFloor',1:'lobby'};if(ARR[G.floor])setTimeout(()=>mono(ARR[G.floor],{prio:true}),2500);
   if(FLOORS[G.floor]&&FLOORS[G.floor].bench)setTimeout(()=>mono('benchHint',{prio:true}),2500);if(FLOORS[G.floor]&&FLOORS[G.floor].boss)setTimeout(()=>mono('bossHint',{prio:true}),2500);}
 // 층 만들기 + 시작 위치(10층: 내 집 / 그 아래: 비상계단 문 안쪽)
@@ -4303,6 +4399,81 @@ function enterFloor(fromStairs){G.hbDown=false;G.frenzy=false;G.fightT=0;G.calmT
   if(fromStairs||G.floor<10)P.pitch=0;P.drawing=false;P.reloadT=0;G.holdCrow=null;G.ev={};tagFloor();}
 // 새 게임 인트로 시작 전에 10층을 한 번 지어 셰이더·텍스처를 미리 올려 둠(안 하면 시작 첫 프레임에 수 초 멈칫)
 function prewarm(){try{restore(FLOOR_SAVE);enterFloor(false);renderer.compile(scene,camera);const st=G.state;G.state='play';const y0=P.yaw;for(let i=0;i<4;i++){P.yaw=y0+i*Math.PI/2;render();}P.yaw=y0;G.state=st;}catch(e){console.warn('prewarm',e);}}
+
+
+/* 11/12 엔딩 갤러리: 본 엔딩 그림을 칭호 창에서 다시 보기(안 본 건 ???) */
+const ENDS=[['escape','탈출'],['turn','공기 감염'],['creature','붙잡히다'],['closet','옷장'],['starve','굶주림'],['bighead','8층의 그것'],['gorilla','4층의 주인'],['drum','드럼통']];
+function renderEndings(){const box=$('endGrid');if(!box)return;const E=Object.assign({},META.e||{});if(META.esc>0&&!E.escape)E.escape=META.esc;
+  const n=ENDS.filter(e=>E[e[0]]).length;$('endCount').textContent=n+' / '+ENDS.length;
+  box.innerHTML=ENDS.map(([k,nm])=>E[k]?'<button type="button" class="ecard on" data-e="'+k+'"><i style="background-image:url(\'end_'+k+'.jpg\')"></i><b>'+nm+'</b><span>'+E[k]+'번</span></button>':'<div class="ecard"><i></i><b>???</b><span>아직 못 봄</span></div>').join('');
+  box.querySelectorAll('.ecard.on').forEach(b=>b.onclick=e=>{e.stopPropagation();const k=b.dataset.e;$('galImg').src='end_'+k+'.jpg';$('galCap').textContent=(ENDS.find(x=>x[0]===k)||[])[1]||'';$('galP').hidden=false;});}
+(function(){const g=document.getElementById('galP');if(!g)return;const close=e=>{if(e)e.stopPropagation();g.hidden=true;};g.addEventListener('click',close);document.getElementById('galX').onclick=close;addEventListener('keydown',e=>{if(!g.hidden&&(e.code==='Escape'||e.code==='Enter'||e.code==='Space')){e.stopPropagation();e.preventDefault();g.hidden=true;}},true);})();
+/* 11/12 폰 브라우저로 열었을 때 한 번: 홈 화면에 추가하면 주소창 없이 전체 화면(로비 잘림도 줄어듦) */
+function a2hsHint(){try{const sa=navigator.standalone===true||matchMedia('(display-mode: standalone)').matches||matchMedia('(display-mode: fullscreen)').matches;if(sa||localStorage.getItem('f10_a2hs'))return;
+  const el=$('a2hs');if(!el)return;const ios=/iPhone|iPad|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+  el.querySelector('span').textContent=ios?'사파리 공유 버튼 → "홈 화면에 추가"로 열면 주소창 없이 전체 화면으로 할 수 있어요.':'브라우저 메뉴 → "홈 화면에 추가"로 열면 전체 화면으로 할 수 있어요.';el.hidden=false;
+  el.querySelector('button').onclick=e=>{e.stopPropagation();el.hidden=true;try{localStorage.setItem('f10_a2hs','1');}catch(_){}};}catch(e){}}
+/* ================= 138차(11/12) 연출: 층 타이틀 카드 · 날짜 컷 · 피격 방향 · 저체력 · 랜턴 먼지·떨림 · 사망 정보 · 쪽지 질감 ================= */
+const FLOOR_SUB={10:'집',9:'젖은 복도',8:'붉은 층',7:'초록 비상등',6:'울음소리',5:'깜빡이는 형광등',4:'그들의 구역',3:'정전',2:'떼',1:'공동현관'}; /* 층 부제(초안 — 사용자 수정 예정). 스포일러 없이 분위기만 */
+let TC_TOK=0;
+function titleCard(o){const el=$('tcard');if(!el)return;const tok=++TC_TOK;clearTimeout(titleCard.t1);clearTimeout(titleCard.t2);clearInterval(titleCard.iv);
+  $('tcEye').textContent=o.eye||'';$('tcBig').innerHTML=o.big||'';$('tcSub').textContent='';$('tcLine').textContent=o.line||'';
+  const bg=$('tcBg');bg.style.backgroundImage=o.bg?"url('"+o.bg+"')":'';bg.style.opacity=o.bg?.9:0;
+  el.style.setProperty('--tca',o.alpha==null?1:o.alpha);el.className=o.cls||'';el.hidden=false;el.style.transition='none';el.style.opacity=1;void el.offsetWidth;
+  const s=o.sub||'',t0=performance.now();let i=0;titleCard.iv=setInterval(()=>{if(tok!==TC_TOK){clearInterval(titleCard.iv);return;}const n=Math.min(s.length,Math.floor((performance.now()-t0-250)/42));if(n<=i)return;i=n;$('tcSub').textContent=s.slice(0,i);if(s[i-1]&&s[i-1]!==' '&&AC&&!G.paused)nz(.018,2600+Math.random()*900,2,.05,0,'bandpass');if(i>=s.length)clearInterval(titleCard.iv);},30); /* 글자 수는 지난 시간으로 계산(프레임이 느려도 제때 끝남) */
+  const fade=o.fade||.9;titleCard.t1=setTimeout(()=>{if(tok!==TC_TOK)return;el.style.transition='opacity '+fade+'s ease';el.style.opacity=0;titleCard.t2=setTimeout(()=>{if(tok===TC_TOK)el.hidden=true;},fade*1000+60);},(o.hold||1.5)*1000+250+s.length*42);}
+function titleCardOff(){TC_TOK++;clearTimeout(titleCard.t1);clearTimeout(titleCard.t2);clearInterval(titleCard.iv);const el=$('tcard');if(el)el.hidden=true;}
+/* 층에 들어설 때: 9F · DAY 2 · 14:20 · 부제 */
+function floorCard(){const left=Math.max(0,10-Math.floor(G.min/1440));titleCard({eye:'project.Jitz',big:G.floor+'<i>F</i>',sub:'DAY '+G.day+' · '+fmtClock(G.min)+' · '+left+'일 남음',line:FLOOR_SUB[G.floor]||'',hold:1.25,fade:.9,cls:'fl'});}
+/* 날짜가 넘어갈 때(잠에서 깰 때 + 깨어 있다가 자정을 넘길 때): 그날 창밖 그림 위에 DAY n. 쫓기는 중이면 화면을 가리지 않고 알림만 */
+function dayCard(sleep){if(P.dead||G.state!=='play')return;if(!sleep&&typeof BGM!=='undefined'&&BGM.lvl>=2)return;
+  const st=winStageFor(G.day),prev=winStageFor(G.day-1),left=Math.max(0,11-G.day);
+  const line=st!==prev?['','창밖에 연기가 오른다.','도시가 불타고 있다.','하늘이 무너진다.'][st]:'창밖이 더 붉어졌다.';
+  titleCard({eye:sleep?'눈을 떴다':'자정이 지났다',big:'DAY <b>'+G.day+'</b>',sub:left>1?'남은 시간 '+left+'일':'마지막 날',line,hold:sleep?2:1.5,fade:1,alpha:sleep?1:.8,bg:(typeof WIN_SRC!=='undefined'&&WIN_SRC['win'+st])||null,cls:'day'+(sleep?'':' awake')});}
+/* 맞은 방향 · 저체력 · 랜턴 */
+const FXS={hk:0,hx:0,hy:1,lt:0,low:0,fl:1,flT:0,dust:null};
+function hitFrom(){let s=LAST_ATK;if(!s){let bd=26;for(const c of creatures){if(c.dead||c.pooled)continue;const d=Math.hypot(c.x-P.x,c.z-P.z);if(d<bd){bd=d;s=c;}}}
+  if(!s){FXS.hk=0;return;}const vx=s.x-P.x,vz=s.z-P.z,l=Math.hypot(vx,vz)||1,fx=-Math.sin(P.yaw),fz=-Math.cos(P.yaw),rx=Math.cos(P.yaw),rz=-Math.sin(P.yaw);
+  FXS.hx=(vx*rx+vz*rz)/l;FXS.hy=(vx*fx+vz*fz)/l;FXS.hk=1;}
+function deathInfo(by,kind){const c=LAST_ATK;if(by==='gorilla')return['거대한 주먹에 짓이겨졌다.',CNAME.gor];if(by==='bighead')return['거대한 머리에 짓눌렸다.',CNAME.big];if(by==='drum')return['드럼통에 깔렸다.',CNAME.hidden];
+  if(kind==='bat')return['약탈자의 방망이에 쓰러졌다.',CNAME.pipe];if(kind==='glass')return['날아온 병에 맞아 쓰러졌다.',CNAME.bottle];
+  if(c&&c.crawl)return['천장에서 내려온 것에게 붙잡혔다.',CNAME.crawl];if(c&&c.type==='listener')return['울음소리가 귓가에서 멎었다.',CNAME.listener];
+  if(c&&c.type==='runner')return['달려든 놈을 뿌리치지 못했다.',CNAME.runner];return['놈들에게 붙잡혔다.',CNAME.shambler];}
+function fxFrame(){const now=G.t||0,dt=clamp(now-(FXS.lt||now),0,.1);FXS.lt=now;const U=postMat.uniforms,play=G.state==='play';
+  FXS.hk=Math.max(0,FXS.hk-dt*1.05);U.hk.value=play?FXS.hk:0;U.hdir.value.set(FXS.hx,FXS.hy);
+  const low=play&&!P.dead&&!P.god?clamp((38-P.hp)/30,0,1):0;FXS.low+=(low-FXS.low)*Math.min(1,dt*2.5);U.low.value=FXS.low<.004?0:FXS.low;
+  const ph=(now*(66+46*FXS.low)/60)%1;U.beat.value=Math.pow(Math.max(0,Math.sin(ph*Math.PI)),6)+.5*Math.pow(Math.max(0,Math.sin(((ph+.7)%1)*Math.PI)),10);
+  /* 추격자(CHASER)가 9m 안에 있으면 랜턴이 가까울수록 자주 떨림 — 소리 말고 눈으로도 알 수 있게 */
+  if(lamp.intensity>0){let k=0;for(const c of creatures){if(c.dead||c.pooled||c.type!=='listener')continue;const d=Math.hypot(c.x-P.x,c.z-P.z);if(d<9)k=Math.max(k,1-d/9);}
+    FXS.flT-=dt;if(FXS.flT<=0){FXS.flT=.05+Math.random()*.08;FXS.fl=Math.random()<k*.5?(.4+Math.random()*.35):1;}if(k>0)lamp.intensity*=FXS.fl;}
+  dustTick(now);}
+/* 랜턴 빛 속에 떠다니는 먼지: 카메라 둘레 6m 상자를 감싸 도는 점들, 랜턴 원뿔 안에서만 보임(벽 뒤는 깊이 검사로 가려짐) */
+function dustInit(){const N=TOUCH?200:420,pos=new Float32Array(N*3);for(let i=0;i<N;i++){pos[i*3]=Math.random()*6;pos[i*3+1]=Math.random()*2.25;pos[i*3+2]=Math.random()*6;}
+  const ge=new THREE.BufferGeometry();ge.setAttribute('position',new THREE.BufferAttribute(pos,3));
+  const ma=new THREE.ShaderMaterial({uniforms:{time:{value:0},cam:{value:new THREE.Vector3()},k:{value:0},sz:{value:3}},transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,
+    vertexShader:`uniform float time;uniform vec3 cam;uniform float k;uniform float sz;varying float a;
+    void main(){vec3 p=position;float s=p.x*12.9+p.z*7.3+p.y*3.1;p.x+=time*.03+sin(time*.21+s)*.12;p.z+=cos(time*.17+s*1.7)*.12+time*.011;p.y+=sin(time*.13+s*2.3)*.1-time*.007;
+      vec3 q=vec3(mod(p.x-cam.x+3.,6.)-3.+cam.x,.08+mod(p.y,2.25),mod(p.z-cam.z+3.,6.)-3.+cam.z);
+      vec4 mv=viewMatrix*vec4(q,1.);float dz=-mv.z;float ang=length(mv.xy)/max(dz,.01);
+      a=k*smoothstep(.46,.1,ang)*smoothstep(.35,1.,dz)*smoothstep(5.,2.4,dz)*(.5+.5*sin(time*1.1+s*5.));
+      gl_PointSize=clamp(sz/max(dz,.3),1.,sz*1.5);gl_Position=projectionMatrix*mv;}`,
+    fragmentShader:`varying float a;void main(){float f=smoothstep(.5,.1,length(gl_PointCoord-.5));gl_FragColor=vec4(vec3(.95,.88,.78)*a*f*.55,1.);}`});
+  const pt=new THREE.Points(ge,ma);pt.frustumCulled=false;pt.renderOrder=5;scene.add(pt);FXS.dust=pt;}
+function dustTick(now){if(!FXS.dust){try{dustInit();}catch(e){FXS.dust={dead:1};}}const d=FXS.dust;if(!d||d.dead)return;const u=d.material.uniforms;
+  u.time.value=now;u.cam.value.copy(camera.position);u.k.value=lamp.intensity>0?Math.min(1,lamp.intensity/1.55):0;u.sz.value=Math.max(2,RH*.011);d.visible=G.state==='play'&&u.k.value>0;}
+/* 쪽지: 아래층 쪽지일수록 구겨지고 얼룩지고 피가 묻음(층 번호 시드, 길잡이 메모는 깨끗한 종이) */
+function noteWear(f){const pp=$('notePaper'),bd=$('noteBody');if(!pp)return;if(f==null||!(+f>=1)){pp.style.backgroundImage='';pp.style.backgroundSize='';pp.style.backgroundColor='';pp.style.transform='';if(bd)bd.style.textShadow='';return;}
+  const w=clamp((10-(+f))/9,0,1),r=mulberry32(977+(+f)*131),L=[],S=[];
+  const add=(img,size)=>{L.push(img);S.push(size||'100% 100%');};
+  /* 피는 글씨를 가리지 않게 가장자리에만: 작은 방울 + (3층 아래) 모서리의 엄지 자국·번짐 */
+  if(+f<=6){const n=+f<=3?5:3;for(let i=0;i<n;i++){const side=Math.floor(r()*4),e=r()*9,o=6+r()*88,x=side===0?e:side===1?100-e:o,y=side===2?e*1.6:side===3?100-e*1.6:o,ra=2+r()*(+f<=3?7:4.5);add('radial-gradient(circle at '+x.toFixed(0)+'% '+y.toFixed(0)+'%,rgba(104,12,10,'+(.5+.25*w).toFixed(2)+') 0,rgba(104,12,10,'+(.38+.2*w).toFixed(2)+') '+ra.toFixed(1)+'px,rgba(104,12,10,0) '+(ra+2+r()*3).toFixed(1)+'px)');}}
+  if(+f<=3){add('radial-gradient(ellipse 34px 46px at 96% 92%,rgba(96,10,8,.42) 0,rgba(96,10,8,.3) 60%,rgba(96,10,8,0) 100%)');add('linear-gradient('+(118+r()*24).toFixed(0)+'deg,rgba(96,10,8,0) 80%,rgba(96,10,8,.2) 88%,rgba(96,10,8,.3) 94%,rgba(96,10,8,0) 100%)');}
+  for(let i=0;i<Math.round(w*4);i++){const a=(r()*160+10).toFixed(0),p=(18+r()*64).toFixed(0);add('linear-gradient('+a+'deg,transparent calc('+p+'% - 2px),rgba(50,40,30,'+(.10+.14*w).toFixed(2)+') calc('+p+'% - 1px),rgba(255,255,255,.22) '+p+'%,transparent calc('+p+'% + 2px))');}
+  for(let i=0;i<Math.round(1+w*3);i++){const x=r()*100,y=r()*100,ra=40+r()*90;add('radial-gradient(ellipse at '+x.toFixed(0)+'% '+y.toFixed(0)+'%,rgba(96,70,30,0) '+(ra*.55).toFixed(0)+'px,rgba(96,70,30,'+(.10+.16*w).toFixed(2)+') '+(ra*.8).toFixed(0)+'px,rgba(96,70,30,'+(.04+.06*w).toFixed(2)+') '+ra.toFixed(0)+'px,rgba(96,70,30,0) '+(ra+6).toFixed(0)+'px)');}
+  add('repeating-linear-gradient(0deg,transparent 0 33px,rgba(70,90,120,.18) 33px 34px)','100% 34px');add('radial-gradient(circle at 80% 10%,rgba(120,90,40,.18),transparent 40%)');
+  pp.style.backgroundImage=L.join(',');pp.style.backgroundSize=S.join(',');
+  const mix=(a,b)=>Math.round(a+(b-a)*w);pp.style.backgroundColor='rgb('+mix(217,196)+','+mix(211,182)+','+mix(197,152)+')';pp.style.transform='rotate('+(-1.2+(r()-.5)*2.6*w).toFixed(2)+'deg)';
+  if(bd)bd.style.textShadow=w>.45?'0 0 '+(w*1.6).toFixed(1)+'px rgba(42,38,34,.55)':'';}
 /* 11/6 저장 버전: 저장에 v를 붙이고, 읽을 때 빠진 값은 기본값으로 채우고 이상한 값은 고침. 못 고칠 만큼 깨졌으면 지우고 처음부터 */
 const SAVE_V=2;
 function fixSave(s){const d=initialSave(),o=Object.assign({},d,s||{});const num=(v,a,b,df)=>Number.isFinite(+v)?clamp(+v,a,b):df;
@@ -4379,6 +4550,12 @@ function updateLogo(){try{const e=$('lplay');if(e&&typeof META!=='undefined'){if
   const lf=$('logoF'),ld=$('logoD');const nf=f+'F',nd=d+'DAY';
   [[lf,nf],[ld,nd]].forEach(([el,v])=>{if(el.textContent!==v){el.textContent=v;el.classList.remove('tick');void el.offsetWidth;el.classList.add('tick');}});
   $('saveNote').textContent=note;document.title=nf+' / '+nd;
+  /* 11/12 로비가 진행도를 반영: 복도 불빛 = 저장된 층의 조명 색, 얼굴 = 저장된 체력 단계(색만 — 상처 그림은 사용자 그림이 오면 교체), 최고 기록 한 줄 */
+  try{let sv=null;try{sv=readSave();}catch(e){}const fl=$('lflick'),fc=$('lface');
+    const C=sv?({9:'154,184,212',8:'255,60,50',7:'88,240,136',6:'255,174,104',5:'232,240,255',4:'255,184,72',3:'90,20,20',2:'210,216,142',1:'255,70,40'})[sv.floor]:null;
+    if(fl)fl.style.background=C?'radial-gradient(ellipse at 50% 30%,rgba('+C+',.4),transparent 65%)':'';
+    const hp=sv&&sv.s?(sv.rest&&sv.rest.s?sv.rest.s.hp:sv.s.hp):100;if(fc)fc.dataset.hp=hp<15?3:hp<40?2:hp<70?1:0;
+    const lb=$('lbest');if(lb&&typeof META!=='undefined'){const B=META.best||{};if(B.escMin!=null){lb.innerHTML='BEST <b>'+(Math.floor(B.escMin/1440)+1)+'일차 '+fmtClock(B.escMin)+'</b> 탈출'+(META.esc>1?' · '+META.esc+'회':'');lb.hidden=false;}else if(B.floor!=null&&B.floor<10){lb.innerHTML='BEST <b>'+B.floor+'층</b> 도달';lb.hidden=false;}else lb.hidden=true;}}catch(e){}
 }
 
 const INTRO=['사흘 전, 하늘이 붉게 갈라졌다.','북쪽에서 날아온 미사일은 터지지 않았다. 대신 무언가를 흩뿌렸다.','야간 근무 중이던 회사 건물이 그대로 봉쇄됐다. 휴대폰은 그날부터 먹통이었다.','사흘 만에 겨우 빠져나와, 집으로 돌아왔다.','10층, 1002호. 정전. 엘리베이터는 멈춰 있었다.','인산이는 없었다.'];
@@ -4394,7 +4571,14 @@ function playIntro(done){
     if(ci>=line.length){cur.classList.add('done');cur=null;li++;wait=li===INTRO.length-1?26:18;}},55);
 }
 /* ================= 로비 ================= */
-function fitStage(){const st=$('stage');if(!st)return;const k=(document.body.classList.contains('touch')?Math.max:Math.min)(innerWidth/1672,innerHeight/941); /* 폰: 화면 꽉 채움(위아래 조금 잘림) */st.style.transform='translate(-50%,-50%) scale('+k+')';}
+function fitStage(){const st=$('stage');if(!st)return;const T=document.body.classList.contains('touch'),W=innerWidth,H=innerHeight,k=(T?Math.max:Math.min)(W/1672,H/941); /* 폰: 화면 꽉 채움(그림은 위아래가 조금 잘림) */st.style.transform='translate(-50%,-50%) scale('+k+')';
+  /* 11/12: 폰에서 로비 아래가 잘리던 문제 — 그림은 그대로 꽉 채우고, 글자·메뉴 묶음(#lui)만 잘린 만큼(cx·cy, 노치·홈 막대 포함) 안쪽으로 옮기고 모자라면 줄인다 */
+  const ui=$('lui');if(!ui)return;let sl=0,sv=0;try{const c=getComputedStyle($('saProbe'));sl=parseFloat(c.paddingLeft)||0;sv=Math.max(parseFloat(c.paddingTop)||0,parseFloat(c.paddingBottom)||0);}catch(e){}
+  const cx=Math.max(0,(1672-W/k)/2),cy=Math.max(0,(941-H/k)/2)+sv/k,s=clamp((470.5-cy-10)/372,.5,1),ox=cx+Math.max(0,sl/k-70);
+  ui.style.transform=(ox>0.5||s<.999)?'translate('+ox.toFixed(1)+'px,0) scale('+s.toFixed(4)+')':'';}
+/* 아이폰은 회전·주소창 변화 직후 예전 화면 높이를 알려 줄 때가 있다 → 조금 뒤에 다시 맞춤 */
+function refitSoon(){[80,350,900].forEach(ms=>setTimeout(()=>{try{dispatchEvent(new Event('resize'));}catch(e){}},ms));}
+addEventListener('orientationchange',refitSoon);addEventListener('pageshow',refitSoon);try{if(window.visualViewport)visualViewport.addEventListener('resize',()=>{clearTimeout(refitSoon.t);refitSoon.t=setTimeout(()=>dispatchEvent(new Event('resize')),60);});}catch(e){}
 addEventListener('resize',fitStage);
 function lobbyItems(){return[...document.querySelectorAll('#lmenu button')];}
 function lobbySel(i){const it=lobbyItems();i=(i+it.length)%it.length;it.forEach((b,j)=>b.classList.toggle('on',j===i));G.lsel=i;}
@@ -4410,7 +4594,7 @@ function lobbyAct(act){
   else if(act==='set'){$('mSet').hidden=false;}
   else if(act==='keys'){$('mKeys').hidden=false;}
   else if(act==='credits'){if(typeof openCredits==='function')openCredits();}
-  else if(act==='titles'){renderTitles();$('mTitles').hidden=false;}
+  else if(act==='titles'){renderTitles();if(typeof renderEndings==='function')renderEndings();$('mTitles').hidden=false;}
   else if(act==='rank'){if(typeof openRank==='function')openRank();}
 }
 function setupLobby(){
@@ -4513,7 +4697,7 @@ async function boot(){try{if(location.protocol.startsWith('http')){const cur=((d
   initHands();installFx();warmFonts();try{setupTouch();}catch(e){console.warn(e);}
   if((!TOUCH||!DEV)&&$('devRow'))$('devRow').style.display='none';{const q=$('quitBtn');let arm=0,tm=0;q.onclick=e=>{e.stopPropagation();if(!arm){arm=1;q.textContent='한 번 더 누르면 로비로 (이 층 진행은 사라짐)';clearTimeout(tm);tm=setTimeout(()=>{arm=0;q.textContent='로비로 나가기';},3500);return;}arm=0;clearTimeout(tm);q.textContent='로비로 나가기';quitToLobby();};} /* 11/6 PC는 키 치트(ZZ 무적·ANG+숫자 층 이동)만, 폰은 버튼 유지 */
   document.querySelectorAll('[data-dev]').forEach(b=>b.addEventListener('click',()=>{const v=b.dataset.dev; /* 테스트용 임시: 무적·층 이동(폰에서도) */
-    if(v==='god'){P.god=!P.god;if(P.god)rankTaint();if(P.god)P.hp=100;toast(P.god?'무적 켬 (테스트용)':'무적 끔',true);}else jumpFloor(+v);}));buildTextures();FLOOR_SAVE=initialSave();restore(FLOOR_SAVE);resize();addEventListener('resize',resize);requestAnimationFrame(loop);updateLogo();G.booted=true; /* 11/11 로딩 끝나기 전 Enter로 시작하면 텍스처가 없어 buildFloor 크래시 → 로딩 끝까지 로비 입력 막음 */
+    if(v==='god'){P.god=!P.god;if(P.god)rankTaint();if(P.god)P.hp=100;toast(P.god?'무적 켬 (테스트용)':'무적 끔',true);}else jumpFloor(+v);}));buildTextures();FLOOR_SAVE=initialSave();restore(FLOOR_SAVE);resize();addEventListener('resize',resize);requestAnimationFrame(loop);updateLogo();applyOpt();G.booted=true; /* 11/11 로딩 끝나기 전 Enter로 시작하면 텍스처가 없어 buildFloor 크래시 → 로딩 끝까지 로비 입력 막음 */
   const bp=$('bootP');if(bp){bp.classList.add('done');setTimeout(()=>bp.hidden=true,700);}
 }
 if(typeof THREE==='undefined'){const t=document.getElementById('bootTxt');if(t)t.textContent='3D 엔진(three.js)을 못 불러왔어요 · 새로고침해 주세요';}
