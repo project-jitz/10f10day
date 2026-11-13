@@ -523,7 +523,7 @@ body:has(.lmodal:not([hidden])) #a2hs{display:none} /* 창이 열려 있으면 '
     <div class="lui" id="lui">
     <div class="ltag"><h3>열흘 안에, 1층으로.</h3><p>문밖에서 들리는 발소리. 더는 이웃이 아니다.<br>남은 시간은 열흘. 이 건물에서 나가야 한다.</p></div>
     <div class="lhint">ENTER 시작 · ↑↓ 선택</div>
-    <div class="lver"><span id="lplay"></span> · v1.0.26 · 2026.11.13</div>
+    <div class="lver"><span id="lplay"></span> · v1.0.27 · 2026.11.13</div>
     <div class="llogo"><div class="lnum"><span id="logoF">10F</span><span class="sl">/</span><span class="dy" id="logoD">10DAY</span></div><div class="proj">project.<b>Jitz</b></div></div>
     <nav class="lmenu" id="lmenu" aria-label="메인 메뉴">
       <div class="lmain">
@@ -4642,16 +4642,16 @@ function autoQTick(raw){if(TOUCH||!OPT.autoQ||G.state!=='play'||G.paused||G.ui||
 function saveGame(){if(REST_SAVE&&REST_SAVE.floor!==G.floor)REST_SAVE=null;try{localStorage.setItem('f10_save',JSON.stringify({v:SAVE_V,floor:G.floor,s:FLOOR_SAVE,rest:REST_SAVE||undefined}));}catch(e){}bestUpdate(G.floor,FLOOR_SAVE);}
 /* 11/9 휴식 저장(사용자): 침대에서 '잔다'를 누르는 순간(잠들기 직전) 이 층의 진행을 저장 — 죽으면 그 침대 앞에서 다시. 뒤진 상자·문·죽인 놈·주운 물건·떨어진 물건까지 */
 function markSearched(t){t.key=false;t.meshes.forEach(m=>{if(m.material&&m.material.color){m.material=m.material.clone();m.material.userData.perFloor=true;m.material.color.multiplyScalar(.6);if(m.material.emissive)m.material.emissive.setHex(0);}});t.glowM=null;}
-function tagFloor(){INTER.forEach((t,i)=>t._i=i);pickups.forEach((p,i)=>p._pi=i);G.crN0=creatures.length;}
+function tagFloor(){INTER.forEach((t,i)=>t._i=i);pickups.forEach((p,i)=>p._pi=i);creatures.forEach((c,i)=>c._ci=i);G.crN0=creatures.length;} /* v1.0.27: 크리쳐마다 고유 번호 — 배열 순서가 바뀌어도(휴식 복원 때 죽은 놈 제거) 휴식 저장이 엉뚱한 놈과 짝지어지지 않게 */
 function makeRest(){const r2=v=>Math.round(v*100)/100;
   return JSON.parse(JSON.stringify({floor:G.floor,s:snapshot(),x:r2(P.x),z:r2(P.z),yaw:r2(P.yaw),hasKey:!!G.hasKey,visited:G.visited instanceof Set?[...G.visited]:null,survIdx:G.survIdx||{},
     cont:CONTAINERS.map(c=>[c.searched?1:0,c.loot]),doors:DOORS.map(d=>[d.open?1:0,d.broken?1:0,d.type]),
-    crN:G.crN0,cr:creatures.slice(0,G.crN0).map(c=>c.dead?0:[r2(c.x),r2(c.z),Math.round(c.hp)]),
+    crN:G.crN0,ci:1,cr:Array.from({length:G.crN0},(_,i)=>{const c=creatures.find(o=>o._ci===i);return !c||c.dead?0:[r2(c.x),r2(c.z),Math.round(c.hp)];}),
     inter:INTER.filter(t=>t._i!=null).map(t=>t._i),picks:pickups.filter(p=>p._pi!=null).map(p=>[p._pi,p.n]),dyn:pickups.filter(p=>p._pi==null).map(p=>[p.k,p.n,r2(p.x),r2(p.z),p.uses])}));}
 function applyRest(R){try{restore(R.s);P.x=R.x;P.z=R.z;P.yaw=R.yaw;P.pitch=0;G.hasKey=R.hasKey;if(R.visited)G.visited=new Set(Array.isArray(R.visited)?R.visited:[]);G.survIdx=R.survIdx||{};
   if(R.cont&&R.cont.length===CONTAINERS.length)CONTAINERS.forEach((c,i)=>{const[sr,l]=R.cont[i];c.loot=l||[];if(sr&&!c.searched){c.searched=true;if(typeof markSearched==='function')markSearched(c);}});
   if(R.doors&&R.doors.length===DOORS.length)DOORS.forEach((d,i)=>{const[o,b,t]=R.doors[i];d.open=!!o;d.broken=!!b;if(t)d.type=t;d.ang=d.open?1:0;});
-  if(R.crN===G.crN0&&R.cr){const rm=[];creatures.slice(0,G.crN0).forEach((c,i)=>{const v=R.cr[i];if(!v)rm.push(c);else{if(!(c.gor||c.boss||c.big||c.hidden)){c.x=v[0];c.z=v[1];c.hp=Math.min(c.maxHp||v[2],v[2]);} /* v1.0.26: 보스는 잠든 시점 위치·체력 복원 안 함 → 원래 방에서 풀피로 다시(복도에 잠든 채로 남아 '보스 안 나옴' 버그) */c.state=c.state==='chase'?'idle':c.state;if(c.home){}}});
+  if(R.crN===G.crN0&&R.cr){const rm=[];const keyGone=!!R.hasKey||(R.dyn||[]).some(a=>a[0]==='stairKey');creatures.slice(0,G.crN0).forEach((c,i)=>{const v=R.cr[R.ci?c._ci:i];const boss=c.gor||c.boss||c.big||c.hidden;if(!v&&boss&&!R.ci&&!keyGone){} /* v1.0.27: 예전 휴식 저장은 순서가 어긋나 살아 있는 보스가 '죽음'으로 찍혀 있을 수 있음 → 열쇠를 얻기 전이면 보스는 남김 */else if(!v)rm.push(c);else{if(!(c.gor||c.boss||c.big||c.hidden)){c.x=v[0];c.z=v[1];c.hp=Math.min(c.maxHp||v[2],v[2]);} /* v1.0.26: 보스는 잠든 시점 위치·체력 복원 안 함 → 원래 방에서 풀피로 다시(복도에 잠든 채로 남아 '보스 안 나옴' 버그) */c.state=c.state==='chase'?'idle':c.state;if(c.home){}}});
     rm.forEach(c=>{try{stopVoice(c,.02);}catch(e){}if(c.root)world.remove(c.root);creatures.splice(creatures.indexOf(c),1);});}
   const keepI=new Set(R.inter||[]);for(let i=INTER.length-1;i>=0;i--){const t=INTER[i];if(t._i!=null&&!keepI.has(t._i)&&t.kind!=='pick'){if(t.mesh)world.remove(t.mesh);INTER.splice(i,1);}}
   const keepP=new Map((R.picks||[]).map(a=>[a[0],a[1]]));for(let i=pickups.length-1;i>=0;i--){const p=pickups[i];if(p._pi==null)continue;if(keepP.has(p._pi))p.n=keepP.get(p._pi);else{world.remove(p.mesh);pickups.splice(i,1);const j=INTER.indexOf(p);if(j>=0)INTER.splice(j,1);}}
