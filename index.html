@@ -523,7 +523,7 @@ body:has(.lmodal:not([hidden])) #a2hs{display:none} /* 창이 열려 있으면 '
     <div class="lui" id="lui">
     <div class="ltag"><h3>열흘 안에, 1층으로.</h3><p>문밖에서 들리는 발소리. 더는 이웃이 아니다.<br>남은 시간은 열흘. 이 건물에서 나가야 한다.</p></div>
     <div class="lhint">ENTER 시작 · ↑↓ 선택</div>
-    <div class="lver"><span id="lplay"></span> · v1.0.27 · 2026.11.13</div>
+    <div class="lver"><span id="lplay"></span> · v1.0.28 · 2026.11.13</div>
     <div class="llogo"><div class="lnum"><span id="logoF">10F</span><span class="sl">/</span><span class="dy" id="logoD">10DAY</span></div><div class="proj">project.<b>Jitz</b></div></div>
     <nav class="lmenu" id="lmenu" aria-label="메인 메뉴">
       <div class="lmain">
@@ -2208,7 +2208,7 @@ function deathPose(c,dt){const k0=c.deadT,dk=c.dk||'plank';const spd={head:2.8,k
 /* 11/6 달리는 비척이: 같은 모델, 몸을 숙이고 빠르게. 체력 낮음 */
 const RUN_K={spd:1.55,hp:.6};
 function makeRunner(c){c.runner=true;c.hp=Math.round(c.hp*RUN_K.hp);c.maxHp=c.hp;if(c.baseHp)c.baseHp=Math.round(c.baseHp*RUN_K.hp);c.pitch=(c.pitch||1)*1.08;}
-function killCreature(c,dir,byNPC){c.dead=true;c.deadT=0;pickDeath(c);if(!byNPC){const mk=c.hidden?'hb':c.gor?'gor':c.big||c.type==='brute'?'big':c.type==='raider'?(c.role==='thrower'?'thr':'pipe'):c.type==='listener'?'ls':c.type==='shambler'?'sh':null;if(mk)metaAdd(mk);}{const fx=Math.sin(c.face),fz=Math.cos(c.face),L=c.type==='listener'?2:1.7;c.fallDir=!wallBetween(c.x,c.z,c.x-fx*L,c.z-fz*L)?1:!wallBetween(c.x,c.z,c.x+fx*L,c.z+fz*L)?-1:.55;}if(!byNPC){G.kills++;if(!c.hidden&&!c.gor&&!c.boss)setTimeout(()=>vo('kill',25),450);}if(c.hidden){G.hbDown=true;G.postShots=0;if(!playVoice(c,'intro',{gain:1.3}))creatureSay(c,'die');say(HB.name,HB.line);mono('killHidden',{prio:true});dropPickup('bandage',2,c.x+.3,c.z);dropPickup('steel',8,c.x-.3,c.z);}else if(c.gor){if(G.keyBy==='gorilla')dropPickup('stairKey',1,c.x+.5,c.z+.3);dropPickup('steel',10,c.x-.5,c.z);dropPickup('painkiller',1,c.x,c.z+.5);dropPickup('mat',3,c.x,c.z-.5);mono('killGorilla',{prio:true});}else if(c.boss){dropPickup('sling1',1,c.x,c.z);if(G.keyBy==='boss')dropPickup('stairKey',1,c.x+.4,c.z+.2);mono('killBoss',{prio:true});}
+function killCreature(c,dir,byNPC){c.dead=true;c.deadT=0;pickDeath(c);if(!byNPC){const mk=c.hidden?'hb':c.gor?'gor':c.big||c.type==='brute'?'big':c.type==='raider'?(c.role==='thrower'?'thr':'pipe'):c.type==='listener'?'ls':c.type==='shambler'?'sh':null;if(mk)metaAdd(mk);}{const fx=Math.sin(c.face),fz=Math.cos(c.face),L=c.type==='listener'?2:1.7;c.fallDir=!wallBetween(c.x,c.z,c.x-fx*L,c.z-fz*L)?1:!wallBetween(c.x,c.z,c.x+fx*L,c.z+fz*L)?-1:.55;}if(!byNPC){G.kills++;if(!c.hidden&&!c.gor&&!c.boss)setTimeout(()=>vo('kill',25),450);}if(c.hidden){G.hbDown=true;G.postShots=0;if(!playVoice(c,'intro',{gain:1.3}))creatureSay(c,'die');say(HB.name,HB.line);mono('killHidden',{prio:true});dropPickup('bandage',2,c.x+.3,c.z);dropPickup('steel',8,c.x-.3,c.z);}else if(c.gor){if(G.keyBy==='gorilla')dropKey(c,1.6);dropPickup('steel',10,c.x-.5,c.z);dropPickup('painkiller',1,c.x,c.z+.5);dropPickup('mat',3,c.x,c.z-.5);mono('killGorilla',{prio:true});}else if(c.boss){dropPickup('sling1',1,c.x,c.z);if(G.keyBy==='boss')dropKey(c,1.3);mono('killBoss',{prio:true});}
   if(c.hidden)hbMaskBreak(c);
   if(c.type==='raider'){raiderDrop(c);creatureSay(c,'die');blood(c.x,1,c.z,14,dir);if(!byNPC)mono(c.role==='thrower'?'killThrower':'killPipe',{prio:true,once:false});return;}
   if(c.type==='shambler'&&!byNPC)mono('killShambler',{prio:true});if(c.type==='listener'&&!byNPC)mono('killListener',{prio:true,once:false});if(!c.hidden)creatureSay(c,'die');blood(c.x,1,c.z,18,dir);if(!byNPC)say('','쓰러졌다… 다시 일어나진 않는다.'); /* 11/7 사용자: 김수민이 처치했을 때만 */if(Math.random()<.35)dropPickup('junk',3+Math.floor(Math.random()*4),c.x+.3,c.z+.3);}
@@ -2463,7 +2463,7 @@ function updateRaider(c,dt){
   c.headYaw=lerpAng(c.headYaw,c.headTarget,dt*5);
   if(mv){c.rstep=(c.rstep||0)-dt;if(c.rstep<=0){c.rstep=.45;at(c.x,c.z,()=>nz(.05,260,1,.22,0,'lowpass'));hear(c.x,c.z,1.6,'rstep');}}
   poseCreature(c,mv);}
-function raiderDrop(c){const tot={};c.bag.forEach(({k,n})=>tot[k]=(tot[k]||0)+n);tot.steel=(tot.steel||0)+1+Math.floor(Math.random()*3);if(Math.random()<.6)tot.canned=(tot.canned||0)+1;if(Math.random()<.35)tot.mat=(tot.mat||0)+1;if(Math.random()<.4)tot.bandage=(tot.bandage||0)+1;if(c.chief&&G.keyBy==='chief')dropPickup('stairKey',1,c.x-.3,c.z+.3);if(c.chief){tot.steel+=10;tot.painkiller=(tot.painkiller||0)+1;tot.mat=(tot.mat||0)+3;}
+function raiderDrop(c){const tot={};c.bag.forEach(({k,n})=>tot[k]=(tot[k]||0)+n);tot.steel=(tot.steel||0)+1+Math.floor(Math.random()*3);if(Math.random()<.6)tot.canned=(tot.canned||0)+1;if(Math.random()<.35)tot.mat=(tot.mat||0)+1;if(Math.random()<.4)tot.bandage=(tot.bandage||0)+1;if(c.chief&&G.keyBy==='chief')dropKey(c,.9);if(c.chief){tot.steel+=10;tot.painkiller=(tot.painkiller||0)+1;tot.mat=(tot.mat||0)+3;}
   Object.entries(tot).forEach(([k,n],i)=>dropPickup(k,n,c.x+Math.cos(i*1.7)*.35,c.z+Math.sin(i*1.7)*.35));}
 
 /* ================= 새총 · 투사체 ================= */
@@ -2592,6 +2592,11 @@ function setupKey(){G.hasKey=false;G.keyBy=null;G.keyU=null;G.visited=new Set();
   const r=mulberry32(G.floor*313+7),start=G.floor===10?UNITS[1]:null;
   const cand=CONTAINERS.filter(c=>{const U=c.U||unitAt(c.x,c.z);return U&&U!==start&&(UCFG[U.num]||{}).door!=='survivor'&&U.type!=='tps';});
   if(!cand.length){G.hasKey=true;return;}const c=cand[Math.floor(r()*cand.length)];c.key=true;G.keyBy='cont';G.keyU=(c.U||unitAt(c.x,c.z));}
+/* v1.0.28 사용자: 보스가 벽에 붙어 죽으면 열쇠가 몸통 밑·벽 쪽에 깔려 줍기 힘듦 → 시체에서 내 쪽으로 몸집만큼 떨어진 빈 바닥에 떨굼 + 1.1m 안에 오면 자동으로 주움 */
+function dropKey(c,R){const dx=P.x-c.x,dz=P.z-c.z,d=Math.hypot(dx,dz)||1;let best=null;
+  for(let k=0;k<24&&!best;k++){const a=Math.atan2(dx,dz)+(k%2?1:-1)*Math.ceil(k/2)*.26;const x=c.x+Math.sin(a)*Math.min(R,d),z=c.z+Math.cos(a)*Math.min(R,d);if(!blockedCircle(x,z,.3)&&!wallBetween(c.x,c.z,x,z))best={x,z};}
+  if(!best){best={x:c.x+dx/d*Math.min(R,d),z:c.z+dz/d*Math.min(R,d)};unstick(best,.3);}const p=dropPickup('stairKey',1,best.x,best.z);if(p)p.r=2.6;return p;}
+function keyAuto(){if(G.hasKey||P.dead||P.hide)return;for(const p of pickups)if(p.k==='stairKey'&&Math.hypot(p.x-P.x,p.z-P.z)<1.1){gotKey();removePickup(p);return;}}
 function gotKey(){if(G.hasKey)return;G.hasKey=true;vo('key',0);SFX2.keys();toast((FLOORS[G.floor]||{}).blocked?'열쇠를 찾았다 · 관리실 배관 통로 자물쇠':'계단실 열쇠를 찾았다 · 비상계단으로',true);mono('gotKey',{prio:true});}
 function keyHint(){if(G.hasKey)return null;if(G.keyBy==='boss')return '열쇠요? 그 큰 머리통이 입에 물고 다니는 거 봤어요.';if(G.keyBy==='gorilla')return '계단 열쇠는 관리실에 있는데… 거기 뭔가 커다란 게 들어앉았어요. 문 열지 마요.';if(G.keyBy==='chief')return '계단 열쇠는 두목이 갖고 있어요. 관리실에서 안 나와요.';
   const U=G.keyU;return U&&typeof U.num==='number'?('계단실 열쇠… '+(G.floor*100+(U.num-1000))+'호 쪽에서 누가 숨겨 두는 걸 봤어요.'):null;}
@@ -3752,7 +3757,7 @@ function update(dt){
   ptTick(dt);
   if(G.cine){G.t+=dt;(G.cine.tick||cineTick)(dt*(G.cine.spd||1));return;} /* 11/7: 옷장 처형은 2.5배 빠르게(spd) */
   for(const c of creatures){if(!c.dfx){c.dfx=1;const k=DK().hp;if(k!==1&&!c.dead){c.baseHp*=k;c.maxHp*=k;c.hp*=k;}}} // 난이도 체력 배율(새로 생긴 적에 한 번)
-  G.t+=dt;const pl=CFG.player;if(G.state==='play'&&!P.dead&&P.hp<25)vo('lowhp',22);
+  G.t+=dt;if(G.state==='play')keyAuto();const pl=CFG.player;if(G.state==='play'&&!P.dead&&P.hp<25)vo('lowhp',22);
   let f=(keys.KeyW?1:0)-(keys.KeyS?1:0),s=(keys.KeyD?1:0)-(keys.KeyA?1:0);const tm=TOUCH&&Math.hypot(TMV.x,TMV.y)>.22;if(tm){f=-TMV.y;s=TMV.x;}const run=(keys.ShiftLeft||keys.ShiftRight||(tm&&TMV.run))&&!P.crouch&&!P.drawing;
   if(P.peep){if(f||s||P.dead||G.hurt>.5)exitPeep();else peepTick(dt);}
   let sp=P.crouch?1.1:run?(P.shoes?4.8:4.0):2.2;/* 11/6 강화 신발: 달리기 4.0→4.8 */if(P.drawing)sp*=.6;if(P.slowT>0){P.slowT-=dt;sp*=BH.slowK;}if(inFlood(P.x,P.z))sp*=.78;P.moving=0;P.vx=0;P.vz=0;
