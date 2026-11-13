@@ -523,7 +523,7 @@ body:has(.lmodal:not([hidden])) #a2hs{display:none} /* 창이 열려 있으면 '
     <div class="lui" id="lui">
     <div class="ltag"><h3>열흘 안에, 1층으로.</h3><p>문밖에서 들리는 발소리. 더는 이웃이 아니다.<br>남은 시간은 열흘. 이 건물에서 나가야 한다.</p></div>
     <div class="lhint">ENTER 시작 · ↑↓ 선택</div>
-    <div class="lver"><span id="lplay"></span> · v1.0.28 · 2026.11.13</div>
+    <div class="lver"><span id="lplay"></span> · v1.0.29 · 2026.11.14</div>
     <div class="llogo"><div class="lnum"><span id="logoF">10F</span><span class="sl">/</span><span class="dy" id="logoD">10DAY</span></div><div class="proj">project.<b>Jitz</b></div></div>
     <nav class="lmenu" id="lmenu" aria-label="메인 메뉴">
       <div class="lmain">
@@ -2224,7 +2224,7 @@ const RANK_Q='f10_rankq';
 function rankOn(){return !!(RANK.url&&RANK.key);}
 function rankTaint(){if(G.run)G.run.cheat=true;if(typeof FLOOR_SAVE!=='undefined'&&FLOOR_SAVE&&FLOOR_SAVE.run)FLOOR_SAVE.run.cheat=true;}
 function cleanName(s){return String(s||'').replace(/[\u0000-\u001f<>]/g,'').trim().slice(0,12);}
-function rankEligible(){const r=G.run;if(!r||!r.full)return '층 선택으로 시작한 판';if(r.cheat)return '순위 조건에 맞지 않는 판';if(r.d!==OPT.diff)return '중간에 난이도를 바꾼 판';if(!cleanName(META.name))return '이름 없음';return '';}
+function rankEligible(){const r=G.run;if(r&&r.mix)return '중간에 난이도를 바꾼 판';if(!r||!r.full)return '층 선택으로 시작한 판';if(r.cheat)return '순위 조건에 맞지 않는 판';if(r.d!==OPT.diff)return '중간에 난이도를 바꾼 판';if(!cleanName(META.name))return '이름 없음';return '';}
 function rankHdr(x){const h={apikey:RANK.key,'Content-Type':'application/json'};if(/^eyJ/.test(RANK.key))h.Authorization='Bearer '+RANK.key; /* 예전 anon 키(JWT)만 Bearer, 새 sb_publishable 키는 apikey만 */return Object.assign(h,x||{});}
 function rankQ(){try{return JSON.parse(localStorage.getItem(RANK_Q)||'[]');}catch(e){return[];}}
 /* 145차: 난이도별 내 최고 기록을 기기에 남겨 순위 창 '내 기록' 줄에 씀 */
@@ -2331,7 +2331,12 @@ function floorKit(F){const s=initialSave();s.hasSling=true;s.shoes=F<=5;s.tier=F
 const FLOOR_TAG={10:'처음부터 · 인트로',9:'',8:'보스 · 큰 머리',7:'약탈자 등장',6:'작업대(개량형 02)',5:'약탈자 2조',4:'약탈자 소굴 · 고릴라',3:'정전 · 듣는 놈 4',2:'떼거리 · 배관 통로',1:'공동현관 · 최종 보스'};
 function renderFloorPick(){const box=$('floorGrid');if(!box)return;box.innerHTML='';const low=META.esc>=1?1:(META.reach||10);for(let f=10;f>=low;f--){const b=document.createElement('button');b.type='button';b.innerHTML='<b>'+f+'F</b><span>'+(FLOOR_TAG[f]||'')+'</span>'+(f<10?'<span>새총 · '+CFG.sling[floorKit(f).tier].name+'</span>':'');b.onclick=()=>{$('mFloor').hidden=true;startAt(f);};box.appendChild(b);}}
 /* 난이도를 바꾸면 진행 중인 판은 난이도 칭호 대상에서 빠짐 */
-function diffChanged(){if(G.run&&G.run.d!==OPT.diff){if(G.run.full&&G.state==='play')toast('난이도를 바꿔서 이번 판은 난이도 칭호에서 빠집니다',true);G.run.full=false;}if(FLOOR_SAVE&&FLOOR_SAVE.run&&FLOOR_SAVE.run.d!==OPT.diff)FLOOR_SAVE.run.full=false;
+function diffChanged(){ /* v1.0.29 사용자: 10층 시작하자마자 쉬움으로 바꿨는데 순위에서 빠짐 → 10층 첫 1시간(게임 시간) 안이면 난이도만 갈아끼우고 순위·칭호 그대로 */
+  const early=G.floor===10&&(G.min-CFG.startMin)<=60;
+  if(early){const fix=o=>{if(o&&o.d!==OPT.diff)o.d=OPT.diff;};fix(G.run);if(FLOOR_SAVE)fix(FLOOR_SAVE.run);if(typeof REST_SAVE!=='undefined'&&REST_SAVE&&REST_SAVE.s)fix(REST_SAVE.s.run);
+    ['f10_save','f10_best'].forEach(K=>{try{const o=JSON.parse(localStorage.getItem(K)||'null');if(o&&o.s&&o.s.run&&o.s.run.d!==OPT.diff&&o.floor===10){o.s.run.d=OPT.diff;localStorage.setItem(K,JSON.stringify(o));}}catch(e){}});
+    if(G.run&&G.run.full&&G.state==='play')toast('난이도 변경 · 이번 판은 '+DK().name+' 순위로 기록됩니다',true);return;}
+  if(G.run&&G.run.d!==OPT.diff){G.run.mix=true;if(G.run.full&&G.state==='play')toast('난이도를 바꿔서 이번 판은 난이도 칭호에서 빠집니다',true);G.run.full=false;}if(FLOOR_SAVE&&FLOOR_SAVE.run&&FLOOR_SAVE.run.d!==OPT.diff)FLOOR_SAVE.run.full=false;
   ['f10_save','f10_best'].forEach(K=>{try{const o=JSON.parse(localStorage.getItem(K)||'null');if(o&&o.s&&o.s.run&&o.s.run.d!==OPT.diff){o.s.run.full=false;localStorage.setItem(K,JSON.stringify(o));}}catch(e){}});}
 function startAt(F){REST_SAVE=null;G.nameOk=false;if(F===10){lobbyAct('new10');return;}monoRunReset();G.floor=F;FLOOR_SAVE=floorKit(F);FLOOR_SAVE.run={d:OPT.diff,full:false};try{localStorage.setItem('f10_save',JSON.stringify({v:SAVE_V,floor:F,s:FLOOR_SAVE}));}catch(e){}bestUpdate(F,FLOOR_SAVE);
   $('titleP').hidden=true;if(typeof prewarm==='function')prewarm();startFloor();fadeIn(.8);lockPointer();setTimeout(()=>{if(!locked)toast('화면을 클릭하면 시점 조작이 시작됩니다');},400);}
