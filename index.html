@@ -483,6 +483,38 @@ body:not(.touch) #mKeys .keys kbd{font-size:20px}
 body:not(.touch) #mKeys .note{font-size:13px}
 body:has(.lmodal:not([hidden])) #a2hs{display:none} /* 창이 열려 있으면 '홈 화면에 추가' 안내 띠를 숨김 */
 @media (max-height:520px){.lmodal{padding-block:8px}.lmodal:not(#mRank) .box{padding:12px 16px 10px;max-height:100%;gap:8px}.lmodal .box h2{font-size:20px}.lmodal:not(#mRank) .box>.btns:last-child:has(>[data-close]:only-child){margin-bottom:-38px}.lmodal .vols,.lmodal .opts{font-size:13px;gap:6px 12px}}
+
+/* 11/18 새총 안내(첫 줍기 1회) · 당김 게이지 */
+#slingTut{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.975);display:flex;align-items:center;justify-content:center;gap:36px;padding:18px max(18px,env(safe-area-inset-left,0px));color:#e8e1d4;font-family:'Noto Sans KR',sans-serif;cursor:pointer;-webkit-user-select:none;user-select:none}
+#slingTut[hidden]{display:none!important}
+#stFig{position:relative;flex:0 0 auto;width:min(46vw,560px);aspect-ratio:854/480;border:1px solid rgba(255,60,50,.35);border-radius:10px;overflow:hidden;background:radial-gradient(ellipse at 50% 40%,#2a1614,#080505 75%)}
+#stCv{position:absolute;inset:0;width:100%;height:100%}
+#stPow{position:absolute;left:12px;bottom:10px;font:700 15px/1 'Noto Sans KR',sans-serif;letter-spacing:.02em;text-shadow:0 1px 3px #000}
+#stPow b{font:400 24px/1 VT323,monospace;color:#fff;margin-left:6px}
+#stPow.full b{color:#ff4a3d}
+#stTxt{max-width:440px}
+#stTxt .eyebrow{font:400 16px/1 VT323,monospace;letter-spacing:.25em;color:#ff4a3d;margin-bottom:6px}
+#stTxt h2{margin:0 0 14px;font-size:28px;font-weight:700}
+#stTxt ol{margin:0;padding-left:1.3em;font-size:16px;line-height:1.6}
+#stTxt li{margin-bottom:8px}
+#stTxt li b{color:#ff6a5c}
+#stTxt .dim{color:#9a918a;font-size:14px}
+#stGo{margin-top:16px;font:400 18px/1 VT323,monospace;letter-spacing:.15em;color:#9a918a;opacity:0;transition:opacity .4s}
+#stGo.on{opacity:1;animation:stBlink 1.4s infinite}
+@keyframes stBlink{50%{opacity:.35}}
+@media (max-width:900px),(max-height:520px){#slingTut{gap:18px}#stFig{width:44vw}#stTxt h2{font-size:20px;margin-bottom:8px}#stTxt ol{font-size:13px;line-height:1.45}#stTxt li{margin-bottom:4px}#stTxt .dim{font-size:12px}#stGo{margin-top:8px;font-size:15px}}
+#drawRing{position:fixed;left:50%;top:50%;width:46px;height:46px;margin:-23px 0 0 -23px;z-index:9;pointer-events:none;opacity:0;transition:opacity .12s}
+#drawRing.on{opacity:1}
+#drawRing circle{fill:none;stroke-width:3}
+#drawRing .tr{stroke:rgba(255,255,255,.16)}
+#drawRing .fg{stroke:#e8e1d4;stroke-linecap:round;transform:rotate(-90deg);transform-origin:50% 50%}
+#drawRing.full .fg{stroke:#ff3b30;filter:drop-shadow(0 0 4px #ff2a20)}
+#drawRing.full{animation:drFull .5s ease-out}
+#drawRing.shake{animation:drShake .09s infinite}
+#drawRing.shake .fg{stroke:#c98a52;filter:none}
+@keyframes drFull{0%{transform:scale(1.35)}100%{transform:scale(1)}}
+@keyframes drShake{0%{transform:translate(1px,-1px)}50%{transform:translate(-1px,1px)}100%{transform:translate(1px,1px)}}
+body.cineOn #drawRing{display:none}
 </style>
 
 <canvas id="view"></canvas>
@@ -523,7 +555,7 @@ body:has(.lmodal:not([hidden])) #a2hs{display:none} /* 창이 열려 있으면 '
     <div class="lui" id="lui">
     <div class="ltag"><h3>열흘 안에, 1층으로.</h3><p>문밖에서 들리는 발소리. 더는 이웃이 아니다.<br>남은 시간은 열흘. 이 건물에서 나가야 한다.</p></div>
     <div class="lhint">ENTER 시작 · ↑↓ 선택</div>
-    <div class="lver"><span id="lplay"></span> · v1.0.29 · 2026.11.14</div>
+    <div class="lver"><span id="lplay"></span> · v1.0.30 · 2026.11.18</div>
     <div class="llogo"><div class="lnum"><span id="logoF">10F</span><span class="sl">/</span><span class="dy" id="logoD">10DAY</span></div><div class="proj">project.<b>Jitz</b></div></div>
     <nav class="lmenu" id="lmenu" aria-label="메인 메뉴">
       <div class="lmain">
@@ -558,7 +590,7 @@ body:has(.lmodal:not([hidden])) #a2hs{display:none} /* 창이 열려 있으면 '
       <kbd>Esc</kbd><span>일시정지 · 볼륨</span>
     </div>
     <div class="note">벽이나 물건을 쏘면 그 자리에서 소리가 납니다. 크리쳐는 소리를 따라가고 문은 못 엽니다.</div>
-    <div class="btns"><button type="button" class="ghost" data-close>닫기</button></div></div></div>
+    <div class="btns"><button type="button" class="ghost" id="stAgain">새총 쓰는 법 보기</button><button type="button" class="ghost" data-close>닫기</button></div></div></div>
   <div class="lmodal" id="mTitles" hidden><div class="box wide"><h2>칭호 <small id="titleCount"></small></h2><div class="tgrid" id="titleGrid"></div><p class="note" id="statLine"></p><h2 class="egh">엔딩 <small id="endCount"></small></h2><div class="egrid" id="endGrid"></div><div class="btns"><button type="button" class="ghost" data-close>닫기</button></div></div></div>
   <div class="lmodal" id="mFloor" hidden><div class="box wide"><h2>층 선택</h2><p class="lede">한 번이라도 도착한 층부터 다시 시작할 수 있습니다. 그 층에서 이미 해금된 가장 센 새총(8층 보스 뒤 개량형 01 · 6층 작업대 뒤 02 · 3층 작업대 뒤 최종형)과 기본 물자·날짜로 시작하고, 새로 저장됩니다.<br><small>※ 난이도 칭호(소녀감성·생존자·생존마스터)는 10층부터 1층까지 같은 난이도로 탈출해야 열립니다. 층 선택으로 시작했거나 도중에 난이도를 바꾼 판은 인정되지 않아요.</small></p><div class="fgrid" id="floorGrid"></div><div class="btns"><button type="button" class="ghost" data-close>닫기</button></div></div></div>
   <div class="lmodal" id="mRank" hidden><div class="box wide rkw"><h2>순위 <small>10층부터 1층까지 · 탈출 시각 빠른 순</small></h2><div class="rktab" id="rankTabs"><button type="button" data-d="easy">쉬움</button><button type="button" data-d="normal">보통</button><button type="button" data-d="hard">어려움</button></div><div class="rkbox" id="rankL"></div><div id="rankMine" hidden></div><div class="rkfirst" aria-label="최초 생존자 김준형"><i>✦</i>최초 생존자<b>김준형</b></div><div class="btns"><button type="button" class="ghost" data-close>닫기</button></div></div></div>
@@ -594,6 +626,8 @@ body:has(.lmodal:not([hidden])) #a2hs{display:none} /* 창이 열려 있으면 '
 #cardP .cTab button{min-width:0;padding:6px 14px;font-size:13px;background:transparent;border-color:#4a2a26;color:#b9aaa2}#cardP .cTab button.on{background:#a3141c;border-color:#a3141c;color:#fff}
 #cardP #cardSave{background:#a3141c;border-color:#a3141c}
 #cardX{position:absolute;z-index:2;top:max(10px,env(safe-area-inset-top,0px));right:max(14px,env(safe-area-inset-right,0px));min-width:0!important;width:46px;height:46px;padding:0!important;border-radius:50%!important;border:2px solid #cdc9c2!important;background:#8a1414!important;color:#fff;font-size:20px!important;font-weight:700;line-height:1}</style>
+<div id="drawRing"><svg viewBox="0 0 46 46" width="46" height="46"><circle class="tr" cx="23" cy="23" r="19"/><circle class="fg" cx="23" cy="23" r="19" stroke-dasharray="119.4" stroke-dashoffset="119.4"/></svg></div>
+<div id="slingTut" hidden><div id="stFig"><canvas id="stCv" width="854" height="480"></canvas><div id="stPow">위력<b>40%</b></div></div><div id="stTxt"><div class="eyebrow">TIP · SLINGSHOT</div><h2>새총은 끝까지 당겨야 세다</h2><ol id="stList"></ol><div id="stGo">아무 키나 누르면 계속</div></div></div>
 <div id="introP" class="panel" hidden><div class="box intro"><div id="introText"></div><div class="note">스페이스 · 클릭으로 건너뛰기</div></div></div>
 <div id="pauseP" class="panel" hidden>
   <div class="box"><h2>일시정지</h2><p class="lede">클릭하면 이어서 진행합니다.</p><div id="devRow" style="margin:8px 0 12px;padding:8px;border:1px dashed #6a2a26;display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12px;color:#c9a9a4"><b style="width:100%">테스트용 (임시) <span id="sndState" style="font-weight:400;opacity:.8"></span></b><button type="button" class="ghost" data-dev="god">무적 켬/끔</button><button type="button" class="ghost" data-dev="10">10F</button><button type="button" class="ghost" data-dev="9">9F</button><button type="button" class="ghost" data-dev="8">8F</button><button type="button" class="ghost" data-dev="7">7F</button><button type="button" class="ghost" data-dev="6">6F</button><button type="button" class="ghost" data-dev="5">5F</button><button type="button" class="ghost" data-dev="4">4F</button><button type="button" class="ghost" data-dev="3">3F</button><button type="button" class="ghost" data-dev="2">2F</button><button type="button" class="ghost" data-dev="1">1F</button></div><div class="vols"><label for="volSfx">효과음</label><input type="range" id="volSfx" data-vol="sfx" min="0" max="100"><label for="volBgm">배경음</label><input type="range" id="volBgm" data-vol="bgm" min="0" max="100"></div><div class="opts"><label>난이도</label><select data-opt="diff"><option value="easy">쉬움 — 적 체력 절반 · 듣는 놈 감지 좁음</option><option value="normal">보통</option><option value="hard">어려움 — 적 체력 1.5배</option></select><em data-optv="diff"></em><label>마우스 감도</label><input type="range" data-opt="sens" min="30" max="250"><em data-optv="sens"></em><label>밝기</label><input type="range" data-opt="gamma" min="70" max="150"><em data-optv="gamma"></em><label>해상도</label><select data-opt="res"><option value="360">360p 픽셀감 강함</option><option value="540">540p 기본</option><option value="720">720p 선명</option><option value="1080">1080p 최고 화질</option></select><em data-optv="res"></em><label>글자 크기</label><input type="range" data-opt="fs" min="80" max="150" step="5"><em data-optv="fs"></em><label class="chk"><input type="checkbox" data-opt="bob"> 걸을 때 시점 흔들림</label><em data-optv="bob"></em><label class="chk"><input type="checkbox" data-opt="lod"> 성능 절약(먼 크리쳐 간략화)</label><em data-optv="lod"></em><label class="chk"><input type="checkbox" data-opt="autoQ"> 렉 걸리면 화질 자동으로 낮추기</label><em data-optv="autoQ"></em><label class="chk"><input type="checkbox" data-opt="low"> 저사양 모드(그림자·조명 줄임 · 다시 켜면 적용)</label><em data-optv="low"></em></div><div class="btns"><button id="resumeBtn">계속하기</button><button id="quitBtn" class="ghost">로비로 나가기</button></div></div>
@@ -747,10 +781,11 @@ const CFG={
   hungerPerMin:100/(36*60), thirstPerMin:100/(28*60) /* 11/9 시뮬: 음식·물이 너무 남아서 허기 2일→1.5일·갈증 1.5일→약 1.2일 */, starveHpPerMin:5/60,
   player:{walk:2.6,run:4.5,crouch:1.3,r:.3,eye:1.6,eyeC:1.1},
   sling:[
-    {name:'스타트',look:'기성품 · 빨간 고무줄',dmg:1.0,draw:.8,reload:1.2,speed:45,spread:.004,mats:0},
-    {name:'개량형 01',look:'붉은 그립 · 베이지 고무줄',dmg:1.25,draw:.75,reload:1.1,speed:48,spread:.0035,mats:4},
+    /* 11/18 당기는 시간 차이 키움 0.8/.75/.7/.6 → .9/.8/.7/.55 (사용자) */
+    {name:'스타트',look:'기성품 · 빨간 고무줄',dmg:1.0,draw:.9,reload:1.2,speed:45,spread:.004,mats:0},
+    {name:'개량형 01',look:'붉은 그립 · 베이지 고무줄',dmg:1.25,draw:.8,reload:1.1,speed:48,spread:.0035,mats:4},
     {name:'개량형 02',look:'금색 손잡이 · 손목 지지대 · 청록 고무줄 4줄',dmg:1.5,draw:.7,reload:1.0,speed:52,spread:.003,mats:8},
-    {name:'최종형',look:'레이저 조준 · 기계식',dmg:2.0,draw:.6,reload:.85,speed:58,spread:.0025,mats:12},
+    {name:'최종형',look:'레이저 조준 · 기계식',dmg:2.0,draw:.55,reload:.85,speed:58,spread:.0025,mats:12},
   ],
   ammo:{steel:{name:'쇠구슬',dmg:1,spread:1,noise:9},junk:{name:'잡철',dmg:.7,spread:2.6,noise:12}},
   part:{head:50,torso:25,limb:20},
@@ -2909,7 +2944,8 @@ function interact(t){
     case'note':openNote(t.floor);return;
     case'tip':openTip(t.tip);return;
     case'shoes':P.shoes=true;world.remove(t.mesh);INTER.splice(INTER.indexOf(t),1);toast('강화 신발을 신었다 · 달리기가 빨라진다',true);sfx.pickup('crowbar');return;
-    case'slingStart':P.hasSling=true;world.remove(t.mesh);INTER.splice(INTER.indexOf(t),1);toast('새총을 챙겼다 · 왼클릭 누르고 당기기');sfx.pickup('crowbar');mono('gotStartSling',{prio:true});return;
+    case'slingStart':{P.hasSling=true;world.remove(t.mesh);INTER.splice(INTER.indexOf(t),1);sfx.pickup('crowbar');const after=()=>{toast(TOUCH?'새총을 챙겼다 · 오른쪽 화면 꾹 → 원이 차면 떼기':'새총을 챙겼다 · 누른 채 원이 꽉 차면 놓기');mono('gotStartSling',{prio:true});};
+      if(!META.tutSling){META.tutSling=1;metaSave();openSlingTut(true,after);}else after();return;} /* 11/18 기기마다 처음 한 번 새총 안내 */
     case'radio':if(t.on){t.on=false;tone(900,600,.05,.1,'square');say('','라디오를 껐다.');}return;
     case'bed':if(creatures.some(c=>!c.dead&&c.state==='chase'))return toast('잠들 수 없다. 놈들이 쫓고 있다.',true);
       ask('침대','잠자기 ('+CFG.time.sleep/60+'시간)','체력이 회복되지만 시간이 흐르고 배고픔과 갈증이 더해집니다. 자는 동안 그놈들에게 걸릴 수 있습니다. 잠들기 직전 상태가 저장됩니다(죽으면 여기서 다시). 자겠습니까?','잔다','그만둔다',()=>{
@@ -3051,7 +3087,7 @@ function updateHands(t){const dt=clamp(t-(HUP.lt??t),0,.1);HUP.lt=t;
     else{fr='TR';const e=(k-.5)/.5,ee=1-Math.pow(1-e,2);ox=(1-ee)*-22;oy=(1-ee)*10;} // ④ 당기기
   }else if(rel<.45){fr='BL';const r=rel/.45;oy=-Math.exp(-r*5)*10;ox=Math.exp(-r*5)*6;} // ⑤ 발사 직후: 빈손 반동
   else fr='TL';
-  const hold=holdPenalty();ox+=Math.sin(P.bob)*2.4*P.moving+(hold>1?(Math.random()-.5)*(hold-1)*3:0);
+  const hold=holdPenalty();drawRingTick(P.drawing&&HUP.up>.5?k:-1,P.drawing?hold:1);ox+=Math.sin(P.bob)*2.4*P.moving+(hold>1?(Math.random()-.5)*(hold-1)*3:0);
   oy+=Math.abs(Math.cos(P.bob))*3*P.moving+Math.sin(t*1.6)*1+(P.crouch?4:0)+G.hurt*8-P.kick*5;
   {const A=HAIM[HTT[P.tier]?P.tier:0];ox+=(427-A[0])/2;oy+=(240-A[1])/2;} // 새총이 노리는 점(갈래 사이·최종형은 조준기 구멍)을 화면 가운데 조준점에
   const ue=1-Math.pow(1-HUP.up,3);oy+=(1-ue)*300; // 아래에서 올라오고, 다시 내려감
@@ -3557,6 +3593,48 @@ function openNote(f,TN){const N=TN||NOTES[f];if(!N)return;G.ui='note';G.paused=t
   noteWear(TN?null:f);
   G.noteIsTip=!!TN;if(!TN&&!G.notesRead.includes(f)){G.notesRead.push(f);}if(sfx.uiNote)sfx.uiNote();}
 function closeNote(){$('noteP').hidden=true;G.ui=null;G.paused=false;lockPointer();if(G.noteIsTip){G.noteIsTip=false;return;}const first=G.notesRead.length===1;mono(first?'note1':'noteN');}
+
+/* ===== 11/18 새총 안내(기기마다 처음 한 번 · META.tutSling) — 사람들이 짧게 클릭만 해서 위력 40%·탄 퍼짐 5배로 쏘고 있었음 ===== */
+const ST={on:false,t0:0,raf:0,img:{},inGame:false,after:null};
+function stLines(){const d=SL?(CFG.sling[P.tier]||CFG.sling[0]).draw:.8;
+  return TOUCH?['오른쪽 화면을 <b>꾹 누른 채로 기다리세요</b>. 고무줄이 끝까지 당겨집니다(약 '+d.toFixed(1)+'초).','가운데 원이 꽉 차서 <b>빨갛게 반짝이면 손을 떼세요</b> — 최대 위력.','톡 치듯 짧게 쏘면 <b>위력이 절반도 안 되고</b> 탄이 크게 빗나갑니다.','꽉 찬 채 너무 오래 버티면 손이 떨려 빗나갑니다.<br><span class="dim">누른 채 끌면 조준 · 화면 맨 위로 끌어 떼면 취소(탄 그대로)</span>']
+  :['왼쪽 버튼을 <b>누른 채로 기다리세요</b>. 고무줄이 끝까지 당겨집니다(약 '+d.toFixed(1)+'초).','조준점 둘레 원이 꽉 차서 <b>빨갛게 반짝이면 놓으세요</b> — 최대 위력.','짧게 딸깍 클릭하면 <b>위력이 절반도 안 되고</b> 탄이 크게 빗나갑니다.','꽉 찬 채 너무 오래 버티면 손이 떨려 빗나갑니다.<br><span class="dim">오른쪽 클릭 = 당기기 취소(탄 그대로)</span>'];}
+function stImgs(){const tier=(ASSET['h'+P.tier+'TL']?P.tier:0);if(ST.img.tier===tier)return;ST.img={tier};
+  ['TL','BL','BR','TR'].forEach(k=>{const src=ASSET['h'+tier+k]||ASSET[k];if(src){const im=new Image();im.src=src;ST.img[k]=im;}});}
+function stDraw(now){if(!ST.on)return;ST.raf=requestAnimationFrame(stDraw);
+  const cv=$('stCv'),g=cv.getContext('2d'),T=((now-ST.t0)/1000)%4.2,D=1.6; // 데모는 실제(0.8초)보다 2배 느리게
+  let k=0,fr='TL',ox=0,oy=0,rec=0;
+  if(T<.5){k=0;fr='TL';}else if(T<.5+D){k=(T-.5)/D;}else if(T<.5+D+.9){k=1;}else if(T<.5+D+1.3){k=-1;rec=(T-.5-D-.9)/.4;}else{k=0;fr='TL';}
+  if(k>0){if(k<.15)fr='TL';else if(k<.3){fr='BL';ox=(k-.15)/.15*4;}else if(k<.5){fr='BR';oy=(k-.3)/.2*-2;}else{fr='TR';const e=(k-.5)/.5,ee=1-Math.pow(1-e,2);ox=(1-ee)*-22;oy=(1-ee)*10;}}
+  if(k<0){fr='BL';oy=-Math.exp(-rec*5)*10;ox=Math.exp(-rec*5)*6;}
+  g.clearRect(0,0,854,480);
+  const A=HAIM[ST.img.tier]||HAIM[0],im=ST.img[fr];
+  if(im&&im.complete)g.drawImage(im,(427-A[0])+ox*2,(240-A[1])+oy*2,854,480);
+  // 조준점 + 게이지(게임과 같은 모양)
+  const kk=Math.max(0,k),full=k>=1,cx=427,cy=240;
+  g.lineWidth=6;g.strokeStyle='rgba(255,255,255,.18)';g.beginPath();g.arc(cx,cy,38,0,7);g.stroke();
+  if(kk>0){g.strokeStyle=full?'#ff3b30':'#e8e1d4';if(full){g.shadowColor='#ff2a20';g.shadowBlur=14+Math.sin(now/90)*6;}g.lineCap='round';g.beginPath();g.arc(cx,cy,38,-Math.PI/2,-Math.PI/2+kk*Math.PI*2);g.stroke();g.shadowBlur=0;}
+  g.fillStyle=full?'#ff3b30':'#e8e1d4';g.beginPath();g.arc(cx,cy,4,0,7);g.fill();
+  if(k<0&&rec<.6){g.fillStyle='rgba(255,90,60,'+(1-rec/.6)+')';g.font='700 34px "Noto Sans KR",sans-serif';g.textAlign='center';g.fillText('발사!',cx,cy-58);}
+  const p=$('stPow'),pw=k<0?100:Math.round((.4+.6*kk)*100);p.firstChild.nodeValue=k<0?'발사 ':kk>0?'당기는 중 · 위력':'위력';p.querySelector('b').textContent=(kk>0||k<0?pw:40)+'%';p.classList.toggle('full',full||k<0);}
+function openSlingTut(inGame,after){stImgs();$('stList').innerHTML=stLines().map(l=>'<li>'+l+'</li>').join('');$('stGo').textContent=TOUCH?'화면을 누르면 계속':'아무 키나 누르면 계속';$('stGo').classList.remove('on');
+  ST.on=true;ST.inGame=inGame;ST.after=after||null;ST.t0=performance.now();$('slingTut').hidden=false;
+  if(inGame){G.ui='tut';G.paused=true;cancelDraw();for(const k in keys)keys[k]=false;if(!TEST&&document.pointerLockElement)document.exitPointerLock();}
+  clearTimeout(ST.goT);ST.goT=setTimeout(()=>{if(ST.on)$('stGo').classList.add('on');},1400);cancelAnimationFrame(ST.raf);ST.raf=requestAnimationFrame(stDraw);if(sfx.uiNote)sfx.uiNote();}
+function closeSlingTut(){if(!ST.on||performance.now()-ST.t0<1400)return; // 1.4초 전엔 안 닫힘(줍던 E가 그대로 닫아 버리지 않게)
+  ST.on=false;cancelAnimationFrame(ST.raf);$('slingTut').hidden=true;if(ST.inGame){G.ui=null;G.paused=false;lockPointer();}const f=ST.after;ST.after=null;if(f)f();}
+(function(){const el=$('slingTut');if(!el)return;el.addEventListener('click',e=>{e.stopPropagation();closeSlingTut();});el.addEventListener('touchend',e=>{e.stopPropagation();e.preventDefault();closeSlingTut();},{passive:false});
+  addEventListener('keydown',e=>{if(!ST.on)return;e.stopPropagation();e.preventDefault();if(!e.repeat)closeSlingTut();},true);
+  const b=$('stAgain');if(b)b.addEventListener('click',e=>{e.stopPropagation();openSlingTut(false);});})();
+/* 당김 게이지(조준점 둘레) — 바뀔 때만 DOM을 씀 */
+const DR={q:-1,cls:''};
+function drawRingTick(k,hold){const el=$('drawRing');if(!el)return;const show=k>=0&&!G.cine&&!P.hide&&!P.peep&&G.state==='play';
+  const q=show?Math.round(k*48):-1,cls=!show?'':hold>1?'shake':k>=1?'full':'';
+  if(q===DR.q&&cls===DR.cls)return;
+  if(show!==(DR.q>=0))el.classList.toggle('on',show);
+  if(q>=0&&q!==DR.q)el.querySelector('.fg').setAttribute('stroke-dashoffset',(119.4*(1-q/48)).toFixed(1));
+  if(cls!==DR.cls){el.classList.remove('full','shake');if(cls){void el.offsetWidth;el.classList.add(cls);}}
+  DR.q=q;DR.cls=cls;}
 
 // 층별 사건: 정전 · 저절로 열리는 문 · 큰 놈 발소리 · 라디오 방송
 const EVENTS={9:['doorSlam'],8:['bossThump'],7:['radio'],6:['blackout','doorSlam'],5:['radio','blackout'],1:['hidden']};
@@ -4785,7 +4863,7 @@ function lobbyWalkers(){const cv=$('lwalk');if(!cv)return;const x=cv.getContext(
     x.save();x.beginPath();x.rect(CX0,CY0,CX1-CX0,FY-CY0+1);x.clip();x.translate(cur.x,FY);if(cur.dir>0)x.scale(-1,1); /* 그림은 왼쪽을 봄 */
     x.globalAlpha=.96;x.drawImage(im,-w/2,-h,w,h);x.restore();};
   if(TEST)window.__lw={force(px,dir,k){cur={k:k||'ls',dir:dir||1,t:.3,x:px,spd:0};}};requestAnimationFrame(loop);}
-function hideBossUI(){['bossBar','evac','prog'].forEach(id=>{const el=$(id);if(el)el.hidden=true;});document.body.classList.remove('bossOn');}
+function hideBossUI(){if(typeof drawRingTick==='function')drawRingTick(-1,1);['bossBar','evac','prog'].forEach(id=>{const el=$(id);if(el)el.hidden=true;});document.body.classList.remove('bossOn');}
 function toLobby(){if(typeof titleCardOff==='function')titleCardOff();G.state='title';$('endP').hidden=true;hideBossUI();stopEndMusic();setTimeout(()=>{if(G.state==='title')lobbyMusic(true);},600);$('hud').hidden=true;$('titleP').hidden=false;updateLogo();}
 $('endLobby').onclick=toLobby;
 
