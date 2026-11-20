@@ -555,7 +555,7 @@ body.cineOn #drawRing{display:none}
     <div class="lui" id="lui">
     <div class="ltag"><h3>열흘 안에, 1층으로.</h3><p>문밖에서 들리는 발소리. 더는 이웃이 아니다.<br>남은 시간은 열흘. 이 건물에서 나가야 한다.</p></div>
     <div class="lhint">ENTER 시작 · ↑↓ 선택</div>
-    <div class="lver"><span id="lplay"></span> · v1.0.31 · 2026.11.18</div>
+    <div class="lver"><span id="lplay"></span> · v1.0.32 · 2026.11.20</div>
     <div class="llogo"><div class="lnum"><span id="logoF">10F</span><span class="sl">/</span><span class="dy" id="logoD">10DAY</span></div><div class="proj">project.<b>Jitz</b></div></div>
     <nav class="lmenu" id="lmenu" aria-label="메인 메뉴">
       <div class="lmain">
@@ -829,7 +829,7 @@ if(!TOUCH&&OPT.qv!==3){OPT.qv=3;if(WEAK_GPU){OPT.res=Math.min(OPT.res,720);OPT.l
 const LOWQ=TOUCH||!!OPT.low; // 저사양: 그림자 가볍게·실제 조명 10개(다음 실행부터 적용)
 renderer.shadowMap.type=LOWQ?THREE.PCFShadowMap:THREE.PCFSoftShadowMap;
 // 난이도(11/6 사용자): 적 체력 배율 · 듣는 놈 청력/접촉 감지 배율. 새로 생기는 적부터 적용
-const DIFF={easy:{name:'쉬움',hp:.5,lsHear:.6,lsTouch:.7,hbK:.67},normal:{name:'보통',hp:1,lsHear:1,lsTouch:1,hbK:1},hard:{name:'어려움',hp:1.5,lsHear:1,lsTouch:1,hbK:1.22}};
+const DIFF={easy:{name:'쉬움',hp:.5,lsHear:.6,lsTouch:.7,hbK:.67,see:.8,hear:.8},normal:{name:'보통',hp:1,lsHear:1,lsTouch:1,hbK:1,see:1,hear:1},hard:{name:'어려움',hp:1.5,lsHear:1,lsTouch:1,hbK:1.22,see:1,hear:1}};
 function DK(){return DIFF[OPT.diff]||DIFF.normal;}
 let RH=OPT.res;let RW=Math.round(RH*16/9);
 const rt=new THREE.WebGLRenderTarget(640,360,{minFilter:THREE.NearestFilter,magFilter:THREE.NearestFilter});
@@ -979,8 +979,8 @@ function genCfg(f){const r=mulberry32(f*7919+3);const out={};const nums=UNITS.ma
   if(f===2){out.TPS={door:'unlocked'};}
   return out;}
 // 층별 난이도: 아래로 갈수록 크리쳐·물자 증가
-const FLOORS={10:{sh:5,ls:0},9:{sh:6,ls:1,bench:'flash'},8:{sh:6,ls:2,boss:true},7:{sh:7,ls:2,raid:1,run:1},6:{sh:5,ls:4,bench:2,raid:1,cr:1,run:1},5:{sh:11,ls:2,raid:2,cr:1,run:2},/* 11/6 6층=듣는 놈 층, 5층=약탈자 혼전, 천장 놈 6층부터 */
-  4:{sh:3,ls:1,raid:3,base:true},3:{sh:7,ls:4,bench:3,dark:true,cr:2,run:1},2:{sh:13,ls:2,blocked:true,cr:3,run:3,bench:3,spread:true,corr:3},1:{sh:8,ls:2,raid:1,exit:true}};
+const FLOORS={10:{sh:5,ls:0,noAmb:true},/* 11/20 근영 피드백: 10층은 숨 돌리는 층(매복 없음 — 10층 배치는 UCFG10 고정) */9:{sh:6,ls:1,bench:'flash'},8:{sh:6,ls:2,boss:true},7:{sh:7,ls:2,raid:1,run:1},6:{sh:5,ls:4,bench:2,raid:1,cr:1,run:1},5:{sh:11,ls:2,raid:2,cr:1,run:2},/* 11/6 6층=듣는 놈 층, 5층=약탈자 혼전, 천장 놈 6층부터 */
+  4:{sh:3,ls:1,raid:3,base:true},3:{sh:5,ls:3,bench:3,dark:true,cr:1,run:1,noAmb:true},/* 11/20 근영 피드백 '3층 초반 너무 많음': 비척 7→5·추격자 4→3·천장 2→1, 매복 없음 */2:{sh:13,ls:2,blocked:true,cr:3,run:3,bench:3,spread:true,corr:3},1:{sh:8,ls:2,raid:1,exit:true}};
 const LAST_FLOOR=1;
 const lootMul=()=>1+.15*(10-G.floor);
 function uMap(U,u,v){switch(U.side){case'N':return[U.a0+u,7.5-v];case'S':return[U.a0+u,ZS1+v];case'W':return[6.6-v,U.a0+u];case'E':return[XE1+v,U.a0+u];}}
@@ -1462,7 +1462,7 @@ function buildFloor(){
   // 크리쳐
   if(G.floor===10){
     UNITS.forEach(U=>{const cfg=UCFG[U.num];if(!cfg||!cfg.cr)return;cfg.cr.forEach(([u,v])=>{const[x,z]=uMap(U,u,v);spawnCreature(x,z,'idle',uFace(U)+Math.PI*(RNG()<.5?1:0)+(RNG()-.5));});});
-    spawnCreature(22.1,(7.5+ZN1)/2,'wander');spawnCreature(12.8,11.5,'idle',0);
+    spawnCreature(22.1,(7.5+ZN1)/2,'wander'); /* 11/20 근영 피드백: 10층은 숨 돌리는 층 — 엘리베이터 홀 비척이 뺌(5→4) */
     // 듣는 놈은 9층부터(사용자 11/6)
   }else spawnFloorCreatures();
   applyDay(true);
@@ -1474,7 +1474,7 @@ function limb(len,r,m){const g=new THREE.CylinderGeometry(r*.8,r,len,6);g.transl
 let CMAT=null;
 // 계단 문 앞(도착 지점)에서 너무 가까운 곳은 피해서 층 크리쳐를 흩어 놓는다
 function spawnFloorCreatures(){const fc=FLOORS[G.floor]||{sh:6,ls:1};const r=mulberry32(G.floor*97+5);const pick=a=>a[Math.floor(r()*a.length)];
-  const far=(x,z,r=11)=>Math.hypot(x-14.4,z-20.2)>r; // 11/5: 계단 내려오자마자 크리쳐가 있으면 안 됨 → 계단에서 11m(듣는 놈 14m) 밖으로
+  const far=(x,z,r=11)=>Math.hypot(x-14.4,z-20.2)>Math.min(15,r*(fc.farK||1)); // 11/5: 계단 내려오자마자 크리쳐가 있으면 안 됨 → 계단에서 11m(듣는 놈 14m) 밖으로
   const placed=[];const apart=(x,z,r)=>placed.every(p=>Math.hypot(p[0]-x,p[1]-z)>r);
   const units=UNITS.filter(u=>typeof u.num==='number'&&UCFG[u.num].door!=='survivor'&&!UCFG[u.num].boss);
   if(fc.spread){ /* 11/6 2층: 몰려 있지 않게 — 집마다 비척이 1~2(뛰는 놈 섞임) + 가끔 천장 놈, 복도엔 몇 마리만 */
@@ -1493,11 +1493,11 @@ function spawnFloorCreatures(){const fc=FLOORS[G.floor]||{sh:6,ls:1};const r=mul
     if(rm){x=rm.inP[0];z=rm.inP[1];rm.open=false;rm.ang=0;rm.pivot.rotation.y=rm.a0;rm.roomC=true;fc0=Math.atan2(rm.cx-x,rm.cz-z);}
     placed.push([x,z]);const cc=spawnCreature(x,z,'idle',fc0);cc.unum=U.num;cc.knockT=3+r()*5;if(rm){cc.room=rm;cc.knockT=1.5+r()*3;unstick(cc,.27);cc.home.x=cc.x;cc.home.z=cc.z;}}
   const corr=CORR.filter(c=>c.name!=='H');
-  for(let i=nIn;i<fc.sh;i++){let x,z,k=0;do{const c=pick(corr);x=lerp(c.x0+.6,c.x1-.6,r());z=lerp(c.z0+.6,c.z1-.6,r());}while((!far(x,z)||!apart(x,z,5))&&k++<60);placed.push([x,z]);const sc=spawnCreature(x,z,r()<.5?'wander':'idle',r()*6.28);if(sc&&i>=fc.sh-(fc.run||0))makeRunner(sc);}
+  for(let i=nIn;i<fc.sh;i++){let x,z,k=0;do{const c=pick(corr);x=lerp(c.x0+.6,c.x1-.6,r());z=lerp(c.z0+.6,c.z1-.6,r());}while((!far(x,z)||!apart(x,z,5))&&k++<60);if(!far(x,z,9))continue;placed.push([x,z]);const sc=spawnCreature(x,z,r()<.5?'wander':'idle',r()*6.28);if(sc&&i>=fc.sh-(fc.run||0))makeRunner(sc);}
   const LSP=[];for(let i=0;i<fc.ls;i++){let x,z,face,k=0;do{const c=pick(corr);const horiz=c.x1-c.x0>c.z1-c.z0;const side=r()<.5;
-      if(horiz){x=lerp(c.x0+1,c.x1-1,r());z=side?c.z0+.28:c.z1-.28;face=side?Math.PI:0;}else{z=lerp(c.z0+1,c.z1-1,r());x=side?c.x0+.28:c.x1-.28;face=side?-Math.PI/2:Math.PI/2;}}while((!far(x,z,14)||!apart(x,z,4)||!LSP.every(p=>Math.hypot(p[0]-x,p[1]-z)>9))&&k++<80);LSP.push([x,z]);placed.push([x,z]);
+      if(horiz){x=lerp(c.x0+1,c.x1-1,r());z=side?c.z0+.28:c.z1-.28;face=side?Math.PI:0;}else{z=lerp(c.z0+1,c.z1-1,r());x=side?c.x0+.28:c.x1-.28;face=side?-Math.PI/2:Math.PI/2;}}while((!far(x,z,14)||!apart(x,z,4)||!LSP.every(p=>Math.hypot(p[0]-x,p[1]-z)>9))&&k++<80);if(!far(x,z,9))continue; /* 11/20: 자리 못 찾으면 계단 코앞에 두지 말고 뺌 */LSP.push([x,z]);placed.push([x,z]);
     spawnCreature(x,z,'idle',face,'listener');}
-  for(let i=0;i<(fc.cr||0);i++){let x,z,k=0;do{const c=pick(corr);x=lerp(c.x0+.8,c.x1-.8,r());z=lerp(c.z0+.8,c.z1-.8,r());}while((!far(x,z,12)||!apart(x,z,6))&&k++<80);placed.push([x,z]);spawnCrawler(x,z,r()<.6?'wander':'idle',r()*6.28);} // 11/6 천장 기어다니는 놈
+  for(let i=0;i<(fc.cr||0);i++){let x,z,k=0;do{const c=pick(corr);x=lerp(c.x0+.8,c.x1-.8,r());z=lerp(c.z0+.8,c.z1-.8,r());}while((!far(x,z,12)||!apart(x,z,6))&&k++<80);if(!far(x,z,9))continue;placed.push([x,z]);spawnCrawler(x,z,r()<.6?'wander':'idle',r()*6.28);} // 11/6 천장 기어다니는 놈
   spawnAmbush(r,fc);
   if(fc.raid)spawnRaiders(fc.raid);
   if(fc.base){const U=UNITS.find(u=>u.num==='TPS');const[x,z]=uMap(U,U.W*.5,U.D*.55);if(spawnGorilla(x,z,uFace(U))){}else{const c=spawnCreature(x,z,'idle',uFace(U),'raider');dressRaider(c,'pipe');
@@ -1505,7 +1505,7 @@ function spawnFloorCreatures(){const fc=FLOORS[G.floor]||{sh:6,ls:1};const r=mul
   if(fc.boss){const U=UNITS.find(u=>u.num===1009);const[x,z]=uMap(U,U.W/2,U.D*.6);spawnCreature(x,z,'idle',uFace(U),'bighead');}
 }
 /* 11/9 사용자: 쓰레기실·TPS실에 층마다 한 놈 매복(비척이 또는 천장 놈) — 가만히 숨어 소리에도 안 움직이다가, 방에 들어오거나 2.6m 안에 오면 튀어나옴 */
-function spawnAmbush(r,fc){if(G.floor<2)return;const T=UNITS.find(u=>u.num==='TPS');const useT=!fc.base&&T&&r()<.5;let x,z,ex,ez;
+function spawnAmbush(r,fc){if(G.floor<2||fc.noAmb)return;const T=UNITS.find(u=>u.num==='TPS');const useT=!fc.base&&T&&r()<.5;let x,z,ex,ez;
   if(useT){[x,z]=uMap(T,T.W*(.3+r()*.4),T.D*.82);[ex,ez]=uMap(T,T.W*.5,0);}else{x=11.4;z=17.3;ex=9.1;ez=16.55;}
   const face=Math.atan2(ex-x,ez-z);let c=null;if(r()<.5)c=spawnCrawler(x,z,'idle',face);if(!c)c=spawnCreature(x,z,'idle',face);if(!c)return;
   unstick(c,.27);c.home={x:c.x,z:c.z,face};c.ambush=useT?'tps':'trash';c.ambBox=useT?null:[9.2,14.4,12.1,19.5];}
@@ -1513,7 +1513,7 @@ function ambushTick(c){const d=Math.hypot(c.x-P.x,c.z-P.z);if(P.hide||P.peep)ret
   if(c.ambBox){const b=c.ambBox;inRoom=P.x>b[0]&&P.x<b[2]&&P.z>b[1]&&P.z<b[3];}else{const U=unitAt(P.x,P.z);inRoom=!!U&&U.num==='TPS';}
   const hit=c.hp<c.maxHp;if(!hit&&!((inRoom&&d<5.5)||d<2.6))return false;if(!hit&&wallBetween(c.x,c.z,P.x,P.z))return false;
   c.ambush=null;c.stun=0;jumpScare(true);vo('jump',0);startChase(c,true);return true;}
-const CT={raider:{hp:90,chase:2.9,go:1.2,atk:16,atkCd:1.1,hear:1.2,pitch:[1,1]},brute:{hp:420,chase:2.0,go:.9,atk:32,atkCd:2.1,hear:1.1,pitch:[.66,.72]},shambler:{hp:100,chase:2.45,go:1.05,atk:14,atkCd:1.3,hear:1,pitch:[.97,1.03]},listener:{hp:140,chase:3.2,go:1.7,atk:20,atkCd:1.5,hear:1.7,pitch:[.96,1.04]},bighead:{hp:1600,chase:1.5,go:1.1,atk:28,atkCd:2.2,hear:1.3,pitch:[.6,.66]}};
+const CT={raider:{hp:90,chase:2.9,go:1.2,atk:16,atkCd:1.1,hear:1.2,pitch:[1,1]},brute:{hp:420,chase:2.0,go:.9,atk:32,atkCd:2.1,hear:1.1,pitch:[.66,.72]},shambler:{hp:150,chase:2.1,go:.95,atk:14,atkCd:1.3,hear:.75,see:.75,pitch:[.97,1.03]},listener:{hp:140,chase:3.2,go:1.7,atk:20,atkCd:1.5,hear:1.7,pitch:[.96,1.04]},bighead:{hp:1600,chase:1.5,go:1.1,atk:28,atkCd:2.2,hear:1.3,pitch:[.6,.66]}};
 function spawnCreature(x,z,state,face=Math.random()*6.28,type='shambler'){
   if(type==='bighead'){const b=spawnBigHead(x,z,state,face);if(b)return b;type='brute';}
   if(!CMAT)CMAT={skin:new THREE.MeshPhongMaterial({map:TX.skin,flatShading:true,shininess:26,specular:0x241414}),cloth:new THREE.MeshPhongMaterial({map:TX.cloth,flatShading:true,shininess:2}),pants:new THREE.MeshPhongMaterial({map:TX.pants,flatShading:true,shininess:2}),foot:new THREE.MeshPhongMaterial({color:0x2a2624,flatShading:true}),
@@ -1676,7 +1676,7 @@ function bigZone(c,x,y,z){if(c.dead)return null;const p=new THREE.Vector3(x,y,z)
 /* ================= 4층 보스: 고릴라(사용자 11/5, Tripo GLB → gor/) =================
    관리실(TPS)에 웅크려 있다가 문이 열려 김수민이 보이면 깨어난다. 걷지 않는다:
    1.5초 차징 → 최대 5.5m 도약 → 쾅 내려찍기(반경 2.5m·35·밀쳐냄) → 2초 숨 고르기(이때 맞히면 1.5배) → 반복. 죽으면 계단 열쇠 */
-const GA={hp:4000, /* 11/9 사용자: 4000 */scale:.85,charge:.75,leapMax:5.5,leapT:.9,slamR:2.5,slamDmg:35,rest:1,restMul:3,wake:7.5,r:.38};
+const GA={hp:2600, /* 11/9 사용자: 4000 → 11/20 근영 피드백 '너무 셈': 2600, 차징 .75→1.0, 숨 고르기 1→1.6초, 내려찍기 35→28 */scale:.85,charge:1.0,leapMax:5.5,leapT:.9,slamR:2.5,slamDmg:28,rest:1.6,restMul:3,wake:7.5,r:.38};
 let GAGEO=null,GAMAT=null;
 function gaGeo(){if(GAGEO||!ASSET.gaGeo)return GAGEO;const m=ASSET.gaMeta,nv=m.nv,ni=m.ni;let u8;const b64=ASSET.gaGeo;if(b64 instanceof ArrayBuffer)u8=new Uint8Array(b64.slice(0));else{const bs=atob(b64);u8=new Uint8Array(bs.length);for(let i=0;i<bs.length;i++)u8[i]=bs.charCodeAt(i);}
   const B=u8.buffer;let o=0;const pos=new Float32Array(B,o,nv*3);o+=nv*12;const nq=new Int8Array(B,o,nv*3);o+=nv*3;o+=(4-o%4)%4;const uv=new Uint16Array(B,o,nv*2);o+=nv*4;const idx=new Uint16Array(B.slice(o,o+ni*2));
@@ -1731,6 +1731,10 @@ function bossCloset(c,kind,hit){const H=P.hide;if(!H)return;const h=H.h,B=BOSS_H
     if(kind==='gor')playVoice(c,'hitp',{gain:1.2});
     pHurt(60,'heavy',true);G.hurt=1;P.hp=0;vox.die();metaAdd(kind==='gor'?'d_gocl':'d_bhcl');die(kind==='gor'?'옷장 문이 우그러졌다. 거대한 주먹이 내려찍혔다.':'옷장 문이 박살 났다. 그 머리가 덮쳐 왔다.','closet');return true;}
   toast(B.miss);c.sawHide=false;return false;}
+/* 11/20 근영 피드백 '4층 보스 벽에 낌': 몸(모델 반지름 약 .8m)에 비해 충돌 반경(.38)이 작아 벽에 붙으면 몸이 벽 속으로 파묻혀 보였고, 직선 도약이 모서리를 스치면 중심까지 벽에 들어갔음 → 도약 중이 아닐 땐 벽·닫힌 문에서 .65m 떨어지도록 천천히 밀어냄 */
+function gorWall(x,z){const i=gi(x,z);return i<0||grid[i]===1||(grid[i]===2&&!DOORS[doorId[i]].open);}
+function gorClear(c,dt){let sx=0,sz=0,n=0;for(let a=0;a<16;a++){const an=a/16*6.2832,ux=Math.sin(an),uz=Math.cos(an);for(const rr of [.3,.48,.65]){if(gorWall(c.x+ux*rr,c.z+uz*rr)){const w=(.7-rr)*3;sx-=ux*w;sz-=uz*w;n++;break;}}}
+  if(!n)return;const l=Math.hypot(sx,sz);if(l<.01)return;const st=Math.min(.12,dt*2.2);const nx=c.x+sx/l*st,nz=c.z+sz/l*st;if(!gorWall(nx,nz)&&!blockedCircle(nx,nz,.2)){c.x=nx;c.z=nz;}}
 function updateGor(c,dt){
   if(c.dead){c.deadT=Math.min(1,c.deadT+dt*1.4);c.hy=Math.max(0,c.hy-dt*3);poseGor(c,dt);return;}
   c.stun=Math.max(0,c.stun-dt);c.flinch=Math.max(0,c.flinch-dt*3);c.kx=c.kz=0;
@@ -1741,6 +1745,7 @@ function updateGor(c,dt){
     else{c.growlT-=dt;if(c.growlT<=0){c.growlT=6+Math.random()*6;if(d<14)creatureSay(c,'idle',{low:true});}poseGor(c,dt);return;}}
   if(c.state!=='chase'){c.state='chase';c.mode='rest';c.modeT=.6;} // 맞으면(startChase 등) 바로 깨어남
   if(blockedCircle(c.x,c.z,GA.r-.1)&&c.mode!=='leap')unstick(c,GA.r);
+  if(c.mode!=='leap'&&c.mode!=='gpeek')gorClear(c,dt);
   c.modeT-=dt;
   if(c.stun>0&&c.mode!=='leap'){c.mode='rest';c.modeT=Math.max(c.modeT,.4);poseGor(c,dt);return;}
   if(c.mode==='rest'){c.face=lerpAng(c.face,Math.atan2(dx,dz),dt*2);
@@ -1761,7 +1766,8 @@ function updateGor(c,dt){
     if(c.modeT<=0){
       // 11/6: 택배상자 같은 낮은 가구 사이에서 길찾기가 막혀 못 뛰었음 → 벽·닫힌 문만 없으면 직선으로 가구를 넘어 뛴다
       const sd=Math.hypot(c.tx-c.x,c.tz-c.z);
-      if(sd>.6&&!wallBetween(c.x,c.z,c.tx,c.tz)){const k=Math.min(GA.leapMax,sd)/sd;c.direct={x0:c.x,z0:c.z,x1:c.x+(c.tx-c.x)*k,z1:c.z+(c.tz-c.z)*k};c.path=[];
+      const ox=(c.tz-c.z)/(sd||1)*.32,oz=-(c.tx-c.x)/(sd||1)*.32; /* 11/20: 몸 폭만큼 양옆 선도 벽이 없어야 직선 도약(모서리 스침 방지) */
+      if(sd>.6&&!wallBetween(c.x,c.z,c.tx,c.tz)&&!wallBetween(c.x+ox,c.z+oz,c.tx+ox,c.tz+oz)&&!wallBetween(c.x-ox,c.z-oz,c.tx-ox,c.tz-oz)){const k=Math.min(GA.leapMax,sd)/sd;c.direct={x0:c.x,z0:c.z,x1:c.x+(c.tx-c.x)*k,z1:c.z+(c.tz-c.z)*k};c.path=[];
         c.mode='leap';c.modeT=GA.leapT;c.sq=1.15;c.sqV=-2;fx('gor_land',{x:c.x,z:c.z,gain:.8,rate:1.1});}
       else{c.direct=null;GOR_NAV=true;c.path=findPath(c.x,c.z,c.tx,c.tz);GOR_NAV=false;c.repath=9;
       {const e=c.path[c.path.length-1];if(e&&Math.hypot(e[0]-c.tx,e[1]-c.tz)>1.6&&DOORS.some(o=>!o.open&&o.type!=='survivor'&&Math.hypot(o.cx-c.x,o.cz-c.z)<2.4))c.path=[];} // 길 끝이 목표에 못 미치고 닫힌 문이 가까우면 → 문부터 부숨
@@ -1774,8 +1780,8 @@ function updateGor(c,dt){
   else if(c.mode==='leap'){const p=1-Math.max(0,c.modeT)/GA.leapT,H=ASSET.gaMeta.h*GA.scale,apex=Math.max(.3,Math.min(1.1,CEIL-.08-H));c.hy=Math.sin(Math.PI*p)*apex;
     if(c.direct){const D=c.direct,e=Math.min(1,p),dxl=D.x1-D.x0,dzl=D.z1-D.z0;c.x=D.x0+dxl*e;c.z=D.z0+dzl*e;c.face=lerpAng(c.face,Math.atan2(dxl,dzl),dt*8);}
     else if(c.leapLeft>0&&c.path.length){const ox=c.x,oz=c.z,[wx,wz]=c.path[0],ax=wx-c.x,az=wz-c.z,l=Math.hypot(ax,az);
-      if(l<.12)c.path.shift();else{const st=Math.min(c.leapD/GA.leapT*dt,l,c.leapLeft);moveAir(c,ax/l*st,az/l*st,.28);c.leapLeft-=Math.max(Math.hypot(c.x-ox,c.z-oz),st*.5);c.face=lerpAng(c.face,Math.atan2(ax,az),dt*8);}}
-    if(c.modeT<=0){c.hy=0;c.path=[];c.direct=null;if(blockedCircle(c.x,c.z,GA.r-.1))unstick(c,GA.r);gorSlam(c);c.mode='rest';c.modeT=GA.rest;}}
+      if(l<.12)c.path.shift();else{const st=Math.min(c.leapD/GA.leapT*dt,l,c.leapLeft);{const ia=gi(c.x+ax/l*.45,c.z+az/l*.45);if(ia>=0&&grid[ia]===2){const dr=DOORS[doorId[ia]];if(!dr.open&&dr.type!=='survivor'){dr.open=true;dr.shake=.5;if(!doorSnd(dr,'bash',{rate:.8}))at(dr.cx,dr.cz,()=>{nz(.35,260,1,.8);tone(80,40,.35,.4,'square');});hear(dr.cx,dr.cz,10,'bash');P.kick=Math.max(P.kick,.3);}}} /* 11/20: 뛰는 길에 닫힌 문이 있으면 문짝에 몸을 비비며 멈추지 말고 들이받아 엶 */moveAir(c,ax/l*st,az/l*st,.28);c.leapLeft-=Math.max(Math.hypot(c.x-ox,c.z-oz),st*.5);c.face=lerpAng(c.face,Math.atan2(ax,az),dt*8);}}
+    if(c.modeT<=0){c.hy=0;c.path=[];c.direct=null;if(blockedCircle(c.x,c.z,GA.r-.1)||gorWall(c.x,c.z))unstick(c,GA.r);gorSlam(c);c.mode='rest';c.modeT=GA.rest;}}
   const pr=GA.r+.45;if(d<pr&&c.mode!=='leap')moveCircle(P,dx/d*(pr-d),dz/d*(pr-d),.22);
   poseGor(c,dt);}
 function gorZone(c,x,y,z){if(c.dead)return null;const p=new THREE.Vector3(x,y,z);c.hm.updateWorldMatrix(true,false);const l=c.hm.worldToLocal(p);// 모델 단위(높이 1.88)
@@ -1991,7 +1997,7 @@ function poseListener(c,mv){
 function applyDay(instant){setWindowDay(G.day,instant);creatures.forEach(c=>{if(c.dead)return;const nm=c.baseHp*dayMul();c.hp=c.hp/c.maxHp*nm;c.maxHp=nm;});}
 const doorPass=d=>d.open||(DOOR_PASS&&d.type!=='crowbar'&&d.type!=='survivor');
 // 11/6: 고릴라 길찾기(GOR_NAV) — 뛰어서 넘으니 가구·택배상자·바리케이드는 막힘이 아님(벽·닫힌 문만)
-let GOR_NAV=false;function airBlock(x,z,r=.3){for(const[ox,oz]of[[r,0],[-r,0],[0,r],[0,-r],[0,0]]){const i=gi(x+ox,z+oz);if(i<0)return true;const g=grid[i];if(g===1)return true;if(g===2&&!DOORS[doorId[i]].open)return true;}return false;}
+let GOR_NAV=false;function airBlock(x,z,r=.3){const h=r*.5,q=r*.7;for(const[ox,oz]of[[r,0],[-r,0],[0,r],[0,-r],[0,0],[h,0],[-h,0],[0,h],[0,-h],[q,q],[q,-q],[-q,q],[-q,-q]]){ /* 11/20: 벽 두께(.1)보다 반경이 커서 바깥 점이 벽 너머에 찍혀 고릴라가 벽 속으로 미끄러졌음 → 중간 점도 검사 */const i=gi(x+ox,z+oz);if(i<0)return true;const g=grid[i];if(g===1)return true;if(g===2&&!DOORS[doorId[i]].open)return true;}return false;}
 function moveAir(o,dx,dz,r){const n=Math.max(1,Math.ceil(Math.hypot(dx,dz)/.05));for(let k=0;k<n;k++){if(!airBlock(o.x+dx/n,o.z,r))o.x+=dx/n;if(!airBlock(o.x,o.z+dz/n,r))o.z+=dz/n;}}
 function navOK(i){if(i<0)return false;if(GOR_NAV){const g=grid[i];return g===1?false:g===2?doorPass(DOORS[doorId[i]]):true;}if(nav[i])return false;const g=grid[i];if(g===1||g===3)return false;if(g===2)return doorPass(DOORS[doorId[i]]);return true;}
 function hardBlock(i){if(i<0)return true;if(GOR_NAV){const g=grid[i];return g===1?true:g===2?!doorPass(DOORS[doorId[i]]):false;}const g=grid[i];if(g===1||g===3)return true;if(g===2)return!doorPass(DOORS[doorId[i]]);return false;}
@@ -2013,7 +2019,7 @@ function canSee(c){
   if(c.type==='listener')return false; // 눈이 없다: 소리와 접촉으로만 안다
   if(d>16)return false;if(!los(c.x,c.z,P.x,P.z))return false;if(d<1.4)return true;
   const look=c.face+c.headYaw,dot=(dx*Math.sin(look)+dz*Math.cos(look))/d;if(dot<.55)return false;
-  let range=P.lamp?12:4.2;if(P.crouch)range*=.6;range+=lightAt(P.x,P.z)[0]*2.5;return d<range;
+  let range=P.lamp?12:4.2;if(P.crouch)range*=.6;range+=lightAt(P.x,P.z)[0]*2.5;return d<range*seeK(c);
 }
 // 듣는 놈이 플레이어를 '느끼는' 거리: 움직이면 더 멀리서 안다, 웅크리고 가만히 있으면 거의 못 안다
 function listenerSense(c){if(P.dead||P.hide)return false;const d=Math.hypot(P.x-c.x,P.z-c.z);let r=(P.crouch?(P.moving?.75:.45):(P.moving?1.8:1.1))*DK().lsTouch;if(P.moving)r=Math.max(r,2*DK().lsTouch); /* 11/7 사용자: 2m 안에서 조금이라도 움직이면(웅크려도) 알아챔 */r=Math.max(r,1.5*DK().lsTouch); /* 11/7 사용자: 1.5m 안이면 웅크리고 가만히 있어도 알아챔 */return d<r&&!wallBetween(c.x,c.z,P.x,P.z);}
@@ -2024,7 +2030,7 @@ function hear(x,z,r,label){
   let resp=0,lsn=0;[...creatures].sort((a,b)=>Math.hypot(a.x-x,a.z-z)-Math.hypot(b.x-x,b.z-z)).forEach(c=>{if(c.dead||c.gor||c.ambush)return;if(label==='lamp'&&c.type==='listener')return;
     if(c.type==='raider'){if(fromP&&label!=='lamp'&&(c.mode==='patrol'||c.mode==='loot')&&Math.hypot(x-c.x,z-c.z)<r*1.2){c.mode='search';c.timer=3;c.goal={x,z};}return;}
     if((label==='rstep'||label==='rdoor')&&c.state==='brawl')return;if(c.state==='brawl'&&c.foe&&!c.foe.dead&&Math.hypot(c.foe.x-c.x,c.foe.z-c.z)<4)return; /* 11/7: 싸우는 중엔 소리에 고개 돌리지 않음 */if(c.state==='bang'){if(fromP&&Math.hypot(x-c.x,z-c.z)<r*(c.ct.hear||1)+1)c.noisy+=.5;return;}
-    const d=Math.hypot(c.x-x,c.z-z);const rr=(los(c.x,c.z,x,z)?r:r*.7)*c.ct.hear*(c.type==='listener'?DK().lsHear:1);if(d>rr)return;
+    const d=Math.hypot(c.x-x,c.z-z);const rr=(los(c.x,c.z,x,z)?r:r*(c.type==='listener'?.38:.7))*c.ct.hear*(c.type==='listener'?DK().lsHear:(DK().hear||1)); /* 11/20: 추격자는 벽 너머 소리 크게 줄어듦(벽 너머 인지 버그) */if(d>rr)return;
     if(c.state==='chase'){if(c.type==='listener'&&fromP){c.lsx=x;c.lsz=z;c.lost=0;c.path=[];}return;}
     if(resp>=3)return;resp++; // 한 소리에 몰려드는 건 가까운 3마리까지
     c.state='turn';c.timer=c.type==='listener'?.25:.35+Math.random()*.2;c.tx=x;c.tz=z;c.hunt=c.type==='listener'&&fromP;
@@ -2522,7 +2528,7 @@ function release(){
   if(!window._shotG){window._shotG=new THREE.SphereGeometry(.025,6,4);window._shotG.userData.shared=true;window._shotM={steel:new THREE.MeshPhongMaterial({color:0xb8bcc2,shininess:60,specular:0x666666}),junk:new THREE.MeshPhongMaterial({color:0x8a7c6c,shininess:60,specular:0x666666})};} /* 11/6 최적화: 탄 지오메트리·재질 공유(발사마다 새로 만들던 것) */
   const mesh=new THREE.Mesh(window._shotG,window._shotM[P.ammoType]||window._shotM.steel);
   const pos=new THREE.Vector3(P.x,P.eye,P.z).addScaledVector(dir,.3);pos.y-=.04;mesh.position.copy(pos);world.add(mesh);
-  projs.push({x:pos.x,y:pos.y,z:pos.z,vx:dir.x*speed,vy:dir.y*speed,vz:dir.z*speed,type:P.ammoType,dmg:st.dmg*am.dmg*(.4+.6*k),mesh,life:6,hit:false});
+  projs.push({x:pos.x,y:pos.y,z:pos.z,vx:dir.x*speed,vy:dir.y*speed,vz:dir.z*speed,type:P.ammoType,dmg:st.dmg*am.dmg*(.4+.6*k),mesh,life:6,hit:false,w:P.ammoType==='steel'?ballWearOut():0});
   P.shotT=G.t;P.inv[P.ammoType]--;if(G.hbDown){G.postShots=(G.postShots||0)+1;if(G.postShots===11)metaAdd('post_hb');}P.reloadT=st.reload;P.drawT=0;P.kick=.5+.5*k;P.relT=0;sfx.twang(k);hear(P.x,P.z,3,'shot');
 }
 function segDist(p,a,b){const ab=b.clone().sub(a),t=clamp(p.clone().sub(a).dot(ab)/Math.max(1e-6,ab.lengthSq()),0,1);return a.clone().addScaledVector(ab,t).distanceTo(p);}
@@ -2549,7 +2555,7 @@ function updateProj(p,dt){
   const sp=Math.hypot(p.vx,p.vy,p.vz),steps=Math.max(1,Math.ceil(sp*dt/.05)),h=dt/steps;
   for(let s=0;s<steps;s++){
     let nx=p.x+p.vx*h,ny=p.y+p.vy*h,nz=p.z+p.vz*h;p.vy-=CFG.g*h;
-    if(sp>5){for(const c of creatures){const zone=creatureZone(c,nx,ny,nz);if(zone){const hl=Math.hypot(p.vx,p.vz)||1;hitCreature(c,zone,p.dmg,[p.vx/hl,p.vz/hl],nx,ny,nz);if(p.type==='steel')dropPickup('steel',1,c.x+(Math.random()-.5)*.5,c.z+(Math.random()-.5)*.5);world.remove(p.mesh);return false;}}}
+    if(sp>5){for(const c of creatures){const zone=creatureZone(c,nx,ny,nz);if(zone){const hl=Math.hypot(p.vx,p.vz)||1;hitCreature(c,zone,p.dmg,[p.vx/hl,p.vz/hl],nx,ny,nz);if(p.type==='steel')dropPickup('steel',1,c.x+(Math.random()-.5)*.5,c.z+(Math.random()-.5)*.5,p.w);world.remove(p.mesh);return false;}}}
     let kind=null;const solidAt=(x,z,y)=>{const i=gi(x,z);if(i<0)return 1;const g=grid[i];if(g===1)return 1;if(g===2&&!DOORS[doorId[i]].open)return 2;if(g===2&&y>2.05)return 1;if(g===3&&y<furnH[i])return 3;return 0;};
     let a=solidAt(nx,p.z,ny);if(a){p.vx*=-.35;p.vz*=.6;p.vy*=.6;nx=p.x;kind=a;}
     let b=solidAt(nx,nz,ny);if(b){p.vz*=-.35;p.vx*=.6;p.vy*=.6;nz=p.z;kind=b;}
@@ -2560,7 +2566,7 @@ function updateProj(p,dt){
     p.x=nx;p.y=ny;p.z=nz;
   }
   p.mesh.position.set(p.x,p.y,p.z);p.life-=dt;
-  if((p.y<=.026&&Math.hypot(p.vx,p.vz)<.4)||p.life<=0){world.remove(p.mesh);if(p.type==='steel'&&!cellBlocks(gi(p.x,p.z)))dropPickup('steel',1,p.x,p.z);return false;}
+  if((p.y<=.026&&Math.hypot(p.vx,p.vz)<.4)||p.life<=0){world.remove(p.mesh);if(p.type==='steel'&&!cellBlocks(gi(p.x,p.z)))dropPickup('steel',1,p.x,p.z,p.w);return false;}
   return true;
 }
 const PART_KO={head:'머리',torso:'몸통',limb:'팔·다리'};
@@ -2598,11 +2604,15 @@ function pickMesh(k){
     case'crowbar':{const b=m(new THREE.BoxGeometry(.6,.025,.03),0x7a1a20,.015);b.rotation.y=.4;}break;
     case'flash':{const b=m(new THREE.CylinderGeometry(.03,.03,.11,8),0x4a5a3a,.03);b.rotation.z=Math.PI/2;}break;case'medkit':{m(new THREE.BoxGeometry(.3,.11,.2),0xc8c0b4,.055);m(new THREE.BoxGeometry(.11,.004,.035),0xc0201c,.112);m(new THREE.BoxGeometry(.035,.004,.11),0xc0201c,.112);m(new THREE.BoxGeometry(.1,.02,.02),0x3a3634,.125);}break;default:m(new THREE.BoxGeometry(.08,.08,.08),0x777777,.04);}
   return g;}
+/* 11/20 근영 피드백(탄이 너무 많음): 쇠구슬은 3번 쏘면 찌그러져 못 줍는다. P.bw = 가방 속 쇠구슬마다 쏜 횟수(모르는 건 0) */
+const BALL_LIFE=3;
+function ballWearOut(){P.bw=P.bw||[];if(P.bw.length>(P.inv.steel||0))P.bw.length=P.inv.steel||0;return (P.bw.length?P.bw.pop():0)+1;}
+let _ballMsgT=-99;function ballBroke(n){G.ballBroke=(G.ballBroke||0)+n;if(G.t-_ballMsgT>8){_ballMsgT=G.t;toast(n>1?'쇠구슬 '+n+'개가 찌그러져 못 쓰게 됐다':'쇠구슬이 찌그러져 못 쓰게 됐다');}}
 function dropPickup(k,n,x,z,uses){
   let i=gi(x,z);if(i<0||cellBlocks(i)){x=P.x;z=P.z;}
-  if(k==='steel'){const near=pickups.find(p=>p.k==='steel'&&Math.hypot(p.x-x,p.z-z)<.6);if(near){near.n+=n;return near;}}
+  if(k==='steel'){const near=pickups.find(p=>p.k==='steel'&&Math.hypot(p.x-x,p.z-z)<.6);if(near){near.n+=n;(near.ws=near.ws||[]).push(...Array(n).fill(uses||0));return near;}}
   const g=pickMesh(k);g.position.set(x,0,z);g.rotation.y=Math.random()*6;world.add(g);
-  const p={kind:'pick',k,n,x,z,uses:uses||(k==='crowbar'?CFG.crowbarUses:undefined),mesh:g,r:2.0,hy:.1};pickups.push(p);if(k!=='steel')INTER.push(p);return p;}
+  const p={kind:'pick',k,n,x,z,uses:uses||(k==='crowbar'?CFG.crowbarUses:undefined),mesh:g,r:2.0,hy:.1};if(k==='steel'){p.ws=Array(n).fill(uses||0);p.uses=undefined;}pickups.push(p);if(k!=='steel')INTER.push(p);return p;}
 function removePickup(p){world.remove(p.mesh);pickups.splice(pickups.indexOf(p),1);const i=INTER.indexOf(p);if(i>=0)INTER.splice(i,1);}
 
 /* ================= 시간 ================= */
@@ -2647,6 +2657,7 @@ const VC_N=22,VC_HALF=Math.acos(.55);
 const VC_MAT=new THREE.ShaderMaterial({transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,polygonOffset:true,polygonOffsetFactor:-2,
   uniforms:{},vertexShader:'attribute float a;attribute vec3 col;varying float va;varying vec3 vc;void main(){va=a;vc=col;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}',
   fragmentShader:'varying float va;varying vec3 vc;void main(){gl_FragColor=vec4(vc*va,1.0);}'});
+function seeK(c){return ((c&&c.ct&&c.ct.see)||1)*(DK().see||1);} /* 11/20 근영 피드백: 배회자 시야 좁게 + 쉬움 더 좁게 */
 function sightRange(){let r=P.lamp&&!P.hide?12:4.2;if(P.crouch)r*=.6;r+=lightAt(P.x,P.z)[0]*2.5;return Math.min(16,r);}
 function makeCone(){const g=new THREE.BufferGeometry();const n=VC_N+2;g.setAttribute('position',new THREE.BufferAttribute(new Float32Array(n*3),3));g.setAttribute('a',new THREE.BufferAttribute(new Float32Array(n),1));
   g.setAttribute('col',new THREE.BufferAttribute(new Float32Array(n*3),3));const idx=[];for(let i=0;i<VC_N;i++)idx.push(0,i+1,i+2);g.setIndex(idx);
@@ -2660,8 +2671,8 @@ function updateCones(dt){const R=sightRange();
     c.coneT-=dt;if(c.coneT<=0){c.coneT=.08+Math.random()*.04;const look=c.face+(c.headYaw||0),pa=m.geometry.attributes.position.array,aa=m.geometry.attributes.a.array,ca=m.geometry.attributes.col.array;
       const y=.03,k=c.coneHot,base=.10+.10*k,rr=.55+.25*Math.min(1,k),gg=.02+.05*Math.max(0,1-k),bb=.02;
       pa[0]=c.x;pa[1]=y;pa[2]=c.z;aa[0]=base*1.6;ca[0]=rr;ca[1]=gg;ca[2]=bb;
-      for(let i=0;i<=VC_N;i++){const t=-VC_HALF+2*VC_HALF*i/VC_N,a=look+t,dx=Math.sin(a),dz=Math.cos(a);let L=R;
-        for(let s=.25;s<=R;s+=.15){if(cellBlocksSight(gi(c.x+dx*s,c.z+dz*s))){L=Math.max(.2,s-.1);break;}}
+      for(let i=0;i<=VC_N;i++){const t=-VC_HALF+2*VC_HALF*i/VC_N,a=look+t,dx=Math.sin(a),dz=Math.cos(a);let L=R*seeK(c);const LM=L;
+        for(let s=.25;s<=LM;s+=.15){if(cellBlocksSight(gi(c.x+dx*s,c.z+dz*s))){L=Math.max(.2,s-.1);break;}}
         const j=i+1;pa[j*3]=c.x+dx*L;pa[j*3+1]=y;pa[j*3+2]=c.z+dz*L;aa[j]=base*.35;ca[j*3]=rr;ca[j*3+1]=gg;ca[j*3+2]=bb;}
       m.geometry.attributes.position.needsUpdate=true;m.geometry.attributes.a.needsUpdate=true;m.geometry.attributes.col.needsUpdate=true;}}}
 /* ================= 옷장 숨기 (11/4 사용자 요청) =================
@@ -3851,7 +3862,7 @@ function update(dt){
     if(P.stepAcc>(run?1.0:.75)){P.stepAcc=0;const wet=inFlood(P.x,P.z),r=wet?(P.crouch?2.5:run?12:6):P.crouch?0:run?9:3.5;if(r)hear(P.x,P.z,r,'step');G.noiseLv=Math.max(G.noiseLv,r);stepSnd(run);}}
   breathTick(dt,run);
   G.noiseLv=Math.max(0,G.noiseLv-dt*4);
-  pickups=pickups.filter(p=>{if(p.k==='steel'&&Math.hypot(p.x-P.x,p.z-P.z)<.55){const a=addItem('steel',p.n);if(a<=0)return true;p.n-=a;if(!fx('pick_ball',{gain:.7}).src)tone(1500,1900,.03,.04,'square');if(p.n<=0){world.remove(p.mesh);return false;}}return true;});
+  pickups=pickups.filter(p=>{if(p.k==='steel'&&Math.hypot(p.x-P.x,p.z-P.z)<.55){const ws=p.ws||[];const bad=ws.filter(w=>w>=BALL_LIFE).length;if(bad){p.ws=ws.filter(w=>w<BALL_LIFE);p.n=Math.max(0,p.n-bad);ballBroke(bad);if(p.n<=0){world.remove(p.mesh);return false;}}const a=addItem('steel',p.n);if(a<=0)return true;p.n-=a;P.bw=(P.bw||[]).concat((p.ws||[]).splice(0,a));if(!fx('pick_ball',{gain:.7}).src)tone(1500,1900,.03,.04,'square');if(p.n<=0){world.remove(p.mesh);return false;}}return true;});
   P.eye=lerp(P.eye,P.hide?1.52:P.crouch?1.1:1.6,Math.min(1,dt*9));updateHide(dt);
   const st=SL();if(P.drawing){P.drawT=Math.min(st.draw+6,P.drawT+dt);if(P.drawT>=st.draw&&sfx.drawFull)sfx.drawFull(drawSnd);}if(P.reloadT>0)P.reloadT=Math.max(0,P.reloadT-dt);
   P.kick=Math.max(0,P.kick-dt*5);P.relT=(P.relT??9)+dt;G.hurt=Math.max(P.hp<30&&!P.dead?.3:0,G.hurt-dt*1.6);
@@ -3862,7 +3873,7 @@ function update(dt){
   DOORS.forEach(d=>{d.ang=lerp(d.ang,d.open?1:0,Math.min(1,dt*8));let j=0;if(d.shake>0){d.shake=Math.max(0,d.shake-dt);j=Math.sin(G.t*90)*d.shake*.06;}d.pivot.rotation.y=d.a0+d.da*d.ang*(d.broken?1.08:1)+j;if(d.broken)d.pivot.rotation.z=.07;}); /* 부서진 문: 더 젖혀지고 기울어진 채 */
   if(G.hitT>0){G.hitT-=dt;if(G.hitT<=0)$('hit').className='';}
   if(G.subT>0){G.subT-=dt;if(G.subT<=0)$('sub').innerHTML='';}
-  let nd=99;creatures.forEach(c=>{if(!c.dead&&c.state==='chase')nd=Math.min(nd,Math.hypot(c.x-P.x,c.z-P.z));});const chase=nd<99;
+  const BGM_FIGHT_R=5;let nd=99;creatures.forEach(c=>{if(!c.dead&&c.state==='chase')nd=Math.min(nd,Math.hypot(c.x-P.x,c.z-P.z));});const chase=nd<99;
   G.hbT=(G.hbT||0)-dt;if(nd<14&&G.hbT<=0){G.hbT=lerp(.42,1,nd/14);sfx.heart(lerp(1,.45,nd/14));}
   // BGM 단계: 쫓김·전투 → 2 / 가까이 있거나 수상한 소리를 쫓는 중 → 1 / 그 외 0
   /* 11/6 마주침: 화면 앞쪽(±40°)·12m 안·벽에 안 가린 크리쳐를 처음 보면 즉시 긴장 + 짧은 충격음(같은 놈 25초에 한 번). 놈이 나를 보면(추격) 바로 전투 BGM */
@@ -3871,8 +3882,9 @@ function update(dt){
   /* 11/7: 들킴 소리는 '아무도 날 안 노리던 상태 → 누군가 알아챔'일 때만(싸움 중 다른 놈이 붙을 때마다 울리지 않게). 4초 넘게 아무도 안 노려야 다음 들킴으로 침 */
   {let any=false,fresh=false;for(const c of creatures){const aw=!c.dead&&!P.dead&&(c.state==='chase'||(c.type==='raider'&&(c.mode==='warn'||c.mode==='fightP')));if(aw){any=true;if(!c.awP&&!c.wave&&!c.egg&&!c.hidden&&Math.hypot(c.x-P.x,c.z-P.z)<22&&los(c.x,c.z,P.x,P.z))fresh=true;}c.awP=aw;} /* 11/7: 놈이 김수민을 실제로 보고 알아챌 때만(웨이브·비상벨 무리·1층 보스 등장은 제외) */
    if(any){if(fresh&&G.t-(G.awLast??-99)>4&&!G.cine&&!G.reveal&&G.state==='play')spotted(true);G.awLast=G.t;}}
-  let blvl=chase||G.hurt>.5&&!P.dead?2:0;if(!blvl){for(const c of creatures){if(c.dead)continue;const d=Math.hypot(c.x-P.x,c.z-P.z);
-    if((c.type==='raider'&&(c.mode==='warn'||c.mode==='fightP'))){blvl=2;break;}
+  /* 11/20 사용자(근영 피드백): 전투 BGM은 내 전투일 때만 — 쫓는 놈·덤비는 약탈자가 5m 안이거나 막 맞았을 때만 2단계, 그보다 멀면 긴장(1)까지 */
+  let blvl=(nd<BGM_FIGHT_R)||G.hurt>.5&&!P.dead?2:chase?1:0;if(blvl<2){for(const c of creatures){if(c.dead)continue;const d=Math.hypot(c.x-P.x,c.z-P.z);
+    if((c.type==='raider'&&(c.mode==='warn'||c.mode==='fightP'))){if(d<BGM_FIGHT_R){blvl=2;break;}blvl=1;}
     if(c.seenP)blvl=1;
     if(d<8||(d<16&&(c.state==='listen'||c.state==='search'||c.state==='go'||c.state==='bang'||c.state==='turn'))||(c.type==='listener'&&d<11))blvl=1;}}
   if(G.t<(G.spotHold||0))blvl=Math.min(blvl,G.lvlPrev??0);else G.lvlPrev=blvl; /* 들킴 소리가 먼저, 추격 BGM은 그 뒤 */
@@ -4496,13 +4508,13 @@ function openCraft(){
   else{const have=craftHave();$('crTitle').textContent=cur.name+' → '+nx.name;
     $('crStat').innerHTML=`<dt>외형</dt><dd style="font-family:var(--f-body);font-size:13px">${nx.look}</dd><dt>재료</dt><dd>${have} / ${nx.mats}<span style="opacity:.6;font-size:12px"> (재료 ${P.inv.mat||0} + 잡철 ${P.inv.junk||0}발 ÷ ${JUNK_PER_MAT})</span></dd><dt>피해</dt><dd>×${cur.dmg.toFixed(2)} → ×${nx.dmg.toFixed(2)}</dd><dt>당기기</dt><dd>${cur.draw.toFixed(2)}s → ${nx.draw.toFixed(2)}s</dd><dt>장전</dt><dd>${cur.reload.toFixed(2)}s → ${nx.reload.toFixed(2)}s</dd>`;
     $('crNote').textContent=have>=nx.mats?'제작 재료를 먼저 쓰고 모자라면 잡철을 녹여 쓴다(잡철 '+JUNK_PER_MAT+'발 = 재료 1). 1시간이 걸린다.':'재료가 '+(nx.mats-have)+'묶음 더 필요하다(잡철이면 '+(nx.mats-have)*JUNK_PER_MAT+'발).';$('crBtn').disabled=have<nx.mats;}
-  const fb=P.inv.flash||0,jk=P.inv.junk||0;$('fbBtn').disabled=fb>=FLASH_MAX||jk<FLASH_JUNK;$('fbNote').textContent='섬광탄: 잡철 '+FLASH_JUNK+'발 · 10분 · 최대 '+FLASH_MAX+'개 (지금 '+fb+'개) — G로 던지면 반경 6m 안 놈들이 5초 동안 멈춘다';
+  const fb=P.inv.flash||0,jk=P.inv.junk||0;$('fbBtn').disabled=fb>=FLASH_MAX||jk<FLASH_JUNK;$('fbNote').textContent='섬광탄: 잡철 '+FLASH_JUNK+'발 · 10분 (지금 '+fb+'개) — G로 던지면 반경 6m 안 놈들이 5초 동안 멈춘다';
   openUI('craft');
 }
 // 11/5 사용자: 재료가 잘 안 나옴 → 작업대에서 잡철 5발 = 재료 1로 대신 씀. 섬광탄도 작업대에서 잡철로
-const JUNK_PER_MAT=5,FLASH_JUNK=15,FLASH_MAX=5;
+const JUNK_PER_MAT=5,FLASH_JUNK=15,FLASH_MAX=99; /* 11/20 근영 피드백: 섬광탄 제작 무제한(잡철만 있으면) */
 function craftHave(){return (P.inv.mat||0)+Math.floor((P.inv.junk||0)/JUNK_PER_MAT);}
-$('fbBtn').onclick=()=>{if((P.inv.flash||0)>=FLASH_MAX||(P.inv.junk||0)<FLASH_JUNK)return;P.inv.junk-=FLASH_JUNK;P.inv.flash=(P.inv.flash||0)+1;closeUI();advanceTime(10,'섬광탄 제작');toast('섬광탄 완성 ('+P.inv.flash+'/'+FLASH_MAX+') — G로 던지기');sfx.craft();};
+$('fbBtn').onclick=()=>{if((P.inv.flash||0)>=FLASH_MAX||(P.inv.junk||0)<FLASH_JUNK)return;P.inv.junk-=FLASH_JUNK;P.inv.flash=(P.inv.flash||0)+1;closeUI();advanceTime(10,'섬광탄 제작');toast('섬광탄 완성 ('+P.inv.flash+'개) — G로 던지기');sfx.craft();};
 $('crBtn').onclick=()=>{const nx=P.tier+1<=(G.benchCap??3)?CFG.sling[P.tier+1]:null;if(!nx||craftHave()<nx.mats)return;let need=nx.mats;const um=Math.min(need,P.inv.mat||0);P.inv.mat=(P.inv.mat||0)-um;need-=um;P.inv.junk=(P.inv.junk||0)-need*JUNK_PER_MAT;P.tier++;closeUI();advanceTime(CFG.time.craft,nx.name+' 제작');toast(nx.name+' 완성');sfx.craft();};
 $('crClose').onclick=closeUI;$('invClose').onclick=closeUI;['invP','craftP'].forEach(id=>$(id).addEventListener('click',e=>{if(e.target.id===id)closeUI();}));document.querySelectorAll('.tX').forEach(b=>{b.addEventListener('touchend',e=>{e.preventDefault();e.stopPropagation();closeUI();},{passive:false});b.addEventListener('click',e=>{e.stopPropagation();closeUI();});});$('invMapBtn').onclick=()=>{toggleMap();if(sfx.uiSel)sfx.uiSel();};
 {const cp=$('credP');['pointerdown'].forEach(ev=>cp.addEventListener(ev,e=>{e.preventDefault();if(e.target.id==='credSkip'){closeCredits();return;}credDown();}));['pointerup','pointercancel','pointerleave'].forEach(ev=>cp.addEventListener(ev,()=>credUp()));}
