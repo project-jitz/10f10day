@@ -557,7 +557,7 @@ body.cineOn #drawRing{display:none}
     <div class="lui" id="lui">
     <div class="ltag"><h3>열흘 안에, 1층으로.</h3><p>문밖에서 들리는 발소리. 더는 이웃이 아니다.<br>남은 시간은 열흘. 이 건물에서 나가야 한다.</p></div>
     <div class="lhint">ENTER 시작 · ↑↓ 선택</div>
-    <div class="lver"><span id="lplay"></span> · v1.0.36 · 2026.11.20</div>
+    <div class="lver"><span id="lplay"></span> · v1.0.37 · 2026.11.20</div>
     <div class="llogo"><div class="lnum"><span id="logoF">10F</span><span class="sl">/</span><span class="dy" id="logoD">10DAY</span></div><div class="proj">project.<b>Jitz</b></div></div>
     <nav class="lmenu" id="lmenu" aria-label="메인 메뉴">
       <div class="lmain">
@@ -1550,7 +1550,7 @@ function spawnCreature(x,z,state,face=Math.random()*6.28,type='shambler'){
     if(L)[-1,0,1].forEach(k=>{const cl=new THREE.Mesh(new THREE.ConeGeometry(.008,.12,3),CMAT.bone);cl.position.set(k*.025,-fa-.2,.0);cl.rotation.x=Math.PI;el.add(cl);});
     sh.rotation.z=s2*.08;return{sh,el,hd};});
   Object.assign(c,{root,hips,spine,torso,neck,head,hm});
-  if(type==='shambler'||type==='brute'){const k=s2Skin();if(k)applyShamblerGLB(c,type==='brute',k);else if(ASSET.shGeo)applyShamblerGLB(c,type==='brute');}
+  if(type==='shambler'||type==='brute'){const k=s2Skin();if(k){applyShamblerGLB(c,type==='brute',k);if(type==='shambler'&&c.glb){const dm=s2DmgMat(shDmgStage());if(dm)c.glb.material=dm;}}else if(ASSET.shGeo)applyShamblerGLB(c,type==='brute');}
   if(type==='brute'){c.vt='zomb';c.boss=true;root.scale.setScalar(1.25);c.headR=c.glb?(c.headR||.136)*1.25:.34;const red=CMAT.skin.clone();red.color.setRGB(1.15,.7,.68);if(!c.glb)hm.material=red;
     if(!c.glb)root.traverse(o=>{if(o.isMesh&&o.material===CMAT.skin)o.material=red;});}
   unstick(c,.27);c.home.x=c.x;c.home.z=c.z;creatures.push(c);poseCreature(c,0);return c;
@@ -1868,6 +1868,10 @@ const S2J={hips:[0,.90,-.02],neck:[0,1.46,0],head:[0,1.53,.01],hm:[0,1.62,.02],h
 // 1층 보스 3D 모델(11/5 사용자 시안: 검은 가면·흰 X·파란 정장, Meshy7 A포즈, hb/mk_hb.py): 키 1.80m, 게임에서 1.1배
 const HBJ={hips:[0,.90,-.025],neck:[0,1.47,0],head:[0,1.53,0],hm:[0,1.63,.01],headR:.13,arm:[[.19,1.39,-.05],[.33,1.10,.01],[.355,.87,.05]],leg:[[.10,.87,-.025],[.11,.48,-.045],[.12,.095,-.045]]};
 const hbSkin=()=>glbSkin('hb',HBJ,0xc8c4cc);
+/* 11/20 사용자: 배회자가 층을 내려갈수록 손상 — 7~6층 1단계 / 5~4층 2단계 / 3~1층 3단계(shdmg/paint.py, 힉스필드 상처·썩은 피부·핏자국 그림을 3D 위치 기준으로 칠함) */
+function shDmgStage(){const f=G.floor;return f>=8?0:f>=6?1:f>=4?2:3;}
+function s2DmgMat(st){const k=s2Skin();if(!k||!st||!ASSET.s2D||!ASSET.s2D[st-1])return null;k.mW=k.mW||[];if(!k.mW[st]){const m=k.m.clone(),D=ASSET.s2D[st-1];m.map=skinTex(D.t);m.specularMap=skinTex(D.s);m.shininess=12;k.mW[st]=m;}return k.mW[st];}
+async function loadShDmg(){const L=ASSET.s2Dmg;if(!Array.isArray(L)||ASSET.s2D)return;const out=[];for(const[t,sp]of L){const f=u=>TOUCH?u.replace(/\.(\w+)$/,'_m.$1'):u;let ok=null;for(let tr=0;tr<4&&!ok;tr++){try{const bs=await Promise.all([fetchProg(f(t),()=>{}),fetchProg(f(sp),()=>{})]);ok={t:URL.createObjectURL(bs[0]),s:URL.createObjectURL(bs[1])};}catch(e){await new Promise(r=>setTimeout(r,1500));}}if(!ok)return;out.push(ok);}ASSET.s2D=out;}
 function s2Skin(){const k=glbSkin('s2',S2J,0xa89e98);if(k&&!k.mR){k.mR=k.m.clone();k.mR.color.setRGB(1.1,.68,.64);}return k;}
 function rdSkin(key){if(RDG[key])return RDG[key];if(!ASSET[key+'Geo']||!ASSET.shMeta)return null;RDG[key]={g:decodeSkinGeo(ASSET[key+'Geo'],ASSET.shBaseMeta||ASSET.shMeta),m:new THREE.MeshPhongMaterial({map:skinTex(ASSET[key+'Tex']),skinning:true,shininess:6,specular:0x141414})};RDG[key].g.userData.shared=true;RDG[key].g.boundingSphere=SKBS.clone();return RDG[key];}
 const _up=new THREE.Vector3(0,-1,0);const INVIS=new THREE.MeshBasicMaterial({visible:false});
@@ -4936,7 +4940,7 @@ async function loadModel(p,nm){const m=ML[p]={st:'load'};const keys=['GeoUrl','G
     catch(e){MLB.got-=got;console.warn(nm+' 모델 불러오기 실패 '+(tr+1),e);if(mSmall(p)){M_SMALL[p]=false;MLB.tot=mlTotal();continue;} /* 폰용 파일 실패 → 기다리지 않고 바로 원본으로 */const w=Math.min(10,1.5+tr*1.5);bootShow(nm+' 다시 받는 중 ('+(tr+2)+'번째)'+(tr>=2?' · 인터넷 연결을 확인해 주세요':''),null);await new Promise(r=>setTimeout(r,w*1000));}}
   mlTick();}
 let MLP=null;function startModelLoad(){if(!MLP)MLP=(async()=>{MLB.tot=mlTotal();
-  for(const[p,nm]of MLIST){if(ASSET[p+'GeoUrl'])await loadModel(p,nm);}})();return MLP;}
+  for(const[p,nm]of MLIST){if(ASSET[p+'GeoUrl'])await loadModel(p,nm);}await loadShDmg();})();return MLP;}
 function mlTick(){const now=performance.now();if(now-(mlTick.t||0)<120&&MLB.got<MLB.tot)return;mlTick.t=now;
   if(MLB.tot)bootShow('불러오는 중 · '+Math.min(100,Math.floor(MLB.got/MLB.tot*100))+'% · '+Math.min(Math.round(MLB.got/1048576),Math.round(MLB.tot/1048576))+' / '+Math.round(MLB.tot/1048576)+'MB',Math.min(1,MLB.got/MLB.tot));
   if(MLW&&modelsReady(MLW.F)){const w=MLW;MLW=null;bootTips(false);const bp=$('bootP');if(bp){bp.classList.add('done');setTimeout(()=>{bp.hidden=true;},650);}if(w.wasPlay)G.paused=false;w.cb();}}
