@@ -1,4 +1,4 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><title>10F / 10DAY</title><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon180.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="10F 10DAY"><meta name="theme-color" content="#000000"><style>html,body{margin:0;padding:0;background:#000;font:14px system-ui,sans-serif}[hidden]{display:none!important}img{max-width:100%}</style></head><body><title>10F / 10DAY</title>
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><title>10F / 10DAY</title><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon180.png"><link rel="icon" type="image/png" href="icon192.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="10F 10DAY"><meta name="theme-color" content="#000000"><style>html,body{margin:0;padding:0;background:#000;font:14px system-ui,sans-serif}[hidden]{display:none!important}img{max-width:100%}</style></head><body><title>10F / 10DAY</title>
 
 
 <link href="fonts/fonts.css" rel="stylesheet">
@@ -557,7 +557,7 @@ body.cineOn #drawRing{display:none}
     <div class="lui" id="lui">
     <div class="ltag"><h3>열흘 안에, 1층으로.</h3><p>문밖에서 들리는 발소리. 더는 이웃이 아니다.<br>남은 시간은 열흘. 이 건물에서 나가야 한다.</p></div>
     <div class="lhint">ENTER 시작 · ↑↓ 선택</div>
-    <div class="lver"><span id="lplay"></span> · v1.0.37 · 2026.11.20</div>
+    <div class="lver"><span id="lplay"></span> · v1.0.38 · 2026.11.20</div>
     <div class="llogo"><div class="lnum"><span id="logoF">10F</span><span class="sl">/</span><span class="dy" id="logoD">10DAY</span></div><div class="proj">project.<b>Jitz</b></div></div>
     <nav class="lmenu" id="lmenu" aria-label="메인 메뉴">
       <div class="lmain">
@@ -579,7 +579,7 @@ body.cineOn #drawRing{display:none}
     <canvas class="lgrain" id="lgrain" width="418" height="235"></canvas>
   </div>
   <div id="a2hs" hidden><span></span><button type="button" id="a2hsGo" class="ago" hidden></button><button type="button" class="ax" aria-label="닫기">✕</button></div>
-  <div class="lmodal" id="mSet" hidden><div class="box"><h2>설정</h2><div class="vols"><label for="volSfx2">효과음</label><input type="range" id="volSfx2" data-vol="sfx" min="0" max="100"><label for="volBgm2">배경음</label><input type="range" id="volBgm2" data-vol="bgm" min="0" max="100"></div><div class="opts"><label>난이도</label><select data-opt="diff"><option value="easy">쉬움 — 적 체력 절반 · 듣는 놈 감지 좁음</option><option value="normal">보통</option><option value="hard">어려움 — 적 체력 1.5배</option></select><em data-optv="diff"></em><label>마우스 감도</label><input type="range" data-opt="sens" min="30" max="250"><em data-optv="sens"></em><label>밝기</label><input type="range" data-opt="gamma" min="70" max="150"><em data-optv="gamma"></em><label>해상도</label><select data-opt="res"><option value="360">360p 픽셀감 강함</option><option value="540">540p 기본</option><option value="720">720p 선명</option><option value="1080">1080p 최고 화질</option></select><em data-optv="res"></em><label>글자 크기</label><input type="range" data-opt="fs" min="80" max="150" step="5"><em data-optv="fs"></em><label class="chk"><input type="checkbox" data-opt="bob"> 걸을 때 시점 흔들림</label><em data-optv="bob"></em><label class="chk"><input type="checkbox" data-opt="lod"> 성능 절약(먼 크리쳐 간략화)</label><em data-optv="lod"></em><label class="chk"><input type="checkbox" data-opt="autoQ"> 렉 걸리면 화질 자동으로 낮추기</label><em data-optv="autoQ"></em><label class="chk"><input type="checkbox" data-opt="low"> 저사양 모드(그림자·조명 줄임 · 다시 켜면 적용)</label><em data-optv="low"></em></div><div class="svx"><div class="svh">저장 옮기기 <small>진행·칭호·설정을 코드로 복사해 다른 기기에 붙여 넣기</small></div><textarea id="svTx" placeholder="여기에 저장 코드를 붙여 넣으세요"></textarea><div class="svb"><button type="button" id="svOut">내 저장 코드 복사</button><button type="button" id="svIn">붙여 넣은 코드 불러오기</button></div><div id="svMsg"></div></div><div class="btns"><button type="button" class="ghost" data-close>닫기</button></div></div></div><style>.svx{margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,.12)}.svh{font-size:14px;margin-bottom:6px}.svh small{opacity:.6;font-size:11px;margin-left:6px}#svTx{width:100%;height:56px;box-sizing:border-box;background:rgba(0,0,0,.4);color:#ddd;border:1px solid rgba(255,255,255,.18);border-radius:8px;font:10px/1.3 monospace;padding:6px;resize:none}.svb{display:flex;gap:8px;margin-top:6px}.svb button{flex:1}#svMsg{font-size:12px;margin-top:6px;min-height:16px;color:#e8b9a8}</style>
+  <div class="lmodal" id="mSet" hidden><div class="box"><h2>설정</h2><div class="vols"><label for="volSfx2">효과음</label><input type="range" id="volSfx2" data-vol="sfx" min="0" max="100"><label for="volBgm2">배경음</label><input type="range" id="volBgm2" data-vol="bgm" min="0" max="100"></div><div class="opts"><label>난이도</label><select data-opt="diff"><option value="easy">쉬움 — 적 체력 절반 · 받는 피해 70% · 감지 좁음</option><option value="normal">보통</option><option value="hard">어려움 — 적 체력 1.5배 · 받는 피해 125%</option></select><em data-optv="diff"></em><label>마우스 감도</label><input type="range" data-opt="sens" min="30" max="250"><em data-optv="sens"></em><label>밝기</label><input type="range" data-opt="gamma" min="70" max="150"><em data-optv="gamma"></em><label>해상도</label><select data-opt="res"><option value="360">360p 픽셀감 강함</option><option value="540">540p 기본</option><option value="720">720p 선명</option><option value="1080">1080p 최고 화질</option></select><em data-optv="res"></em><label>글자 크기</label><input type="range" data-opt="fs" min="80" max="150" step="5"><em data-optv="fs"></em><label class="chk"><input type="checkbox" data-opt="bob"> 걸을 때 시점 흔들림</label><em data-optv="bob"></em><label class="chk"><input type="checkbox" data-opt="lod"> 성능 절약(먼 크리쳐 간략화)</label><em data-optv="lod"></em><label class="chk"><input type="checkbox" data-opt="autoQ"> 렉 걸리면 화질 자동으로 낮추기</label><em data-optv="autoQ"></em><label class="chk"><input type="checkbox" data-opt="low"> 저사양 모드(그림자·조명 줄임 · 다시 켜면 적용)</label><em data-optv="low"></em></div><div class="svx"><div class="svh">저장 옮기기 <small>진행·칭호·설정을 코드로 복사해 다른 기기에 붙여 넣기</small></div><textarea id="svTx" placeholder="여기에 저장 코드를 붙여 넣으세요"></textarea><div class="svb"><button type="button" id="svOut">내 저장 코드 복사</button><button type="button" id="svIn">붙여 넣은 코드 불러오기</button></div><div id="svMsg"></div></div><div class="btns"><button type="button" class="ghost" data-close>닫기</button></div></div></div><style>.svx{margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,.12)}.svh{font-size:14px;margin-bottom:6px}.svh small{opacity:.6;font-size:11px;margin-left:6px}#svTx{width:100%;height:56px;box-sizing:border-box;background:rgba(0,0,0,.4);color:#ddd;border:1px solid rgba(255,255,255,.18);border-radius:8px;font:10px/1.3 monospace;padding:6px;resize:none}.svb{display:flex;gap:8px;margin-top:6px}.svb button{flex:1}#svMsg{font-size:12px;margin-top:6px;min-height:16px;color:#e8b9a8}</style>
   <div class="lmodal" id="mName" hidden><div class="box"><h2>당신의 이름은?</h2><p class="note">순위표와 결과 카드에 이 이름으로 올라갑니다. (최대 12자)</p><input id="nameIn" type="text" maxlength="12" autocomplete="off" spellcheck="false" placeholder="이름"><p id="nameMsg"></p><div class="btns"><button type="button" id="nameOk" class="red">시작</button><button type="button" class="ghost" data-close>취소</button></div></div></div>
   <div class="lmodal" id="mKeys" hidden><div class="box"><h2>조작법</h2>
     <div class="keys">
@@ -632,7 +632,7 @@ body.cineOn #drawRing{display:none}
 <div id="slingTut" hidden><div id="stFig"><canvas id="stCv" width="854" height="480"></canvas><div id="stPow">위력<b>40%</b></div></div><div id="stTxt"><div class="eyebrow">TIP · SLINGSHOT</div><h2>새총은 끝까지 당겨야 세다</h2><ol id="stList"></ol><div id="stGo">아무 키나 누르면 계속</div></div></div>
 <div id="introP" class="panel" hidden><div class="box intro"><div id="introText"></div><div class="note">스페이스 · 클릭으로 건너뛰기</div></div></div>
 <div id="pauseP" class="panel" hidden>
-  <div class="box"><h2>일시정지</h2><p class="lede">클릭하면 이어서 진행합니다.</p><div id="devRow" style="margin:8px 0 12px;padding:8px;border:1px dashed #6a2a26;display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12px;color:#c9a9a4"><b style="width:100%">테스트용 (임시) <span id="sndState" style="font-weight:400;opacity:.8"></span></b><button type="button" class="ghost" data-dev="god">무적 켬/끔</button><button type="button" class="ghost" data-dev="10">10F</button><button type="button" class="ghost" data-dev="9">9F</button><button type="button" class="ghost" data-dev="8">8F</button><button type="button" class="ghost" data-dev="7">7F</button><button type="button" class="ghost" data-dev="6">6F</button><button type="button" class="ghost" data-dev="5">5F</button><button type="button" class="ghost" data-dev="4">4F</button><button type="button" class="ghost" data-dev="3">3F</button><button type="button" class="ghost" data-dev="2">2F</button><button type="button" class="ghost" data-dev="1">1F</button></div><div class="vols"><label for="volSfx">효과음</label><input type="range" id="volSfx" data-vol="sfx" min="0" max="100"><label for="volBgm">배경음</label><input type="range" id="volBgm" data-vol="bgm" min="0" max="100"></div><div class="opts"><label>난이도</label><select data-opt="diff"><option value="easy">쉬움 — 적 체력 절반 · 듣는 놈 감지 좁음</option><option value="normal">보통</option><option value="hard">어려움 — 적 체력 1.5배</option></select><em data-optv="diff"></em><label>마우스 감도</label><input type="range" data-opt="sens" min="30" max="250"><em data-optv="sens"></em><label>밝기</label><input type="range" data-opt="gamma" min="70" max="150"><em data-optv="gamma"></em><label>해상도</label><select data-opt="res"><option value="360">360p 픽셀감 강함</option><option value="540">540p 기본</option><option value="720">720p 선명</option><option value="1080">1080p 최고 화질</option></select><em data-optv="res"></em><label>글자 크기</label><input type="range" data-opt="fs" min="80" max="150" step="5"><em data-optv="fs"></em><label class="chk"><input type="checkbox" data-opt="bob"> 걸을 때 시점 흔들림</label><em data-optv="bob"></em><label class="chk"><input type="checkbox" data-opt="lod"> 성능 절약(먼 크리쳐 간략화)</label><em data-optv="lod"></em><label class="chk"><input type="checkbox" data-opt="autoQ"> 렉 걸리면 화질 자동으로 낮추기</label><em data-optv="autoQ"></em><label class="chk"><input type="checkbox" data-opt="low"> 저사양 모드(그림자·조명 줄임 · 다시 켜면 적용)</label><em data-optv="low"></em></div><div class="btns"><button id="resumeBtn">계속하기</button><button id="quitBtn" class="ghost">로비로 나가기</button></div></div>
+  <div class="box"><h2>일시정지</h2><p class="lede">클릭하면 이어서 진행합니다.</p><div id="devRow" style="margin:8px 0 12px;padding:8px;border:1px dashed #6a2a26;display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12px;color:#c9a9a4"><b style="width:100%">테스트용 (임시) <span id="sndState" style="font-weight:400;opacity:.8"></span></b><button type="button" class="ghost" data-dev="god">무적 켬/끔</button><button type="button" class="ghost" data-dev="10">10F</button><button type="button" class="ghost" data-dev="9">9F</button><button type="button" class="ghost" data-dev="8">8F</button><button type="button" class="ghost" data-dev="7">7F</button><button type="button" class="ghost" data-dev="6">6F</button><button type="button" class="ghost" data-dev="5">5F</button><button type="button" class="ghost" data-dev="4">4F</button><button type="button" class="ghost" data-dev="3">3F</button><button type="button" class="ghost" data-dev="2">2F</button><button type="button" class="ghost" data-dev="1">1F</button></div><div class="vols"><label for="volSfx">효과음</label><input type="range" id="volSfx" data-vol="sfx" min="0" max="100"><label for="volBgm">배경음</label><input type="range" id="volBgm" data-vol="bgm" min="0" max="100"></div><div class="opts"><label>난이도</label><select data-opt="diff"><option value="easy">쉬움 — 적 체력 절반 · 받는 피해 70% · 감지 좁음</option><option value="normal">보통</option><option value="hard">어려움 — 적 체력 1.5배 · 받는 피해 125%</option></select><em data-optv="diff"></em><label>마우스 감도</label><input type="range" data-opt="sens" min="30" max="250"><em data-optv="sens"></em><label>밝기</label><input type="range" data-opt="gamma" min="70" max="150"><em data-optv="gamma"></em><label>해상도</label><select data-opt="res"><option value="360">360p 픽셀감 강함</option><option value="540">540p 기본</option><option value="720">720p 선명</option><option value="1080">1080p 최고 화질</option></select><em data-optv="res"></em><label>글자 크기</label><input type="range" data-opt="fs" min="80" max="150" step="5"><em data-optv="fs"></em><label class="chk"><input type="checkbox" data-opt="bob"> 걸을 때 시점 흔들림</label><em data-optv="bob"></em><label class="chk"><input type="checkbox" data-opt="lod"> 성능 절약(먼 크리쳐 간략화)</label><em data-optv="lod"></em><label class="chk"><input type="checkbox" data-opt="autoQ"> 렉 걸리면 화질 자동으로 낮추기</label><em data-optv="autoQ"></em><label class="chk"><input type="checkbox" data-opt="low"> 저사양 모드(그림자·조명 줄임 · 다시 켜면 적용)</label><em data-optv="low"></em></div><div class="btns"><button id="resumeBtn">계속하기</button><button id="quitBtn" class="ghost">로비로 나가기</button></div></div>
 </div>
 
 <div id="invP" class="panel" hidden>
@@ -831,7 +831,7 @@ if(!TOUCH&&OPT.qv!==3){OPT.qv=3;if(WEAK_GPU){OPT.res=Math.min(OPT.res,720);OPT.l
 const LOWQ=TOUCH||!!OPT.low; // 저사양: 그림자 가볍게·실제 조명 10개(다음 실행부터 적용)
 renderer.shadowMap.type=LOWQ?THREE.PCFShadowMap:THREE.PCFSoftShadowMap;
 // 난이도(11/6 사용자): 적 체력 배율 · 듣는 놈 청력/접촉 감지 배율. 새로 생기는 적부터 적용
-const DIFF={easy:{name:'쉬움',hp:.5,lsHear:.6,lsTouch:.7,hbK:.67,see:.8,hear:.8},normal:{name:'보통',hp:1,lsHear:1,lsTouch:1,hbK:1,see:1,hear:1},hard:{name:'어려움',hp:1.5,lsHear:1,lsTouch:1,hbK:1.22,see:1,hear:1}};
+const DIFF={easy:{name:'쉬움',dmg:.7,hp:.5,lsHear:.6,lsTouch:.7,hbK:.67,see:.8,hear:.8},normal:{name:'보통',dmg:1,hp:1,lsHear:1,lsTouch:1,hbK:1,see:1,hear:1},hard:{name:'어려움',dmg:1.25,hp:1.5,lsHear:1,lsTouch:1,hbK:1.22,see:1,hear:1}};
 function DK(){return DIFF[OPT.diff]||DIFF.normal;}
 let RH=OPT.res;let RW=Math.round(RH*16/9);
 const rt=new THREE.WebGLRenderTarget(640,360,{minFilter:THREE.NearestFilter,magFilter:THREE.NearestFilter});
@@ -1503,7 +1503,7 @@ function spawnFloorCreatures(){const fc=FLOORS[G.floor]||{sh:6,ls:1};const r=mul
   spawnAmbush(r,fc);
   if(fc.raid)spawnRaiders(fc.raid);
   if(fc.base){const U=UNITS.find(u=>u.num==='TPS');const[x,z]=uMap(U,U.W*.5,U.D*.55);if(spawnGorilla(x,z,uFace(U))){}else{const c=spawnCreature(x,z,'idle',uFace(U),'raider');dressRaider(c,'pipe');
-    c.rt={hp:240,chase:2.0,atk:22,atkCd:1.3};c.hp=c.maxHp=c.baseHp=240;c.guard=true;c.chief=true;c.root.scale.setScalar(1.12);c.home={x,z,face:uFace(U)};}}
+    c.rt={hp:240,chase:2.0,atk:17,atkCd:1.3};c.hp=c.maxHp=c.baseHp=240;c.guard=true;c.chief=true;c.root.scale.setScalar(1.12);c.home={x,z,face:uFace(U)};}}
   if(fc.boss){const U=UNITS.find(u=>u.num===1009);const[x,z]=uMap(U,U.W/2,U.D*.6);spawnCreature(x,z,'idle',uFace(U),'bighead');}
 }
 /* 11/9 사용자: 쓰레기실·TPS실에 층마다 한 놈 매복(비척이 또는 천장 놈) — 가만히 숨어 소리에도 안 움직이다가, 방에 들어오거나 2.6m 안에 오면 튀어나옴 */
@@ -1515,7 +1515,7 @@ function ambushTick(c){const d=Math.hypot(c.x-P.x,c.z-P.z);if(P.hide||P.peep)ret
   if(c.ambBox){const b=c.ambBox;inRoom=P.x>b[0]&&P.x<b[2]&&P.z>b[1]&&P.z<b[3];}else{const U=unitAt(P.x,P.z);inRoom=!!U&&U.num==='TPS';}
   const hit=c.hp<c.maxHp;if(!hit&&!((inRoom&&d<5.5)||d<2.6))return false;if(!hit&&wallBetween(c.x,c.z,P.x,P.z))return false;
   c.ambush=null;c.stun=0;jumpScare(true);vo('jump',0);startChase(c,true);return true;}
-const CT={raider:{hp:90,chase:2.9,go:1.2,atk:16,atkCd:1.1,hear:.8,see:.7,pitch:[1,1]},brute:{hp:420,chase:2.0,go:.9,atk:32,atkCd:2.1,hear:1.1,pitch:[.66,.72]},shambler:{hp:150,chase:1.8,go:.85,atk:14,atkCd:1.3,hear:.75,see:.75,pitch:[.97,1.03]},listener:{hp:140,chase:3.2,go:1.7,atk:20,atkCd:1.5,hear:1.7,pitch:[.96,1.04]},bighead:{hp:1600,chase:1.5,go:1.1,atk:28,atkCd:2.2,hear:1.3,pitch:[.6,.66]}};
+const CT={raider:{hp:90,chase:2.9,go:1.2,atk:16,atkCd:1.1,hear:.8,see:.7,pitch:[1,1]},brute:{hp:420,chase:2.0,go:.9,atk:24,atkCd:2.1,hear:1.1,pitch:[.66,.72]},shambler:{hp:150,chase:1.8,go:.85,atk:10,atkCd:1.3,hear:.75,see:.75,pitch:[.97,1.03]},listener:{hp:140,chase:3.2,go:1.7,atk:15,atkCd:1.5,hear:1.7,pitch:[.96,1.04]},bighead:{hp:1600,chase:1.5,go:1.1,atk:22,atkCd:2.2,hear:1.3,pitch:[.6,.66]}};
 function spawnCreature(x,z,state,face=Math.random()*6.28,type='shambler'){
   if(type==='bighead'){const b=spawnBigHead(x,z,state,face);if(b)return b;type='brute';}
   if(!CMAT)CMAT={skin:new THREE.MeshPhongMaterial({map:TX.skin,flatShading:true,shininess:26,specular:0x241414}),cloth:new THREE.MeshPhongMaterial({map:TX.cloth,flatShading:true,shininess:2}),pants:new THREE.MeshPhongMaterial({map:TX.pants,flatShading:true,shininess:2}),foot:new THREE.MeshPhongMaterial({color:0x2a2624,flatShading:true}),
@@ -1558,8 +1558,8 @@ function spawnCreature(x,z,state,face=Math.random()*6.28,type='shambler'){
 /* ================= 8층 보스: 큰 머리(11/5 사용자 친구 얼굴, Tripo 3면 → bhg/mk 스크립트) =================
    몸 없이 머리 하나가 통통 튀어 다닌다. 느리고 체력이 높음. 멀리선 침 뱉기(맞으면 몸이 무거워짐), 가까우면 박치기 돌진.
    문·좁은 곳은 말랑하게 찌그러져 통과(벽 뚫림 방지). 얼굴(눈·코·입) = 머리 판정, 나머지 = 몸통 판정 */
-const BH={hp:1600,scale:1.95,hop:.44,ground:.19,hopH:.5,hopDist:1.33, /* 11/8 사용자: 이속 절반(약 3→1.5m/s)·체력 1600 */spitR:[3.2,13],spitCd:2.8,spitSpd:9.5,spitDmg:8,slowT:3,slowK:.55,
-  butR:3.0,butWind:.7,butSpd:7.5,butT:.55,butDmg:28,butCd:3.6,dazeT:1.6,atkCd:2.2};
+const BH={hp:1600,scale:1.95,hop:.44,ground:.19,hopH:.5,hopDist:1.33, /* 11/8 사용자: 이속 절반(약 3→1.5m/s)·체력 1600 */spitR:[3.2,13],spitCd:2.8,spitSpd:9.5,spitDmg:6,slowT:3,slowK:.55,
+  butR:3.0,butWind:.7,butSpd:7.5,butT:.55,butDmg:22,butCd:3.6,dazeT:1.6,atkCd:2.2};
 const SPITS=[];let BHGEO=null,BHMAT=null,SPIT_G=null,SPIT_M=null,SPLAT_M=null;
 function bhGeo(){if(BHGEO||!ASSET.bhGeo)return BHGEO;const m=ASSET.bhMeta,nv=m.nv,ni=m.ni;let u8;const b64=ASSET.bhGeo;if(b64 instanceof ArrayBuffer)u8=new Uint8Array(b64.slice(0));else{const bs=atob(b64);u8=new Uint8Array(bs.length);for(let i=0;i<bs.length;i++)u8[i]=bs.charCodeAt(i);}
   const B=u8.buffer;let o=0;const pos=new Float32Array(B,o,nv*3);o+=nv*12;const nq=new Int8Array(B,o,nv*3);o+=nv*3;o+=(4-o%4)%4;const uv=new Uint16Array(B,o,nv*2);o+=nv*4;const idx=new Uint16Array(B.slice(o,o+ni*2));
@@ -1614,7 +1614,7 @@ function updateSpits(dt){for(let i=SPITS.length-1;i>=0;i--){const p=SPITS[i];let
     else if(p.y<.04)end='floor';else if(wallAt(p.x,p.z))end='wall';}
   p.m.position.set(p.x,p.y,p.z);p.life-=dt;if(!end&&p.life>0)continue;
   world.remove(p.m);SPITS.splice(i,1);const x=p.x,z=p.z;at(x,z,()=>{nz(.18,900,1,.35,0,'bandpass',300);nz(.1,2400,1.5,.12,.02,'bandpass');});
-  if(end==='hit'){damagePlayer(BH.spitDmg*dayMul(),'bighead','spit');const first=!(P.slowT>0);P.slowT=BH.slowT;G.spitT=1;if(first)toast('끈적한 침… 몸이 무거워졌다',true);mono('spitHit');}
+  if(end==='hit'){damagePlayer(BH.spitDmg*dayDmg(),'bighead','spit');const first=!(P.slowT>0);P.slowT=BH.slowT;G.spitT=1;if(first)toast('끈적한 침… 몸이 무거워졌다',true);mono('spitHit');}
   if(end==='floor'||end==='hit'){const s=new THREE.Mesh(new THREE.CircleGeometry(.16+Math.random()*.1,10),SPLAT_M.clone());s.material.userData.perFloor=true;s.rotation.x=-Math.PI/2;s.position.set(end==='hit'?P.x:x,.012,end==='hit'?P.z:z);s.userData.life=7;world.add(s);(G.splats=G.splats||[]).push(s);}}
   if(G.splats)G.splats=G.splats.filter(s=>{s.userData.life-=dt;s.material.opacity=Math.min(.75,s.userData.life/3*.75);if(s.userData.life<=0){world.remove(s);s.geometry.dispose();s.material.dispose();return false;}return true;});}
 function updateBig(c,dt){
@@ -1634,7 +1634,7 @@ function updateBig(c,dt){
   if(c.mode==='wind'){c.butT-=dt;c.face=lerpAng(c.face,Math.atan2(dx,dz),dt*6);c.butDir=[dx/d,dz/d];if(c.butT<=0){c.mode='dash';c.butT=BH.butT;c.hitP=false;at(c.x,c.z,()=>{nz(.4,500,1,.35,0,'lowpass',160);tone(120,60,.3,.3,'sawtooth');});}}
   else if(c.mode==='dash'){c.butT-=dt;const st=BH.butSpd*m*dt,ox=c.x,oz=c.z;c.hy=Math.max(0,c.hy-dt*2);moveCircle(c,c.butDir[0]*st,c.butDir[1]*st,.3);
     const moved=Math.hypot(c.x-ox,c.z-oz),pd=Math.hypot(P.x-c.x,P.z-c.z);
-    if(!c.hitP&&pd<.32*BH.scale+.25&&!P.hide&&!P.dead){c.hitP=true;damagePlayer(BH.butDmg*m,'bighead');moveCircle(P,c.butDir[0]*1.2,c.butDir[1]*1.2,.22);P.kick=Math.max(P.kick,.9);at(c.x,c.z,()=>{tone(90,40,.3,.6,'square');nz(.25,300,1,.6,0,'lowpass');});c.butT=Math.min(c.butT,.12);}
+    if(!c.hitP&&pd<.32*BH.scale+.25&&!P.hide&&!P.dead){c.hitP=true;damagePlayer(BH.butDmg*dayDmg(),'bighead');moveCircle(P,c.butDir[0]*1.2,c.butDir[1]*1.2,.22);P.kick=Math.max(P.kick,.9);at(c.x,c.z,()=>{tone(90,40,.3,.6,'square');nz(.25,300,1,.6,0,'lowpass');});c.butT=Math.min(c.butT,.12);}
     if(moved<st*.3){c.mode='daze';c.dazeT=BH.dazeT;c.sq=.7;c.sqV=0;at(c.x,c.z,()=>{tone(80,34,.45,.65,'square');nz(.4,220,1,.7,0,'lowpass');});hear(c.x,c.z,10,'bash');creatureSay(c,'hurt');}
     else if(c.butT<=0){c.mode='move';c.butCdT=BH.butCd;}}
   else if(c.mode==='daze'){c.dazeT-=dt;if(c.dazeT<=0){c.mode='move';c.butCdT=BH.butCd;}}
@@ -1678,7 +1678,7 @@ function bigZone(c,x,y,z){if(c.dead)return null;const p=new THREE.Vector3(x,y,z)
 /* ================= 4층 보스: 고릴라(사용자 11/5, Tripo GLB → gor/) =================
    관리실(TPS)에 웅크려 있다가 문이 열려 김수민이 보이면 깨어난다. 걷지 않는다:
    1.5초 차징 → 최대 5.5m 도약 → 쾅 내려찍기(반경 2.5m·35·밀쳐냄) → 2초 숨 고르기(이때 맞히면 1.5배) → 반복. 죽으면 계단 열쇠 */
-const GA={hp:2600, /* 11/9 사용자: 4000 → 11/20 근영 피드백 '너무 셈': 2600, 차징 .75→1.0, 숨 고르기 1→1.6초, 내려찍기 35→28 */scale:.85,charge:1.0,leapMax:5.5,leapT:.9,slamR:2.5,slamDmg:28,rest:1.6,restMul:3,wake:7.5,r:.38};
+const GA={hp:2600, /* 11/9 사용자: 4000 → 11/20 근영 피드백 '너무 셈': 2600, 차징 .75→1.0, 숨 고르기 1→1.6초, 내려찍기 35→28 */scale:.85,charge:1.0,leapMax:5.5,leapT:.9,slamR:2.5,slamDmg:22,rest:1.6,restMul:3,wake:7.5,r:.38};
 let GAGEO=null,GAMAT=null;
 function gaGeo(){if(GAGEO||!ASSET.gaGeo)return GAGEO;const m=ASSET.gaMeta,nv=m.nv,ni=m.ni;let u8;const b64=ASSET.gaGeo;if(b64 instanceof ArrayBuffer)u8=new Uint8Array(b64.slice(0));else{const bs=atob(b64);u8=new Uint8Array(bs.length);for(let i=0;i<bs.length;i++)u8[i]=bs.charCodeAt(i);}
   const B=u8.buffer;let o=0;const pos=new Float32Array(B,o,nv*3);o+=nv*12;const nq=new Int8Array(B,o,nv*3);o+=nv*3;o+=(4-o%4)%4;const uv=new Uint16Array(B,o,nv*2);o+=nv*4;const idx=new Uint16Array(B.slice(o,o+ni*2));
@@ -1719,7 +1719,7 @@ function gorSlam(c){const m=dayMul(),d=Math.hypot(P.x-c.x,P.z-c.z);c.sq=.68;c.sq
   hear(c.x,c.z,14,'bash');P.kick=Math.max(P.kick,clamp(1.1-d/8,.15,1));
   for(let i=0;i<10;i++){const a=i/10*6.28;puff(c.x+Math.cos(a)*1.1,.05,c.z+Math.sin(a)*1.1);}
   creatures.forEach(o=>{if(o!==c&&!o.dead&&Math.hypot(o.x-c.x,o.z-c.z)<GA.slamR&&!wallBetween(c.x,c.z,o.x,o.z))hurtNPC(o,GA.slamDmg,c);});
-  if(d<GA.slamR&&!P.hide&&!P.dead&&!wallBetween(c.x,c.z,P.x,P.z)){damagePlayer(GA.slamDmg*m,'gorilla');playVoice(c,'hitp',{gain:1.2});const k=(GA.slamR-d+.6)/(d||.01);moveCircle(P,(P.x-c.x)*k,(P.z-c.z)*k,.22);P.kick=1;}}
+  if(d<GA.slamR&&!P.hide&&!P.dead&&!wallBetween(c.x,c.z,P.x,P.z)){damagePlayer(GA.slamDmg*dayDmg(),'gorilla');playVoice(c,'hitp',{gain:1.2});const k=(GA.slamR-d+.6)/(d||.01);moveCircle(P,(P.x-c.x)*k,(P.z-c.z)*k,.22);P.kick=1;}}
 // 11/6 사용자: 보스 옷장 반응 — 고릴라는 문짝째 내려찍기, 큰 머리는 냄새 맡다 박치기. 숨는 걸 봤으면 확률 큼
 const BOSS_HIDE={gor:{saw:.8,no:.6,dmg:50,name:'고릴라',hit:'옷장째 내려찍혔다! 끌려나왔다',miss:'…옷장 문짝이 우그러졌다. 놈이 물러난다.'},
   big:{saw:.6,no:.4,dmg:30,name:'큰 머리',hit:'옷장 문을 들이받고 튕겨 나왔다!',miss:'…쿵. 문짝만 들이받고 돌아간다.'}};
@@ -1793,7 +1793,7 @@ function gorZone(c,x,y,z){if(c.dead)return null;const p=new THREE.Vector3(x,y,z)
 /* ================= 3층부터: 천장 기어다니는 놈(사용자 11/6, 2번 시안 → Tripo 4면 → crw/) =================
    천장에 거꾸로 붙어 다님(몸을 뒤로 꺾은 브릿지 자세 그대로 뒤집음). 눈이 있어 보고 듣는다. 빠름(3.4m/s), 천장에서 할퀴기.
    기존 크리쳐 AI(상태·길찾기·추격) 그대로 쓰고, 모양·위치·죽음만 따로. 문틀(2.1m)에선 낮춰서 지나감 */
-const CRW={hp:90,scale:1.25,chase:3.4,go:1.4,atk:12,atkCd:1.1,hear:1.3};
+const CRW={hp:90,scale:1.25,chase:3.4,go:1.4,atk:9,atkCd:1.1,hear:1.3};
 let CWGEO=null,CWMAT=null;
 function cwGeo(){if(CWGEO||!ASSET.cwGeo)return CWGEO;const m=ASSET.cwMeta,nv=m.nv,ni=m.ni;let u8;const b64=ASSET.cwGeo;if(b64 instanceof ArrayBuffer)u8=new Uint8Array(b64.slice(0));else{const bs=atob(b64);u8=new Uint8Array(bs.length);for(let i=0;i<bs.length;i++)u8[i]=bs.charCodeAt(i);}
   const B=u8.buffer;let o=0;const pos=new Float32Array(B,o,nv*3);o+=nv*12;const nq=new Int8Array(B,o,nv*3);o+=nv*3;o+=(4-o%4)%4;const uv=new Uint16Array(B,o,nv*2);o+=nv*4;const idx=new Uint16Array(B.slice(o,o+ni*2));
@@ -1825,7 +1825,7 @@ function crawlDead(c,dt){c.deadT=Math.min(1,c.deadT+dt*2);if(c.fallY===0&&!c.lan
 /* 11/20 사용자: 거꾸리(천장 놈) 되살아남 — 몸통으로 죽이면 2분 뒤 한 번 다시 일어나 천천히 끝까지 쫓아옴. 머리로 죽이면·두 번째 죽음은 완전히 죽음 */
 const CRW_REV={t:120,warn:10,hpK:1,chase:1.3,cd:20};
 function crawlStalk(c){c.revived=true;c.stalk=true;c.ct=Object.assign({},c.ct,{chase:CRW_REV.chase});c.hp=c.maxHp=c.baseHp=Math.round(CRW.hp*CRW_REV.hpK*(DK().hp||1));c.stalkCD=0;}
-function crawlRevive(c){c.dead=false;c.reviveT=0;c.deadT=0;c.deadAge=0;c.landed=false;c.fallY=0;c.fallV=0;c.ry=.25;c.riseT=1.8;c.stun=1.8;c.dk=null;crawlStalk(c);c.state='idle';c.path=[];
+function crawlRevive(c){c.dead=false;c.ambush=null;c.reviveT=0;c.deadT=0;c.deadAge=0;c.landed=false;c.fallY=0;c.fallV=0;c.ry=.25;c.riseT=1.8;c.stun=1.8;c.dk=null;crawlStalk(c);c.state='idle';c.path=[];
   at(c.x,c.z,()=>{for(let i=0;i<4;i++){nz(.05,2000,3,.55,i*.09,'bandpass',2600);tone(170-i*15,80,.05,.3,'square',i*.09);}});creatureSay(c,'alert');
   if(Math.hypot(c.x-P.x,c.z-P.z)<14&&los(c.x,c.z,P.x,P.z))mono('crawlRise',{prio:true});else if(!G.crawlRiseT){G.crawlRiseT=1;toast('…어딘가에서 뼈 꺾이는 소리가 났다.',true);}}
 function crawlDeadTick(c,dt){if(!(c.reviveT>0))return;c.reviveT-=dt;
@@ -1871,7 +1871,7 @@ const hbSkin=()=>glbSkin('hb',HBJ,0xc8c4cc);
 /* 11/20 사용자: 배회자가 층을 내려갈수록 손상 — 7~6층 1단계 / 5~4층 2단계 / 3~1층 3단계(shdmg/paint.py, 힉스필드 상처·썩은 피부·핏자국 그림을 3D 위치 기준으로 칠함) */
 function shDmgStage(){const f=G.floor;return f>=8?0:f>=6?1:f>=4?2:3;}
 function s2DmgMat(st){const k=s2Skin();if(!k||!st||!ASSET.s2D||!ASSET.s2D[st-1])return null;k.mW=k.mW||[];if(!k.mW[st]){const m=k.m.clone(),D=ASSET.s2D[st-1];m.map=skinTex(D.t);m.specularMap=skinTex(D.s);m.shininess=12;k.mW[st]=m;}return k.mW[st];}
-async function loadShDmg(){const L=ASSET.s2Dmg;if(!Array.isArray(L)||ASSET.s2D)return;const out=[];for(const[t,sp]of L){const f=u=>TOUCH?u.replace(/\.(\w+)$/,'_m.$1'):u;let ok=null;for(let tr=0;tr<4&&!ok;tr++){try{const bs=await Promise.all([fetchProg(f(t),()=>{}),fetchProg(f(sp),()=>{})]);ok={t:URL.createObjectURL(bs[0]),s:URL.createObjectURL(bs[1])};}catch(e){await new Promise(r=>setTimeout(r,1500));}}if(!ok)return;out.push(ok);}ASSET.s2D=out;}
+async function loadShDmg(){const L=ASSET.s2Dmg;if(!Array.isArray(L)||ASSET.s2D)return;const out=[];for(const[t,sp]of L){let ok=null;for(let tr=0;tr<4&&!ok;tr++){const f=u=>TOUCH&&tr<2?u.replace(/\.(\w+)$/,'_m.$1'):u; /* 폰용 파일 두 번 실패하면 원본 */try{const bs=await Promise.all([fetchProg(f(t),()=>{}),fetchProg(f(sp),()=>{})]);ok={t:URL.createObjectURL(bs[0]),s:URL.createObjectURL(bs[1])};}catch(e){await new Promise(r=>setTimeout(r,1500));}}if(!ok)return;out.push(ok);}ASSET.s2D=out;}
 function s2Skin(){const k=glbSkin('s2',S2J,0xa89e98);if(k&&!k.mR){k.mR=k.m.clone();k.mR.color.setRGB(1.1,.68,.64);}return k;}
 function rdSkin(key){if(RDG[key])return RDG[key];if(!ASSET[key+'Geo']||!ASSET.shMeta)return null;RDG[key]={g:decodeSkinGeo(ASSET[key+'Geo'],ASSET.shBaseMeta||ASSET.shMeta),m:new THREE.MeshPhongMaterial({map:skinTex(ASSET[key+'Tex']),skinning:true,shininess:6,specular:0x141414})};RDG[key].g.userData.shared=true;RDG[key].g.boundingSphere=SKBS.clone();return RDG[key];}
 const _up=new THREE.Vector3(0,-1,0);const INVIS=new THREE.MeshBasicMaterial({visible:false});
@@ -2015,7 +2015,7 @@ function poseListener(c,mv){
   /* 11/6: .9→.35 — 숙일 때 머리카락이 판자처럼 튀어나오던 것(검은 조각) 줄임 */c.hair.g.rotation.x=-(c.spine.rotation.x+c.neck.rotation.x)*.35;c.hair.g.rotation.z=-c.head.rotation.z*.35;
   const s=1+br*.02;c.hm.scale.set(s,s,s);
 }
-/* 11/6 밸런스: 체력·공격 하루 +5%(최대 1.35배), 이동 속도는 따로 하루 +2%(최대 1.12배) */const dayMul=()=>Math.min(1.35,1+.05*(G.day-1));const daySpd=()=>Math.min(1.12,1+.02*(G.day-1));
+/* 11/6 밸런스: 체력·공격 하루 +5%(최대 1.35배), 이동 속도는 따로 하루 +2%(최대 1.12배) */const dayMul=()=>Math.min(1.35,1+.05*(G.day-1));const dayDmg=()=>Math.min(1.2,1+.03*(G.day-1)); /* 11/20 사용자: 받는 피해는 날짜 배율 따로(최대 1.2) */const daySpd=()=>Math.min(1.12,1+.02*(G.day-1));
 function applyDay(instant){setWindowDay(G.day,instant);creatures.forEach(c=>{if(c.dead)return;const nm=c.baseHp*dayMul();c.hp=c.hp/c.maxHp*nm;c.maxHp=nm;});}
 const doorPass=d=>d.open||(DOOR_PASS&&d.type!=='crowbar'&&d.type!=='survivor');
 // 11/6: 고릴라 길찾기(GOR_NAV) — 뛰어서 넘으니 가구·택배상자·바리케이드는 막힘이 아님(벽·닫힌 문만)
@@ -2156,7 +2156,7 @@ function updateCreature(c,dt){
       else mv=followPath(c,ct.chase*daySpd()*(c.runner?RUN_K.spd:1),dt,f.x,f.z)?1:0;break;}
     case'chase':{c.headTarget=clamp(angDiff(Math.atan2(dx,dz),c.face),-1.2,1.2);if(c.hidden){mv=hiddenChase(c,dt,dx,dz,d,sees);break;}const spd=ct.chase*daySpd()*(c.runner?RUN_K.spd:1);
       const tgx=(sees||(!L&&c.lost===0))?P.x:c.lsx,tgz=(sees||(!L&&c.lost===0))?P.z:c.lsz;
-      if(!P.hide&&d<1.15&&los(c.x,c.z,P.x,P.z)&&(sees||!L)){c.face=lerpAng(c.face,Math.atan2(dx,dz),dt*8);if(c.atkT<=0){c.atkT=ct.atkCd;c.atkAnim=.45;LAST_ATK=c;damagePlayer(ct.atk*m,null,c.crawl?'slash':c.boss?'heavy':'bite');LAST_ATK=null;creatureSay(c,'attack');}}
+      if(!P.hide&&d<1.15&&los(c.x,c.z,P.x,P.z)&&(sees||!L)){c.face=lerpAng(c.face,Math.atan2(dx,dz),dt*8);if(c.atkT<=0){c.atkT=ct.atkCd;c.atkAnim=.45;LAST_ATK=c;damagePlayer(ct.atk*dayDmg(),null,c.crawl?'slash':c.boss?'heavy':'bite');LAST_ATK=null;creatureSay(c,'attack');}}
       else if(d<2.2&&sees&&los(c.x,c.z,P.x,P.z)){const sp=spd*dt;moveCircle(c,dx/d*sp,dz/d*sp,.26);c.face=lerpAng(c.face,Math.atan2(dx,dz),dt*7);c.anim+=dt*spd*3.1;mv=1;c.stepT-=dt;if(c.stepT<=0){c.stepT=.32;creatureStep(c,spd);}}
       else{const F=flankTgt(c,tgx,tgz,sees,d);mv=followPath(c,spd,dt,F[0],F[1])?1:0;}break;}
   }
@@ -2414,7 +2414,7 @@ const RAID_LINES={
   hurt:['악! 쏘는 놈 있다!','젠장, 맞았어!'],
   die:['크억…','으…'],
   monster:['괴물이다! 쳐!','붙었다, 붙었어!']};
-const RT={pipe:{hp:110,chase:2.0,atk:14,atkCd:1.2},thrower:{hp:85,chase:1.85,atk:12,atkCd:2.4}}; /* 11/20 사용자: 더 느리게 2.4/2.2 → 2.0/1.85 */ // 11/5 사용자: 너무 빠름 → 2.9/2.6에서 낮춤(걷기 2.2 · 달리기 4.0)
+const RT={pipe:{hp:110,chase:2.0,atk:11,atkCd:1.2},thrower:{hp:85,chase:1.85,atk:9,atkCd:2.4}}; /* 11/20 사용자: 더 느리게 2.4/2.2 → 2.0/1.85 */ // 11/5 사용자: 너무 빠름 → 2.9/2.6에서 낮춤(걷기 2.2 · 달리기 4.0)
 let DOOR_PASS=false; // 약탈자 길찾기: 잠기지 않은 문은 열고 지나간다
 const eprojs=[];
 function raiderSay(c,cat,force){if(!force&&G.t-(c.sayT||-9)<4)return;c.sayT=G.t;const L=RAID_LINES[cat];if(!L)return;const d=Math.hypot(c.x-P.x,c.z-P.z);if(d>16)return;
@@ -2469,7 +2469,7 @@ function throwAt(c,tx,ty,tz,target){const sx=c.x,sz=c.z,sy=1.55,d=Math.hypot(tx-
   eprojs.push({x:sx,y:sy,z:sz,vx,vy,vz,m,src:c,target,life:3});c.atkAnim=.45;at(sx,sz,()=>nz(.1,900,1.5,.2,0,'bandpass',700));}
 function updateEProjs(dt){for(let i=eprojs.length-1;i>=0;i--){const p=eprojs[i];let done=false;
   for(let s=0;s<4&&!done;s++){const h=dt/4;p.x+=p.vx*h;p.y+=p.vy*h;p.z+=p.vz*h;p.vy-=CFG.g*h;p.m.rotation.x+=h*12;
-    if(!P.dead&&Math.hypot(p.x-P.x,p.z-P.z)<.42&&p.y>.3&&p.y<1.9){damagePlayer(10*dayMul(),null,'glass');done=true;}
+    if(!P.dead&&Math.hypot(p.x-P.x,p.z-P.z)<.42&&p.y>.3&&p.y<1.9){damagePlayer(8*dayDmg(),null,'glass');done=true;}
     else{for(const o of creatures){if(o.dead||o===p.src||o.type==='raider')continue;if(Math.hypot(p.x-o.x,p.z-o.z)<.45&&p.y>.2&&p.y<2){hurtNPC(o,15,p.src);done=true;break;}}}
     if(!done&&(p.y<.05||wallAt(p.x,p.z)))done=true;}
   p.m.position.set(p.x,p.y,p.z);p.life-=dt;
@@ -2510,7 +2510,7 @@ function updateRaider(c,dt){
       if(c.timer<=0){if(sees&&d<10){c.mode='fightP';raiderSay(c,'attack',true);if(c.pair&&!c.pair.dead&&aggroOK(c.pair))c.pair.mode='fightP';}else{c.mode='patrol';raiderSay(c,'lost',true);}}break;}
     case'fightP':{if(!sees){if(!P.hide){c.lsx=P.x;c.lsz=P.z;}c.lost+=dt;if((c.lost>8&&d>12)||c.lost>25){c.mode='search';c.timer=4;c.goal={x:c.lsx,z:c.lsz};raiderSay(c,'lost');break;}}
       const tx=c.lsx,tz=c.lsz;
-      if(c.role==='pipe'){if(d<1.2&&sees){c.face=lerpAng(c.face,Math.atan2(dx,dz),dt*8);if(c.atkT<=0){c.atkT=rt.atkCd;c.atkAnim=.45;damagePlayer(rt.atk*m,null,'bat');at(c.x,c.z,()=>{nz(.08,1800,1,.3);tone(300,180,.08,.15,'square');});}}
+      if(c.role==='pipe'){if(d<1.2&&sees){c.face=lerpAng(c.face,Math.atan2(dx,dz),dt*8);if(c.atkT<=0){c.atkT=rt.atkCd;c.atkAnim=.45;damagePlayer(rt.atk*dayDmg(),null,'bat');at(c.x,c.z,()=>{nz(.08,1800,1,.3);tone(300,180,.08,.15,'square');});}}
         else{const F=flankTgt(c,tx,tz,sees,d);mv=rFollow(c,rt.chase*daySpd(),dt,F[0],F[1])?1:0;}}
       else{if(sees&&d<4){const ax=-dx/d,az=-dz/d;moveCircle(c,ax*2.2*dt,az*2.2*dt,.26);mv=1;c.anim+=dt*6;c.face=lerpAng(c.face,Math.atan2(dx,dz),dt*6);}
         else if(!sees||d>10){const F=flankTgt(c,tx,tz,sees,d);mv=rFollow(c,rt.chase*daySpd(),dt,F[0],F[1])?1:0;}
@@ -2626,7 +2626,7 @@ function pickMesh(k){
     case'crowbar':{const b=m(new THREE.BoxGeometry(.6,.025,.03),0x7a1a20,.015);b.rotation.y=.4;}break;
     case'flash':{const b=m(new THREE.CylinderGeometry(.03,.03,.11,8),0x4a5a3a,.03);b.rotation.z=Math.PI/2;}break;case'medkit':{m(new THREE.BoxGeometry(.3,.11,.2),0xc8c0b4,.055);m(new THREE.BoxGeometry(.11,.004,.035),0xc0201c,.112);m(new THREE.BoxGeometry(.035,.004,.11),0xc0201c,.112);m(new THREE.BoxGeometry(.1,.02,.02),0x3a3634,.125);}break;default:m(new THREE.BoxGeometry(.08,.08,.08),0x777777,.04);}
   return g;}
-/* 11/20 근영 피드백(탄이 너무 많음): 쇠구슬은 3번 쏘면 찌그러져 못 줍는다. P.bw = 가방 속 쇠구슬마다 쏜 횟수(모르는 건 0) */
+/* 11/20 근영 피드백(탄이 너무 많음): 쇠구슬은 BALL_LIFE번 쏘면 찌그러져 못 줍는다. P.bw = 가방 속 쇠구슬마다 쏜 횟수(모르는 건 0) */
 const BALL_LIFE=2; /* 11/20 사용자: 쇠구슬은 2번 쏘면 끝 */
 function ballWearOut(){P.bw=P.bw||[];if(P.bw.length>(P.inv.steel||0))P.bw.length=P.inv.steel||0;return (P.bw.length?P.bw.pop():0)+1;}
 let _ballMsgT=-99;function ballBroke(n){G.ballBroke=(G.ballBroke||0)+n;if(G.t-_ballMsgT>8){_ballMsgT=G.t;toast(n>1?'쇠구슬 '+n+'개가 찌그러져 못 쓰게 됐다':'쇠구슬이 찌그러져 못 쓰게 됐다');}}
@@ -2807,6 +2807,8 @@ function mouthTex(){if(MOUTH_TEX)return MOUTH_TEX;const cv=document.createElemen
   MOUTH_TEX=new THREE.CanvasTexture(cv);return MOUTH_TEX;}
 function listenerKillCine(c){if(P.hide)exitHide(true);P.crouch=false;P.drawing=false;cancelDraw();
   const dx=c.x-P.x,dz=c.z-P.z;if(Math.hypot(dx,dz)>.2)P.yaw=Math.atan2(-dx,-dz);P.pitch=.18;
+  {/* 11/20 점검: 벽을 보고 있으면 1.05m 앞이 벽 속이라 처형 연출이 벽에 가려졌음 → 막히지 않은 가장 가까운 방향으로 돌림 */const ok=y=>{const x=P.x-Math.sin(y)*1.05,z=P.z-Math.cos(y)*1.05;return !wallBetween(P.x,P.z,x,z)&&!blockedCircle(x,z,.22);};
+   if(!ok(P.yaw)){for(let k=1;k<=12;k++){const a=k*Math.PI/12;if(ok(P.yaw+a)){P.yaw+=a;break;}if(ok(P.yaw-a)){P.yaw-=a;break;}}}}
   const fx0=-Math.sin(P.yaw),fz0=-Math.cos(P.yaw);c.root.visible=true;if(c.glb&&c.geoHi)c.glb.geometry=c.geoHi;c.state='cine';c.atkAnim=0;
   if(!c.mouth){const m=new THREE.Mesh(new THREE.PlaneGeometry(.13,.18),new THREE.MeshBasicMaterial({map:mouthTex(),transparent:true,depthWrite:false,side:THREE.DoubleSide}));m.position.set(0,.05,.16);m.renderOrder=5;c.head.add(m);c.mouth=m;}
   c.mouth.scale.setScalar(.15);
@@ -2874,7 +2876,7 @@ function finishReveal(c){const h=P.hide&&P.hide.h;G.reveal=null;c.peek=0;
   if(c.type==='raider'){c.hs=null;if(P.god){exitHide(true);toast('무적: 끌려나왔지만 무사');return;}raiderKillCine(c);return;}
   if(c.type==='listener'&&!P.god){c.hs=null;c.doorIn=null;P.lsRev=G.t;doorSnd({cx:P.x,cz:P.z},'bash',{gain:1.3,rate:1.15});listenerKillCine(c);return;} // 11/6: 듣는 놈에게 들키면 즉사(처형 연출)
   c.hs=null;if(c.type==='listener')P.lsRev=G.t;exitHide(true);if(h){c.x=h.fx+h.nx*.6;c.z=h.fz+h.nz*.6;unstick(c,.26);}P.yaw=Math.atan2(-(c.x-P.x),-(c.z-P.z));
-  toast('옷장에서 끌려나왔다!',true);damagePlayer(16,null,'heavy');startChase(c);c.atkT=.9;
+  toast('옷장에서 끌려나왔다!',true);damagePlayer(12,null,'heavy');startChase(c);c.atkT=.9;
   creatures.forEach(o=>{if(o!==c&&o.hs){o.hs=null;o.peek=0;startChase(o);}});}
 function updateHide(dt){const H=P.hide;if(!H){if(!$('hideOv').hidden){$('hideOv').hidden=true;$('hideUI').hidden=true;}return;}
   const h=H.h;P.x=h.ix;P.z=h.iz;P.vx=P.vz=0;P.moving=0;P.crouch=false;if(G.reveal)return;
@@ -3009,7 +3011,7 @@ function updateCrowbar(dt,target){
     advanceTime(CFG.time.crowbar,'빠루 개방');}
 }
 function damagePlayer(n,by,kind){if(P.dead||G.cine)return;const kind0=kind;kind=kind||(by==='drum'?'drum':by==='gorilla'||by==='bighead'?'heavy':null);if(P.god){G.hurt=.3;pHurt(n,kind);return;} // 테스트용 무적(IDDQD)
-hitFrom();P.hp-=n;G.hurt=1;P.kick=Math.max(P.kick,.4);if(!by&&LAST_ATK&&LAST_ATK.hidden&&!LAST_ATK.dead)by='drum'; /* 108차: 1층 보스 죽음은 전부 드럼통 엔딩 */if(P.hp<=0&&by!=='drum'&&LAST_ATK&&LAST_ATK.type==='listener'&&!LAST_ATK.dead&&!G.cine){P.hp=0;G.deathWho='CHASER';pHurt(n,kind,true);listenerKillCine(LAST_ATK);return;}if(P.hp<=0){P.hp=0;pHurt(n,kind,true);const di=deathInfo(by,kind0||kind);G.deathWho=di[1];die(di[0],by||'creature');}else pHurt(n,kind);}
+hitFrom();n*=(DK().dmg||1);P.hp-=n;G.hurt=1;P.kick=Math.max(P.kick,.4);if(!by&&LAST_ATK&&LAST_ATK.hidden&&!LAST_ATK.dead)by='drum'; /* 108차: 1층 보스 죽음은 전부 드럼통 엔딩 */if(P.hp<=0&&by!=='drum'&&LAST_ATK&&LAST_ATK.type==='listener'&&!LAST_ATK.dead&&!G.cine){P.hp=0;G.deathWho='CHASER';pHurt(n,kind,true);listenerKillCine(LAST_ATK);return;}if(P.hp<=0){P.hp=0;pHurt(n,kind,true);const di=deathInfo(by,kind0||kind);G.deathWho=di[1];die(di[0],by||'creature');}else pHurt(n,kind);}
 
 /* ================= 입력 ================= */
 // 폰 터치 조작(11/6): 왼쪽 = 이동 스틱(끝까지 밀면 달리기) · 오른쪽 = 시점 드래그 · 새총 버튼 누르면 당김/떼면 발사(누른 채 끌면 조준)
@@ -3699,7 +3701,7 @@ function updateEvents(dt){const E=G.fev;if(!E)return;E.t+=dt;
       if(d<7){say('라디오',RADIO_LINES[R.li%RADIO_LINES.length]);R.li++;mono('radio');}}}}
 
 // 히든보스(사용자 11/5): 직접 공격 안 함 · 파란 드럼통을 굴림(벽에 닿으면 사라짐) · 총에 안 죽음 · 느림 · 드럼통 18개를 피하면 스스로 쓰러짐
-const HB={hp:600,chase:1.0,go:.8,atk:0,atkCd:9,hear:1.4,scale:1.15,scaleM:1.1,name:'???',line:'이 씨XX아',dodge:18,drumSpd:5.2,drumCd:2.4,drumDmg:18,keep:5,rushD:9,rushSpd:4.6,meleeDmg:22,ph2At:9,ph2Spd:1.3,ph2Cd:.65,oilT:1.1,oilR:1.6,oilDmg:16,oilPool:1.3,oilLife:12};
+const HB={hp:600,chase:1.0,go:.8,atk:0,atkCd:9,hear:1.4,scale:1.15,scaleM:1.1,name:'???',line:'이 씨XX아',dodge:18,drumSpd:5.2,drumCd:2.4,drumDmg:14,keep:5,rushD:9,rushSpd:4.6,meleeDmg:17,ph2At:9,ph2Spd:1.3,ph2Cd:.65,oilT:1.1,oilR:1.6,oilDmg:12,oilPool:1.3,oilLife:12};
 const OILS=[],POOLS=[];
 const DRUMS=[];let DRUM_G=null,DRUM_M=null;
 // 11/6 사용자: 집 안에 숨으면 따라 들어와 근접 공격만(드럼통·기름통 없음) / 옷장 못 찾으면 두리번거리다 집 밖으로 나감
@@ -3878,7 +3880,7 @@ function fmtPT(s){s=Math.floor(s||0);const h=Math.floor(s/3600),m=Math.floor(s%3
 let PROMPT_H=null;function setPrompt(h){if(h===PROMPT_H)return;PROMPT_H=h;$('prompt').innerHTML=h;}
 function update(dt){
   ptTick(dt);
-  if(G.cine){G.t+=dt;(G.cine.tick||cineTick)(dt*(G.cine.spd||1));return;} /* 11/7: 옷장 처형은 2.5배 빠르게(spd) */
+  if(G.cine){G.t+=dt;setPrompt('');(G.cine.tick||cineTick)(dt*(G.cine.spd||1));return;} /* 11/20 점검: 처형 연출 중엔 조사 안내 숨김 */ /* 11/7: 옷장 처형은 2.5배 빠르게(spd) */
   for(const c of creatures){if(!c.dfx){c.dfx=1;const k=DK().hp;if(k!==1&&!c.dead){c.baseHp*=k;c.maxHp*=k;c.hp*=k;}}} // 난이도 체력 배율(새로 생긴 적에 한 번)
   G.t+=dt;if(G.state==='play')keyAuto();const pl=CFG.player;if(G.state==='play'&&!P.dead&&P.hp<25)vo('lowhp',22);
   let f=(keys.KeyW?1:0)-(keys.KeyS?1:0),s=(keys.KeyD?1:0)-(keys.KeyA?1:0);const tm=TOUCH&&Math.hypot(TMV.x,TMV.y)>.22;if(tm){f=-TMV.y;s=TMV.x;}const run=(keys.ShiftLeft||keys.ShiftRight||(tm&&TMV.run))&&!P.crouch&&!P.drawing;
