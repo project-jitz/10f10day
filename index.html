@@ -557,7 +557,7 @@ body.cineOn #drawRing{display:none}
     <div class="lui" id="lui">
     <div class="ltag"><h3>열흘 안에, 1층으로.</h3><p>문밖에서 들리는 발소리. 더는 이웃이 아니다.<br>남은 시간은 열흘. 이 건물에서 나가야 한다.</p></div>
     <div class="lhint">ENTER 시작 · ↑↓ 선택</div>
-    <div class="lver"><span id="lplay"></span> · v1.0.35 · 2026.11.20</div>
+    <div class="lver"><span id="lplay"></span> · v1.0.36 · 2026.11.20</div>
     <div class="llogo"><div class="lnum"><span id="logoF">10F</span><span class="sl">/</span><span class="dy" id="logoD">10DAY</span></div><div class="proj">project.<b>Jitz</b></div></div>
     <nav class="lmenu" id="lmenu" aria-label="메인 메뉴">
       <div class="lmain">
@@ -1503,7 +1503,7 @@ function spawnFloorCreatures(){const fc=FLOORS[G.floor]||{sh:6,ls:1};const r=mul
   spawnAmbush(r,fc);
   if(fc.raid)spawnRaiders(fc.raid);
   if(fc.base){const U=UNITS.find(u=>u.num==='TPS');const[x,z]=uMap(U,U.W*.5,U.D*.55);if(spawnGorilla(x,z,uFace(U))){}else{const c=spawnCreature(x,z,'idle',uFace(U),'raider');dressRaider(c,'pipe');
-    c.rt={hp:240,chase:2.4,atk:22,atkCd:1.3};c.hp=c.maxHp=c.baseHp=240;c.guard=true;c.chief=true;c.root.scale.setScalar(1.12);c.home={x,z,face:uFace(U)};}}
+    c.rt={hp:240,chase:2.0,atk:22,atkCd:1.3};c.hp=c.maxHp=c.baseHp=240;c.guard=true;c.chief=true;c.root.scale.setScalar(1.12);c.home={x,z,face:uFace(U)};}}
   if(fc.boss){const U=UNITS.find(u=>u.num===1009);const[x,z]=uMap(U,U.W/2,U.D*.6);spawnCreature(x,z,'idle',uFace(U),'bighead');}
 }
 /* 11/9 사용자: 쓰레기실·TPS실에 층마다 한 놈 매복(비척이 또는 천장 놈) — 가만히 숨어 소리에도 안 움직이다가, 방에 들어오거나 2.6m 안에 오면 튀어나옴 */
@@ -1515,7 +1515,7 @@ function ambushTick(c){const d=Math.hypot(c.x-P.x,c.z-P.z);if(P.hide||P.peep)ret
   if(c.ambBox){const b=c.ambBox;inRoom=P.x>b[0]&&P.x<b[2]&&P.z>b[1]&&P.z<b[3];}else{const U=unitAt(P.x,P.z);inRoom=!!U&&U.num==='TPS';}
   const hit=c.hp<c.maxHp;if(!hit&&!((inRoom&&d<5.5)||d<2.6))return false;if(!hit&&wallBetween(c.x,c.z,P.x,P.z))return false;
   c.ambush=null;c.stun=0;jumpScare(true);vo('jump',0);startChase(c,true);return true;}
-const CT={raider:{hp:90,chase:2.9,go:1.2,atk:16,atkCd:1.1,hear:1.2,pitch:[1,1]},brute:{hp:420,chase:2.0,go:.9,atk:32,atkCd:2.1,hear:1.1,pitch:[.66,.72]},shambler:{hp:150,chase:1.8,go:.85,atk:14,atkCd:1.3,hear:.75,see:.75,pitch:[.97,1.03]},listener:{hp:140,chase:3.2,go:1.7,atk:20,atkCd:1.5,hear:1.7,pitch:[.96,1.04]},bighead:{hp:1600,chase:1.5,go:1.1,atk:28,atkCd:2.2,hear:1.3,pitch:[.6,.66]}};
+const CT={raider:{hp:90,chase:2.9,go:1.2,atk:16,atkCd:1.1,hear:.8,see:.7,pitch:[1,1]},brute:{hp:420,chase:2.0,go:.9,atk:32,atkCd:2.1,hear:1.1,pitch:[.66,.72]},shambler:{hp:150,chase:1.8,go:.85,atk:14,atkCd:1.3,hear:.75,see:.75,pitch:[.97,1.03]},listener:{hp:140,chase:3.2,go:1.7,atk:20,atkCd:1.5,hear:1.7,pitch:[.96,1.04]},bighead:{hp:1600,chase:1.5,go:1.1,atk:28,atkCd:2.2,hear:1.3,pitch:[.6,.66]}};
 function spawnCreature(x,z,state,face=Math.random()*6.28,type='shambler'){
   if(type==='bighead'){const b=spawnBigHead(x,z,state,face);if(b)return b;type='brute';}
   if(!CMAT)CMAT={skin:new THREE.MeshPhongMaterial({map:TX.skin,flatShading:true,shininess:26,specular:0x241414}),cloth:new THREE.MeshPhongMaterial({map:TX.cloth,flatShading:true,shininess:2}),pants:new THREE.MeshPhongMaterial({map:TX.pants,flatShading:true,shininess:2}),foot:new THREE.MeshPhongMaterial({color:0x2a2624,flatShading:true}),
@@ -1811,8 +1811,8 @@ function spawnCrawler(x,z,state,face){const g=cwGeo();if(!g)return null;
   unstick(c,.27);c.home.x=c.x;c.home.z=c.z;creatures.push(c);poseCrawl(c,0);return c;}
 function crawlRoofAt(x,z){const i=gi(x,z);return grid[i]===2?2.12:CEIL;} // 문틀 아래는 낮춤
 function poseCrawl(c,mv){const dt=1/60;c.root.position.set(c.x,0,c.z);c.root.rotation.set(0,c.face,0);
-  if(c.dead){c.body.position.y=c.fallY;c.body.rotation.set(-.15*(c.fallDir||1),0,c.fallY>.05?Math.PI*(c.fallY/c.ry):0);c.body.scale.set(1,1,1);return;}
-  const tgt=crawlRoofAt(c.x+Math.sin(c.face)*.4,c.z+Math.cos(c.face)*.4);c.ry+=(tgt-c.ry)*.18;
+  if(c.dead){c.body.position.y=c.fallY;c.body.rotation.set(-.15*(c.fallDir||1),0,c.fallY>.05?Math.PI*(c.fallY/c.ry):0);c.body.scale.set(1,1,1);if(c.tw>0){c.tw=Math.max(0,c.tw-dt);const k=c.tw/.25;c.body.rotation.x+=Math.sin(G.t*47)*.12*k;c.body.rotation.y+=Math.sin(G.t*31)*.09*k;c.body.position.y+=.03*k;}return;}
+  const tgt=crawlRoofAt(c.x+Math.sin(c.face)*.4,c.z+Math.cos(c.face)*.4);c.ry+=(tgt-c.ry)*(c.riseT>0?.035:.18);
   const t=G.t+c.seed,run=mv?1:0;
   // 기어갈 때: 빠른 좌우 흔들림·덜컥거림 / 멈췄을 땐 가끔 경련
   const sway=run*Math.sin(c.anim*2.2)*.09,bob=run*Math.abs(Math.sin(c.anim*2.2))*.035;c.twitchT-=dt;if(c.twitchT<=0){c.twitchT=1.5+Math.random()*3;c.jerk=.12;}c.jerk=Math.max(0,(c.jerk||0)-dt*.5);
@@ -1822,6 +1822,22 @@ function poseCrawl(c,mv){const dt=1/60;c.root.position.set(c.x,0,c.z);c.root.rot
 function crawlDead(c,dt){c.deadT=Math.min(1,c.deadT+dt*2);if(c.fallY===0&&!c.landed){c.fallY=c.ry;c.fallV=0;}
   if(!c.landed){c.fallV+=9.8*dt;c.fallY=Math.max(0,c.fallY-c.fallV*dt);if(c.fallY<=0){c.landed=true;c.fallY=0;at(c.x,c.z,()=>{nz(.25,180,1,.6,0,'lowpass');tone(70,40,.25,.35,'square');});}}
   poseCrawl(c,0);}
+/* 11/20 사용자: 거꾸리(천장 놈) 되살아남 — 몸통으로 죽이면 2분 뒤 한 번 다시 일어나 천천히 끝까지 쫓아옴. 머리로 죽이면·두 번째 죽음은 완전히 죽음 */
+const CRW_REV={t:120,warn:10,hpK:1,chase:1.3,cd:20};
+function crawlStalk(c){c.revived=true;c.stalk=true;c.ct=Object.assign({},c.ct,{chase:CRW_REV.chase});c.hp=c.maxHp=c.baseHp=Math.round(CRW.hp*CRW_REV.hpK*(DK().hp||1));c.stalkCD=0;}
+function crawlRevive(c){c.dead=false;c.reviveT=0;c.deadT=0;c.deadAge=0;c.landed=false;c.fallY=0;c.fallV=0;c.ry=.25;c.riseT=1.8;c.stun=1.8;c.dk=null;crawlStalk(c);c.state='idle';c.path=[];
+  at(c.x,c.z,()=>{for(let i=0;i<4;i++){nz(.05,2000,3,.55,i*.09,'bandpass',2600);tone(170-i*15,80,.05,.3,'square',i*.09);}});creatureSay(c,'alert');
+  if(Math.hypot(c.x-P.x,c.z-P.z)<14&&los(c.x,c.z,P.x,P.z))mono('crawlRise',{prio:true});else if(!G.crawlRiseT){G.crawlRiseT=1;toast('…어딘가에서 뼈 꺾이는 소리가 났다.',true);}}
+function crawlDeadTick(c,dt){if(!(c.reviveT>0))return;c.reviveT-=dt;
+  if(c.reviveT<=CRW_REV.warn){c.twT=(c.twT||0)-dt;if(c.twT<=0){c.twT=.5+Math.random()*1.1;c.tw=.25;const d=Math.hypot(c.x-P.x,c.z-P.z);if(d<22)at(c.x,c.z,()=>{nz(.04,1800,3,.45,0,'bandpass',2400);tone(150,85,.05,.25,'square');});if(Math.random()<.35)creatureSay(c,'idle',{low:true});}}
+  if(c.reviveT<=0)crawlRevive(c);}
+function stalkTick(c,dt){ /* 되살아난 거꾸리: 김수민 위치를 안다 · 옷장·닫힌 문으로 따돌리면 20초 쉼 */
+  if(P.hide){c.stalkCD=CRW_REV.cd;return;}
+  if(c.state==='bang'){c.wasBang=true;return;}
+  if(c.wasBang&&c.state!=='chase'){c.stalkCD=CRW_REV.cd;}c.wasBang=false;
+  c.stalkCD=Math.max(0,(c.stalkCD||0)-dt);
+  if(c.state==='chase'){c.lost=0;c.lsx=P.x;c.lsz=P.z;return;}
+  if(c.stalkCD<=0&&!c.hs&&!(c.riseT>0)&&c.state!=='brawl'){c.tx=P.x;c.tz=P.z;startChase(c,true);c.lsx=P.x;c.lsz=P.z;c.lost=0;}}
 function crawlZone(c,x,y,z){if(c.dead)return null;const p=new THREE.Vector3(x,y,z);c.hm.updateWorldMatrix(true,false);const l=c.hm.worldToLocal(p);
   if(wallBetween(c.x,c.z,x,z))return null;
   if(l.z>.16&&Math.abs(l.x)<.15&&l.y>.30&&l.y<.69)return'head';
@@ -2030,7 +2046,7 @@ function hear(x,z,r,label,lure){
   G.lastNoise={x,z,r,label};const fromP=!!PLAYER_NOISE[label];if(fromP&&label!=='lamp')G.pNoiseT=G.t;
   if(fromP&&label!=='lamp'&&label!=='search')G.cmo=Math.min(30,(G.cmo||0)+(label==='step'?(r>=9?.35:0):label==='shot'?2.5:.8)); /* 11/7 소란 게이지 */
   let resp=0,lsn=0;[...creatures].sort((a,b)=>Math.hypot(a.x-x,a.z-z)-Math.hypot(b.x-x,b.z-z)).forEach(c=>{if(c.dead||c.gor||c.ambush)return;if(label==='lamp'&&c.type==='listener')return;
-    if(c.type==='raider'){if(fromP&&label!=='lamp'&&(c.mode==='patrol'||c.mode==='loot')&&Math.hypot(x-c.x,z-c.z)<r*1.2){c.mode='search';c.timer=3;c.goal={x,z};}return;}
+    if(c.type==='raider'){if(fromP&&label!=='lamp'&&(c.mode==='patrol'||c.mode==='loot')&&Math.hypot(x-c.x,z-c.z)<r*(los(c.x,c.z,x,z)?1:.7)*c.ct.hear*(DK().hear||1)){c.mode='search';c.timer=3;c.goal={x,z};}return;}
     if((label==='rstep'||label==='rdoor')&&c.state==='brawl')return;if(c.state==='brawl'&&c.foe&&!c.foe.dead&&Math.hypot(c.foe.x-c.x,c.foe.z-c.z)<4)return; /* 11/7: 싸우는 중엔 소리에 고개 돌리지 않음 */if(c.state==='bang'){if(fromP&&Math.hypot(x-c.x,z-c.z)<r*(c.ct.hear||1)+1)c.noisy+=.5;return;}
     const d=Math.hypot(c.x-x,c.z-z);const rr=lure?(los(c.x,c.z,x,z)?r:r*.85)*Math.max(1,c.ct.hear)*1.25:(los(c.x,c.z,x,z)?r:r*(c.type==='listener'?.38:.7))*c.ct.hear*(c.type==='listener'?DK().lsHear:(fromP?(DK().hear||1):1)); /* 11/20: 새총 착탄 소리(유인)는 모든 놈이 잘 듣게 — 배회자 청력 감소·쉬움 감소는 김수민이 내는 소리에만 */ /* 11/20: 추격자는 벽 너머 소리 크게 줄어듦(벽 너머 인지 버그) */if(d>rr)return;
     if(c.state==='chase'){if(c.type==='listener'&&fromP){c.lsx=x;c.lsz=z;c.lost=0;c.path=[];}return;}
@@ -2080,11 +2096,11 @@ function creatureStep(c,speed){if(c.big||c.gor)return;if(c.crawl){crawlStep(c);r
 function updateCreature(c,dt){
   updateVoice(c);if(c.big){updateBig(c,dt);return;}if(c.gor){updateGor(c,dt);return;}
   if(c.dead&&c.crawl&&!c.landed){crawlDead(c,dt);return;}
-  if(c.dead){c.deadAge=(c.deadAge||0)+dt;if(c.deadAge>180&&!c.boss&&!c.hidden&&!c.pooled)corpseToPool(c); // 11/5: 3분 지나면 시체 → 피웅덩이(크리쳐 검정·사람 빨강)
+  if(c.dead){c.deadAge=(c.deadAge||0)+dt;if(c.reviveT>0){crawlDeadTick(c,dt);if(!c.dead)return;}else if(c.deadAge>180&&!c.boss&&!c.hidden&&!c.pooled)corpseToPool(c); // 11/5: 3분 지나면 시체 → 피웅덩이(크리쳐 검정·사람 빨강)
     if(c.pooled)return;deathPose(c,dt);return;}
   if(c.ambush&&!ambushTick(c)){c.state='idle';poseCreature(c,0);return;}
   if(c.hidden){c.state='chase';c.lost=0;}c.stun=Math.max(0,c.stun-dt);c.atkT=Math.max(0,c.atkT-dt);c.atkAnim=Math.max(0,c.atkAnim-dt);c.flinch=Math.max(0,c.flinch-dt*3);
-  c.hsCD=Math.max(0,(c.hsCD||0)-dt);
+  c.hsCD=Math.max(0,(c.hsCD||0)-dt);if(c.riseT>0)c.riseT-=dt;if(c.stalk)stalkTick(c,dt);
   if(c.type==='raider'){updateRaider(c,dt);return;}
   if(P.hide&&!c.hs&&!c.hsCD&&['chase','go','search','listen','turn'].includes(c.state)&&nearHide(c))c.hs=newHS(c);
   if(c.hs){if(c.stun>0){poseCreature(c,0);return;}poseCreature(c,hideSearch(c,dt));if(c.peek){c.spine.rotation.x+=c.peek*(c.type==='listener'?1.6:1);c.neck.rotation.x-=c.peek*(c.type==='listener'?3.2:2.2);if(c.glb&&c.type==='listener')peekCrouch(c);}peekFace(c);return;}
@@ -2251,10 +2267,10 @@ function deathPose(c,dt){const k0=c.deadT,dk=c.dk||'plank';const spd={head:2.8,k
 /* 11/6 달리는 비척이: 같은 모델, 몸을 숙이고 빠르게. 체력 낮음 */
 const RUN_K={spd:1.55,hp:.6};
 function makeRunner(c){c.runner=true;c.hp=Math.round(c.hp*RUN_K.hp);c.maxHp=c.hp;if(c.baseHp)c.baseHp=Math.round(c.baseHp*RUN_K.hp);c.pitch=(c.pitch||1)*1.08;}
-function killCreature(c,dir,byNPC){c.dead=true;c.deadT=0;pickDeath(c);if(!byNPC){const mk=c.hidden?'hb':c.gor?'gor':c.big||c.type==='brute'?'big':c.type==='raider'?(c.role==='thrower'?'thr':'pipe'):c.type==='listener'?'ls':c.type==='shambler'?'sh':null;if(mk)metaAdd(mk);}{const fx=Math.sin(c.face),fz=Math.cos(c.face),L=c.type==='listener'?2:1.7;c.fallDir=!wallBetween(c.x,c.z,c.x-fx*L,c.z-fz*L)?1:!wallBetween(c.x,c.z,c.x+fx*L,c.z+fz*L)?-1:.55;}if(!byNPC){G.kills++;if(!c.hidden&&!c.gor&&!c.boss)setTimeout(()=>vo('kill',25),450);}if(c.hidden){G.hbDown=true;G.postShots=0;if(!playVoice(c,'intro',{gain:1.3}))creatureSay(c,'die');say(HB.name,HB.line);mono('killHidden',{prio:true});dropPickup('bandage',2,c.x+.3,c.z);dropPickup('steel',8,c.x-.3,c.z);}else if(c.gor){if(G.keyBy==='gorilla')dropKey(c,1.6);dropPickup('steel',10,c.x-.5,c.z);dropPickup('painkiller',1,c.x,c.z+.5);dropPickup('mat',3,c.x,c.z-.5);mono('killGorilla',{prio:true});}else if(c.boss){dropPickup('sling1',1,c.x,c.z);if(G.keyBy==='boss')dropKey(c,1.3);mono('killBoss',{prio:true});}
+function killCreature(c,dir,byNPC){c.dead=true;c.deadT=0;pickDeath(c);const crRev=c.crawl&&!c.revived&&c.lastPart!=='head'&&!G.eggEnd;if(crRev){c.reviveT=CRW_REV.t;c.twT=0;}const crSecond=c.crawl&&c.revived;c.stalk=false;if(!byNPC&&!crSecond){const mk=c.hidden?'hb':c.gor?'gor':c.big||c.type==='brute'?'big':c.type==='raider'?(c.role==='thrower'?'thr':'pipe'):c.type==='listener'?'ls':c.type==='shambler'?'sh':null;if(mk)metaAdd(mk);}{const fx=Math.sin(c.face),fz=Math.cos(c.face),L=c.type==='listener'?2:1.7;c.fallDir=!wallBetween(c.x,c.z,c.x-fx*L,c.z-fz*L)?1:!wallBetween(c.x,c.z,c.x+fx*L,c.z+fz*L)?-1:.55;}if(!byNPC&&!crSecond){G.kills++;if(!c.hidden&&!c.gor&&!c.boss)setTimeout(()=>vo('kill',25),450);} /* 11/20: 되살아난 거꾸리는 처치 수를 두 번 세지 않음 */if(c.hidden){G.hbDown=true;G.postShots=0;if(!playVoice(c,'intro',{gain:1.3}))creatureSay(c,'die');say(HB.name,HB.line);mono('killHidden',{prio:true});dropPickup('bandage',2,c.x+.3,c.z);dropPickup('steel',8,c.x-.3,c.z);}else if(c.gor){if(G.keyBy==='gorilla')dropKey(c,1.6);dropPickup('steel',10,c.x-.5,c.z);dropPickup('painkiller',1,c.x,c.z+.5);dropPickup('mat',3,c.x,c.z-.5);mono('killGorilla',{prio:true});}else if(c.boss){dropPickup('sling1',1,c.x,c.z);if(G.keyBy==='boss')dropKey(c,1.3);mono('killBoss',{prio:true});}
   if(c.hidden)hbMaskBreak(c);
   if(c.type==='raider'){raiderDrop(c);creatureSay(c,'die');blood(c.x,1,c.z,14,dir);if(!byNPC)mono(c.role==='thrower'?'killThrower':'killPipe',{prio:true,once:false});return;}
-  if(c.type==='shambler'&&!byNPC)mono('killShambler',{prio:true});if(c.type==='listener'&&!byNPC)mono('killListener',{prio:true,once:false});if(!c.hidden)creatureSay(c,'die');blood(c.x,1,c.z,18,dir);if(!byNPC)say('','쓰러졌다… 다시 일어나진 않는다.'); /* 11/7 사용자: 김수민이 처치했을 때만 */if(Math.random()<.35)dropPickup('junk',3+Math.floor(Math.random()*4),c.x+.3,c.z+.3);}
+  if(c.type==='shambler'&&!byNPC)mono('killShambler',{prio:true});if(c.type==='listener'&&!byNPC)mono('killListener',{prio:true,once:false});if(!c.hidden)creatureSay(c,'die');blood(c.x,1,c.z,18,dir);if(!byNPC)say('',crRev?'쓰러졌다…':'쓰러졌다… 다시 일어나진 않는다.'); /* 11/7 사용자: 김수민이 처치했을 때만 */if(Math.random()<.35)dropPickup('junk',3+Math.floor(Math.random()*4),c.x+.3,c.z+.3);}
 
 /* ================= 칭호 · 누적 기록(11/6) — 판을 넘어 쌓임(localStorage f10_meta) ================= */
 const META_K='f10_meta';
@@ -2394,7 +2410,7 @@ const RAID_LINES={
   hurt:['악! 쏘는 놈 있다!','젠장, 맞았어!'],
   die:['크억…','으…'],
   monster:['괴물이다! 쳐!','붙었다, 붙었어!']};
-const RT={pipe:{hp:110,chase:2.4,atk:14,atkCd:1.2},thrower:{hp:85,chase:2.2,atk:12,atkCd:2.4}}; // 11/5 사용자: 너무 빠름 → 2.9/2.6에서 낮춤(걷기 2.2 · 달리기 4.0)
+const RT={pipe:{hp:110,chase:2.0,atk:14,atkCd:1.2},thrower:{hp:85,chase:1.85,atk:12,atkCd:2.4}}; /* 11/20 사용자: 더 느리게 2.4/2.2 → 2.0/1.85 */ // 11/5 사용자: 너무 빠름 → 2.9/2.6에서 낮춤(걷기 2.2 · 달리기 4.0)
 let DOOR_PASS=false; // 약탈자 길찾기: 잠기지 않은 문은 열고 지나간다
 const eprojs=[];
 function raiderSay(c,cat,force){if(!force&&G.t-(c.sayT||-9)<4)return;c.sayT=G.t;const L=RAID_LINES[cat];if(!L)return;const d=Math.hypot(c.x-P.x,c.z-P.z);if(d>16)return;
@@ -3125,6 +3141,7 @@ const MONO_LINES={ // 11/5 사용자: 말 줄이기 — 정보가 되는 말만 
   gotKey:'열쇠다.',
   seeShambler:'와 김준형 개못생김',
   killShambler:'ㅋㅋ 꼴이좋아',
+  crawlRise:'…저게 다시 일어나?',
   killBoss:'호제컷!',
   killGorilla:'승욱컷!',
   killThrower:'용히컷!',
@@ -4756,12 +4773,12 @@ function tagFloor(){INTER.forEach((t,i)=>t._i=i);pickups.forEach((p,i)=>p._pi=i)
 function makeRest(){const r2=v=>Math.round(v*100)/100;
   return JSON.parse(JSON.stringify({floor:G.floor,s:snapshot(),x:r2(P.x),z:r2(P.z),yaw:r2(P.yaw),hasKey:!!G.hasKey,visited:G.visited instanceof Set?[...G.visited]:null,survIdx:G.survIdx||{},
     cont:CONTAINERS.map(c=>[c.searched?1:0,c.loot]),doors:DOORS.map(d=>[d.open?1:0,d.broken?1:0,d.type]),
-    crN:G.crN0,ci:1,cr:Array.from({length:G.crN0},(_,i)=>{const c=creatures.find(o=>o._ci===i);return !c||c.dead?0:[r2(c.x),r2(c.z),Math.round(c.hp)];}),
+    crN:G.crN0,ci:1,cr:Array.from({length:G.crN0},(_,i)=>{const c=creatures.find(o=>o._ci===i);if(c&&c.dead&&c.reviveT>0)return['p',r2(c.x),r2(c.z),Math.round(c.reviveT)];return !c||c.dead?0:[r2(c.x),r2(c.z),Math.round(c.hp),c.revived?1:0];}),
     inter:INTER.filter(t=>t._i!=null).map(t=>t._i),picks:pickups.filter(p=>p._pi!=null).map(p=>[p._pi,p.n]),dyn:pickups.filter(p=>p._pi==null).map(p=>[p.k,p.n,r2(p.x),r2(p.z),p.uses])}));}
 function applyRest(R){try{restore(R.s);P.x=R.x;P.z=R.z;P.yaw=R.yaw;P.pitch=0;G.hasKey=R.hasKey;if(R.visited)G.visited=new Set(Array.isArray(R.visited)?R.visited:[]);G.survIdx=R.survIdx||{};
   if(R.cont&&R.cont.length===CONTAINERS.length)CONTAINERS.forEach((c,i)=>{const[sr,l]=R.cont[i];c.loot=l||[];if(sr&&!c.searched){c.searched=true;if(typeof markSearched==='function')markSearched(c);}});
   if(R.doors&&R.doors.length===DOORS.length)DOORS.forEach((d,i)=>{const[o,b,t]=R.doors[i];d.open=!!o;d.broken=!!b;if(t)d.type=t;d.ang=d.open?1:0;});
-  if(R.crN===G.crN0&&R.cr){const rm=[];const keyGone=!!R.hasKey||(R.dyn||[]).some(a=>a[0]==='stairKey');creatures.slice(0,G.crN0).forEach((c,i)=>{const v=R.cr[R.ci?c._ci:i];const boss=c.gor||c.boss||c.big||c.hidden;if(!v&&boss&&!R.ci&&!keyGone){} /* v1.0.27: 예전 휴식 저장은 순서가 어긋나 살아 있는 보스가 '죽음'으로 찍혀 있을 수 있음 → 열쇠를 얻기 전이면 보스는 남김 */else if(!v)rm.push(c);else{if(!(c.gor||c.boss||c.big||c.hidden)){c.x=v[0];c.z=v[1];c.hp=Math.min(c.maxHp||v[2],v[2]);} /* v1.0.26: 보스는 잠든 시점 위치·체력 복원 안 함 → 원래 방에서 풀피로 다시(복도에 잠든 채로 남아 '보스 안 나옴' 버그) */c.state=c.state==='chase'?'idle':c.state;if(c.home){}}});
+  if(R.crN===G.crN0&&R.cr){const rm=[];const keyGone=!!R.hasKey||(R.dyn||[]).some(a=>a[0]==='stairKey');creatures.slice(0,G.crN0).forEach((c,i)=>{const v=R.cr[R.ci?c._ci:i];const boss=c.gor||c.boss||c.big||c.hidden;if(!v&&boss&&!R.ci&&!keyGone){} /* v1.0.27: 예전 휴식 저장은 순서가 어긋나 살아 있는 보스가 '죽음'으로 찍혀 있을 수 있음 → 열쇠를 얻기 전이면 보스는 남김 */else if(!v)rm.push(c);else if(v[0]==='p'&&c.crawl){c.x=v[1];c.z=v[2];c.dead=true;c.landed=true;c.fallY=0;c.deadT=1;c.deadAge=0;c.reviveT=Math.max(1,v[3]);c.twT=0;c.state='idle';} /* 11/20: 되살아날 거꾸리는 남은 시간 그대로 */else{if(c.crawl&&v[3]){crawlStalk(c);}if(!(c.gor||c.boss||c.big||c.hidden)){c.x=v[0];c.z=v[1];c.hp=Math.min(c.maxHp||v[2],v[2]);} /* v1.0.26: 보스는 잠든 시점 위치·체력 복원 안 함 → 원래 방에서 풀피로 다시(복도에 잠든 채로 남아 '보스 안 나옴' 버그) */c.state=c.state==='chase'?'idle':c.state;if(c.home){}}});
     rm.forEach(c=>{try{stopVoice(c,.02);}catch(e){}if(c.root)world.remove(c.root);creatures.splice(creatures.indexOf(c),1);});}
   const keepI=new Set(R.inter||[]);for(let i=INTER.length-1;i>=0;i--){const t=INTER[i];if(t._i!=null&&!keepI.has(t._i)&&t.kind!=='pick'){if(t.mesh)world.remove(t.mesh);INTER.splice(i,1);}}
   const keepP=new Map((R.picks||[]).map(a=>[a[0],a[1]]));for(let i=pickups.length-1;i>=0;i--){const p=pickups[i];if(p._pi==null)continue;if(keepP.has(p._pi))p.n=keepP.get(p._pi);else{world.remove(p.mesh);pickups.splice(i,1);const j=INTER.indexOf(p);if(j>=0)INTER.splice(j,1);}}
