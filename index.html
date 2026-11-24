@@ -558,7 +558,7 @@ body.cineOn #drawRing{display:none}
     <div class="lui" id="lui">
     <div class="ltag"><h3>열흘 안에, 1층으로.</h3><p>문밖에서 들리는 발소리. 더는 이웃이 아니다.<br>남은 시간은 열흘. 이 건물에서 나가야 한다.</p></div>
     <div class="lhint">ENTER 시작 · ↑↓ 선택</div>
-    <div class="lver"><span id="lplay"></span> · v1.0.40 · 2026.11.24</div>
+    <div class="lver"><span id="lplay"></span> · v1.0.41 · 2026.11.24</div>
     <div class="llogo"><div class="lnum"><span id="logoF">10F</span><span class="sl">/</span><span class="dy" id="logoD">10DAY</span></div><div class="proj">project.<b>Jitz</b></div></div>
     <nav class="lmenu" id="lmenu" aria-label="메인 메뉴">
       <div class="lmain">
@@ -963,7 +963,7 @@ const UNITS=[
 ];
 // 세대별 설정: 문 종류 · 크리쳐 · 조명 · 테마
 const UCFG10={
-  1001:{door:'unlocked',cr:[[1.6,5.5]],theme:'couple'},1002:{door:'open',own:true,lit:true,theme:'own'},1003:{door:'crowbar',theme:'packing',rich:true},
+  1001:{door:'unlocked',cr:[[1.6,5.5]],theme:'couple'},1002:{door:'unlocked',own:true,lit:true,theme:'own'},1003:{door:'crowbar',theme:'packing',rich:true},
   TPS:{door:'crowbar',rich:true},1004:{door:'unlocked',theme:'worker',crowbar:true,lit:true},1005:{door:'survivor'},
   1006:{door:'unlocked',theme:'messy'},1007:{door:'unlocked',theme:'student',lit:true},1008:{door:'crowbar',cr:[[4.4,4.0]],rich:true,theme:'couple'},
   1009:{door:'unlocked',cr:[[2.0,5.0]],theme:'family'},1010:{door:'unlocked',theme:'worker',lit:true},1011:{door:'survivor'},
@@ -3624,7 +3624,8 @@ function placeTips(){G.tipsRead=G.tipsRead||[];if(G.floor===1){placeWallTip1();p
   if(G.floor===9)placeBenchTip(11);
   if(G.floor!==10)return;
   const U2=UNITS.find(u=>u.num===1002),U3=UNITS.find(u=>u.num===1003);
-  const spots=[U2&&uMap(U2,U2.W/2,1.4),U3&&uMap(U3,U3.W/2,4.2),TIP_C,[13.5,20.6],[20.5,8.7],[12.4,12.2]],TI=[0,1,2,3,7,8];
+  const HC=CONTAINERS.find(c=>c.hide&&c.U===U2),UR2=U2?uRect(U2,0,0,U2.W,U2.D):[0,0,0,0],cx2=(UR2[0]+UR2[2])/2,cz2=(UR2[1]+UR2[3])/2,hcL=HC?Math.hypot(cx2-HC.x,cz2-HC.z)||1:1; /* 11/24: 옷장 메모는 1002호 내 옷장 앞(예전 1003호는 빠루 문이라 처음엔 못 들어감) */
+  const spots=[U2&&uMap(U2,U2.W/2,1.4),HC?[HC.x+(cx2-HC.x)/hcL*.85,HC.z+(cz2-HC.z)/hcL*.85]:U3&&uMap(U3,U3.W/2,4.2),TIP_C,[13.5,20.6],[20.5,8.7],[12.4,12.2]],TI=[0,1,2,3,7,8];
   spots.forEach((p,j)=>{if(!p)return;const i=TI[j];let[x,z]=p;if(blockedCircle(x,z,.2)){for(let k=0;k<30;k++){const a=k*2.4,r=.3+k*.06,nx=x+Math.cos(a)*r,nz=z+Math.sin(a)*r;if(!blockedCircle(nx,nz,.2)){x=nx;z=nz;break;}}}
     const m=noteMesh(x,.02,z,j*.7,true);INTER.push({kind:'tip',tip:i,x,z,r:1.4,hy:.12,mesh:m});});
   {const U2=UNITS.find(u=>u.num===1002);if(U2){let[x,z]=uMap(U2,U2.W/2+.55,2.4);if(blockedCircle(x,z,.2)){for(let k=0;k<30;k++){const a=k*2.4,r=.3+k*.06,nx=x+Math.cos(a)*r,nz=z+Math.sin(a)*r;if(!blockedCircle(nx,nz,.2)&&unitAt(nx,nz)===U2){x=nx;z=nz;break;}}}
