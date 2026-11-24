@@ -139,6 +139,7 @@ button:focus-visible{outline:2px solid var(--blood-hi);outline-offset:2px}
 #introText p.done{color:var(--ash);transition:color 1.2s}
 #introText p:last-child{color:var(--bone)}
 #introP{background:#000;cursor:pointer}
+#introV{position:fixed;inset:0;z-index:200;background:#000;cursor:pointer}#introV[hidden]{display:none!important}#introVid{width:100%;height:100%;object-fit:contain;background:#000;display:block}#introVHint{position:absolute;right:22px;bottom:16px;font-size:13px;color:rgba(205,201,194,.55);letter-spacing:.06em;opacity:0;transition:opacity 1s;pointer-events:none}#introVHint.on{opacity:1}body.touch #introVHint{font-size:12px}body.introOn #touchUI{display:none!important}
 
 /* 로비 (사용자 디자인 1672×941 기준 좌표) */
 .lobby{position:fixed;inset:0;background:#000;overflow:hidden}
@@ -557,7 +558,7 @@ body.cineOn #drawRing{display:none}
     <div class="lui" id="lui">
     <div class="ltag"><h3>열흘 안에, 1층으로.</h3><p>문밖에서 들리는 발소리. 더는 이웃이 아니다.<br>남은 시간은 열흘. 이 건물에서 나가야 한다.</p></div>
     <div class="lhint">ENTER 시작 · ↑↓ 선택</div>
-    <div class="lver"><span id="lplay"></span> · v1.0.39 · 2026.11.23</div>
+    <div class="lver"><span id="lplay"></span> · v1.0.40 · 2026.11.24</div>
     <div class="llogo"><div class="lnum"><span id="logoF">10F</span><span class="sl">/</span><span class="dy" id="logoD">10DAY</span></div><div class="proj">project.<b>Jitz</b></div></div>
     <nav class="lmenu" id="lmenu" aria-label="메인 메뉴">
       <div class="lmain">
@@ -630,6 +631,7 @@ body.cineOn #drawRing{display:none}
 #cardX{position:absolute;z-index:2;top:max(10px,env(safe-area-inset-top,0px));right:max(14px,env(safe-area-inset-right,0px));min-width:0!important;width:46px;height:46px;padding:0!important;border-radius:50%!important;border:2px solid #cdc9c2!important;background:#8a1414!important;color:#fff;font-size:20px!important;font-weight:700;line-height:1}</style>
 <div id="drawRing"><svg viewBox="0 0 46 46" width="46" height="46"><circle class="tr" cx="23" cy="23" r="19"/><circle class="fg" cx="23" cy="23" r="19" stroke-dasharray="119.4" stroke-dashoffset="119.4"/></svg></div>
 <div id="slingTut" hidden><div id="stFig"><canvas id="stCv" width="854" height="480"></canvas><div id="stPow">위력<b>40%</b></div></div><div id="stTxt"><div class="eyebrow">TIP · SLINGSHOT</div><h2>새총은 끝까지 당겨야 세다</h2><ol id="stList"></ol><div id="stGo">아무 키나 누르면 계속</div></div></div>
+<div id="introV" hidden><video id="introVid" playsinline webkit-playsinline preload="auto"></video><div id="introVHint">스페이스 · 클릭으로 건너뛰기</div></div>
 <div id="introP" class="panel" hidden><div class="box intro"><div id="introText"></div><div class="note">스페이스 · 클릭으로 건너뛰기</div></div></div>
 <div id="pauseP" class="panel" hidden>
   <div class="box"><h2>일시정지</h2><p class="lede">클릭하면 이어서 진행합니다.</p><div id="devRow" style="margin:8px 0 12px;padding:8px;border:1px dashed #6a2a26;display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12px;color:#c9a9a4"><b style="width:100%">테스트용 (임시) <span id="sndState" style="font-weight:400;opacity:.8"></span></b><button type="button" class="ghost" data-dev="god">무적 켬/끔</button><button type="button" class="ghost" data-dev="10">10F</button><button type="button" class="ghost" data-dev="9">9F</button><button type="button" class="ghost" data-dev="8">8F</button><button type="button" class="ghost" data-dev="7">7F</button><button type="button" class="ghost" data-dev="6">6F</button><button type="button" class="ghost" data-dev="5">5F</button><button type="button" class="ghost" data-dev="4">4F</button><button type="button" class="ghost" data-dev="3">3F</button><button type="button" class="ghost" data-dev="2">2F</button><button type="button" class="ghost" data-dev="1">1F</button></div><div class="vols"><label for="volSfx">효과음</label><input type="range" id="volSfx" data-vol="sfx" min="0" max="100"><label for="volBgm">배경음</label><input type="range" id="volBgm" data-vol="bgm" min="0" max="100"></div><div class="opts"><label>난이도</label><select data-opt="diff"><option value="easy">쉬움 — 적 체력 절반 · 받는 피해 70% · 감지 좁음</option><option value="normal">보통</option><option value="hard">어려움 — 적 체력 1.5배 · 받는 피해 125%</option></select><em data-optv="diff"></em><label>마우스 감도</label><input type="range" data-opt="sens" min="30" max="250"><em data-optv="sens"></em><label>밝기</label><input type="range" data-opt="gamma" min="70" max="150"><em data-optv="gamma"></em><label>해상도</label><select data-opt="res"><option value="360">360p 픽셀감 강함</option><option value="540">540p 기본</option><option value="720">720p 선명</option><option value="1080">1080p 최고 화질</option></select><em data-optv="res"></em><label>글자 크기</label><input type="range" data-opt="fs" min="80" max="150" step="5"><em data-optv="fs"></em><label class="chk"><input type="checkbox" data-opt="bob"> 걸을 때 시점 흔들림</label><em data-optv="bob"></em><label class="chk"><input type="checkbox" data-opt="lod"> 성능 절약(먼 크리쳐 간략화)</label><em data-optv="lod"></em><label class="chk"><input type="checkbox" data-opt="autoQ"> 렉 걸리면 화질 자동으로 낮추기</label><em data-optv="autoQ"></em><label class="chk"><input type="checkbox" data-opt="low"> 저사양 모드(그림자·조명 줄임 · 다시 켜면 적용)</label><em data-optv="low"></em></div><div class="btns"><button id="resumeBtn">계속하기</button><button id="quitBtn" class="ghost">로비로 나가기</button></div></div>
@@ -4872,7 +4874,27 @@ function updateLogo(){try{const e=$('lplay');if(e&&typeof META!=='undefined'){if
 
 const INTRO=['사흘 전, 하늘이 붉게 갈라졌다.','북쪽에서 날아온 미사일은 터지지 않았다. 대신 무언가를 흩뿌렸다.','야간 근무 중이던 회사 건물이 그대로 봉쇄됐다. 휴대폰은 그날부터 먹통이었다.','사흘 만에 겨우 빠져나와, 집으로 돌아왔다.','10층, 1002호. 정전. 엘리베이터는 멈춰 있었다.','인산이는 없었다.'];
 let introRun=null;
+/* 11/24 새 게임 인트로 = 컷씬 영상(intro.mp4, 페이지 밖 파일). 로딩 끝나면 뒤에서 미리 받아 blob으로 들고 있음.
+   영상을 못 받거나 재생이 안 되면 예전 글자 인트로(playIntroText)로 */
+let INTRO_VID=null;
+function introPrefetch(q){if(INTRO_VID!==null)return;INTRO_VID='';fetch('intro.mp4'+(q||'')).then(r=>r.ok?r.blob():null).then(b=>{if(b&&b.size>1e5)INTRO_VID=URL.createObjectURL(b);}).catch(()=>{});}
 function playIntro(done){
+  const P0=$('introV'),v=$('introVid');if(!P0||!v)return playIntroText(done);
+  let fin=false,started=false,t0=performance.now();
+  if(typeof lobbyMusic==='function')lobbyMusic(false);
+  $('titleP').hidden=true;P0.hidden=false;document.body.classList.add('introOn');
+  const hint=$('introVHint');hint.textContent=document.body.classList.contains('touch')?'탭하면 건너뛰기':'스페이스 · 클릭으로 건너뛰기';hint.classList.remove('on');setTimeout(()=>{if(!fin)hint.classList.add('on');},1200);
+  const end=(fallback)=>{if(fin)return;fin=true;clearTimeout(stall);removeEventListener('keydown',key);P0.onclick=null;P0.ontouchend=null;try{v.pause();}catch(e){}v.removeAttribute('src');try{v.load();}catch(e){}P0.hidden=true;document.body.classList.remove('introOn');if(fallback)playIntroText(done);else done();};
+  const skip=()=>{if(performance.now()-t0<600)return;end(false);}; /* 새 게임 누른 클릭·키가 바로 건너뛰지 않게 0.6초 */
+  const key=e=>{if(e.code==='Space'||e.code==='Enter'||e.code==='Escape'){e.preventDefault();skip();}};
+  addEventListener('keydown',key);P0.onclick=skip;P0.ontouchend=e=>{e.preventDefault();skip();};
+  v.onended=()=>end(false);v.onerror=()=>{if(!started)end(true);};v.onplaying=()=>{started=true;};
+  const stall=setTimeout(()=>{if(!started&&!fin)end(true);},8000); /* 8초 안에 재생이 안 시작되면 글자 인트로로 */
+  try{v.volume=Math.max(0,Math.min(1,(typeof VOL!=='undefined'?VOL.bgm:.6)*1.5));}catch(e){}
+  v.src=INTRO_VID||('intro.mp4'+(typeof DATA_Q!=='undefined'?DATA_Q:''));
+  const p=v.play();if(p&&p.catch)p.catch(()=>{v.muted=true;v.play().catch(()=>end(true));}); /* 자동 재생이 막히면 소리 없이라도 */
+}
+function playIntroText(done){
   $('titleP').hidden=true;$('introP').hidden=false;const box=$('introText');box.innerHTML='';let li=0,ci=0,cur=null,wait=0,fin=false;
   const finish=()=>{if(fin)return;fin=true;clearInterval(introRun);$('introP').hidden=true;removeEventListener('keydown',skipKey);done();};
   const skipKey=e=>{if(e.code==='Space'||e.code==='Enter'||e.code==='Escape'){e.preventDefault();finish();}};
@@ -4910,13 +4932,13 @@ function lobbyAct(act){
   else if(act==='rank'){if(typeof openRank==='function')openRank();}
 }
 function setupLobby(){
-  const wake=()=>{initAudio();if(AC&&AC.state==='suspended')AC.resume();if(AC&&G.state==='title'&&$('introP').hidden)lobbyMusic(true);const h=$('soundHint');if(h&&AC)h.hidden=true;};
+  const wake=()=>{initAudio();if(AC&&AC.state==='suspended')AC.resume();if(AC&&G.state==='title'&&$('introP').hidden&&$('introV').hidden)lobbyMusic(true);const h=$('soundHint');if(h&&AC)h.hidden=true;};
   $('titleP').addEventListener('pointerdown',wake);$('titleP').addEventListener('touchend',wake);addEventListener('keydown',()=>{if(G.state==='title')wake();});
   const L=LOBBY_SRC;if(L.bg){$('lbg').src=L.bg;$('faceA').src=L.face;$('faceB').src=L.blink;}
   fitStage();G.lsel=0;
   lobbyItems().forEach((b,i)=>{b.addEventListener('mouseenter',()=>{if(G.lsel!==i){lobbySel(i);if(AC){if(sfx.uiSel)sfx.uiSel();else tone(600,500,.03,.04,'square');}}});b.addEventListener('click',()=>{lobbySel(i);lobbyAct(b.dataset.act);});});
   document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>{b.closest('.lmodal').hidden=true;}));
-  addEventListener('keydown',e=>{if(G.state!=='title'||!$('introP').hidden)return;
+  addEventListener('keydown',e=>{if(G.state!=='title'||!$('introP').hidden||!$('introV').hidden)return;
     if(lobbyModalOpen()){if(e.code==='Escape'||e.code==='Enter'){document.querySelectorAll('.lmodal').forEach(m=>m.hidden=true);}return;}
     if(e.code==='ArrowDown'||e.code==='KeyS'||e.code==='ArrowRight'||e.code==='KeyD'){e.preventDefault();initAudio();lobbySel(G.lsel+1);if(AC){if(sfx.uiSel)sfx.uiSel();else tone(600,500,.03,.04,'square');}}
     else if(e.code==='ArrowUp'||e.code==='KeyW'||e.code==='ArrowLeft'||e.code==='KeyA'){e.preventDefault();initAudio();lobbySel(G.lsel-1);if(AC){if(sfx.uiSel)sfx.uiSel();else tone(600,500,.03,.04,'square');}}
@@ -4938,7 +4960,7 @@ function lobbyWalkers(){const cv=$('lwalk');if(!cv)return;const x=cv.getContext(
   let cur=null,wait=3,last=performance.now(),lastK='sh';
   const loop=now=>{requestAnimationFrame(loop);const dt=Math.min(.1,(now-last)/1000);last=now;if(G.state!=='title'||$('titleP').hidden)return;
     x.clearRect(0,0,418,235);
-    if(!cur){wait-=dt;if(wait<=0){const k=Math.random()<(lastK==='ls'?.4:.65)?'ls':'sh';lastK=k;const K=KIND[k],dir=Math.random()<.5?1:-1,T=K.cross[0]+Math.random()*(K.cross[1]-K.cross[0]);cur={k,dir,t:0,x:dir>0?CX0-14:CX1+14,spd:(CX1-CX0+28)/T};try{if(typeof fx==='function'&&lobbyModalOpen&&!lobbyModalOpen()&&$('introP').hidden&&$('credP').hidden)fx('lobby_breath',{gain:.7,jit:.03});}catch(e){}}return;} /* 11/12 사용자: 형체가 지나가는 순간에만 숨소리(GhostBreath 3개 번갈아) */
+    if(!cur){wait-=dt;if(wait<=0){const k=Math.random()<(lastK==='ls'?.4:.65)?'ls':'sh';lastK=k;const K=KIND[k],dir=Math.random()<.5?1:-1,T=K.cross[0]+Math.random()*(K.cross[1]-K.cross[0]);cur={k,dir,t:0,x:dir>0?CX0-14:CX1+14,spd:(CX1-CX0+28)/T};try{if(typeof fx==='function'&&lobbyModalOpen&&!lobbyModalOpen()&&$('introP').hidden&&$('introV').hidden&&$('credP').hidden)fx('lobby_breath',{gain:.7,jit:.03});}catch(e){}}return;} /* 11/12 사용자: 형체가 지나가는 순간에만 숨소리(GhostBreath 3개 번갈아) */
     cur.t+=dt;cur.x+=cur.dir*cur.spd*dt;
     if(cur.dir>0?cur.x>CX1+16:cur.x<CX0-16){cur=null;wait=5+Math.random()*4;return;}
     const fr=SPR[cur.k],K=KIND[cur.k];if(!fr.length)return;const im=fr[Math.floor(cur.t*K.fps)%fr.length];if(!im||!im.complete||!im.naturalHeight)return;
@@ -5015,7 +5037,7 @@ async function boot(){try{if(location.protocol.startsWith('http')){const cur=((d
   initHands();installFx();warmFonts();try{setupTouch();}catch(e){console.warn(e);}
   if((!TOUCH||!DEV)&&$('devRow'))$('devRow').style.display='none';{const q=$('quitBtn');let arm=0,tm=0;q.onclick=e=>{e.stopPropagation();if(!arm){arm=1;q.textContent='한 번 더 누르면 로비로 (이 층 진행은 사라짐)';clearTimeout(tm);tm=setTimeout(()=>{arm=0;q.textContent='로비로 나가기';},3500);return;}arm=0;clearTimeout(tm);q.textContent='로비로 나가기';quitToLobby();};} /* 11/6 PC는 키 치트(ZZ 무적·ANG+숫자 층 이동)만, 폰은 버튼 유지 */
   document.querySelectorAll('[data-dev]').forEach(b=>b.addEventListener('click',()=>{const v=b.dataset.dev; /* 테스트용 임시: 무적·층 이동(폰에서도) */
-    if(v==='god'){P.god=!P.god;if(P.god)rankTaint();if(P.god)P.hp=100;toast(P.god?'무적 켬 (테스트용)':'무적 끔',true);}else jumpFloor(+v);}));buildTextures();FLOOR_SAVE=initialSave();restore(FLOOR_SAVE);resize();addEventListener('resize',resize);requestAnimationFrame(loop);updateLogo();applyOpt();G.booted=true; /* 11/11 로딩 끝나기 전 Enter로 시작하면 텍스처가 없어 buildFloor 크래시 → 로딩 끝까지 로비 입력 막음 */
+    if(v==='god'){P.god=!P.god;if(P.god)rankTaint();if(P.god)P.hp=100;toast(P.god?'무적 켬 (테스트용)':'무적 끔',true);}else jumpFloor(+v);}));buildTextures();FLOOR_SAVE=initialSave();restore(FLOOR_SAVE);resize();addEventListener('resize',resize);requestAnimationFrame(loop);updateLogo();applyOpt();G.booted=true;setTimeout(()=>{try{introPrefetch(DATA_Q);}catch(e){}},1500); /* 11/11 로딩 끝나기 전 Enter로 시작하면 텍스처가 없어 buildFloor 크래시 → 로딩 끝까지 로비 입력 막음 */
   const bp=$('bootP');if(bp){bp.classList.add('done');setTimeout(()=>bp.hidden=true,700);}
 }
 if(typeof THREE==='undefined'){const t=document.getElementById('bootTxt');if(t)t.textContent='3D 엔진(three.js)을 못 불러왔어요 · 새로고침해 주세요';}
