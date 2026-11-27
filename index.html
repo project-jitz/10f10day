@@ -153,7 +153,7 @@ button:focus-visible{outline:2px solid var(--blood-hi);outline-offset:2px}
 .lface img{position:absolute;inset:0;width:520px;height:670px}
 #faceB{opacity:0}
 .lface.blink #faceB{opacity:1}
-.lface video{position:absolute;inset:0;width:520px;height:670px;opacity:0;transition:opacity .12s linear;object-fit:cover}.lface video.on{opacity:1}.lface.vid #faceB{opacity:0!important}.lface.vid #faceA{opacity:0}.lface.vid{-webkit-mask-image:radial-gradient(ellipse 54% 62% at 50% 52%,#000 80%,transparent 100%);mask-image:radial-gradient(ellipse 54% 62% at 50% 52%,#000 80%,transparent 100%)}
+.lface canvas{position:static;position:absolute;inset:0;width:520px;height:670px;opacity:0;image-rendering:pixelated;transition:opacity .4s linear}.lface.vid canvas{opacity:1}.lface.vid #faceB{opacity:0!important}.lface.vid #faceA{opacity:0}.lface.vid{-webkit-mask-image:radial-gradient(ellipse 54% 62% at 50% 52%,#000 80%,transparent 100%);mask-image:radial-gradient(ellipse 54% 62% at 50% 52%,#000 80%,transparent 100%)}
 @keyframes breathe{0%,100%{transform:translateY(0) scale(1)}45%{transform:translateY(-2.5px) scale(1.007)}}
 .lwalk{position:absolute;left:0;top:0;width:1672px;height:941px;image-rendering:pixelated;pointer-events:none}
 .lflick{position:absolute;left:470px;top:250px;width:260px;height:330px;background:radial-gradient(ellipse at 50% 30%,rgba(255,40,40,.32),transparent 65%);mix-blend-mode:screen;opacity:.6;pointer-events:none}
@@ -216,7 +216,7 @@ button:focus-visible{outline:2px solid var(--blood-hi);outline-offset:2px}
 .rkbox .rkl li:nth-child(1) em{color:#f6dc8a}
 #a2hs{position:absolute;left:56%;top:calc(10px + env(safe-area-inset-top,0px));transform:translateX(-50%);display:flex;align-items:center;gap:10px;max-width:min(560px,82vw);padding:8px 8px 8px 14px;border-radius:12px;background:rgba(12,9,9,.86);box-shadow:inset 0 0 0 1px rgba(224,32,44,.55),0 8px 30px rgba(0,0,0,.5);font:13px/1.45 "Noto Sans KR",sans-serif;color:#eadfd6}
 #a2hs[hidden]{display:none}#a2hs button.ax{all:unset;flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:#8a1414;color:#fff;font-weight:700;cursor:pointer}#a2hs button.ago{all:unset;flex:none;padding:7px 12px;border-radius:9px;background:#a3141c;color:#fff;font-weight:700;white-space:nowrap;cursor:pointer}#a2hs button.ago[hidden]{display:none}
-.lface img,.lface video{transition:filter 1.2s,opacity .18s linear}.lface[data-hp="1"] img,.lface[data-hp="1"] video{filter:saturate(.84) brightness(.95)}.lface[data-hp="2"] img,.lface[data-hp="2"] video{filter:saturate(.62) brightness(.86) contrast(1.04)}.lface[data-hp="3"] img,.lface[data-hp="3"] video{filter:saturate(.36) brightness(.76) contrast(1.1)}
+.lface img,.lface video,.lface canvas{transition:filter 1.2s,opacity .18s linear}.lface[data-hp="1"] img,.lface[data-hp="1"] video,.lface[data-hp="1"] canvas{filter:saturate(.84) brightness(.95)}.lface[data-hp="2"] img,.lface[data-hp="2"] video,.lface[data-hp="2"] canvas{filter:saturate(.62) brightness(.86) contrast(1.04)}.lface[data-hp="3"] img,.lface[data-hp="3"] video,.lface[data-hp="3"] canvas{filter:saturate(.36) brightness(.76) contrast(1.1)}
 #saProbe{position:fixed;left:0;top:0;visibility:hidden;pointer-events:none;padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)}
 .lgrain{position:absolute;inset:0;width:1672px;height:941px;opacity:.045;pointer-events:none;image-rendering:pixelated;mix-blend-mode:screen}
 .lmodal{position:absolute;inset:0;background:rgba(0,0,0,.82);display:flex;align-items:flex-start;padding-block:24px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));overflow:auto}
@@ -558,11 +558,11 @@ body.cineOn #drawRing{display:none}
     <img class="lbg" id="lbg" alt="">
     <canvas class="lwalk" id="lwalk" width="418" height="235" aria-hidden="true"></canvas>
     <div class="lflick" id="lflick"></div>
-    <div class="lface" id="lface"><img id="faceA" alt=""><img id="faceB" alt=""><video id="faceV0" muted playsinline preload="auto"></video><video id="faceV1" muted playsinline preload="auto"></video></div>
+    <div class="lface" id="lface"><img id="faceA" alt=""><img id="faceB" alt=""><canvas id="faceC" width="130" height="168"></canvas></div>
     <div class="lui" id="lui">
     <div class="ltag"><h3>열흘 안에, 1층으로.</h3><p>문밖에서 들리는 발소리. 더는 이웃이 아니다.<br>남은 시간은 열흘. 이 건물에서 나가야 한다.</p></div>
     <div class="lhint">ENTER 시작 · ↑↓ 선택</div>
-    <div class="lver"><span id="lplay"></span> · v1.0.50 · 2026.11.27</div>
+    <div class="lver"><span id="lplay"></span> · v1.0.51 · 2026.11.27</div>
     <div class="llogo"><div class="lnum"><span id="logoF">10F</span><span class="sl">/</span><span class="dy" id="logoD">10DAY</span></div><div class="proj">project.<b>Jitz</b></div></div>
     <nav class="lmenu" id="lmenu" aria-label="메인 메뉴">
       <div class="lmain">
@@ -5264,29 +5264,30 @@ function setupLobby(){
   lobbyWalkers();lobbyFace();
 }
 /* 11/27 사용자: 로비 얼굴을 영상으로(힉스필드 Seedance Mini 4클립 → lf_*.mp4). 평소 반복 + 깜빡임, 메뉴에 마우스 = 쳐다보기, 복도에 형체 지나가거나 오래 가만히 = 뒤돌아보기, 새 게임 = 결심. 두 video를 0.25초 교차 페이드. 못 받으면 예전 그림 그대로 */
-const LF={ok:false,url:{},cur:-1,name:'',t0:0,blinkAt:0,lastIn:0,cool:{},cb:null};
-function lobbyFace(){const N=['idle','blink','glance','back','resolve'],V=[$('faceV0'),$('faceV1')];if(!V[0])return;
-  let n=0;N.forEach(k=>fetch('lf_'+k+'.mp4'+(typeof DATA_Q!=='undefined'?DATA_Q:'')).then(r=>r.ok?r.blob():null).then(b=>{if(b&&b.size>2e4)LF.url[k]=URL.createObjectURL(b);}).catch(()=>{}).finally(()=>{if(++n===N.length&&LF.url.idle){LF.ok=true;lfPlay('idle');}}));
-  V.forEach(v=>{v.muted=true;v.playsInline=true;v.addEventListener('ended',()=>{if(V[LF.cur]!==v)return;const cb=LF.cb;LF.cb=null;if(LF.name==='resolve'){if(cb)cb();return;}if(LF.q&&LF.name==='blink'){const q=LF.q;LF.q=null;LF.cb=cb;lfPlay(q);return;}lfPlay('idle');if(cb)cb();});});
+const LF={ok:false,cur:'',f:0,acc:0,blinkAt:0,lastIn:0,cool:{},cb:null,q:null,M:{"w":130,"h":168,"c":16,"fps":24,"clips":{"idle":[0,25],"blink":[25,19],"glance":[44,49],"back":[93,68],"resolve":[161,65]}}}; /* 11/27: 로비 얼굴 = 도트 프레임 묶음(lf_atlas.png, 130×168 · 24fps)을 캔버스에 그림. 모든 클립의 처음·끝 프레임이 같은 정면 얼굴이라 넘어갈 때 안 끊김 */
+function lobbyFace(){const cv=$('faceC');if(!cv)return;const cx=cv.getContext('2d');const im=new Image();
+  im.onload=()=>{LF.ok=true;LF.im=im;lfPlay('idle');$('lface').classList.add('vid');};im.src='lf_atlas.png'+(typeof DATA_Q!=='undefined'?DATA_Q:'');
   LF.lastIn=performance.now();['pointermove','keydown','touchstart'].forEach(e=>addEventListener(e,()=>{LF.lastIn=performance.now();},{passive:true}));
-  const tick=()=>{requestAnimationFrame(tick);if(!LF.ok)return;const on=G.state==='title'&&!$('titleP').hidden,v=V[LF.cur];
-    if(!on){V.forEach(x=>{if(!x.paused)x.pause();});return;}if(v&&v.paused&&!v.ended&&LF.name!=='resolve')v.play().catch(()=>{});
-    if(LF.name==='resolve'&&!LF.cb&&!G.lfStart){lfPlay('idle');return;}if(!v||LF.name!=='idle')return;const now=performance.now();const ct=v.currentTime||0,wrap=ct<LF.lastT-.3||(v.duration&&ct>v.duration-.05);LF.lastT=ct;if(LF.q){if(wrap){const q=LF.q;LF.q=null;lfPlay(q);}return;}
-    if(now>LF.blinkAt){LF.blinkAt=now+3200+Math.random()*4200;LF.q='blink';return;}
-    if(now-LF.lastIn>22000&&!lobbyModalOpen()){LF.lastIn=now;lfReact('back');}};
+  let last=performance.now(),drawn=-1;
+  const draw=()=>{const M=LF.M,c=M.clips[LF.cur];if(!c)return;const i=c[0]+Math.min(LF.f,c[1]-1);if(i===drawn)return;drawn=i;cx.clearRect(0,0,M.w,M.h);cx.drawImage(LF.im,(i%M.c)*M.w,Math.floor(i/M.c)*M.h,M.w,M.h,0,0,M.w,M.h);};
+  const end=()=>{const k=LF.cur;if(k==='idle'){if(LF.q){const q=LF.q;LF.q=null;lfPlay(q);}else LF.f=0;return;}
+    const cb=LF.cb;if(k==='resolve'){LF.cb=null;LF.f=LF.M.clips.resolve[1]-1;LF.hold=1;if(cb)cb();return;}
+    if(LF.q){const q=LF.q;LF.q=null;lfPlay(q);return;}LF.cb=null;lfPlay('idle');if(cb)cb();};
+  const tick=now=>{requestAnimationFrame(tick);const dt=Math.min(.1,(now-last)/1000);last=now;if(!LF.ok)return;
+    if(G.state!=='title'||$('titleP').hidden)return;
+    if(LF.hold){if(!G.lfStart){LF.hold=0;lfPlay('idle');}draw();return;}
+    LF.acc+=dt*LF.M.fps;while(LF.acc>=1){LF.acc-=1;LF.f++;if(LF.f>=LF.M.clips[LF.cur][1])end();}
+    if(LF.cur==='idle'&&!LF.q){if(now>LF.blinkAt){LF.blinkAt=now+3200+Math.random()*4200;LF.q='blink';}
+      else if(now-LF.lastIn>22000&&!lobbyModalOpen()){LF.lastIn=now;lfReact('back');}}
+    draw();};
   requestAnimationFrame(tick);LF.blinkAt=performance.now()+2500;}
-function lfPlay(k){const V=[$('faceV0'),$('faceV1')],u=LF.url[k];if(!u)return false;const ni=LF.cur<0?0:1-LF.cur,v=V[ni],o=V[LF.cur]; /* 11/27: 새 클립을 위에 얹고 첫 프레임이 그려진 뒤 보이게, 옛 클립은 그 아래 그대로 두었다 치움(예전 얼굴 그림이 비치던 것) */
-  LF.z=(LF.z||1)+1;v.style.zIndex=LF.z;v.classList.remove('on');v.src=u;v.currentTime=0;v.loop=k==='idle';
-  const go=()=>{v.classList.add('on');$('lface').classList.add('vid');if(o&&o!==v)setTimeout(()=>{if(V[LF.cur]!==o){o.classList.remove('on');o.pause();}},120);};
-  const shown=()=>{if(v.requestVideoFrameCallback)v.requestVideoFrameCallback(()=>go());else go();};
-  const p=v.play();if(p&&p.then)p.then(shown).catch(()=>{v.muted=true;v.play().then(shown).catch(()=>{});});else shown();
-  LF.cur=ni;LF.name=k;LF.lastT=0;return true;}
-/* idle이 한 바퀴 돌아 첫 프레임(모든 클립의 시작·끝 얼굴)에 왔을 때만 다른 클립으로 넘어감 → 정면에서 안 끊김 */
+function lfPlay(k){if(!LF.M.clips[k])return false;LF.cur=k;LF.f=0;LF.acc=0;return true;}
 function lfQueue(k){LF.q=k;}
-/* 반응 클립: 평소(idle·blink)일 때만, 같은 반응은 쿨다운. resolve는 끝나면 cb(게임 시작) */
-function lfReact(k,cb){if(!LF.ok||!LF.url[k]||G.state!=='title'){if(cb)cb();return false;}const now=performance.now(),CD={glance:5000,back:12000,resolve:0};
-  if(k!=='resolve'&&((LF.name!=='idle'&&LF.name!=='blink')||now<(LF.cool[k]||0))){return false;}
-  LF.cool[k]=now+(CD[k]||0);LF.cb=cb||null;if(LF.name==='idle'||LF.name==='blink'){LF.q=k;return true;}if(!lfPlay(k)){LF.cb=null;if(cb)cb();return false;}if(k==='resolve')setTimeout(()=>{if(LF.cb===cb&&cb){LF.cb=null;LF.q=null;cb();}},6000);return true;}
+/* 반응 클립: 평소(idle·blink)일 때만, 같은 반응은 쿨다운. 지금 클립이 끝나 정면 얼굴로 돌아온 순간 시작. resolve는 끝나면 cb(게임 시작) */
+function lfReact(k,cb){if(!LF.ok||!LF.M.clips[k]||G.state!=='title'){if(cb)cb();return false;}const now=performance.now(),CD={glance:5000,back:12000,resolve:0};
+  if(k!=='resolve'&&((LF.cur!=='idle'&&LF.cur!=='blink')||now<(LF.cool[k]||0)||LF.q))return false;
+  LF.cool[k]=now+(CD[k]||0);LF.cb=cb||null;LF.q=k;
+  if(k==='resolve')setTimeout(()=>{if(LF.cb===cb&&cb){LF.cb=null;LF.q=null;cb();}},6000);return true;}
 // 11/6 사용자: 로비 복도 저 뒤(붉은 창 앞)를 비척이 · 듣는 놈 옆모습 검정 실루엣이 번갈아 왔다갔다(힉스필드 걷기 시트, 418×235 화면에 그려 4배 확대)
 function lobbyWalkers(){const cv=$('lwalk');if(!cv)return;const x=cv.getContext('2d'); /* 11/7 사용자: 게임 모델(듣는 놈·비척이) 옆모습 실루엣이 양쪽 방향으로 복도 끝 창 앞을 지나감 */
   const CX0=131,CX1=161,CY0=96,FY=151; // 복도 끝 창(418×235 좌표) 안쪽만 — 벽·문과 안 겹치게 잘라 그림
