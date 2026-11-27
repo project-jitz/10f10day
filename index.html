@@ -139,6 +139,9 @@ button:focus-visible{outline:2px solid var(--blood-hi);outline-offset:2px}
 #introText p.done{color:var(--ash);transition:color 1.2s}
 #introText p:last-child{color:var(--bone)}
 #introP{background:#000;cursor:pointer}
+#cutV{position:fixed;inset:0;z-index:205;background:#000;cursor:pointer;overflow:hidden}#cutV[hidden]{display:none!important}#cutBox{position:absolute;left:50%;top:50%;width:min(100vw,177.78vh);height:min(56.25vw,100vh);transform:translate(-50%,-50%)}#cutVid{width:100%;height:100%;object-fit:cover;background:#000;display:block;transition:opacity .6s}#cutVid.off{opacity:0}#cutTxt{position:absolute;left:4%;right:4%;top:84%;text-align:center;font-family:'Nanum Myeongjo',serif;font-weight:800;color:#cdc9c2;line-height:1.35;letter-spacing:.01em;text-shadow:1px 2px 3px rgba(0,0,0,.95),0 0 8px rgba(0,0,0,.7);pointer-events:none;transition:opacity .35s}#cutTxt .r{opacity:0}#cutTxt.tail{top:47%}
+#cutTxt.note{top:40%;line-height:1.6;color:#d8d3cb}#cutTxt.note b{display:block;font-size:1.25em;color:#e8c7b8;margin-bottom:.7em;font-weight:800}#cutTxt.note .nl{display:block;font-size:.92em}
+#cutTxt{transition:opacity .35s,color .45s,text-shadow .45s}#cutHint.dark{color:#4a4040!important}#cutTxt.dark{color:#1c1818;text-shadow:0 0 6px rgba(255,255,255,.35),0 1px 2px rgba(255,255,255,.25)}#cutFl{position:absolute;left:6%;bottom:9%;font-family:VT323,monospace;color:#e8e1d4;line-height:.9;letter-spacing:.04em;text-shadow:0 0 18px rgba(196,20,31,.55),2px 3px 4px rgba(0,0,0,.9);opacity:0;transition:opacity .9s;pointer-events:none}#cutFl small{display:block;font-family:'Noto Sans KR',sans-serif;font-size:.2em;letter-spacing:.3em;color:#b3a9a0;margin-top:.35em}#cutFl.on{opacity:1}#cutHint{position:absolute;right:22px;bottom:16px;font-size:13px;color:rgba(205,201,194,.55);letter-spacing:.06em;opacity:0;transition:opacity 1s;pointer-events:none}#cutHint.on{opacity:1}body.touch #cutHint{font-size:12px}body.cutOn #touchUI,body.cutOn #hud{display:none!important}
 #introV{position:fixed;inset:0;z-index:200;background:#000;cursor:pointer}#introV[hidden]{display:none!important}#introVid{width:100%;height:100%;object-fit:contain;background:#000;display:block}#introVHint{position:absolute;right:22px;bottom:16px;font-size:13px;color:rgba(205,201,194,.55);letter-spacing:.06em;opacity:0;transition:opacity 1s;pointer-events:none}#introVHint.on{opacity:1}body.touch #introVHint{font-size:12px}body.introOn #touchUI{display:none!important}
 
 /* 로비 (사용자 디자인 1672×941 기준 좌표) */
@@ -376,7 +379,7 @@ body.peeping #prompt{top:auto!important;bottom:calc(10px + env(safe-area-inset-b
 .fgrid button{all:unset;cursor:pointer;display:grid;gap:4px;padding:12px 14px;background:#140f0e;border:1px solid #3a2422}
 .fgrid button:hover,.fgrid button:focus-visible{background:#3a1014;border-color:#b3202a}
 .fgrid b{font-family:"VT323",monospace;font-size:34px;color:#ece5d8;line-height:1}.fgrid span{font-size:12px;color:#a39a92;min-height:1em}
-#evac{position:fixed;left:50%;top:118px;transform:translateX(-50%);z-index:40;pointer-events:none;text-align:center;font-family:VT323,monospace;font-size:44px;line-height:1;color:#e8d8c8;text-shadow:0 0 12px rgba(0,0,0,.9)}#evac small{display:block;font-family:"Noto Sans KR",sans-serif;font-size:12px;letter-spacing:.25em;color:#b3202a;margin-bottom:4px}#evac.hot{color:#ff3a30;animation:evacP .5s steps(2) infinite}#evac.gone{color:#6a6260;font-size:30px}@keyframes evacP{50%{opacity:.55}}
+
 #titlePop{position:fixed;left:50%;top:18px;transform:translate(-50%,calc(-100% - 30px));z-index:150;display:flex;gap:14px;align-items:center;padding:10px 22px 10px 12px;background:rgba(14,10,10,.92);border:1px solid #5a2a2a;transition:transform .5s cubic-bezier(.2,.9,.3,1.2);pointer-events:none}
 #titlePop.on{transform:translate(-50%,0)}
 #titlePop .badge{width:64px;height:64px}
@@ -558,7 +561,7 @@ body.cineOn #drawRing{display:none}
     <div class="lui" id="lui">
     <div class="ltag"><h3>열흘 안에, 1층으로.</h3><p>문밖에서 들리는 발소리. 더는 이웃이 아니다.<br>남은 시간은 열흘. 이 건물에서 나가야 한다.</p></div>
     <div class="lhint">ENTER 시작 · ↑↓ 선택</div>
-    <div class="lver"><span id="lplay"></span> · v1.0.42 · 2026.11.24</div>
+    <div class="lver"><span id="lplay"></span> · v1.0.43 · 2026.11.26</div>
     <div class="llogo"><div class="lnum"><span id="logoF">10F</span><span class="sl">/</span><span class="dy" id="logoD">10DAY</span></div><div class="proj">project.<b>Jitz</b></div></div>
     <nav class="lmenu" id="lmenu" aria-label="메인 메뉴">
       <div class="lmain">
@@ -613,7 +616,7 @@ body.cineOn #drawRing{display:none}
 <div id="galP" hidden><button id="galX" type="button" aria-label="닫기">✕</button><img id="galImg" alt=""><div id="galCap"></div></div>
 <div id="tcard" hidden><div id="tcBg"></div><div class="tcIn"><div id="tcEye"></div><div id="tcBig"></div><div id="tcSub"></div><div id="tcLine"></div></div></div>
 <div id="tRotate">폰을 가로로 돌려 주세요<br><small>10F / 10DAY는 가로 화면 전용입니다</small></div>
-<div id="evac" hidden></div>
+
 <div id="bossBar" hidden><div class="bn" id="bossName"></div><div class="bt"><i id="bossLag"></i><b id="bossFill"></b></div></div>
 <div id="credP" hidden><div class="croll" id="credRoll"></div><div class="cskip">누르고 있으면 빨리 감기<span class="cpc"> · <b>Space</b> 넘어가기</span></div><button id="credSkip" type="button">건너뛰기 ▶</button></div>
 <div id="cineBars" hidden><i></i><i></i></div>
@@ -631,6 +634,7 @@ body.cineOn #drawRing{display:none}
 #cardX{position:absolute;z-index:2;top:max(10px,env(safe-area-inset-top,0px));right:max(14px,env(safe-area-inset-right,0px));min-width:0!important;width:46px;height:46px;padding:0!important;border-radius:50%!important;border:2px solid #cdc9c2!important;background:#8a1414!important;color:#fff;font-size:20px!important;font-weight:700;line-height:1}</style>
 <div id="drawRing"><svg viewBox="0 0 46 46" width="46" height="46"><circle class="tr" cx="23" cy="23" r="19"/><circle class="fg" cx="23" cy="23" r="19" stroke-dasharray="119.4" stroke-dashoffset="119.4"/></svg></div>
 <div id="slingTut" hidden><div id="stFig"><canvas id="stCv" width="854" height="480"></canvas><div id="stPow">위력<b>40%</b></div></div><div id="stTxt"><div class="eyebrow">TIP · SLINGSHOT</div><h2>새총은 끝까지 당겨야 세다</h2><ol id="stList"></ol><div id="stGo">아무 키나 누르면 계속</div></div></div>
+<div id="cutV" hidden><div id="cutBox"><video id="cutVid" playsinline webkit-playsinline preload="auto"></video><div id="cutTxt"></div><div id="cutFl"></div></div><div id="cutHint">스페이스 · 클릭으로 건너뛰기</div></div>
 <div id="introV" hidden><video id="introVid" playsinline webkit-playsinline preload="auto"></video><div id="introVHint">스페이스 · 클릭으로 건너뛰기</div></div>
 <div id="introP" class="panel" hidden><div class="box intro"><div id="introText"></div><div class="note">스페이스 · 클릭으로 건너뛰기</div></div></div>
 <div id="pauseP" class="panel" hidden>
@@ -641,7 +645,7 @@ body.cineOn #drawRing{display:none}
   <button class="tX" data-x="1">✕</button>
   <div class="box">
     <div class="eyebrow">가방 · Tab으로 닫기</div>
-    <div class="wbar"><span>무게</span><span class="big num" id="invW">0 / 15kg</span><i><b id="invWB"></b></i></div>
+    <div class="wbar"><span>무게</span><span class="big num" id="invW">0 / 20kg</span><i><b id="invWB"></b></i></div>
     <div class="invList" id="invList"></div>
     <dl class="stat" id="invStat"></dl>
     <div id="invMapW" hidden><canvas id="invMap" width="544" height="608"></canvas><div class="mapLeg"><span><i class="lg vis"></i>다 뒤짐</span><span><i class="lg part"></i>덜 뒤짐</span><span><i class="lg unv"></i>안 가 봄</span><span><i class="lg key"></i>열쇠</span><span><i class="lg bench"></i>작업대</span><span><i class="lg me"></i>나</span></div></div>
@@ -780,7 +784,7 @@ const SND_SRC=/*SOUNDS*/{};
 const WIN_SRC=/*WIN*/{};
 /* ================= 설정 (테스트용 수치 포함) ================= */
 const CFG={
-  bagMax:15, startMin:8*60, deadlineMin:10*24*60,
+  bagMax:20, /* 11/27 사용자: 15→20kg */ startMin:8*60, deadlineMin:10*24*60,
   time:{search:25,searchEmpty:8,crowbar:10,craft:60,eat:5,sleep:360,stairs:30},
   hungerPerMin:100/(36*60), thirstPerMin:100/(28*60) /* 11/9 시뮬: 음식·물이 너무 남아서 허기 2일→1.5일·갈증 1.5일→약 1.2일 */, starveHpPerMin:5/60,
   player:{walk:2.6,run:4.5,crouch:1.3,r:.3,eye:1.6,eyeC:1.1},
@@ -902,7 +906,8 @@ function buildTextures(){
   [c,x]=cnv(48,160);if(IMG.lock)x.drawImage(IMG.lock,0,0);else{R(x,'#121314',0,0,48,160);}TX.lock=TT(c);TX.lock.minFilter=THREE.LinearFilter;
   [c,x]=cnv(128,192);if(IMG.hyd)x.drawImage(IMG.hyd,0,0);else grain(x,128,192,[92,92,90],5,15);blot(x,128,192,10,'#1a1410',31,10,.1);TX.hyd=TT(c);
   [c,x]=cnv(64,128);grain(x,64,128,[150,26,30],6,14);R(x,'rgba(0,0,0,.25)',0,58,64,3);x.fillStyle='rgba(240,232,222,.92)';x.font='bold 9px "Noto Sans KR",sans-serif';x.textAlign='center';x.fillText('비상계단',32,30);x.font='bold 7px "Noto Sans KR",sans-serif';x.fillText('항상 닫아 두십시오',32,42);TX.stair=TT(c);
-  doorArt('stairdoor',TX.stair,190,'비상계단','항상 닫아 두십시오','#5a1014');
+  x.clearRect(12,26,40,11); /* 183차: 창 자리(대체 그림) */
+  doorArt('stairdoor',TX.stair,190,'비상계단','항상 닫아 두십시오','#5a1014',0,0,(x2,W,H)=>{const sx=W/256,sy=H/512;x2.drawImage(x2.canvas,30*sx,30*sy,56*sx,166*sy,101*sx,30*sy,56*sx,166*sy);x2.clearRect(Math.round(48*sx),Math.round(102*sy),Math.round(160*sx),Math.round(45*sy));}); /* 183차: 그림 속 세로 창은 옆 판넬로 덮고, 가로로 긴 창(높이 약 1.49~1.61m, 폭 .5m) 자리를 투명하게 */
   [c,x]=cnv(64,128);grain(x,64,128,[24,78,210],6,61);R(x,'rgba(0,0,0,.3)',0,58,64,2);x.fillStyle='rgba(235,235,240,.9)';x.font='bold 9px "Noto Sans KR",sans-serif';x.textAlign='center';x.fillText('쓰레기실',32,30);TX.trashD=TT(c);doorArt('trashdoor',TX.trashD,136,'쓰레기실','','#14284a');
   [c,x]=cnv(64,128);grain(x,64,128,[214,212,206],5,62);R(x,'rgba(0,0,0,.18)',0,58,64,2);x.fillStyle='rgba(40,38,36,.9)';x.font='bold 9px "Noto Sans KR",sans-serif';x.textAlign='center';x.fillText('TPS실',32,30);x.font='7px "Noto Sans KR",sans-serif';x.fillText('관계자 외 출입금지',32,42);TX.tpsD=TT(c);doorArt('tpsdoor',TX.tpsD,92,'TPS실','관계자 외 출입금지','#3a2a10');
   [c,x]=cnv(64,96);grain(x,64,96,[120,121,122],6,5);R(x,'#3b3c3e',31,8,2,88);R(x,'#2b2c2e',0,0,64,8);R(x,'#c9c6bd',18,40,28,22);x.fillStyle='#202020';x.font='bold 9px "Noto Sans KR",sans-serif';x.textAlign='center';x.fillText('정전',32,50);x.fillText('운행중지',32,59);TX.elev=TT(c);
@@ -1096,7 +1101,9 @@ function vlight(x,y,z,col,base,mode,dist,fixture){const L={x,y,z,col:new THREE.C
 let cullT=0;
 /* 11/6 문구멍: 보는 위치(외시경 땐 문 바깥) */function viewPt(){if(P.peep){const d=P.peep.d;return[d.cx-d.nx*.12,d.cz-d.nz*.12];}return[P.x,P.z];}
 function seeable(x,z,r){const[vx,vz]=viewPt();const dx=x-vx,dz=z-vz,d=Math.hypot(dx,dz);if(d<3)return true;if(d>24)return false;
-  if(los(vx,vz,x,z))return true;const nx=-dz/d*r,nz=dx/d*r;return los(vx,vz,x+nx,z+nz)||los(vx,vz,x-nx,z-nz);}
+  if(los(vx,vz,x,z))return true;const nx=-dz/d*r,nz=dx/d*r;if(los(vx,vz,x+nx,z+nz)||los(vx,vz,x-nx,z-nz))return true;
+  const s=STAIRD;if(s&&!s.open&&Math.hypot(vx-s.cx,vz-s.cz)<3.2&&(vx-s.cx)*s.nx+(vz-s.cz)*s.nz>0&&(x-s.cx)*s.nx+(z-s.cz)*s.nz<0){const wx=s.cx-s.nx*.15,wz=s.cz-s.nz*.15;return los(wx,wz,x,z)||los(wx,wz,x+nx,z+nz)||los(wx,wz,x-nx,z-nz);} /* 183차: 비상계단 문 창 너머 */
+  return false;}
 const SHADOW_D=TOUCH?5:OPT.low?8:14; // 이보다 먼 크리쳐는 그림자 안 그림(헤드랜턴 그림자는 가까운 놈만 눈에 띔)
 /* 11/12 최적화: 층에 들어선 직후 0.15초 동안(그리고 warmFloor의 4방향 미리 그리기 때) 모든 크리쳐가 원본 모델로 전부 보이는 상태라 한 화면에 96만 삼각형·407번 그리기까지 튀었음(평소 2~15만).
    → 층을 지은 직후 간략 모델 규칙을 바로 적용(lodNow)하고, 첫 프레임에 가림 처리가 돌게 함(cullT=0). 폰은 원본 모델을 GPU에 올릴 일이 거의 없어짐 */
@@ -1104,7 +1111,7 @@ function lodFor(c,d){if(!c.geoLo||!c.glb)return;const lo=c.glb.geometry===c.geoL
 function lodNow(){try{creatures.forEach(c=>lodFor(c,Math.hypot(c.x-P.x,c.z-P.z)));}catch(e){}cullT=0;}
 function cullTick(dt){cullT-=dt;if(cullT>0)return;cullT=.15;
   creatures.forEach(c=>{c.root.visible=seeable(c.x,c.z,.5);if(c.glb){const d=Math.hypot(c.x-P.x,c.z-P.z);c.glb.castShadow=d<SHADOW_D&&!(c.dead&&c.deadT>3);}if(c.geoLo)lodFor(c,Math.hypot(c.x-P.x,c.z-P.z));});
-  DOORS.forEach(d=>{const s=Math.sign((P.x-d.cx)*d.nx+(P.z-d.cz)*d.nz)||1;d.pivot.visible=seeable(d.cx+d.nx*.3*s,d.cz+d.nz*.3*s,.5);});
+  DOORS.forEach(d=>{const s=Math.sign((P.x-d.cx)*d.nx+(P.z-d.cz)*d.nz)||1;d.pivot.visible=!d.gone&&seeable(d.cx+d.nx*.3*s,d.cz+d.nz*.3*s,.5);});
   CONTAINERS.forEach(c=>{if(!c.meshes)return;const v=seeable(c.x,c.z,.45);if(c.vis!==v){c.vis=v;c.meshes.forEach(m=>m.visible=v);}});
   PCULL.forEach(c=>{const v=seeable(c.x,c.z,.45);if(c.vis!==v){c.vis=v;c.m.visible=v;}});}
 function updateLights(dt){
@@ -1153,6 +1160,14 @@ function makeDoor(o){
   DOORS.push(d);return d;
 }
 
+/* 183차(11/27 사용자): 비상계단 문 눈높이에 가로로 긴 철망 유리창 — 안에서 밖 복도가 흐리게 보임. 적은 이 창으로 김수민을 못 봄(시야 판정은 그대로, 화면 가림만 예외: seeable) */
+let STAIRD=null,_wgM=null;
+function stairWindow(d){const L=d.leaf,cy=1.55-1.025,cx=0,W2=.55,H2=.18; /* 11/27 50×12 → 55×18cm */
+  if(!_wgM){const[c,x]=cnv(64,16);x.fillStyle='rgba(70,80,78,.1)';x.fillRect(0,0,64,16);x.strokeStyle='rgba(18,20,20,.45)';x.lineWidth=.6;for(let i=-16;i<64;i+=8){x.beginPath();x.moveTo(i,0);x.lineTo(i+16,16);x.stroke();x.beginPath();x.moveTo(i+16,0);x.lineTo(i,16);x.stroke();}
+    const t=new THREE.CanvasTexture(c);_wgM=new THREE.MeshPhongMaterial({map:t,transparent:true,depthWrite:false,side:THREE.DoubleSide,shininess:30,specular:0x1a1a1a,color:0x808080});}
+  const g=new THREE.Mesh(new THREE.PlaneGeometry(W2,H2),_wgM);g.position.set(cx,cy,0);L.add(g);
+  const fr=(w,h,x,y)=>{const b=new THREE.Mesh(new THREE.BoxGeometry(w,h,.066),M.edge);b.position.set(x,y,0);L.add(b);};
+  fr(W2+.04,.02,cx,cy+H2/2+.01);fr(W2+.04,.02,cx,cy-H2/2-.01);fr(.02,H2,cx-W2/2-.01,cy);fr(.02,H2,cx+W2/2+.01,cy);}
 /* ================= 가구 ================= */
 const CONTAINERS=[],INTER=[];
 const LOOT=CRAFT_ON?[['water',20],['can',14],['canned',14],['bar',16],['mat',22],['junk',10],['steel',4]]:[['water',24],['can',17],['canned',17],['bar',19],['junk',15],['steel',5]];
@@ -1169,7 +1184,7 @@ function distributeLoot(){
   for(let i=0;i<cnt(FLOOR_LOOT.mat,'mat');i++)put('mat',1,false);
   ['bandage','painkiller'].forEach(k=>{for(let i=0;i<cnt(FLOOR_LOOT[k],k);i++)put(k,1,'med');});
   if(RNG()<.55)put('flash',1,false); // 섬광탄 가끔
-  ['junk','steel'].forEach(k=>{const[b,a,z]=FLOOR_LOOT[k];for(let i=0;i<cnt(b,k);i++)put(k,a+Math.floor(RNG()*(z-a+1)),false);});
+  ['junk','steel'].forEach(k=>{const[b,a,z]=FLOOR_LOOT[k];const x2=(k==='steel'&&OPT.diff==='easy')?2:1;for(let i=0;i<cnt(b,k);i++)put(k,(a+Math.floor(RNG()*(z-a+1)))*x2,false);}); /* 11/27 쉬움: 쇠구슬 묶음 2배(난수 순서는 그대로) */
 }
 function rollLoot(mode){
   if(mode==='own-fridge')return[{k:'water',n:2},{k:'canned',n:1}];
@@ -1307,6 +1322,7 @@ function buildUnit(U){
   const d=makeDoor({kind:'unit',cx:dcx,cz:dcz,nx:Math.sign(Math.round(ix-dcx)),nz:Math.sign(Math.round(iz-dcz)),w:.9,type:cfg.door||'unlocked',open:cfg.door==='open',plate:typeof U.num==='number'?G.floor*100+(U.num-1000):null,unum:U.num,label:typeof U.num==='number'?(G.floor*100+(U.num-1000))+'호':'TPS실',unit:U,mat:tex});
   if(U.type==='tps'){d.leaf.material=[M.edge,M.edge,M.edge,M.edge,M.tpsD,M.tpsD];}
   U.door=d;
+  if(cfg.boss&&G.floor===8)crumpleDoor(d); /* 181차: 809호(대두왕 방) 현관문 — 부서져 찌그러진 채 열려 있음(다시 못 닫음) */
   if(G.benchUnit===U.num&&M.doorX){d.leaf.material=[M.edge,M.edge,M.edge,M.edge,M.doorX,M.door];} /* 156차: 테이프 X는 문 그림에(바깥면만) */
   else if(G.benchUnit===U.num){const BM=benchMats();[.78,-.78].forEach((r,i)=>{const t=new THREE.Mesh(new THREE.BoxGeometry(1.15,.075,.006),BM.tape);t.position.set(0,.05,.028+i*.002);t.rotation.z=r;d.leaf.add(t);});} /* 11/6 작업대 집 문: 노란 테이프 X */
   {const[fx0,fz0,fx1,fz1]=uRect(U,0,0,W,D);batchBox(U.type==='tps'?'floorK':'floorU',fx0,-.02,fz0,fx1,.003,fz1,1.6,1.6);}
@@ -1341,7 +1357,7 @@ function buildUnit(U){
   }else if(T===52){
     uWall(U,1.8,.2,1.8,2.2);uWallG(U,1.8,2.2,4.2,2.2,[[2.4,3.2]]);iDoor(U,2.8,2.2,true,0,-1,RNG()<.5);bath(1.8,.2,4.2,2.2);
     uWallG(U,4.2,.2,4.2,3.4,[[2.5,3.3]]);uWall(U,4.2,3.4,W,3.4);iDoor(U,4.2,2.9,false,1,0,true);
-    uWallG(U,4.2,3.4,4.2,D-.25,[[3.7,4.5]]);iDoor(U,4.2,4.1,false,1,0,RNG()<.4);
+    uWallG(U,4.2,3.4,4.2,D-.25,[[3.7,4.5]]);{const rd=iDoor(U,4.2,4.1,false,1,0,RNG()<.4);if(cfg.boss&&G.floor===8){rd.gone=true;rd.open=true;rd.ang=1;rd.pivot.visible=false;}} /* 181차: 809호 안쪽 나무 방문(아이 방) 없음 — 뚫린 문간 */
     furn(U,'toilet',3.6,.35,4.05,.8);furn(U,'basin',1.95,.3,2.5,.75);furn(U,'washer',3.0,.25,3.55,.8);
     furn(U,'counter',.1,1.6,.68,4.0);furn(U,'fridge',.1,4.0,.75,4.7);furn(U,'shoecab',1.4,.25,1.75,1.2);
     furn(U,'bed',W-1.3,.4,W-.12,2.4);furn(U,'wardrobe',4.35,.3,5.0,1.4); // 침대를 줄여 옷장 앞 0.7m 비움
@@ -1373,6 +1389,109 @@ function buildUnit(U){
   if(cfg.lit){const[lx,lz]=uMap(U,W/2,D*.6);vlight(lx,CEIL-.12,lz,0xe8e2d8,.55,typeof U.num==='number'&&U.num%3===0?'flicker':'steady',6,true);}
 }
 
+
+/* ================= 181차: 계단실 위층 계단 · 잔해 · 1층 천장 비상 통로 ================= */
+const UPF={x0:12.4,x1:13.9,z:18.3,h:4.0},UP_HOLE=[12.3,14.42,14.05,17.95],UP_RECT=[12.3,15.1,14.05,18.6];
+/* 시선(xz 반직선)이 사각형에 닿는 거리(안 닿으면 Infinity) */
+function rayRect(px,pz,fx,fz,q){let t0=0,t1=1e9;for(const[p,f,a,b]of[[px,fx,q[0],q[2]],[pz,fz,q[1],q[3]]]){if(Math.abs(f)<1e-6){if(p<a||p>b)return Infinity;continue;}let u=(a-p)/f,v=(b-p)/f;if(u>v)[u,v]=[v,u];t0=Math.max(t0,u);t1=Math.min(t1,v);if(t0>t1)return Infinity;}return t0;} /* 위층으로 올라가는 계단(보이기만, 못 올라감): 계단 구멍 서쪽, 남쪽 발치에서 북쪽으로 올라가 천장을 뚫고 이어짐 */
+const HATCH1=[15.2,17.5,16.0,18.3]; /* 1층 계단실 천장 비상 통로(2층 배관 통로에서 내려오는 곳) */
+let SM181=null,SIGN181={};
+function sm181(){if(SM181)return SM181;const S=SM181={conc:phong(TX.conc,{color:0x8a8580}),concD:phong(TX.conc,{color:0x4a4642}),rust:phong(null,{color:0x4a2a1c,shininess:20,specular:0x221510}),
+  post:phong(null,{color:0x2e2e30,shininess:30,specular:0x222222}),chain:phong(null,{color:0x5a5a5c,shininess:50,specular:0x444444}),grate:phong(null,{color:0x3a3c3e,shininess:30,specular:0x333333}),
+  voidM:phong(TX.conc,{color:0x2a2826,side:THREE.BackSide}),voidB:new THREE.MeshBasicMaterial({color:0x000000,side:THREE.BackSide}),duct:phong(null,{color:0x2a1c16,side:THREE.BackSide}),
+  pool:new THREE.MeshPhongMaterial({map:TX.blood,transparent:true,depthWrite:false,shininess:40,specular:0x220000,polygonOffset:true,polygonOffsetFactor:-2,polygonOffsetUnits:-2}),
+  bone:phong(null,{color:0x8a8070,shininess:12,specular:0x1a1814}),boneD:phong(null,{color:0x221a16})};
+  {const[c,x]=cnv(128,256);x.clearRect(0,0,128,256);for(let i=0;i<5;i++){const cx=34+i*15+Math.random()*8,len=150+Math.random()*90,w=6+Math.random()*9;const gr=x.createLinearGradient(0,0,0,len);gr.addColorStop(0,'rgba(58,6,8,.9)');gr.addColorStop(.7,'rgba(48,4,6,.55)');gr.addColorStop(1,'rgba(40,4,6,0)');x.fillStyle=gr;x.beginPath();x.ellipse(cx,len/2,w,len/2,(Math.random()-.5)*.15,0,6.3);x.fill();}
+   x.fillStyle='rgba(30,2,4,.85)';for(let i=0;i<30;i++){x.beginPath();x.arc(20+Math.random()*88,10+Math.random()*80,1+Math.random()*4,0,6.3);x.fill();}S.drag=new THREE.MeshPhongMaterial({map:new THREE.CanvasTexture(c),transparent:true,depthWrite:false,shininess:30,specular:0x200000,polygonOffset:true,polygonOffsetFactor:-1,polygonOffsetUnits:-1});}
+  {const[c,x]=cnv(256,256);x.clearRect(0,0,256,256);const blot=(cx,cy,r,a)=>{x.fillStyle='rgba(60,5,7,'+a+')';x.beginPath();x.arc(cx,cy,r,0,6.3);x.fill();};blot(128,100,46,.85);for(let i=0;i<60;i++){const a=Math.random()*6.3,d=40+Math.random()*80;blot(128+Math.cos(a)*d,100+Math.sin(a)*d*.8,1+Math.random()*7,.75);}
+   for(let i=0;i<9;i++){const dx=80+Math.random()*96,len=60+Math.random()*100;const gr=x.createLinearGradient(0,100,0,100+len);gr.addColorStop(0,'rgba(55,4,6,.8)');gr.addColorStop(1,'rgba(55,4,6,0)');x.fillStyle=gr;x.fillRect(dx,100,2+Math.random()*4,len);}
+   for(let h=0;h<3;h++){const hx=60+Math.random()*130,hy=50+Math.random()*90;x.fillStyle='rgba(45,3,5,.7)';x.beginPath();x.ellipse(hx,hy,12,15,0,0,6.3);x.fill();for(let f=0;f<4;f++){x.beginPath();x.ellipse(hx-9+f*6,hy-20,3,8,0,0,6.3);x.fill();}}
+   S.smear=new THREE.MeshPhongMaterial({map:new THREE.CanvasTexture(c),transparent:true,depthWrite:false,shininess:30,specular:0x200000});}
+  Object.values(S).forEach(m=>{m.userData.shared=true;});return S;}
+function signMat(txt){if(SIGN181[txt])return SIGN181[txt];const[c,x]=cnv(256,112);x.fillStyle='#6a1014';x.fillRect(0,0,256,112);x.strokeStyle='#d8d0c4';x.lineWidth=5;x.strokeRect(7,7,242,98);
+  x.fillStyle='#e8e0d4';x.textAlign='center';x.textBaseline='middle';x.font='900 42px "Black Han Sans","Noto Sans KR",sans-serif';x.fillText(txt,128,58);
+  const m=new THREE.MeshPhongMaterial({map:new THREE.CanvasTexture(c),shininess:4});m.userData.shared=true;return SIGN181[txt]=m;}
+function rectsMinus(x0,z0,x1,z1,holes){const xs=[...new Set([x0,x1,...holes.flatMap(h=>[h[0],h[2]])])].filter(v=>v>=x0&&v<=x1).sort((a,b)=>a-b),zs=[...new Set([z0,z1,...holes.flatMap(h=>[h[1],h[3]])])].filter(v=>v>=z0&&v<=z1).sort((a,b)=>a-b),out=[];
+  for(let i=0;i<xs.length-1;i++)for(let j=0;j<zs.length-1;j++){const mx=(xs[i]+xs[i+1])/2,mz=(zs[j]+zs[j+1])/2;if(!holes.some(h=>mx>h[0]&&mx<h[2]&&mz>h[1]&&mz<h[3]))out.push([xs[i],zs[j],xs[i+1],zs[j+1]]);}return out;}
+function upClip(m,CLP){const c=m.clone();c.clippingPlanes=CLP;c.clipShadows=true;c.userData={perFloor:true};return c;} /* 층마다 복제(맵은 공유 — ownMap 아님) */
+function ceilHoles(){const H=[];if(propGet('stairs'))H.push(UP_HOLE);if(G.floor===1)H.push(HATCH1);return H;}
+function stairUpFlight(){const SP=propGet('stairs');if(!SP)return;const S=sm181(),U=UPF,run=U.h*1.4/1.5,w=U.x1-U.x0;
+  renderer.localClippingEnabled=true;const CLP=[new THREE.Plane(new THREE.Vector3(0,-1,0),CEIL+.01)]; /* 천장 위로 올라간 부분은 잘라 냄 → 검은 구멍 속으로 사라지는 모양 */
+  const um=mesh(SP.g,upClip(SP.m,CLP),(U.x0+U.x1)/2,0,U.z-run/2,Math.PI,true);um.scale.set(w,U.h,run);um.userData.keep=true; /* π 회전 = 높은 쪽이 북쪽(-z) */
+  {const x=U.x1+.004,g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute([x,0,U.z,x,0,U.z-run,x,U.h,U.z-run],3));g.setAttribute('normal',new THREE.Float32BufferAttribute([1,0,0,1,0,0,1,0,0],3));
+   g.setAttribute('uv',new THREE.Float32BufferAttribute([U.z/1.2,0,(U.z-run)/1.2,0,(U.z-run)/1.2,U.h/1.2],2));mesh(g,upClip(S.concD,CLP),0,0,0,0,false).userData.keep=true;} /* 동쪽 옆면: 계단 밑 콘크리트 쐐기 */
+  {const[hx0,hz0,hx1,hz1]=UP_HOLE,v=new THREE.Mesh(new THREE.BoxGeometry(hx1-hx0,2.2,hz1-hz0),S.voidB);v.position.set((hx0+hx1)/2,CEIL+1.1,(hz0+hz1)/2);world.add(v); /* 천장 위: 빛 안 받는 새까만 통로 — 위층 계단이 그 속으로 사라짐 */
+   box(hx1-hx0,.2,.04,M.conc,(hx0+hx1)/2,CEIL+.1,hz1-.02,0,false);box(.04,.2,hz1-hz0,M.conc,hx1-.02,CEIL+.1,(hz0+hz1)/2,0,false);} /* 천장 슬래브 두께 단면(남·동 가장자리) */
+  fillRect(12.3,14.4,14.05,U.z+.3,i=>{if(grid[i]===0){grid[i]=3;furnH[i]=2.4;furnK[i]=2;}});
+  INTER.push({kind:'upstairs',x:13.15,z:17.0,r:2.6,hy:1.0,rect:UP_RECT}); /* 181차: 위층 계단 쪽을 보면 전용 안내 */
+  if(G.floor!==10)return; /* 181차 사용자: 쇠사슬·표지는 10층(옥상)만. 2~9층은 보이지 않게 막힘(충돌만), 1층은 잔해(stairRubble) */
+  const zc=U.z+.22,xa=U.x0+.1,xb=U.x1-.05;[xa,xb].forEach(x=>{box(.05,1.0,.05,S.post,x,.5,zc,0,true);box(.12,.03,.12,S.post,x,.015,zc,0,false);});
+  for(let k=0;k<12;k++){const t=(k+.5)/12,x=lerp(xa,xb,t),y=.9-.16*Math.sin(Math.PI*t),l=box(.1,.022,.012,S.chain,x,y,zc,0,false);l.rotation.z=Math.atan(-.16*Math.PI*Math.cos(Math.PI*t)/(xb-xa));if(k%2)l.rotation.x=Math.PI/2;}
+  plane(.48,.21,signMat('옥상 출입 금지'),(xa+xb)/2,.62,zc+.012,0);}
+function rubbleIn(x0,z0,x1,z1,y0,h,n,seed){const S=sm181(),r=mulberry32(seed);for(let k=0;k<n;k++){const u=r()*2-1,v=r()*2-1,t=1-Math.max(Math.abs(u),Math.abs(v))*.75,s=.14+r()*.38,x=lerp(x0+s/2,x1-s/2,(u+1)/2),z=lerp(z0+s/2,z1-s/2,(v+1)/2),y=y0+r()*h*(.25+.75*t)+s*.3;
+  const m=box(s,s*(.45+r()*.5),s*(.6+r()*.6),r()<.6?S.conc:S.concD,x,y,z,r()*6.28,k%3===0);m.rotation.x=(r()-.5)*.9;m.rotation.z=(r()-.5)*.9;}
+  for(let k=0;k<Math.ceil(n/8);k++){const x=lerp(x0,x1,r()),z=lerp(z0,z1,r()),c=mesh(new THREE.CylinderGeometry(.008,.008,.7+r()*.6,5),S.rust,x,y0+h*.6+r()*.3,z,r()*6.28,false);c.rotation.z=.6+r()*.9;}}
+function stairRubble(){const S=sm181(); /* 2층(아래가 막힘)·1층: 내려가는 계단 구멍을 잔해로 메움 */
+  box(2.6,1.45,2.0,S.concD,15.4,-1.5+.725,15.8,0,false);rubbleIn(14.15,14.85,16.65,16.75,-.15,.85,44,G.floor*7+3);
+  {const sl=box(1.7,.12,1.05,S.conc,15.1,.32,15.7,.25,true);sl.rotation.x=.32;sl.rotation.z=-.12;}
+  if(G.floor===1){rubbleIn(UPF.x0-.05,16.3,UPF.x1+.12,UPF.z+.3,0,1.9,70,91);rubbleIn(UPF.x0+.1,17.2,UPF.x1,UPF.z+.25,.3,1.2,26,93); /* 1층: 2층으로 올라가는 계단도 무너진 콘크리트로 막힘 */
+    {const sl=box(1.5,.14,1.3,S.conc,13.15,.85,17.7,0,true);sl.rotation.x=-.75;sl.rotation.z=.15;}
+    {const sl=box(.9,.1,1.1,S.concD,13.3,1.55,16.9,.3,true);sl.rotation.x=.5;}}}
+function ceilHatch1(){const S=sm181(),[x0,z0,x1,z1]=HATCH1,cx=(x0+x1)/2,cz=(z0+z1)/2,w=x1-x0;
+  {const v=new THREE.Mesh(new THREE.BoxGeometry(w,1.0,z1-z0),S.duct);v.position.set(cx,CEIL+.5,cz);world.add(v);}
+  mesh(new THREE.CylinderGeometry(.07,.07,w,8),S.rust,cx,CEIL+.78,cz-.25,0,false).rotation.z=Math.PI/2;
+  [[w+.1,.05,.06,cx,z0],[w+.1,.05,.06,cx,z1],[.06,.05,z1-z0,x0,cz],[.06,.05,z1-z0,x1,cz]].forEach(([a,b,c,x,z])=>box(a,b,c,M.metal,x,CEIL-.025,z,0,false));
+  /* 철망 뚜껑: 동쪽 가장자리 경첩에 매달려 아래로 늘어짐 */
+  const L=new THREE.Group();L.position.set(x1,CEIL-.04,cz);L.rotation.z=1.7;world.add(L);const lb=(a,b,c,x,z)=>{const m=new THREE.Mesh(new THREE.BoxGeometry(a,b,c),S.grate);m.position.set(x,0,z);m.castShadow=true;L.add(m);};
+  lb(.76,.03,.04,-.38,-.36);lb(.76,.03,.04,-.38,.36);lb(.04,.03,.76,-.02,0);lb(.04,.03,.76,-.74,0);for(let k=1;k<6;k++)lb(.012,.02,.72,-.74+k*.12,0);for(let k=1;k<5;k++)lb(.72,.015,.01,-.38,-.36+k*.144);
+  L.userData.keep=true;
+  vlight(cx,CEIL+.2,cz,0xffa070,.32,'flicker',3.5,false);}
+
+
+/* 181차: 찌그러진 현관문 — 문짝을 잘게 나눈 상자로 바꿔 정점을 휘고 움푹 들어가게, 부서진 채(broken) 열림·더 기울어짐 */
+function crumpleDoor(d){const L=d.leaf,g0=L.geometry.parameters,hw=g0.width/2,hh=g0.height/2,g=new THREE.BoxGeometry(g0.width,g0.height,g0.depth,8,16,1),p=g.attributes.position;
+  for(let i=0;i<p.count;i++){const x=p.getX(i),y=p.getY(i),u=x/hw,v=y/hh;let z=p.getZ(i);
+    z+=-.075*Math.exp(-((x-.08)**2/.025+(y-.15)**2/.06)); /* 가운데 크게 움푹(들이받은 자국) */
+    z+=-.035*Math.exp(-((x+.2)**2/.01+(y+.55)**2/.02));
+    z+=.05*u*v; /* 비틀림 */ if(v>.45&&u>.2)z+=.11*(v-.45)*(u-.2); /* 위 바깥 모서리가 접혀 들림 */
+    p.setX(i,x*(1-.04*Math.abs(v)*(u>0?1:0)));p.setZ(i,z);}
+  g.computeVertexNormals();L.geometry.dispose();L.geometry=g;d.broken=true;d.crumpled=true;d.open=true;d.ang=1;d.tiltZ=.13;d.tiltX=-.05;
+  const S=sm181(),n=[d.nx,d.nz],t=[d.tx,d.tz];
+  [-1,1].forEach(sd=>{const off=.45+.33,x=d.cx+t[0]*sd*off-n[0]*.125,z=d.cz+t[1]*sd*off-n[1]*.125,m=plane(.55,.7,S.smear,x,.75+(sd>0?.35:0),z,Math.atan2(-n[0],-n[1]));m.rotation.z=sd*.4;});
+  {const m=plane(1.1,.8,S.pool,d.cx-n[0]*.55,.009,d.cz-n[1]*.55,0,-Math.PI/2);m.rotation.z=.6;}}
+/* 181차: 보스 방 피범벅 + 유해 — 8층 809호(대두왕, 문 없음) · 4층 관리실(관리인). 공유 재질(SM181)·공유 뼈 지오메트리라 층마다 안 쌓임 */
+let BONEG=null;function boneGeo(){if(BONEG)return BONEG;const sh=g=>{g.userData.shared=true;return g;};
+  BONEG={shaft:sh(new THREE.CylinderGeometry(.016,.019,.36,6)),knob:sh(new THREE.SphereGeometry(.03,6,4)),rib:sh(new THREE.TorusGeometry(.12,.011,4,10,Math.PI*.85)),
+    skull:sh(new THREE.SphereGeometry(.085,10,8)),jaw:sh(new THREE.BoxGeometry(.1,.03,.07)),eye:sh(new THREE.SphereGeometry(.02,6,4))};return BONEG;}
+function boneAt(x,z,ry,kind,r){const S=sm181(),B=boneGeo();
+  if(kind==='long'){const L=.36*(.75+r()*.5),c=mesh(B.shaft,S.bone,x,.022,z,ry,false);c.scale.set(1,L/.36,1);c.rotation.z=Math.PI/2;[-1,1].forEach(s=>{mesh(B.knob,S.bone,x+Math.cos(ry)*s*L/2,.026,z-Math.sin(ry)*s*L/2,0,false);});}
+  else if(kind==='rib'){for(let k=0;k<3;k++){const m=mesh(B.rib,S.bone,x+Math.sin(ry)*k*.06,.012,z+Math.cos(ry)*k*.06,ry,false);m.rotation.x=-Math.PI/2+.25;m.rotation.order='YXZ';}}
+  else{const sk=mesh(B.skull,S.bone,x,.075,z,ry,true);sk.scale.set(1,.88,1.18);mesh(B.jaw,S.bone,x+Math.sin(ry)*.07,.02,z+Math.cos(ry)*.07,ry,false);
+    [-1,1].forEach(s=>mesh(B.eye,S.boneD,x+Math.sin(ry)*.082+Math.cos(ry)*s*.035,.09,z+Math.cos(ry)*.082-Math.sin(ry)*s*.035,0,false));}}
+function goreFree(U,x,z,rad){const i=gi(x,z);return i>=0&&grid[i]===0&&unitAt(x,z)===U&&!blockedCircle(x,z,rad);}
+function setupGore(){const fc=FLOORS[G.floor]||{};let U=null;if(G.floor===8&&fc.boss)U=UNITS.find(u=>u.num===1009);else if(fc.base)U=UNITS.find(u=>u.num==='TPS');if(!U)return;
+  const S=sm181(),r=mulberry32(G.floor*733+11),[x0,z0,x1,z1]=uRect(U,0,0,U.W,U.D),big=U.num===1009,spot=(rad,tries=60)=>{for(let k=0;k<tries;k++){const x=lerp(x0+.4,x1-.4,r()),z=lerp(z0+.4,z1-.4,r());if(goreFree(U,x,z,rad))return[x,z];}return null;};
+  let yo=.004;const pool=(x,z,s)=>{const m=plane(s,s*(.7+r()*.5),S.pool,x,yo,z,0,-Math.PI/2);m.rotation.z=r()*6.28;m.receiveShadow=true;yo=yo>.012?.004:yo+.0007;};
+  const drag=(ax,az,bx,bz)=>{const L=Math.hypot(bx-ax,bz-az);if(L<.3)return;const m=plane(.34+r()*.12,L,S.drag,(ax+bx)/2,yo,(az+bz)/2,0,-Math.PI/2);m.rotation.z=Math.atan2(-(bx-ax),-(bz-az));yo=yo>.012?.004:yo+.0007;};
+  /* 바닥 피웅덩이 */
+  for(let k=0;k<(big?14:8);k++){const p=spot(.05);if(p)pool(p[0],p[1],.7+r()*(big?1.4:.9));}
+  /* 벽 피 얼룩: 방 안 점에서 네 방향으로 벽을 찾아 붙임 */
+  let wn=0;for(let k=0;k<80&&wn<(big?11:7);k++){const x=lerp(x0+.5,x1-.5,r()),z=lerp(z0+.5,z1-.5,r());if(!goreFree(U,x,z,.05))continue;const[dx,dz]=[[1,0],[-1,0],[0,1],[0,-1]][Math.floor(r()*4)];
+    let hit=null;for(let t=.05;t<2;t+=.01){const i=gi(x+dx*t,z+dz*t);if(i<0)break;if(grid[i]===1){hit=t;break;}if(grid[i]!==0)break;}if(hit==null)continue;
+    const sz=.7+r()*.8,wx=x+dx*(hit-.025),wz=z+dz*(hit-.025);if(unitAt(wx,wz)!==U)continue;const m=plane(sz,sz,S.smear,wx-dx*.01*wn*.1,.55+r()*.9,wz-dz*.01*wn*.1,Math.atan2(-dx,-dz));m.rotation.z=(r()-.5)*.6;wn++;}
+  /* 유해(천 덮인 시신 모델) + 끌린 자국 */
+  const CP=propGet('corpse'),dd=U.door;
+  const bodies=[];for(let n=0;n<(big?2:1);n++){let p=null;for(let k=0;k<120&&!p;k++){const x=lerp(x0+.9,x1-.9,r()),z=lerp(z0+.9,z1-.9,r()),a=r()*6.28,ca=Math.cos(a)*.65,sa=Math.sin(a)*.65;
+      if(goreFree(U,x,z,.3)&&goreFree(U,x+ca,z-sa,.22)&&goreFree(U,x-ca,z+sa,.22)&&bodies.every(b=>Math.hypot(b[0]-x,b[1]-z)>1.4))p=[x,z,a];}
+    if(!p)continue;bodies.push(p);const[x,z,a]=p;pool(x,z,1.5+r()*.6);
+    if(CP){const m=mesh(CP.g,CP.m,x,.005,z,a,true);m.scale.set(.95,1,.95);}else{box(1.25,.24,.42,M.sheet,x,.13,z,a,true);}
+    if(big)fillRect(x-.35,z-.35,x+.35,z+.35,i=>{if(grid[i]===0){grid[i]=3;furnH[i]=.35;furnK[i]=1;}}); /* 809호는 넓어서 시신 가운데만 막음 */
+    if(dd){const ax=lerp(x,dd.cx,.15),az=lerp(z,dd.cz,.15),bx=lerp(x,dd.cx,.75),bz=lerp(z,dd.cz,.75);drag(ax,az,bx,bz);}}
+  /* 흩어진 뼈 */
+  const kinds=['skull','long','long','rib','long','rib','long','skull','long','rib','long','long'];for(let k=0;k<(big?12:8);k++){let p=null;const b=bodies[k%Math.max(1,bodies.length)];
+    for(let t=0;t<40&&!p;t++){const x=b?b[0]+(r()-.5)*3:lerp(x0+.5,x1-.5,r()),z=b?b[1]+(r()-.5)*3:lerp(z0+.5,z1-.5,r());if(goreFree(U,x,z,.08)&&!bodies.some(q=>Math.hypot(q[0]-x,q[1]-z)<.55))p=[x,z];}
+    if(p){boneAt(p[0],p[1],r()*6.28,kinds[k],r);if(r()<.5)pool(p[0],p[1],.35+r()*.3);}}
+  G.gore={u:U.num,bodies:bodies.length};}
 /* ================= 층 전체 ================= */
 let STAIRS=null;
 function buildFloor(){
@@ -1391,7 +1510,10 @@ function buildFloor(){
     const pos=[],nor=[],uv=[];[[0,0,BW,14.8],[0,16.8,BW,BD],[0,14.8,14.1,16.8],[16.7,14.8,BW,16.8]].forEach(([x0,z0,x1,z1])=>{[[x0,z0],[x0,z1],[x1,z1],[x0,z0],[x1,z1],[x1,z0]].forEach(([x,z])=>{pos.push(x,0,z);nor.push(0,1,0);uv.push(x/BW,1-z/BD);});});
     const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.setAttribute('normal',new THREE.Float32BufferAttribute(nor,3));g.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));const f=new THREE.Mesh(g,M.floor);f.receiveShadow=true;world.add(f);M.floor.map.repeat.set(BW/1.2,BD/1.2);}
   else{const f=plane(BW,BD,M.floor,BW/2,0,BD/2,0,-Math.PI/2);M.floor.map.repeat.set(BW/1.2,BD/1.2);}
-  {const c=plane(BW,BD,M.ceil,BW/2,CEIL,BD/2,0,Math.PI/2);M.ceil.map.repeat.set(BW/1.2,BD/1.2);}
+  {const holes=ceilHoles(); /* 181차: 계단실 위층 계단 구멍 · 1층 천장 비상 통로 — 천장에 구멍(UV는 예전 통판과 같게) */
+   if(holes.length){const pos=[],nor=[],uv=[];rectsMinus(0,0,BW,BD,holes).forEach(([x0,z0,x1,z1])=>{[[x0,z0],[x1,z1],[x0,z1],[x0,z0],[x1,z0],[x1,z1]].forEach(([x,z])=>{pos.push(x,CEIL,z);nor.push(0,-1,0);uv.push(x/BW,z/BD);});});
+     const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.setAttribute('normal',new THREE.Float32BufferAttribute(nor,3));g.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));const c=new THREE.Mesh(g,M.ceil);c.receiveShadow=true;world.add(c);}
+   else plane(BW,BD,M.ceil,BW/2,CEIL,BD/2,0,Math.PI/2);M.ceil.map.repeat.set(BW/1.2,BD/1.2);}
   // 세대
   UNITS.forEach(buildUnit);
   // 쓸 수 있는 침대: 층마다 랜덤 3개(10층은 내 집 침대 + 2개)
@@ -1413,7 +1535,7 @@ function buildFloor(){
   furn(null,'trash',9.4,14.8,10.2,15.6,{loot:'poor',free:'trash'});furn(null,'trash',11.2,18.4,12.0,19.2,{loot:'poor',free:'trash'});furn(null,'bin',11.4,14.7,12.0,15.3);
   // 비상계단 (남복도 쪽 문)
   wall(9.0,19.3,13.95,19.5,'wallC');wall(14.85,19.3,17.2,19.5,'wallC');wall(17.0,14.4,17.2,19.3,'wallC');
-  makeDoor({kind:'core',cx:14.4,cz:19.4,nx:0,nz:-1,w:.9,type:'unlocked',label:'비상계단',mat:phong(TX.stair)});
+  {const sm=phong(TX.stair);sm.alphaTest=.5;STAIRD=makeDoor({kind:'core',cx:14.4,cz:19.4,nx:0,nz:-1,w:.9,type:'unlocked',label:'비상계단',mat:sm});stairWindow(STAIRD);}
   {const SP=propGet('stairs'); /* 148차: 비상계단 — 검은 판 대신 실제로 내려가는 콘크리트 계단 모델(바닥에 구멍 + 아래 벽·참) */
     if(SP){batchBox('floorK',12.2,-.02,14.4,14.1,.003,19.4,1.2,1.2);batchBox('floorK',16.7,-.02,14.4,17.1,.003,19.4,1.2,1.2);batchBox('floorK',14.1,-.02,14.4,16.7,.003,14.8,1.2,1.2);batchBox('floorK',14.1,-.02,16.8,16.7,.003,19.4,1.2,1.2);
       const SD=1.5,sm=mesh(SP.g,SP.m,15.4,-SD,16.1,0,false);sm.scale.set(2.6,SD,1.4); /* 위 끝(z 16.8)이 바닥 높이, 북쪽으로 내려감 */
@@ -1426,6 +1548,7 @@ function buildFloor(){
       box(2.7,.06,.06,RB,15.4,1.0,14.76,0,false);[15.4,16.75].forEach(x=>box(.05,1,.05,RP,x,.5,14.76,0,false));
       const hr=box(.05,.05,2.06,RB,16.64,.15,16.1,0,false);hr.rotation.x=-Math.atan2(1.5,1.4);[[16.75,.45],[16.1,-.25],[15.45,-.95]].forEach(([z,y])=>box(.04,.9,.04,RP,16.64,y,z,0,false));}
     else{box(2.8,.06,.06,phong(null,{color:0x6a1a1e}),15.4,1.0,16.85,0,false);[14.05,15.4,16.75].forEach(x=>box(.05,1,.05,phong(null,{color:0x4a1215}),x,.5,16.85,0,false));}}
+  stairUpFlight();if(G.floor===1||(FLOORS[G.floor]||{}).blocked)stairRubble();if(G.floor===1)ceilHatch1();
   plane(.42,.16,new THREE.MeshBasicMaterial({map:TX.exit,color:0x9a9a9a}),14.4,2.25,PROP_TEX.stairwall?19.268:19.29,Math.PI);
   if(PROP_TEX.stairwall){ /* 153차: 계단실 안쪽 벽 4면에 힉스필드 벽 그림(좌우로 이어 붙는 2:1 그림, 4.8m마다 반복) + 북쪽 벽에 층 번호 */
     if(!M.stw){const t=new THREE.TextureLoader().load(PROP_TEX.stairwall);t.wrapS=THREE.RepeatWrapping;t.magFilter=THREE.NearestFilter;t.userData={keep:1};M.stw=new THREE.MeshPhongMaterial({map:t,shininess:4,specular:0x080808}); /* 판은 벽에서 1.5cm 띄움 — 2mm면 깊이 겹침 줄무늬가 생김(렌더 타깃 깊이 정밀도) */M.stw.userData.keep=1;}
@@ -1455,7 +1578,7 @@ function buildFloor(){
   [12.0,16.4].forEach(z=>{vlight((6.6+XW1)/2,CEIL-.12,z,0xfff0e0,.7,pat[pi++%pat.length],6.5,true);vlight((XE0+XE1)/2,CEIL-.12,z,0xfff0e0,.7,pat[pi++%pat.length],6.5,true);});
   vlight(13.1,CEIL-.12,11.0,0xfff0e0,.6,'flicker',6,true);
   G.corrL=VL.slice(_cl0);
-  G.exitDoor=null;floorTheme();setupLowerFloor();setupScene();setupObstacles();
+  G.exitDoor=null;floorTheme();setupLowerFloor();setupScene();setupObstacles();setupGore();
   flushBatches();distributeLoot();
   /* 11/6: 쓰레기실은 마실 것, TPS실은 의료품 2개 이상 보장(시간 안 들고 뒤짐) */
   {const add=(c,k,n)=>{const e=c.loot.find(l=>l.k===k);if(e)e.n+=n;else c.loot.push({k,n});};
@@ -2051,6 +2174,7 @@ const PLAYER_NOISE={trap:1,step:1,shot:1,search:1,knock:1,crowbar:1,dooropen:1,l
 function hear(x,z,r,label,lure){
   G.lastNoise={x,z,r,label};const fromP=!!PLAYER_NOISE[label];if(fromP&&label!=='lamp')G.pNoiseT=G.t;
   if(fromP&&label!=='lamp'&&label!=='search')G.cmo=Math.min(30,(G.cmo||0)+(label==='step'?(r>=9?.35:0):label==='shot'?2.5:.8)); /* 11/7 소란 게이지 */
+  if(fromP&&label!=='lamp'&&label!=='search'&&inStairRoom()&&STAIRD&&!STAIRD.open)G.snz=Math.min(6,(G.snz||0)+(label==='shot'?1:label==='step'?(r>=9?.25:0):.4)); /* 11/27 계단실 소음: 문 닫고 쏘면 놈들이 와서 문을 두드리고 부숨 */
   let resp=0,lsn=0;[...creatures].sort((a,b)=>Math.hypot(a.x-x,a.z-z)-Math.hypot(b.x-x,b.z-z)).forEach(c=>{if(c.dead||c.gor||c.ambush)return;if(label==='lamp'&&c.type==='listener')return;
     if(c.type==='raider'){if(fromP&&label!=='lamp'&&(c.mode==='patrol'||c.mode==='loot')&&Math.hypot(x-c.x,z-c.z)<r*(los(c.x,c.z,x,z)?1:.7)*c.ct.hear*(DK().hear||1)){c.mode='search';c.timer=3;c.goal={x,z};}return;}
     if((label==='rstep'||label==='rdoor')&&c.state==='brawl')return;if(c.state==='brawl'&&c.foe&&!c.foe.dead&&Math.hypot(c.foe.x-c.x,c.foe.z-c.z)<4)return; /* 11/7: 싸우는 중엔 소리에 고개 돌리지 않음 */if(c.state==='bang'){if(fromP&&Math.hypot(x-c.x,z-c.z)<r*(c.ct.hear||1)+1)c.noisy+=.5;return;}
@@ -2082,6 +2206,12 @@ function flankTgt(c,tx,tz,sees,d){if(c.flankLast==null||G.t-c.flankLast>1.5){c.f
   if(dw<c.flankBest-.3){c.flankBest=dw;c.flankBT=G.t;}else if(G.t-c.flankBT>2.5){c.flank=false;return[tx,tz];} /* 막혀서 못 가면(바리케이드 등) 바로 추격 */
   return W;}
 /* 11/7 사용자: 계속 뛰고 쏘며 소란 피우면 집 안 크리쳐가 한 마리씩 복도로 나옴 */
+function inStairRoom(){return P.x>12.2&&P.x<17.15&&P.z>14.3&&P.z<19.4;}
+/* 11/27 계단실 소음 게이지: 발사 1, 달리기 걸음 .25, 문·빠루 등 .4 · 초당 .015 빠짐 → 1.8 넘으면(약 13초 안 두 발) 근처 놈 2마리가 계단 문으로 와서 두드리고 부숨(20초 쿨) */
+function stairNoiseTick(dt){G.snz=Math.max(0,(G.snz||0)-.015*dt);if(G.snz<1.8||G.t<(G.snzT||0)||P.dead||G.cine||P.hide||!inStairRoom())return;G.snzT=G.t+20;G.snz=0;
+  const c2=creatures.filter(c=>!c.dead&&!c.boss&&!c.gor&&!c.big&&!c.hidden&&!c.ambush&&!c.crawlDown&&c.state!=='chase'&&c.state!=='bang'&&Math.hypot(c.x-STAIRD.cx,c.z-STAIRD.cz)<24).sort((a,b)=>Math.hypot(a.x-STAIRD.cx,a.z-STAIRD.cz)-Math.hypot(b.x-STAIRD.cx,b.z-STAIRD.cz)).slice(0,2);
+  if(!c2.length)return;c2.forEach(c=>{c.stun=0;if(c.type==='raider'){c.mode='search';c.timer=12;c.goal={x:STAIRD.cx,z:STAIRD.cz+.9};c.path=[];}else startChase(c,true);});
+  if(!G.snzTold){G.snzTold=true;setTimeout(()=>{if(G.state==='play'&&!P.dead)mono('snz',{prio:true});},1200);}}
 function cmoTick(dt){G.cmo=Math.max(0,(G.cmo||0)-.8*dt);if(G.cmo<10||G.t<(G.cmoT||0)||P.dead||G.cine)return;G.cmoT=G.t+8;
   const cand=creatures.filter(c=>!c.dead&&!c.boss&&!c.gor&&!c.big&&!c.hidden&&c.type!=='raider'&&!c.cmoOut&&!['chase','brawl','bang','go'].includes(c.state)&&!c.hs).map(c=>({c,U:unitAt(c.x,c.z)})).filter(o=>o.U&&o.U!==unitAt(P.x,P.z)&&(!o.U.door||(o.U.door.type!=='crowbar'&&o.U.door.type!=='survivor')));
   if(!cand.length)return;cand.sort((a,b)=>Math.hypot(a.c.x-P.x,a.c.z-P.z)-Math.hypot(b.c.x-P.x,b.c.z-P.z));const{c,U}=cand[0];c.cmoOut=true;
@@ -2392,7 +2522,7 @@ function renderTitles(){const box=$('titleGrid');if(!box)return;const n=TITLES.f
     return '<div class="tcard'+(on?' on':'')+'">'+badgeSVG(t,!on)+'<b>'+t.name+'</b><span>'+(on?t.desc:'???')+'</span>'+'</div>';}).join('');
   $('statLine').textContent='누적 · 비척이 '+META.k.sh+' · 듣는 놈 '+META.k.ls+' · 빠따 '+META.k.pipe+' · 병 '+META.k.thr+' · 탈출 '+META.esc;}
 // 층 선택(한 번이라도 탈출하면 열림): 그 층 진행도에 맞춘 기본 장비로 시작
-function floorKit(F){const s=initialSave();s.hasSling=true;s.shoes=F<=5;s.tier=F<=2?3:F<=5?2:F<=7?1:0;s.inv={steel:30,junk:20,water:3,canned:2,bar:2,bandage:2};s.crowbars=[10];s.min=CFG.startMin+Math.round((10-F)*.6)*1440;return s;}
+function floorKit(F){const s=initialSave();s.hasSling=true;s.shoes=F<=5;s.tier=F<=2?3:F<=5?2:F<=7?1:0;s.inv={steel:OPT.diff==='easy'?45:30,junk:20,water:3,canned:2,bar:2,bandage:2};s.crowbars=[10];s.min=CFG.startMin+Math.round((10-F)*.6)*1440;return s;}
 const FLOOR_TAG={10:'처음부터 · 인트로',9:'',8:'보스 · 큰 머리',7:'약탈자 등장',6:'작업대(개량형 02)',5:'약탈자 2조',4:'약탈자 소굴 · 고릴라',3:'정전 · 듣는 놈 4',2:'떼거리 · 배관 통로',1:'공동현관 · 최종 보스'};
 function renderFloorPick(){const box=$('floorGrid');if(!box)return;box.innerHTML='';const low=META.esc>=1?1:(META.reach||10);for(let f=10;f>=low;f--){const b=document.createElement('button');b.type='button';b.innerHTML='<b>'+f+'F</b><span>'+(FLOOR_TAG[f]||'')+'</span>'+(f<10?'<span>새총 · '+CFG.sling[floorKit(f).tier].name+'</span>':'');b.onclick=()=>{$('mFloor').hidden=true;startAt(f);};box.appendChild(b);}}
 /* 난이도를 바꾸면 진행 중인 판은 난이도 칭호 대상에서 빠짐 */
@@ -2547,7 +2677,7 @@ function release(){
   const k=clamp(P.drawT/st.draw,0,1);if(k<.12){P.drawT=0;return;}
   const speed=st.speed*(.35+.65*k),spread=st.spread*am.spread*(1+(1-k)*4)*holdPenalty()+(P.moving?.006:0);
   const dir=new THREE.Vector3(0,0,-1).applyEuler(new THREE.Euler(P.pitch,P.yaw,0,'YXZ'));const g=()=>(Math.random()+Math.random()+Math.random()-1.5)*spread*1.6;dir.x+=g();dir.y+=g();dir.z+=g();dir.normalize();
-  if(!window._shotG){window._shotG=new THREE.SphereGeometry(.025,6,4);window._shotG.userData.shared=true;window._shotM={steel:new THREE.MeshPhongMaterial({color:0xb8bcc2,shininess:60,specular:0x666666}),junk:new THREE.MeshPhongMaterial({color:0x8a7c6c,shininess:60,specular:0x666666})};} /* 11/6 최적화: 탄 지오메트리·재질 공유(발사마다 새로 만들던 것) */
+  shotMats();if(!window._shotG){window._shotG=new THREE.SphereGeometry(.025,6,4);window._shotG.userData.shared=true;window._shotM={steel:new THREE.MeshPhongMaterial({color:0xb8bcc2,shininess:60,specular:0x666666}),junk:new THREE.MeshPhongMaterial({color:0x8a7c6c,shininess:60,specular:0x666666})};} /* 11/6 최적화: 탄 지오메트리·재질 공유(발사마다 새로 만들던 것) */
   const mesh=new THREE.Mesh(window._shotG,window._shotM[P.ammoType]||window._shotM.steel);
   const pos=new THREE.Vector3(P.x,P.eye,P.z).addScaledVector(dir,.3);pos.y-=.04;mesh.position.copy(pos);world.add(mesh);
   projs.push({x:pos.x,y:pos.y,z:pos.z,vx:dir.x*speed,vy:dir.y*speed,vz:dir.z*speed,type:P.ammoType,dmg:st.dmg*am.dmg*(.4+.6*k),mesh,life:6,hit:false,w:P.ammoType==='steel'?ballWearOut():0});
@@ -2889,16 +3019,18 @@ function targetPoint(it){if(it.rect){const q=it.rect;return[clamp(P.x,q[0],q[2])
 function currentTarget(){
   const fx=-Math.sin(P.yaw),fz=-Math.cos(P.yaw);let best=null,bs=.7;
   for(const L of [INTER,DOORS])for(const it of L){{const ox=it.x??it.cx,oz=it.z??it.cz;if(ox!=null&&(Math.abs(ox-P.x)>3.5||Math.abs(oz-P.z)>3.5))continue;} /* 11/6 최적화: 먼 것은 targetPoint(배열 생성)·시야 검사 전에 거름 */
-    if(it.door&&(it.door.open||it.door.ang>.05||memoRead(it)))continue;const[ix,iz]=targetPoint(it);const dx=ix-P.x,dz=iz-P.z,d=Math.hypot(dx,dz);const r=it.kind==='door'?1.5:(it.r||1.6);if(d>r)continue;
+    if(it.gone)continue;if(it.door&&(it.door.open||it.door.ang>.05||memoRead(it)))continue;const[ix,iz]=targetPoint(it);const dx=ix-P.x,dz=iz-P.z,d=Math.hypot(dx,dz);const r=it.kind==='door'?1.5:(it.r||1.6);if(d>r)continue;
     const dot=d<.25?1:(dx*fx+dz*fz)/d;if(dot<(it.rect?.3:.7))continue;
+    if(it.kind==='upstairs'&&rayRect(P.x,P.z,fx,fz,it.rect)>3)continue; /* 181차: 위층 계단은 실제로 그쪽을 볼 때만 */
+    if(it.kind==='stairs'&&G.floor>0&&propGet('stairs')&&rayRect(P.x,P.z,fx,fz,UP_RECT)<Math.min(3,rayRect(P.x,P.z,fx,fz,it.rect)))continue; /* 위층 계단을 보고 있으면 내려가는 계단 안내 안 띄움 */
     const back=Math.max(0,d-.18); /* 11/7: .45면 벽 너머(침대 옆→욕실장) 상자가 잡혔음 */if(back>.05&&!los(P.x,P.z,P.x+dx/d*back,P.z+dz/d*back))continue;
-    const sc=dot-d*.05+(it.kind==='pick'?.05:0)+(it.kind==='note'||it.kind==='tip'||it.kind==='slingStart'||it.kind==='shoes'?.2:0)+(it.kind==='stairs'?.45:0);if(sc>bs){bs=sc;best=it;}}
+    const sc=dot-d*.05+(it.kind==='pick'?.05:0)+(it.kind==='note'||it.kind==='tip'||it.kind==='slingStart'||it.kind==='shoes'?.2:0)+(it.kind==='stairs'||it.kind==='upstairs'?.45:0);if(sc>bs){bs=sc;best=it;}}
   return best;
 }
 function promptFor(t){
   if(!t)return'';const k=s=>(TOUCH?'<kbd>터치</kbd>':'<kbd>E</kbd>')+s;
   switch(t.kind){
-    case'door':{const n=t.label||'문';if(t.open)return k(n+' 문 닫기');
+    case'door':{const n=t.label||'문';if(t.open&&t.broken)return n+' — 부서진 문';if(t.open)return k(n+' 문 닫기');
       if(t.type==='survivor')return k(n+' 문 두드리기');
       if(t.type==='crowbar')return P.crowbars.length?(TOUCH?'<kbd>길게 터치</kbd>':'<kbd>E 길게</kbd>')+n+' 빠루로 따기 · 소음':n+' — 잠겨 있다. 빠루가 필요하다';return k(n+' 문 열기');}
     case'cont':return (t.searched?t.name+' — 비어 있다':k(t.name+' 뒤지기'+(t.free?' · 시간 안 듦':' · '+CFG.time.searchEmpty+'~'+CFG.time.search+'분')))+(t.hide?(TOUCH?' &nbsp; <kbd>숨기</kbd>버튼으로 숨기':' &nbsp; <kbd>R</kbd>안에 숨기'):'');
@@ -2911,7 +3043,8 @@ function promptFor(t){
     case'radio':return t.on?k('라디오 끄기'):'라디오 — 꺼져 있다';
     case'bed':return k('잠자기 · '+CFG.time.sleep/60+'시간 (체력 +30)');
     case'bench':return k(P.tier>=(t.max||3)?'작업대 — 섬광탄 만들기':'작업대 — 새총 개량 (최대 '+CFG.sling[t.max||3].name+') · 섬광탄');
-    case'stairs':if(G.floor>LAST_FLOOR&&!(FLOORS[G.floor]||{}).blocked&&!G.hasKey)return '비상계단 — 잠겨 있다. 계단실 열쇠가 필요하다';return (FLOORS[G.floor]||{}).blocked?'비상계단 — 아래가 막혀 있다':G.floor>LAST_FLOOR?k('계단으로 내려가기 → '+(G.floor-1)+'층'):'비상계단 — 더 내려갈 곳이 없다';
+    case'upstairs':return G.floor===1?'위층 계단 — 잔해로 막혀 있다':k(G.floor===10?'옥상 계단 — 출입 금지':'위층 계단');
+    case'stairs':if(G.floor>LAST_FLOOR&&!(FLOORS[G.floor]||{}).blocked&&!G.hasKey)return '비상계단 — 잠겨 있다. 계단실 열쇠가 필요하다';return (FLOORS[G.floor]||{}).blocked?'비상계단 — 아래가 막혀 있다':G.floor>LAST_FLOOR?k('계단으로 내려가기 → '+(G.floor-1)+'층'):'비상계단 — 잔해로 막혀 있다';
     case'hatch':if(!G.hasKey)return '배관 통로 — 쇠창살에 자물쇠가 걸려 있다. 열쇠가 필요하다';return k('배관 통로로 내려가기 → '+(G.floor-1)+'층');
     case'papers':return k('서류 더미 살펴보기');
     case'exitDoor':if(G.egg&&G.egg.alarm)return '현관이 열려 있다 — 뛰쳐나가라!';if(!G.hbDown)return '공동현관 — '+HB.name+'를 물리쳐야 나갈 수 있다';return (TOUCH?'<kbd>길게 터치</kbd>':'<kbd>E 길게</kbd>')+'공동현관 밀어 열기 · 큰 소음';
@@ -2992,10 +3125,11 @@ function interact(t){
           if(dr&&!dr.open)dr.open=true;c.state='idle';startChase(c);P.kick=.8;vox.gasp();toast('인기척에 눈을 떴다 — 바로 앞에 있다!',true);}
         else toast('눈을 붙였다.');});return;
     case'bench':G.benchCap=t.max||3;openCraft();return;
-    case'stairs':if((FLOORS[G.floor]||{}).blocked){toast('계단이 잔해로 막혀 있다',true);mono('stairsBlocked',{prio:true});return;}if(G.floor<=LAST_FLOOR){toast('지하는 물에 잠겼다. 현관으로 나가야 한다.');mono('lobby');return;}
+    case'upstairs':upMono();return;
+    case'stairs':if((FLOORS[G.floor]||{}).blocked){toast('계단이 잔해로 막혀 있다',true);mono('stairsBlocked',{prio:true});return;}if(G.floor<=LAST_FLOOR){toast('계단이 잔해로 막혀 있다. 현관으로 나가야 한다.');mono('lobby');return;}
       if(!G.hasKey){SFX2.rattle();G.keyKnown=true;hear(P.x,P.z,4,'knock');{const U=G.keyU,no=U&&typeof U.num==='number'?G.floor*100+(U.num-1000):null;toast(no?'잠겨 있다. 문에 붙은 관리 메모: “계단실 열쇠 — '+no+'호 보관”':'잠겨 있다. 계단실 열쇠가 어딘가에 있을 것이다.',true);if(no)G.keyTold=true;}mono('stairsLocked',{prio:true});return;}
       mono('descend',{once:false,prio:true});SFX2.unlock();advanceTime(CFG.time.stairs,'계단 이동');if(G.state!=='play')return;descend();return;
-    case'hatch':if(!G.hasKey){SFX2.rattle();toast('자물쇠가 걸려 있다. 열쇠를 찾아야 한다.',true);mono('stairsLocked',{prio:true});return;}SFX2.unlock();advanceTime(CFG.time.stairs,'배관 통로');if(G.state!=='play')return;descend();return;
+    case'hatch':if(!G.hasKey){SFX2.rattle();toast('자물쇠가 걸려 있다. 열쇠를 찾아야 한다.',true);mono('stairsLocked',{prio:true});return;}SFX2.unlock();advanceTime(CFG.time.stairs,'배관 통로');if(G.state!=='play')return;descend('hatch');return;
     case'exitDoor':return;
     case'papers':eggStart(t);return;
     case'elev':say('','정전 이후 엘리베이터는 6층에 멈춰 있다. 계단밖에 없다.');mono('elev');return;
@@ -3174,6 +3308,8 @@ const MONO_LINES={ // 11/5 사용자: 말 줄이기 — 정보가 되는 말만 
   darkFloor:'불이 하나도 없어.',
   hordeFloor:'놈들이 떼로 있어.',
   stairsBlocked:'계단이 막혔어. 관리실로 가자.',
+  upstairs:'안 돼… 빠르게 1층으로 탈출해야 한다.',
+  snz:'…너무 시끄러웠어. 문 너머로 뭔가 온다.',
   killHidden:'이제 문만 열면 돼.',
   blackout:'정전이야.',
   seeRaider:'사람이다… 빠따 들었어.',
@@ -3185,6 +3321,9 @@ let MONO_EVER={};try{MONO_EVER=JSON.parse(localStorage.getItem('f10_mono')||'{}'
 function monoRunReset(){MONO_EVER={};try{localStorage.removeItem('f10_mono');}catch(e){}}
 const MONO={q:[],cur:null,t:0,shown:{},gap:0,el:null};
 // key: 한 판에 한 번만(once=false면 반복 가능). prio: 큐 앞에 끼움
+/* 181차 사용자: 위층 계단을 보고 E·발치에 닿으면 독백(8초 쿨다운) */
+function upMono(){if(G.t-(G.upMonoT??-99)<8)return;G.upMonoT=G.t;mono('upstairs',{once:false,prio:true});}
+function upFootTick(){if(P.dead||!propGet('stairs'))return;if(P.x>UPF.x0-.1&&P.x<UPF.x1&&P.z<UPF.z+.68&&P.z>UPF.z-.2)upMono();}
 function mono(key,{once=true,prio=false}={}){const s=MONO_LINES[key];if(!s)return;if(once&&MONO.shown[key])return;if(MONO_RUN.has(key)&&MONO_EVER[key])return;
   if(MONO.cur&&MONO.cur.key===key)return;if(MONO.q.some(m=>m.key===key))return;
   // 큐가 차면 넣지 않는다(조건이 계속되면 다음에 다시 들어옴). 급한 건 앞에 끼우고 맨 뒤를 밀어냄
@@ -3446,14 +3585,15 @@ function eggAlarm(){const Q=G.egg;Q.alarm=true;Q.bt=0;Q.rt=8;
   const pts=corrSpots(40,Math.random,.4).filter(([x,z])=>Math.hypot(x-P.x,z-P.z)>9&&!blockedCircle(x,z,.3));let n=0;
   for(const[x,z]of pts){if(n>=16)break;const c=spawnCreature(x,z,'wander',Math.random()*6.28,'shambler');if(!c)continue;unstick(c,.27);if(n%2)makeRunner(c);c.egg=true;n++;}
   hear(BW-1,(ZS0+ZS1)/2,40,'step');}
-function eggTick(dt){const Q=G.egg;if(!Q||!Q.alarm)return;const red=$('cineRed');
-  if(G.state!=='play'){if(red&&!G.cine)red.style.opacity=0;return;}
+let EGGB=null;function eggBellOff(){if(EGGB){fxLoopStop(EGGB,.3);EGGB=null;}}
+function eggTick(dt){const Q=G.egg;if(!Q||!Q.alarm){eggBellOff();return;}const red=$('cineRed');
+  if(G.state!=='play'){eggBellOff();if(red&&!G.cine)red.style.opacity=0;return;}
   if(red){red.style.transition='none';red.style.opacity=(Math.sin(G.t*7)>0?.16:.03).toFixed(2);}
-  Q.bt-=dt;if(Q.bt<=0){Q.bt=.075;tone(2350,2350,.05,.035,'square');tone(3520,3520,.04,.02,'square');}
+  if(fxOK('egg_bell')){if(!EGGB){EGGB=fxLoop('egg_bell');if(EGGB)EGGB.g.gain.setTargetAtTime(EGGB.base*(FXG.egg_bell??1),AC.currentTime,.05);}}else{Q.bt-=dt;if(Q.bt<=0){Q.bt=.075;tone(2350,2350,.05,.035,'square');tone(3520,3520,.04,.02,'square');}} /* 11/26 사용자 비상벨 파일 */
   Q.rt-=dt;if(Q.rt<=0){Q.rt=7;const alive=creatures.filter(c=>c.egg&&!c.dead).length;if(alive<10){const pts=corrSpots(12,Math.random,.4).filter(([x,z])=>Math.hypot(x-P.x,z-P.z)>11&&!blockedCircle(x,z,.3));
       pts.slice(0,Math.min(3,10-alive)).forEach(([x,z],k)=>{const c=spawnCreature(x,z,'wander',Math.random()*6.28,'shambler');if(c){unstick(c,.27);if(k%2===0)makeRunner(c);c.egg=true;}});}}}
-function eggStop(){const red=$('cineRed');if(red){red.style.transition='opacity 1.2s';red.style.opacity=0;}}
-function setupLowerFloor(){TRAPS.length=0;G.egg=null;G.eggEnd=false;const fc=FLOORS[G.floor]||{};
+function eggStop(){eggBellOff();const red=$('cineRed');if(red){red.style.transition='opacity 1.2s';red.style.opacity=0;}}
+function setupLowerFloor(){eggBellOff();TRAPS.length=0;G.egg=null;G.eggEnd=false;const fc=FLOORS[G.floor]||{};
   if(fc.base){ // 4층 바리케이드: 서·동·북 복도
     barricade(6.6,13.0,XW1,13.4,true);barricade(XE0,15.6,XE1,16.0,false);barricade(4.2,7.5,4.6,ZN1,true);barricade(21.0,ZS0,21.4,ZS1,false);
     const U=UNITS.find(u=>u.num==='TPS');const[bx,bz]=uMap(U,U.W*.5,U.D*.35);dropPickup('insanBag',1,bx,bz);}
@@ -3471,28 +3611,23 @@ function setupLowerFloor(){TRAPS.length=0;G.egg=null;G.eggEnd=false;const fc=FLO
     G.exitDoor={kind:'exitDoor',x:BW-.4,z,r:1.7,hy:1.1,t:0};INTER.push(G.exitDoor);setupEgg();}}
 // 공동현관: E를 누르고 있는 동안 밀어 연다(12초). 그동안 큰 소음
 const EXIT_D={easy:12,normal:20,hard:30};function exitT(){return EXIT_D[OPT.diff]||20;} /* 11/6: 난이도별 현관 밀기 시간 */
-// 11/6 사용자: ① 마지막 이송 방송(처음 문을 밀면 75초 카운트다운, 놓치면 '늦은 탈출' 엔딩) ② 문 소음에 끌려 놈들이 몰려옴(웨이브)
-const EVAC={T:75,first:3,every:11,per:[2,3],alive:5,total:12};
-const EVAC_LINES={start:'…지직… 이문동 대피소 마지막 이송 차량, 75초 후 출발합니다. 현관 앞으로 나와 주십시오…',60:'…마지막 이송 차량, 60초 후 출발합니다…',30:'…30초 남았습니다. 서둘러 주십시오… 지직…',10:'…10초. 출발합니다…',0:'…차량 출발합니다. 이후 이송은… 지직… 없습니다…'};
+// 11/6 사용자: 문 소음에 끌려 놈들이 몰려옴(웨이브). 11/26: 이송 차량 방송·카운트다운·'떠난 뒤' 엔딩 삭제(176차)
+const EVAC={first:3,every:11,per:[2,3],alive:5,total:12};
 function evacSpawn(n,types){const pts=[[1.6,(ZS0+ZS1)/2],[(6.6+XW1)/2,14.5],[(6.6+XW1)/2,(7.5+ZN1)/2],[13.1,(7.5+ZN1)/2],[(XE0+XE1)/2,(7.5+ZN1)/2],[(XE0+XE1)/2,14.5],[5,(ZS0+ZS1)/2]]
     .filter(([x,z])=>{const i=gi(x,z);return i>=0&&!cellBlocks(i)&&Math.hypot(x-P.x,z-P.z)>11;});let made=0;
   const all=pts.slice();for(let k=0;k<n&&all.length;k++){const src=pts.length?pts:all,j=Math.floor(Math.random()*src.length);const[x,z]=src===pts?pts.splice(j,1)[0]:src[j];const c=spawnCreature(x+(Math.random()-.5)*.6,z+(Math.random()-.5)*.6,'chase',Math.atan2(P.x-x,P.z-z),types&&types[k]||'shambler');
     if(c){unstick(c,.27);c.wave=true;c.lastSeen={x:P.x,z:P.z};made++;}}
   if(made){hear(P.x,P.z,99,'crowbar');G.evac.n+=made;if(!G.evac.toldWave){G.evac.toldWave=1;toast('문 소리에 놈들이 몰려온다 — 손을 떼고 막아도 진행도는 남는다',true);}}}
-function updateEvac(dt){const V=G.evac;if(!V)return;const el=$('evac');
-  if(!V.gone){V.t-=dt;const s=Math.ceil(V.t);[60,30,10].forEach(k=>{if(s<=k&&!V['a'+k]){V['a'+k]=1;say('확성기',EVAC_LINES[k]);at(BW+3,(ZS0+ZS1)/2,()=>nz(1.2,1500,1,.15,0,'bandpass',900));}});
-    if(V.t<=0){V.gone=true;G.evacLate=true;say('확성기',EVAC_LINES[0]);toast('이송 차량이 떠났다…',true);at(BW+4,(ZS0+ZS1)/2,()=>{tone(48,40,4,.35,'sawtooth');nz(4,160,1,.3,0,'lowpass');});}}
-  if(el){const t=Math.max(0,V.t);el.hidden=false;el.classList.toggle('gone',!!V.gone);el.classList.toggle('hot',!V.gone&&t<=15);
-    el.innerHTML=V.gone?'<small>이송 차량</small>떠났다':'<small>마지막 이송 차량 출발까지</small>'+Math.floor(t/60)+':'+String(Math.floor(t%60)).padStart(2,'0');}
+function updateEvac(dt){const V=G.evac;if(!V)return;
   // 웨이브 — 11/6: 쉬움 = 예전 방식 / 보통 = 비척이 5 / 어려움 = 비척이 3 + 듣는 놈 2, 다 죽으면 2초 뒤 같은 무리 다시(무한)
   const WS={normal:['shambler','shambler','shambler','shambler','shambler'],hard:['shambler','shambler','shambler','listener','listener']}[OPT.diff];
   if(WS){const alive=creatures.filter(c=>c.wave&&!c.dead).length;if(alive){V.wt=Math.max(V.wt,2);return;}V.wt-=dt;if(V.wt<=0){V.wt=2;evacSpawn(WS.length,WS);}return;}
-  V.wt-=dt;if(V.wt<=0&&V.n<EVAC.total){V.wt=EVAC.every;const alive=creatures.filter(c=>c.wave&&!c.dead).length;const want=Math.min(EVAC.alive-alive,EVAC.per[V.gone?1:Math.random()<.5?0:1],EVAC.total-V.n);if(want>0)evacSpawn(want);}}
+  V.wt-=dt;if(V.wt<=0&&V.n<EVAC.total){V.wt=EVAC.every;const alive=creatures.filter(c=>c.wave&&!c.dead).length;const want=Math.min(EVAC.alive-alive,EVAC.per[Math.random()<.5?0:1],EVAC.total-V.n);if(want>0)evacSpawn(want);}}
 /* 11/8: 폰에서 현관 밀기가 안 되던 문제 — 조준점이 문이 아니라 근처 떨어진 물건(보스 드롭)에 잡히면 꾹 눌러도 새총 당김이 됐음. 현관 2.2m 안·현관 쪽을 보면(±80°) 조준과 상관없이 밀기 + 폰에 '현관 밀기' 버튼 */
 function nearExit(){const X=G.exitDoor;if(!X||P.dead||G.state!=='play')return false;if(!G.hbDown&&!(G.egg&&G.egg.alarm))return false;const dx=X.x-P.x,dz=X.z-P.z,d=Math.hypot(dx,dz);if(d>2.2)return false;const fx=-Math.sin(P.yaw),fz=-Math.cos(P.yaw);return (dx*fx+dz*fz)/Math.max(d,.01)>.17;}
 function updateExit(dt){const X=G.exitDoor;G.exitShow=false;if(!X||G.state!=='play')return;if(G.egg&&G.egg.alarm){if(!P.dead&&Math.hypot(P.x-X.x,P.z-X.z)<1.1){G.eggEnd=true;eggStop();ending('escape');}return;}let holding=keys.KeyE&&!P.dead&&(currentTarget()===X||nearExit()||(X.hold&&Math.hypot(P.x-X.x,P.z-X.z)<2.6)); /* 11/7 사용자: ???를 물리치기 전엔 현관을 못 엶(웨이브도 그 뒤에만) */
   if(holding&&!G.hbDown){holding=false;if(G.t-(G.exitLockT??-99)>3){G.exitLockT=G.t;toast(HB.name+'를 물리쳐야 나갈 수 있다',true);SFX2.rattle&&SFX2.rattle();}}X.hold=holding;if(holding)G.exitShow=true;
-  if(holding&&!G.evac){G.evac={t:EVAC.T,wt:EVAC.first,n:0};say('확성기',EVAC_LINES.start);at(BW+3,(ZS0+ZS1)/2,()=>{nz(1.6,1500,1,.18,0,'bandpass',900);tone(880,880,.25,.08,'sine');});}
+  if(holding&&!G.evac){G.evac={wt:EVAC.first,n:0};}
   updateEvac(dt);
   if(holding){X.t+=dt;X.nt=(X.nt||0)-dt;if(X.nt<=0){X.nt=1;at(X.x,X.z,()=>{nz(.8,140,1,.5,0,'lowpass');tone(70,55,.8,.3,'sawtooth');});hear(X.x,X.z,16,'crowbar');}
     $('prog').hidden=false;$('progB').style.width=(X.t/exitT()*100)+'%';$('prog').querySelector('span').textContent='공동현관 여는 중 '+Math.floor(X.t/exitT()*100)+'% · 남은 '+Math.max(0,exitT()-X.t).toFixed(1)+'초 — 손을 떼면 멈춘다';if(X.t>2&&!X.said){X.said=1;mono('pushDoor',{prio:true});}
@@ -3531,8 +3666,8 @@ function placeNote(){placeTips();if(G.floor===6&&!P.shoes){const g=shoesProp(13.
   const N=NOTES[G.floor];if(!N)return;let x,y,z,ry=0,flat=false;
   if(N.where==='desk'){const U=UNITS.find(u=>u.num===1002);[x,z]=uMap(U,.3,5.3);y=.765;flat=true;}
   else if(N.where==='stair'){ // 11/5: 문짝에 붙어 있으면 '문 열기'와 헷갈려서 → 계단실 안쪽 벽(문 오른쪽 1m)에 압정으로 붙임
-    x=15.45;z=19.3-(PROP_TEX.stairwall?.032:.007);const m=noteMesh(x,1.45,z,Math.PI,false);const pin=new THREE.Mesh(new THREE.SphereGeometry(.012,6,4),phong(null,{color:0xb02020,shininess:60}));pin.position.set(x,1.57,z-.01);pin.userData.keep=true;world.add(pin);
-    INTER.push({kind:'note',floor:G.floor,x,z:z-.45,r:1.4,hy:1.45,mesh:m});return;}
+    const m=stairWallNote(17.7); /* 181차: 문 옆 벽 → 반대편(동쪽) 벽. 문으로 들어오며 보이는 쪽, 위층 계단(서쪽)과 떨어짐 */
+    INTER.push({kind:'note',floor:G.floor,x:m.position.x-.45,z:17.7,r:1.4,hy:1.45,mesh:m});return;}
   else{const U=UNITS.find(u=>u.num==='TPS');if(N.where==='tps'){[x,z]=uMap(U,U.W/2,U.D*.6);y=.02;flat=true;}else{[x,z]=uMap(U,U.W/2,-.6);y=.02;flat=true;}}
   const m=noteMesh(x,y,z,ry,flat);INTER.push({kind:'note',floor:G.floor,x,z,r:1.5,hy:y+.1,mesh:m});
   if(G.floor===10&&!P.hasSling){const U=UNITS.find(u=>u.num===1002);const[sx,sz]=uMap(U,.48,5.6);const g=slingProp(sx,sz);INTER.push({kind:'slingStart',x:sx,z:sz,r:1.5,hy:.8,mesh:g});}}
@@ -3541,7 +3676,7 @@ function placeNote(){placeTips();if(G.floor===6&&!P.shoes){const g=shoesProp(13.
 let FONT_READY=false;
 function warmFonts(){try{if(!document.fonts||!document.fonts.load)return;const nt=Object.values(NOTES).map(n=>n.title+n.text.join('')).join('')+'(뒤는 찢겨 있다)E · 클릭으로 닫기 0123456789.,!?~…-';
   const mt=(typeof MONO_LINES!=='undefined'?Object.values(MONO_LINES).flat().join(''):'');
-  Promise.all([document.fonts.load('25px "Nanum Pen Script"',nt),document.fonts.load('400 11px "Noto Sans KR"',nt+mt),document.fonts.load('800 17px "Nanum Myeongjo"',mt+nt)]).then(()=>{FONT_READY=true;}).catch(()=>{FONT_READY=true;});setTimeout(()=>{FONT_READY=true;},8000);}catch(e){FONT_READY=true;}}
+  Promise.all([document.fonts.load('25px "Nanum Pen Script"',nt),document.fonts.load('400 11px "Noto Sans KR"',nt+mt),document.fonts.load('800 17px "Nanum Myeongjo"',mt+nt+END_C_NOTE.join('')+END_A_LINES.map(l=>l[2]).join('')+END_C_LINES.map(l=>l[2]).join('')+END_A_TAIL+'일째0123456789:')]).then(()=>{FONT_READY=true;}).catch(()=>{FONT_READY=true;});setTimeout(()=>{FONT_READY=true;},8000);}catch(e){FONT_READY=true;}}
 /* ===== 11/6 크리쳐 이름 · 보스 체력바 · 층 지도 · 크레딧 ===== */
 const TIP_C=[11,8.7];
 const CNAME={shambler:'DRIFTER',runner:'DRIFTER',listener:'CHASER',crawl:'WATCHER',pipe:'SLUGGER',bottle:'BOTTLER',chief:'BOSS',big:'THE HEAD',gor:'WARDEN',hidden:'???'};
@@ -3586,14 +3721,23 @@ const CREDITS={staff:[['기획 · 감독','Production San'],['시나리오 · �
 let CRED_T=null;
 /* 11/12 사용자: 엔딩 크레딧 SPECIAL THANKS */
 const SPECIAL_THANKS=[['김준형','최초 클리어 · 버그 제보 · 플레이 피드백'],['김수민','주인공 역할 참여 · 플레이 리액션 · 아이디어 제공']];
-function openCredits(){const el=$('credP'),r=$('credRoll');if(!el)return;const row=a=>'<div class="crow"><span>'+a[0]+'</span><span>'+a[1]+'</span></div>';
+function openCredits(){const el=$('credP'),r=$('credRoll');if(!el)return;
+  /* 179차: 크레딧 = 엔딩 A 곡 피아노. 결과 화면에서 열면 크게, 로비에서 열면 로비 음악 끄고 피아노 */
+  if(G.state==='end'){if(typeof ENDM!=='undefined'&&ENDM&&ENDM.piano)endPianoGain(1);}
+  else if(G.state==='title'&&typeof endMusic==='function'&&AC){G.credLobby=true;if(typeof lobbyMusic==='function')lobbyMusic(false);endMusic('piano');}const row=a=>'<div class="crow"><span>'+a[0]+'</span><span>'+a[1]+'</span></div>';
   r.innerHTML='<h1>10F / 10DAY</h1><div class="sub">PROJECT.JITZ</div><h3>제작진</h3>'+CREDITS.staff.map(row).join('')+'<h3>출연</h3>'+CREDITS.cast.map(row).join('')+'<h3>도움</h3>'+CREDITS.tools.map(row).join('')+'<h3>SPECIAL THANKS</h3>'+SPECIAL_THANKS.map(a=>'<div class="cthx"><b>'+a[0]+'</b><small>'+a[1]+'</small></div>').join('')+'<div class="end">끝까지 내려와 줘서 고마워요.<br>붉은 하늘 아래, 어딘가에서.</div>';
   el.hidden=false;r.style.transition='none';r.style.transform='translateY(0)';void r.offsetHeight;const H=r.offsetHeight+window.innerHeight,v=H/Math.max(26,H/55);
   /* 11/7: 누르고 있으면 6배 빠르게, 짧게 누르면 닫기 */
   clearTimeout(CRED_T);const C=CRED={y:0,held:0,t0:0,last:performance.now()};
   const loop=now=>{if(CRED!==C||el.hidden)return;const dt=Math.min(.1,(now-C.last)/1000);C.last=now;C.y+=v*dt*(C.held?8:1);r.style.transform='translateY(-'+C.y+'px)';if(C.y>=H){closeCredits();return;}requestAnimationFrame(loop);};requestAnimationFrame(loop);}
 let CRED=null;function credDown(){if(CRED&&!CRED.held){CRED.held=1;CRED.t0=performance.now();}}function credUp(){if(!CRED||!CRED.held)return;CRED.held=0;} /* 11/7: 누르는 동안 8배 빠르게, 넘어가기는 스페이스(폰은 건너뛰기 버튼) */
-function closeCredits(){const el=$('credP');if(el&&!el.hidden){el.hidden=true;clearTimeout(CRED_T);CRED=null;}}
+function closeCredits(){const el=$('credP');if(el&&!el.hidden){el.hidden=true;clearTimeout(CRED_T);CRED=null;
+  if(G.endDefer){G.endDefer=false;if(G.state==='end'){const ep=$('endPic'),P_=$('endP');P_.hidden=false; /* 179차: 크레딧이 끝나야 결과 화면 */
+    if(ep){ep.style.animation='none';void ep.offsetWidth;ep.style.animation='';}const bx=document.querySelector('#endP .box');if(bx){bx.style.animation='none';void bx.offsetWidth;bx.style.animation='';}
+    if(P_.classList.contains('haspic')){P_.classList.remove('haspic');void P_.offsetWidth;P_.classList.add('haspic');}if(P_.dataset.sc&&typeof escFxStart==='function')escFxStart(P_.dataset.sc);}
+    if(typeof endPianoGain==='function')endPianoGain(.5,1);}
+  else if(G.credLobby){G.credLobby=false;if(typeof stopEndMusic==='function')stopEndMusic();if(G.state==='title'&&typeof lobbyMusic==='function')setTimeout(()=>{if(G.state==='title'&&$('credP').hidden)lobbyMusic(true);},400);}
+  else if(G.state==='end'&&typeof endPianoGain==='function')endPianoGain(.5,1);}}
 /* ===== 11/6 10층 길잡이 쪽지(누군가의 메모) — 문구멍 · 옷장 · 소리 유인 · 랜턴. 인산이 쪽지(n/10)엔 안 셈 ===== */
 const TIP_IMG={"tip01": "gtip01.jpg", "tip02": "gtip02.jpg", "tip03": "gtip03.jpg", "tip04": "gtip04.jpg", "tip05": "gtip05.jpg", "tip06": "gtip06.jpg", "tip07": "gtip07.jpg", "tip08": "gtip08.jpg", "tip09": "gtip09.jpg", "tip10": "gtip10.jpg", "tip11": "gtip11.jpg", "tip12": "gtip12.jpg", "tip13": "gtip13.jpg", "tip14": "gtip14.jpg", "tip15": "gtip15.jpg", "tip16": "gtip16.jpg", "tip17": "gtip17.jpg", "tip18": "gtip18.jpg"}; /* 172차: 사용자 2D 회화 18장 — 페이지 밖 gtipNN.jpg(1600×900, 원본 guides/·tips/v2/src). 쪽지를 열면 화면 전체를 채움 */
 const TIPS=[{"img": "tip01", "title": "현관문 안쪽에 붙은 메모", "text": ["나가기 전에 [R]로 문구멍부터 봐.", "문 앞에 뭐가 있으면 열지 마."]},
@@ -3618,7 +3762,7 @@ const TIPS=[{"img": "tip01", "title": "현관문 안쪽에 붙은 메모", "text
 const TIP_KEY_T={R:'숨기 버튼',C:'웅크리기 버튼',F:'랜턴 버튼',G:'섬광 버튼'};
 const STIP_F={9:10,8:12,7:13,6:14,5:15,4:16,3:17}; /* 172차: 층마다 계단실 벽 메모 하나 */
 function placeTips(){G.tipsRead=G.tipsRead||[];if(G.floor===1){placeWallTip1();placeExitTip();placeMedkit1();return;}if(G.floor===2){placeStairTip(6);return;}
-  if(STIP_F[G.floor]!=null){const N=NOTES[G.floor];placeStairTip(STIP_F[G.floor],N&&N.where==='stair'?16.15:15.45);}
+  if(STIP_F[G.floor]!=null){const N=NOTES[G.floor];placeStairTip(STIP_F[G.floor],N&&N.where==='stair'?18.45:17.7);}
   if(G.floor===9)placeBenchTip(11);
   if(G.floor!==10)return;
   const U2=UNITS.find(u=>u.num===1002),U3=UNITS.find(u=>u.num===1003);
@@ -3644,8 +3788,8 @@ function placeWallTip1(){G.tipsRead=G.tipsRead||[];const U=UNITS.find(u=>u.num==
   INTER.push({kind:'tip',tip:4,x:cx,z:cz,r:1.4,hy:1.45,mesh:m});}
 /* 11/8 친구 피드백: 1층 비상문 바로 앞 구급키트(즉시 체력 100) · 공동현관 옆 메모 · 2층 계단실 메모 */
 function placeMedkit1(){let[x,z]=STAIR_OUT;z+=.5;if(blockedCircle(x,z,.2)){for(let k=0;k<30;k++){const a=k*2.4,r=.3+k*.06,nx=x+Math.cos(a)*r,nz=z+Math.sin(a)*r;if(!blockedCircle(nx,nz,.2)){x=nx;z=nz;break;}}}const p=dropPickup('medkit',1,x,z);p.r=2.2;}
-function placeStairTip(i,x=15.45){const z=19.3-(PROP_TEX.stairwall?.032:.007);const m=noteMesh(x,1.45,z,Math.PI,false);const pin=new THREE.Mesh(new THREE.SphereGeometry(.012,6,4),phong(null,{color:0xb02020,shininess:60}));pin.position.set(x,1.57,z-.01);pin.userData.keep=true;world.add(pin);
-  INTER.push({kind:'tip',tip:i,x,z:z-.45,r:1.4,hy:1.45,mesh:m});}
+function stairWallNote(z){const x=17.0-(PROP_TEX.stairwall?.032:.007),m=noteMesh(x,1.45,z,-Math.PI/2,false);const pin=new THREE.Mesh(new THREE.SphereGeometry(.012,6,4),phong(null,{color:0xb02020,shininess:60}));pin.position.set(x-.01,1.57,z);pin.userData.keep=true;world.add(pin);return m;}
+function placeStairTip(i,z=17.7){const m=stairWallNote(z);INTER.push({kind:'tip',tip:i,x:m.position.x-.45,z,r:1.4,hy:1.45,mesh:m});}
 function placeExitTip(){const X=G.exitDoor;if(!X)return;let best=null; /* 남복도 양쪽 벽 중 현관 가까운 빈 벽(문 아님)에 압정 */
   for(const dx of[1.2,1.6,2.0,2.5,3.0,3.6])for(const sd of[-1,1]){const x=BW-dx,wz=sd<0?ZS0:ZS1,i=gi(x,wz+sd*-.05),j=gi(x,wz+sd*.06);const cz=wz-sd*.5;
     if(i>=0&&grid[i]===0&&j>=0&&grid[j]===1&&!blockedCircle(x,cz,.18)&&grid[gi(x-.12,wz+sd*.06)]===1&&grid[gi(x+.12,wz+sd*.06)]===1){best=[x,wz-sd*.007,sd,cz];break;}if(best)break;}
@@ -3711,7 +3855,7 @@ function drawRingTick(k,hold){const el=$('drawRing');if(!el)return;const show=k>
 // 층별 사건: 정전 · 저절로 열리는 문 · 큰 놈 발소리 · 라디오 방송
 const EVENTS={9:['doorSlam'],8:['bossThump'],7:['radio'],6:['blackout','doorSlam'],5:['radio','blackout'],1:['hidden']};
 const RADIO_LINES=['…지직… 이문동 대피소는 현재 수용 가능합니다. 외부 공기 노출을 최소화하고…','…반복합니다. 열흘 이상 노출 시 감염 위험이… 지직…','…봉쇄 시설 인원은 순차적으로 이송 중입니다. 가족과 연락이 닿지 않는 분은…','…대피소 출입은… 지직… 일몰 이후 통제됩니다…'];
-function setupEvents(){DRUMS.length=0;SHARDS.length=0;OILS.length=0;POOLS.length=0;G.evac=null;G.evacLate=false;{const el=$('evac');if(el)el.hidden=true;}G.hiddenBoss=null;const E=G.fev={list:EVENTS[G.floor]||[],t:0};const r=mulberry32(G.floor*211+3);
+function setupEvents(){DRUMS.length=0;SHARDS.length=0;OILS.length=0;POOLS.length=0;G.evac=null;G.hiddenBoss=null;const E=G.fev={list:EVENTS[G.floor]||[],t:0};const r=mulberry32(G.floor*211+3);
   if(E.list.includes('blackout'))E.blackAt=40+r()*50;
   if(E.list.includes('radio')){const ok=UNITS.filter(u=>typeof u.num==='number'&&UCFG[u.num].door!=='survivor'&&UCFG[u.num].door!=='crowbar');const U=ok[Math.floor(r()*ok.length)];const[x,z]=uMap(U,U.W*.5,U.D*.7);
     const m=new THREE.Mesh(new THREE.BoxGeometry(.24,.14,.09),new THREE.MeshPhongMaterial({color:0x2a2826,shininess:20}));m.position.set(x,.07,z);m.userData.keep=true;world.add(m);
@@ -3925,15 +4069,15 @@ function update(dt){
     if(P.stepAcc>(run?1.0:.75)){P.stepAcc=0;const wet=inFlood(P.x,P.z),r=wet?(P.crouch?2.5:run?12:6):P.crouch?0:run?9:3.5;if(r)hear(P.x,P.z,r,'step');G.noiseLv=Math.max(G.noiseLv,r);stepSnd(run);}}
   breathTick(dt,run);
   G.noiseLv=Math.max(0,G.noiseLv-dt*4);
-  pickups=pickups.filter(p=>{if(p.k==='steel'&&Math.hypot(p.x-P.x,p.z-P.z)<.55){const ws=p.ws||[];const bad=ws.filter(w=>w>=BALL_LIFE).length;if(bad){p.ws=ws.filter(w=>w<BALL_LIFE);p.n=Math.max(0,p.n-bad);ballBroke(bad);if(p.n<=0){world.remove(p.mesh);return false;}}const a=addItem('steel',p.n);if(a<=0)return true;p.n-=a;P.bw=(P.bw||[]).concat((p.ws||[]).splice(0,a));if(!fx('pick_ball',{gain:.7}).src)tone(1500,1900,.03,.04,'square');if(p.n<=0){world.remove(p.mesh);return false;}}return true;});
+  pickups=pickups.filter(p=>{if(p.k==='steel'&&Math.hypot(p.x-P.x,p.z-P.z)<1.5&&!wallBetween(P.x,P.z,p.x,p.z)){ /* 11/27 자동 줍기 .55→1.5m(벽 너머 제외) */const ws=p.ws||[];const bad=ws.filter(w=>w>=BALL_LIFE).length;if(bad){p.ws=ws.filter(w=>w<BALL_LIFE);p.n=Math.max(0,p.n-bad);ballBroke(bad);if(p.n<=0){world.remove(p.mesh);return false;}}const a=addItem('steel',p.n);if(a<=0)return true;p.n-=a;P.bw=(P.bw||[]).concat((p.ws||[]).splice(0,a));if(!fx('pick_ball',{gain:.7}).src)tone(1500,1900,.03,.04,'square');if(p.n<=0){world.remove(p.mesh);return false;}}return true;});
   P.eye=lerp(P.eye,P.hide?1.52:P.crouch?1.1:1.6,Math.min(1,dt*9));updateHide(dt);
   const st=SL();if(P.drawing){P.drawT=Math.min(st.draw+6,P.drawT+dt);if(P.drawT>=st.draw&&sfx.drawFull)sfx.drawFull(drawSnd);}if(P.reloadT>0)P.reloadT=Math.max(0,P.reloadT-dt);
   P.kick=Math.max(0,P.kick-dt*5);P.relT=(P.relT??9)+dt;G.hurt=Math.max(P.hp<30&&!P.dead?.3:0,G.hurt-dt*1.6);
   const k=P.drawing?clamp(P.drawT/st.draw,0,1):0;P.fov=lerp(P.fov,72-9*(1-Math.pow(1-k,2)),Math.min(1,dt*10));
   projs=projs.filter(p=>updateProj(p,dt));
-  cmoTick(dt);
-  PATHB.ms=0;creatures.forEach(c=>updateCreature(c,dt));updateEProjs(dt);updateSpits(dt);updateFlash(dt);glowTick(dt);sceneTick(dt);eggTick(dt);bossBarTick(dt);visitTick();if(SHARDS.length)updateShards(dt);if(G.flashT>0||G.flashW){G.flashT=Math.max(0,(G.flashT||0)-dt*.9);const o=$('flashOv');if(o)o.style.opacity=Math.min(1,G.flashT*1.4).toFixed(3);G.flashW=G.flashT>0;}cullTick(dt);updateCones(dt);frenzyTick(dt);updateParts(dt);updateWindows(dt);updateLights(dt);events(dt);updateEvents(dt);updateTraps(dt);updateExit(dt);monoWatch(dt);monoUpdate(dt);
-  DOORS.forEach(d=>{d.ang=lerp(d.ang,d.open?1:0,Math.min(1,dt*8));let j=0;if(d.shake>0){d.shake=Math.max(0,d.shake-dt);j=Math.sin(G.t*90)*d.shake*.06;}d.pivot.rotation.y=d.a0+d.da*d.ang*(d.broken?1.08:1)+j;if(d.broken)d.pivot.rotation.z=.07;}); /* 부서진 문: 더 젖혀지고 기울어진 채 */
+  cmoTick(dt);stairNoiseTick(dt);
+  PATHB.ms=0;creatures.forEach(c=>updateCreature(c,dt));updateEProjs(dt);updateSpits(dt);updateFlash(dt);glowTick(dt);sceneTick(dt);eggTick(dt);upFootTick();bossBarTick(dt);visitTick();if(SHARDS.length)updateShards(dt);if(G.flashT>0||G.flashW){G.flashT=Math.max(0,(G.flashT||0)-dt*.9);const o=$('flashOv');if(o)o.style.opacity=Math.min(1,G.flashT*1.4).toFixed(3);G.flashW=G.flashT>0;}cullTick(dt);updateCones(dt);frenzyTick(dt);updateParts(dt);updateWindows(dt);updateLights(dt);events(dt);updateEvents(dt);updateTraps(dt);updateExit(dt);monoWatch(dt);monoUpdate(dt);
+  DOORS.forEach(d=>{d.ang=lerp(d.ang,d.open?1:0,Math.min(1,dt*8));let j=0;if(d.shake>0){d.shake=Math.max(0,d.shake-dt);j=Math.sin(G.t*90)*d.shake*.06;}d.pivot.rotation.y=d.a0+d.da*d.ang*(d.broken?1.08:1)+j;if(d.broken){d.pivot.rotation.z=d.tiltZ??.07;if(d.tiltX)d.pivot.rotation.x=d.tiltX;}}); /* 부서진 문: 더 젖혀지고 기울어진 채 */
   if(G.hitT>0){G.hitT-=dt;if(G.hitT<=0)$('hit').className='';}
   if(G.subT>0){G.subT-=dt;if(G.subT<=0)$('sub').innerHTML='';}
   const BGM_FIGHT_R=5;let nd=99;creatures.forEach(c=>{if(!c.dead&&c.state==='chase')nd=Math.min(nd,Math.hypot(c.x-P.x,c.z-P.z));});const chase=nd<99;
@@ -4292,7 +4436,16 @@ function escFxStart(sc){sc=sc||'escape';const cv=$('endCv'),pic=$('endPic');if(!
   requestAnimationFrame(frame);}
 function stopEndMusic(){worldMute(false);if(!ENDM||!AC)return;const t=AC.currentTime;ENDM.g.gain.cancelScheduledValues(t);ENDM.g.gain.setTargetAtTime(0,t,.4);const n=ENDM;setTimeout(()=>{try{n.g.disconnect();}catch(e){}n.osc.forEach(o=>{try{o.stop();}catch(e){}});},2500);ENDM=null;}
 function endPiano(at,f,v,dur,dest){[[1,'triangle',v],[2.003,'sine',v*.32],[3.01,'sine',v*.1],[4.02,'sine',v*.05]].forEach(([m,ty,gv])=>{const o=AC.createOscillator(),g=AC.createGain();o.type=ty;o.frequency.value=f*m;g.gain.setValueAtTime(0,at);g.gain.linearRampToValueAtTime(gv,at+.012);g.gain.exponentialRampToValueAtTime(gv*.35,at+.4);g.gain.exponentialRampToValueAtTime(.0001,at+dur);o.connect(g);g.connect(dest);o.start(at);o.stop(at+dur+.05);});}
-function endMusic(kind){if(!AC)return;stopEndMusic();const t=AC.currentTime;
+/* 179차: 크레딧 피아노(credits_piano.mp3, 엔딩 A 곡의 피아노 구간 11.4초 루프). 못 받으면 예전 합성 탈출 음악 */
+let CPIANO=null;function cpianoLoad(){if(CPIANO!==null||!AC)return Promise.resolve(CPIANO);CPIANO=fetch('credits_piano.mp3').then(r=>{if(!r.ok)throw 0;return r.arrayBuffer();}).then(a=>new Promise((ok,no)=>AC.decodeAudioData(a,ok,no))).then(b=>{CPIANO=b;return b;}).catch(()=>{CPIANO=false;return false;});return CPIANO;}
+function endPianoGain(v,tc){if(!ENDM||!ENDM.piano||!AC)return;ENDM.lv=v;const t=AC.currentTime;ENDM.g.gain.cancelScheduledValues(t);ENDM.g.gain.setTargetAtTime(v,t,tc||.6);}
+function endMusic(kind){if(!AC)return;
+  if(kind==='piano'){stopEndMusic();const t0=AC.currentTime;if(BGM.L){BGM.L.forEach(l=>{l.gain.cancelScheduledValues(t0);l.gain.setTargetAtTime(0,t0,.6);});BGM.mix=[-9,-9,-9];}bgmFileStop();worldMute(true);if(ENDBUS)ENDBUS.gain.value=VOL.bgm;
+    const g=AC.createGain();g.gain.value=0;g.connect(ENDBUS||bgmBus);const E={g,osc:[],piano:true};ENDM=E;
+    Promise.resolve(cpianoLoad()).then(b=>{if(ENDM!==E)return;if(!b){ENDM=null;try{g.disconnect();}catch(e){}endMusic('hope');return;}
+      const src=AC.createBufferSource();src.buffer=b;src.loop=true;src.connect(g);const t=AC.currentTime;src.start(t);E.osc.push(src);
+      g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(E.lv!=null?E.lv:1,t+1);});return;}
+  stopEndMusic();const t=AC.currentTime;
   if(BGM.L){BGM.L.forEach(l=>{l.gain.cancelScheduledValues(t);l.gain.setTargetAtTime(0,t,.6);});BGM.mix=[-9,-9,-9];}bgmFileStop();
   worldMute(true);if(ENDBUS)ENDBUS.gain.value=VOL.bgm;const g=AC.createGain();g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(1,t+3);g.connect(ENDBUS||bgmBus);const osc=[];ENDM={g,osc};
   const N=s=>{const m={C:-9,'C#':-8,D:-7,Eb:-6,E:-5,F:-4,'F#':-3,G:-2,Ab:-1,A:0,Bb:1,B:2};const k=s.match(/^([A-G][#b]?)(\d)$/);return 440*Math.pow(2,(m[k[1]]+(+k[2]-4)*12)/12);};
@@ -4394,7 +4547,7 @@ function doorSnd(dr,cat,o={}){if(!AC||!VB_STATE.ready||!VB.door||!VB.door[cat]||
    ①② 나오면 BGM·환경음을 잠깐 눌러 줌(duck) */
 const FXG={hit_body:1.5,hit_body_heavy:1.5,hit_head:1.25,hit_wall:1.3,hit_metal:1.6,ball_bounce:.6,hurt_hit:1.2,hurt_glass:1.2,hurt_slash:1.2,hurt_bite:1.2,drum_hit:1.2,
   hurt_light:1.9,hurt_mid:1.9,hurt_low:1.7,hurt_die:1.6,sling_shot:0.8,sling_shot_heavy:1.35,sling_draw:.8,sling_draw_full:.8,sling_load:.8,
-  drum_roll:1,drum_launch:1.2,drum_crash:1,oil_throw:1,oil_splash:1.1,oil_step:.7,step_tile:0.45,step_floor:0.85,step_run:0.8,step_crouch:1.1,step_wet:.8,
+  egg_bell:.9,drum_roll:1,drum_launch:1.2,drum_crash:1,oil_throw:1,oil_splash:1.1,oil_step:.7,step_tile:0.45,step_floor:0.85,step_run:0.8,step_crouch:1.1,step_wet:.8,
   breath_run:.75,breath_fear:.8,breath_low:.75,breath_relief:.8,breath_idle:.6,amb_creak:.9,amb_thud:.9,amb_scream:1.4,found:.55,ui_select:.5};
 const FXL={};
 /* 11/6 김수민 짧은 반응: v_* 목소리 파일이 오면 그걸, 없으면 숨소리 앞부분으로 대신(없으면 무음) */
@@ -4616,20 +4769,22 @@ function updateHUD(){
 /* ================= 저장 · 엔딩 ================= */
 function snapshot(){return JSON.parse(JSON.stringify({hasSling:P.hasSling,shoes:!!P.shoes,notes:G.notesRead,min:G.min,hp:P.hp,hunger:P.hunger,thirst:P.thirst,inv:P.inv,crowbars:P.crowbars,tier:P.tier,ammoType:P.ammoType,kills:G.kills,run:G.run||null}));}
 function restore(s){P.hasSling=s.hasSling!==false;P.shoes=!!s.shoes;G.notesRead=[...(s.notes||[])];G.min=s.min;G.day=Math.floor(G.min/1440)+1;P.hp=s.hp;P.hunger=s.hunger;P.thirst=s.thirst;P.inv=Object.assign({},s.inv);P.crowbars=[...s.crowbars];P.tier=s.tier;P.ammoType=s.ammoType;G.kills=s.kills;G.run=s.run?Object.assign({},s.run):null;}
-function initialSave(){return{hasSling:false,notes:[],min:CFG.startMin,hp:100,hunger:100,thirst:100,inv:{steel:30,water:2,bar:2,canned:1},crowbars:[],tier:0,ammoType:'steel',kills:0};}
+function initialSave(){return{hasSling:false,notes:[],min:CFG.startMin,hp:100,hunger:100,thirst:100,inv:{steel:(typeof OPT!=='undefined'&&OPT.diff==='easy')?45:30,water:2,bar:2,canned:1} /* 11/27 쉬움 시작 쇠구슬 45 */,crowbars:[],tier:0,ammoType:'steel',kills:0};}
 function die(why,by){if(P.dead)return;if(by)G.deathBy=by;if(by==='starve'&&typeof metaAdd==='function')metaAdd('d_starve');P.dead=true;cancelDraw();setTimeout(()=>ending('dead',why),900);}
-function ending(kind,why){hideBossUI();if(typeof titleCardOff==='function'&&G.state==='play')titleCardOff();
-  if(G.state!=='play')return;G.state='end';{const el=$('evac');if(el)el.hidden=true;}cancelDraw();$('prog').hidden=true;if(!TEST&&document.pointerLockElement)document.exitPointerLock();
+function ending(kind,why){if(G.endCut&&G.ui==='cut')return; /* 181차: 엔딩 영상 도는 중 같은 프레임의 두 번째 호출 무시 */if(kind==='escape'&&G.state==='play'&&!G.endCut&&typeof endCutA==='function'&&CUTB[G.eggEnd?'end_c':'end_a']!==null){G.endCut=true;endCutA(()=>{G.ui=null;G.paused=false;G.cutDone=true;ending(kind,why);},!!G.eggEnd);return;}G.endCut=false;const credFirst=kind==='escape',/* 181차: 비상벨(C)도 영상 → 크레딧(피아노) → 결과 */cutDone=!!G.cutDone;G.cutDone=false; /* 179차: 일반 탈출 = 영상 → 크레딧(피아노) → 결과 화면 */ /* 178차: 일반 탈출은 엔딩 A 영상(글자는 위에 띄움) 먼저, 끝나거나 건너뛰면 결과 화면 */
+  hideBossUI();if(typeof titleCardOff==='function'&&G.state==='play')titleCardOff();
+  if(G.state!=='play')return;G.state='end';cancelDraw();$('prog').hidden=true;if(!TEST&&document.pointerLockElement)document.exitPointerLock();
   const E={dead:[G.floor+'층 · '+G.day+'일차','쓰러졌다',why+((typeof REST_SAVE!=='undefined'&&REST_SAVE&&REST_SAVE.floor===G.floor)?' 마지막으로 잠들었던 침대에서 다시 시작한다.':' '+G.floor+'층에 들어선 시점부터 다시 시작한다.')],
     fail:['10일 경과','공기 감염','열흘째 밤, 숨을 쉴 때마다 목이 탔다. 거울 속 눈동자가 붉게 번졌다. 나도 그들이 되었다.'],
     clear:[G.floor+'층 도달','이번 빌드는 여기까지','아래층은 다음 빌드에서 이어진다.'],
-    escape:[G.eggEnd?'HIDDEN · 탈출':'탈출',G.eggEnd?'비상벨':G.evacLate?'떠난 뒤':'붉은 하늘 아래',''],}[kind];
+    escape:[G.eggEnd?'HIDDEN · 탈출':'탈출',G.eggEnd?'비상벨':'붉은 하늘 아래',''],}[kind];
   const dl=Math.max(0,10-Math.floor(G.min/1440));E[0]=G.floor+'F / '+dl+'DAY · '+E[0];
   $('endP').classList.toggle('escape',kind==='escape');
   if(kind==='escape'){const all=(G.notesRead||[]).length>=Object.keys(NOTES).length;
-    const L=G.eggEnd?['비상벨이 건물 전체를 흔들었다. 붉은 불빛 사이로, 활짝 열린 현관이 보였다.','그것이 먼저 뛰쳐나간 자리였다. 김수민은 멈추지 않고 그 뒤를 지나쳤다.','등 뒤에서 수십 개의 발소리가 복도를 쏟아져 내려왔다.','붉은 하늘 아래, 벨 소리가 들리지 않을 때까지 그녀는 달렸다.']:G.evacLate?['현관문이 열렸을 때, 확성기는 이미 조용했다.','젖은 아스팔트 위엔 바퀴 자국만 남아 있었다. 마지막 이송 차량은 떠난 뒤였다.','김수민은 쪽지를 다시 펼쳤다. 이문동까지 1.2킬로미터. 걸어서 가면 된다.','붉은 하늘 아래, 작은 그림자 하나가 혼자서 걷기 시작했다.']
+    const L=G.eggEnd?['비상벨이 건물 전체를 흔들었다. 붉은 불빛 사이로, 활짝 열린 현관이 보였다.','그것이 먼저 뛰쳐나간 자리였다. 김수민은 멈추지 않고 그 뒤를 지나쳤다.','등 뒤에서 수십 개의 발소리가 복도를 쏟아져 내려왔다.','붉은 하늘 아래, 벨 소리가 들리지 않을 때까지 그녀는 달렸다.']
       :['현관문이 열리자, 붉은 바람이 먼저 들어왔다.','김수민은 뒤돌아보지 않았다. 10층에서부터 따라오던 발소리는, 이제 그녀의 것뿐이었다.','이문동까지 1.2킬로미터. 그녀는 쪽지에 적혀 있던 숫자를 한 번 더 되뇌었다.','붉은 하늘 아래, 작은 그림자 하나가 대피소 쪽으로 걸어갔다.'];
     if(all)L.push('대피소 철문 옆에는, 낯익은 빠루 하나가 벽에 기대어 세워져 있었다.');
+    if(credFirst&&cutDone)L.length=0; /* 179차: 영상이 나왔으면 예전 4줄 나레이션은 뺌(영상 글자와 중복) */
     $('endText').innerHTML=L.map((t,i)=>'<span class="nl" style="animation-delay:'+(1.6+i*2.2)+'s">'+t+'</span>').join('');
     $('endP').style.backgroundImage='';}
   else{$('endP').style.backgroundImage='';$('endText').textContent=E[2];}
@@ -4638,7 +4793,7 @@ function ending(kind,why){hideBossUI();if(typeof titleCardOff==='function'&&G.st
    const ep=$('endPic');$('endP').classList.remove('haspic');if(ep){ep.style.animation='none';void ep.offsetWidth;ep.style.animation='';}$('endP').dataset.sc='';
    if(pic&&ep){ep.style.backgroundImage="url('"+pic+".jpg')";$('endP').dataset.sc=pic.slice(4);const bx=document.querySelector('#endP .box');if(bx){bx.style.animation='none';void bx.offsetWidth;bx.style.animation='';}void $('endP').offsetWidth;$('endP').classList.add('haspic');}
    if(pic)escFxStart(pic.slice(4));
-   endMusic(kind==='escape'?'hope':'dirge');G.deathBy=null;}
+   endMusic(credFirst?'piano':kind==='escape'?'hope':'dirge');G.deathBy=null;}
   $('endEye').textContent=E[0];$('endTitle').textContent=E[1];
   G.card={name:(typeof META!=='undefined'&&META.name)||'',kind,eye:E[0],title:E[1],day:G.day,clock:fmtClock(G.min),floor:G.floor,kills:G.kills,notes:(G.notesRead||[]).length,nT:Object.keys(NOTES).length,sling:CFG.sling[P.tier].name,diff:OPT.diff,deaths:(G.run&&G.run.deaths)||0,pic:(($('endPic')&&$('endPic').style.backgroundImage.match(/(end_[a-z]+)\.jpg/))||[])[1]||'end_creature',who:kind==='dead'?(G.deathWho||''):''};
   try{if((kind==='dead'||kind==='fail'||kind==='escape')&&typeof META!=='undefined'){META.e=META.e||{};const k=G.card.pic.slice(4);META.e[k]=(META.e[k]||0)+1;if(typeof metaSave==='function')metaSave();}}catch(e){} /* 11/12 본 엔딩 기록(엔딩 갤러리) */
@@ -4659,16 +4814,17 @@ function ending(kind,why){hideBossUI();if(typeof titleCardOff==='function'&&G.st
   if(kind==='fail'&&FLOOR_SAVE){FLOOR_SAVE.min=Math.min(FLOOR_SAVE.min,CFG.deadlineMin-1440);if(typeof saveGame==='function')saveGame();} /* 11/6 감염: 그 층 처음 + 최소 하루 */
   $('endBtn').textContent=kind==='dead'?((typeof REST_SAVE!=='undefined'&&REST_SAVE&&REST_SAVE.floor===G.floor)?'마지막 휴식(침대)부터 다시':G.floor+'층 처음부터 다시'):kind==='fail'?G.floor+'층 처음부터 다시 (하루 남김)':'10층 처음부터';
   if(kind==='escape'&&typeof metaAdd==='function'){if(G.eggEnd)metaAdd('esc_egg');if((G.notesRead||[]).length>=Object.keys(NOTES).length)metaAdd('esc_notes');metaAdd('esc');{const dn=(G.run&&G.run.deaths)||0;if(dn===0&&G.run&&G.run.full)metaAdd('esc_nodeath');if(dn>=50)metaAdd('esc_d50');}if(G.run&&G.run.full&&!G.run.dmix&&G.run.d===OPT.diff)metaAdd('esc_'+OPT.diff); /* 11/6: 10층→1층 같은 난이도로만 */}
-  $('endCred').hidden=kind!=='escape';if(kind==='escape'){const st=G.min;setTimeout(()=>{if(G.state==='end'&&!$('endP').hidden&&$('credP').hidden)openCredits();},15000);}
+  $('endCred').hidden=kind!=='escape';if(kind==='escape'&&!credFirst){const st=G.min;setTimeout(()=>{if(G.state==='end'&&!$('endP').hidden&&$('credP').hidden)openCredits();},15000);}
   if(kind!=='dead'&&kind!=='fail'){FLOOR_SAVE=initialSave();G.floor=10;try{localStorage.removeItem('f10_save');localStorage.removeItem('f10_best');}catch(e){}}
   updateLogo();
-  $('endP').hidden=false;$('hud').hidden=true;
+  $('hud').hidden=true;
+  if(credFirst&&typeof openCredits==='function'){G.endDefer=true;openCredits();}else $('endP').hidden=false;
   if(typeof rankOnEnd==='function')rankOnEnd(kind);
 }
 $('endBtn').onclick=()=>{startFloor();lockPointer();};
 
 
-function startFloor(){document.body.classList.remove('cineOn');if(typeof worldMute==='function')worldMute(false);{const b=$('cineBars');if(b){b.classList.remove('on');b.hidden=true;}}G.cmo=0;G.cmoT=0;G.cmoTold=false;
+function startFloor(){document.body.classList.remove('cineOn');if(typeof worldMute==='function')worldMute(false);{const b=$('cineBars');if(b){b.classList.remove('on');b.hidden=true;}}G.cmo=0;G.cmoT=0;G.cmoTold=false;G.snz=0;G.snzT=0;G.snzTold=false;
   G.cine=null;{const r=document.getElementById('cineRed');if(r){r.style.transition='none';r.style.opacity=0;}}
   if(!modelsReady(G.floor)){waitModels(G.floor,startFloor);return;}
   if(typeof lobbyMusic==='function')lobbyMusic(false);restore(FLOOR_SAVE);P.dead=false;P.crouch=false;P.kick=0;P.lamp=true;
@@ -4679,26 +4835,96 @@ function startFloor(){document.body.classList.remove('cineOn');if(typeof worldMu
   if(G.floor===10){say('','1002호. 비상계단은 건물 한가운데, 남쪽 복도 쪽에 있다.');toast('목표 · 물자를 챙겨 비상계단으로 (남쪽 복도 가운데)');}
   else{say('',G.floor+'층 비상계단. 다시 아래로 내려갈 계단을 찾아야 한다.');toast(G.floor+'층',true);}
 }
-function warmFloor(){try{if(G.floor===1){drumInit();if(renderer.initTexture&&DRUM_M.map)renderer.initTexture(DRUM_M.map);const hk=hbSkin();if(hk&&!hk.g.userData.lo)hk.g.userData.lo=lodGeo(hk.g,.03,24);hbFaceTex();if(hk&&renderer.initTexture)[hk.m.map,hk.m.normalMap,hk.m.specularMap].forEach(t=>t&&renderer.initTexture(t));} /* 11/7 1층 보스 모델을 등장 전에 미리 풀어 둠(등장 순간 멈칫 방지) */renderer.compile(scene,camera);const y0=P.yaw;for(let i=0;i<4;i++){P.yaw=y0+i*Math.PI/2;render();}P.yaw=y0;}catch(e){}} // 새 층 버퍼·텍스처를 미리 GPU에 올림
+function shotMats(){if(!window._shotG){window._shotG=new THREE.SphereGeometry(.025,6,4);window._shotG.userData.shared=true;window._shotM={steel:new THREE.MeshPhongMaterial({color:0xb8bcc2,shininess:60,specular:0x666666}),junk:new THREE.MeshPhongMaterial({color:0x8a7c6c,shininess:60,specular:0x666666})};}}
+/* 11/27 처음 쏠 때·먼지 처음 보일 때 셰이더 컴파일 멈칫 → 층 미리 렌더 때 탄·레이저·먼지 셰이더도 같이 컴파일 */
+function warmFx(){try{shotMats();laserInit();if(!FXS.dust){try{dustInit();}catch(e){}}
+ const fw=new THREE.Vector3(0,0,-1).applyQuaternion(camera.quaternion),c=camera.position;const tmp=[];
+ for(const k in window._shotM){const m=new THREE.Mesh(window._shotG,window._shotM[k]);m.position.copy(c).addScaledVector(fw,1);scene.add(m);tmp.push(m);}
+ const dv=LZ.dot.visible,bv=LZ.beam.visible;LZ.dot.visible=LZ.beam.visible=true;LZ.dot.position.copy(c).addScaledVector(fw,2);
+ const hv=[];handScene.traverse(o=>{hv.push([o,o.visible]);o.visible=true;});renderer.compile(handScene,handCam);hv.forEach(([o,v])=>o.visible=v);renderer.compile(scene,camera);renderer.compile(LZ.scene,camera);render();renderer.render(LZ.scene,camera);
+ LZ.dot.visible=dv;LZ.beam.visible=bv;tmp.forEach(m=>scene.remove(m));}catch(e){console.warn('warmFx',e);}}
+function warmFloor(){try{if(G.floor===1){drumInit();if(renderer.initTexture&&DRUM_M.map)renderer.initTexture(DRUM_M.map);const hk=hbSkin();if(hk&&!hk.g.userData.lo)hk.g.userData.lo=lodGeo(hk.g,.03,24);hbFaceTex();if(hk&&renderer.initTexture)[hk.m.map,hk.m.normalMap,hk.m.specularMap].forEach(t=>t&&renderer.initTexture(t));} /* 11/7 1층 보스 모델을 등장 전에 미리 풀어 둠(등장 순간 멈칫 방지) */renderer.compile(scene,camera);const y0=P.yaw;for(let i=0;i<4;i++){P.yaw=y0+i*Math.PI/2;render();}P.yaw=y0;warmFx();}catch(e){}} // 새 층 버퍼·텍스처를 미리 GPU에 올림
 function fadeIn(sec){let d=document.getElementById('fadeK');if(!d){d=document.createElement('div');d.id='fadeK';d.style.cssText='position:fixed;inset:0;background:#000;pointer-events:none;z-index:40;opacity:0';document.body.appendChild(d);}
   d.style.transition='none';d.style.opacity='1';void d.offsetWidth;d.style.transition='opacity '+sec+'s ease-out';d.style.opacity='0';}
 // 11/6 일시정지 → 로비로 나가기(두 번 눌러 확인). 이 층 진행은 버리고 층 진입 시점 저장은 남음
 function silenceWorld(){DRUMS.forEach(D=>{fxLoopStop(D.ch);D.ch=null;});if(!AC)return;const t=AC.currentTime;creatures.forEach(c=>{const v=c.vch;if(!v)return;try{v.g.gain.cancelScheduledValues(t);v.g.gain.setTargetAtTime(0,t,.05);if(v.src)v.src.stop(t+.25);}catch(e){}});}
-function quitToLobby(){if(G.state!=='play')return;silenceWorld();if(AC){const t=AC.currentTime;if(BGM.L)BGM.L.forEach(l=>{l.gain.cancelScheduledValues(t);l.gain.setTargetAtTime(0,t,.3);});BGM.mix=[-9,-9,-9];bgmFileStop();}
-  cancelDraw();G.paused=false;G.ui=null;try{if(P.peep)exitPeep();if(P.hide)exitHide();}catch(e){}['pauseP','invP','craftP','askP','prog','bossBar','evac'].forEach(id=>{const el=$(id);if(el)el.hidden=true;});
+function quitToLobby(){if(typeof eggBellOff==='function')eggBellOff();if(G.state!=='play')return;silenceWorld();if(AC){const t=AC.currentTime;if(BGM.L)BGM.L.forEach(l=>{l.gain.cancelScheduledValues(t);l.gain.setTargetAtTime(0,t,.3);});BGM.mix=[-9,-9,-9];bgmFileStop();}
+  cancelDraw();G.paused=false;G.ui=null;try{if(P.peep)exitPeep();if(P.hide)exitHide();}catch(e){}['pauseP','invP','craftP','askP','prog','bossBar'].forEach(id=>{const el=$(id);if(el)el.hidden=true;});
   if(!TEST&&document.pointerLockElement)document.exitPointerLock();toLobby();}
 /* 11/7: 친구 배포판 — 테스트 치트(무적 ZZ·층 이동 ANG·폰 테스트 버튼) 끔. ?dev 주소로 열면 켜짐 */
 const DEV=/[?&]dev\b/.test(location.search);
+/* ===== 178차(11/25) 컷신 영상 공용 재생기 — 페이지 밖 mp4(end_a·stair·boss8·boss4·boss1)
+   cutPlay(이름,{lines,floorTxt,tail,noResume,keepMute},끝나면) : 미리 받은 blob으로 전체 화면 재생. 게임 일시정지·게임 소리 끔(WORLDG).
+   Space·Enter·Esc·클릭·탭 = 건너뛰기(시작 0.6초 무시). 파일이 없거나(404) 8초 안에 재생이 안 되면 그냥 넘어감 */
+const STAIR_CUT='first'; /* 계단 하강 영상: 'first' 한 판에 처음 하강 한 번(기본) · 'always' 매번 · 'off' 안 함 */
+const BOSS_DESC={8:['boss8'],4:['boss4'],1:['pipe1','boss1']}; /* 11/25 사용자: 보스 층으로 내려갈 때(판마다 그 층 처음 한 번) 계단 영상 → 보스 영상. 1층은 계단 대신 배관 통로 영상 → 암전 → 보스. 파일 없으면 건너뜀 */
+const CUT_FILES={end_a:'end_a.mp4',end_c:'end_c.mp4',stair:'stair.mp4',boss8:'boss8.mp4',boss4:'boss4.mp4',pipe1:'pipe1.mp4',boss1:'boss1.mp4'};
+const CUTB={}; /* 이름 → blob 주소 / '' 받는 중 / null 없음 */
+function cutPrefetch(n){if(CUTB[n]!==undefined)return;CUTB[n]='';fetch((CUT_FILES[n]||n+'.mp4')+(typeof DATA_Q!=='undefined'?DATA_Q:'')).then(r=>r.ok?r.blob():null).then(b=>{CUTB[n]=(b&&b.size>5e4)?URL.createObjectURL(b):null;}).catch(()=>{CUTB[n]=null;});}
+const END_A_LINES=[[.4,3.6,'현관문이 열리자, 붉은 바람이 먼저 들어왔다.'],[3.9,6.9,'10층에서 1층까지. 많은 일이 있었다.'],[7.2,10.3,'숨어야 할 땐 숨었고,'],[10.7,13.8,'싸워야 할 땐 싸웠다.'],[14.4,18.9,'끝까지 손에 쥐고 있던 건, 새총 하나였다.'],[19.5,22.6,'그리고 그 모든 걸 이겨낸 건, ○○.'],[22.9,26.9,'{DAY}. 오피스텔을 빠져나왔다.'],[27.5,32.2,'거리는 비어 있었다. 그가 말한 대피소는, 이 길 끝 어딘가에 있겠다 생각한다'],[32.8,36.8,'김수민은 걷기 시작했다.']];
+const END_C_LINES=[[0.15, 2.2, "비상벨이 건물 전체를 흔들었다."], [2.3, 5.2, "그것이 먼저 뛰쳐나간 자리로, 김수민은 뛰어들었다."], [5.6, 8.3, "10층에서 1층까지. 많은 일이 있었다."], [9.83, 12.93, "숨어야 할 땐 숨었고,"], [13.33, 16.43, "싸워야 할 땐 싸웠다."], [17.03, 21.53, "끝까지 손에 쥐고 있던 건, 새총 하나였다."], [22.13, 25.23, "그리고 그 모든 걸 이겨낸 건, ○○."], [25.53, 29.53, "{DAY}. 오피스텔을 빠져나왔다."], [30.13, 34.83, "벨 소리는 더 이상 들리지 않았다."], [35.43, 39.43, "김수민은 한 번도 뒤돌아보지 않았다."]]; /* 181차: 엔딩 C 「비상벨」 줄 시각(cut/endC/endC_lines.json) */
+const END_C_DARK=[3.9,5.85]; /* 흰 화면 구간 — 글자를 어둡게 */
+const END_C_NOTE=['히든엔딩을 보신 분들, 축하합니다!','이 화면을 캡처해서 인스타그램 @__acidingo_17 로 DM 보내 주시면','소소한 기프티콘을 드립니다^^']; /* 181차: 히든엔딩 끝 안내(사용자 요청) */
+const END_A_TAIL='대피소 철문 옆에는, 낯익은 빠루 하나가 벽에 기대어 세워져 있었다.';
+const CUT_CPS=1/0.08; /* 인트로 영상과 같은 타자 속도(한 글자 0.08초) */
+/* 타자음: 인트로 영상과 같은 노트북 타자 소리(data.json fx.typ_key 8개). 게임 소리(WORLDG)가 꺼진 동안에도 들리게 master로 바로 */
+let CUTK=-1;function cutKey(){if(!AC)return;try{const L=VB.fx&&VB.fx.typ_key;const g=AC.createGain();g.gain.value=VOL.sfx*.5*(.85+Math.random()*.3);g.connect(master);
+  if(L&&L.length){let i=Math.floor(Math.random()*L.length);if(i===CUTK)i=(i+1)%L.length;CUTK=i;const s=AC.createBufferSource();s.buffer=L[i];s.playbackRate.value=1+(Math.random()-.5)*.12;s.connect(g);s.start();}
+  else{const s=AC.createBufferSource(),f=AC.createBiquadFilter();f.type='bandpass';f.frequency.value=2600+Math.random()*900;f.Q.value=2;s.buffer=nbuf;s.connect(f);f.connect(g);g.gain.setValueAtTime(g.gain.value*.6,AC.currentTime);g.gain.exponentialRampToValueAtTime(.0001,AC.currentTime+.05);s.start(AC.currentTime,Math.random()*.5,.06);}}catch(e){}}
+function cutTxtHtml(t,c){const esc=x=>x.replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));return esc(t.slice(0,c))+'<span class="r">'+esc(t.slice(c))+'</span>';} /* 남은 글자는 투명으로 깔아 가운데 정렬 시작점 고정(인트로 영상과 같은 방식) */
+function cutPlay(n,o,done){o=o||{};const P0=$('cutV'),v=$('cutVid'),box=$('cutBox'),tx=$('cutTxt'),fl=$('cutFl'),hint=$('cutHint');
+  const url=CUTB[n];if(!P0||!v||url===null){if(done)done();return;}
+  let fin=false,started=false,tail=false,note=false,nt0=0,raf=0,t0=performance.now();const inGame=G.state==="play";
+  if(inGame){G.ui='cut';G.paused=true;cancelDraw();for(const k in keys)keys[k]=false;if(!TEST&&document.pointerLockElement)document.exitPointerLock();}
+  if(typeof lobbyMusic==='function'&&G.state==='title')lobbyMusic(false);if(typeof worldMute==='function')worldMute(true);
+  tx.innerHTML='';tx.classList.remove('tail','dark');tx.style.opacity=1;fl.className='';fl.innerHTML=o.floorTxt?o.floorTxt+'<small>비상계단</small>':'';v.classList.remove('off');
+  P0.hidden=false;document.body.classList.add('cutOn');
+  const fit=()=>{const h=box.clientHeight||innerHeight;tx.style.fontSize=Math.max(13,h*(o.fs||28)/720)+'px';fl.style.fontSize=Math.max(40,h*150/720)+'px';};fit();addEventListener('resize',fit);
+  hint.textContent=TOUCH?'탭하면 건너뛰기':'스페이스 · 클릭으로 건너뛰기';hint.classList.remove('on','dark');const ht=setTimeout(()=>{if(!fin&&!o.noSkip)hint.classList.add('on');},1200);
+  const lines=o.lines||[];let lastLine=-1,lastC=0;
+  const tick=()=>{if(fin)return;raf=requestAnimationFrame(tick);if(tail)return;const t=v.currentTime||0;let li=-1;for(let i=0;i<lines.length;i++)if(t>=lines[i][0]&&t<lines[i][1])li=i;
+    if(li<0){if(lastLine>=0){tx.innerHTML='';lastLine=-1;}}else{const L=lines[li],c=Math.min(L[2].length,Math.floor((t-L[0])*CUT_CPS)+1);if(li!==lastLine){lastLine=li;lastC=0;}
+      if(c!==lastC){if(c>lastC&&L[2].slice(lastC,c).trim())cutKey();lastC=c;tx.innerHTML=cutTxtHtml(L[2],c);}tx.style.opacity=t>L[1]-.35?Math.max(0,(L[1]-t)/.35):1;}
+    if(o.dark){const dk=t>=o.dark[0]&&t<o.dark[1];tx.classList.toggle('dark',dk);hint.classList.toggle('dark',dk);}
+    if(o.floorTxt)fl.classList.toggle('on',t>=(o.ftAt??2.4));};
+  const end=()=>{if(fin)return;fin=true;cancelAnimationFrame(raf);clearTimeout(stall);clearTimeout(ht);removeEventListener('keydown',key,true);removeEventListener('resize',fit);P0.onclick=null;P0.ontouchend=null;
+    try{v.pause();}catch(e){}v.removeAttribute('src');try{v.load();}catch(e){}if(!o.keepPanel){P0.hidden=true;document.body.classList.remove('cutOn');}tx.innerHTML='';fl.className='';
+    if(!o.keepMute&&typeof worldMute==='function')worldMute(false);
+    if(inGame&&!o.noResume&&G.ui==='cut'){G.ui=null;G.paused=false;if(!TEST){lockPointer();setTimeout(()=>{if(!locked&&G.state==='play'&&!G.ui){G.paused=true;$('pauseP').hidden=false;}},250);}}
+    else if(G.ui==='cut'&&!o.keepPanel)G.ui=null;
+    if(done)done();};
+  const runNote=()=>{if(!o.note)return end();note=tail=true;nt0=performance.now();v.classList.add('off');tx.classList.remove('dark');tx.classList.add('tail','note');tx.style.opacity=0;
+    const esc=x=>x.replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));tx.innerHTML='<b>'+esc(o.note[0])+'</b>'+o.note.slice(1).map(l=>'<span class="nl">'+esc(l)+'</span>').join('');
+    hint.textContent=TOUCH?'탭하면 넘어가기':'스페이스 · 클릭으로 넘어가기';hint.classList.remove('on','dark');setTimeout(()=>{if(!fin){tx.style.opacity=1;}},120);setTimeout(()=>{if(!fin)hint.classList.add('on');},2000);};
+  const runTail=()=>{if(!o.tail)return o.note?runNote():end();tail=true;v.classList.add('off');tx.classList.remove('dark');tx.classList.add('tail');tx.style.opacity=1;let c=0;const T=o.tail;
+    const step=()=>{if(fin)return;c++;tx.innerHTML=cutTxtHtml(T,c);if(T[c-1]&&T[c-1]!==' ')cutKey();if(c<T.length)setTimeout(step,80);else setTimeout(()=>{if(fin)return;tx.style.opacity=0;setTimeout(o.note?runNote:end,700);},3400);};setTimeout(step,900);};
+  const skip=()=>{if(o.noSkip&&!note)return;if(performance.now()-t0<600)return;if(note){if(performance.now()-nt0<2500)return;end();return;}if((o.tail||o.note)&&!tail){try{v.pause();}catch(e){}t0=performance.now();runTail();return;}if(tail&&o.note){t0=performance.now();runNote();return;}end();}; /* 179차: 영상 건너뛰어도 숨은 줄은 보여 줌(숨은 줄에서 한 번 더 누르면 넘어감) */
+  const key=e=>{e.stopPropagation();e.preventDefault();if(!e.repeat&&(e.code==='Space'||e.code==='Enter'||e.code==='Escape'))skip();};
+  addEventListener('keydown',key,true);P0.onclick=skip;P0.ontouchend=e=>{e.preventDefault();skip();};
+  v.onended=()=>{if(!fin)runTail();};v.onerror=()=>{if(!started)end();};v.onplaying=()=>{started=true;};
+  const stall=setTimeout(()=>{if(!started&&!fin)end();},8000); /* 8초 안에 재생이 안 시작되면 그냥 넘어감 */
+  try{v.volume=Math.max(0,Math.min(1,(typeof VOL!=='undefined'?VOL.bgm:.6)*1.5));}catch(e){}v.muted=false;
+  v.src=url||((CUT_FILES[n]||n+'.mp4')+(typeof DATA_Q!=='undefined'?DATA_Q:''));
+  const p=v.play();if(p&&p.catch)p.catch(()=>{v.muted=true;v.play().catch(()=>end());});
+  tick();}
+/* 탈출 엔딩 A(일반 탈출) — 영상 위에 글자를 한 줄씩. 쪽지 10장이면 영상 뒤 검은 화면에 숨은 줄 */
+function endCutA(done,egg){const nm=((typeof cleanName==='function'?cleanName(META.name):META.name)||'').trim()||'김수민';
+  const L=(egg?END_C_LINES:END_A_LINES).map(([s,e,t])=>[s,e,t.replace('○○',nm).replace('{DAY}',G.day+'일째 '+fmtClock(G.min))]);
+  const all=(G.notesRead||[]).length>=Object.keys(NOTES).length;
+  hideBossUI();if(typeof titleCardOff==='function')titleCardOff();$('hud').hidden=true;
+  cutPlay(egg?'end_c':'end_a',{lines:L,tail:all?END_A_TAIL:null,noResume:true,keepMute:true,dark:egg?END_C_DARK:null,note:egg?END_C_NOTE:null,noSkip:true},done);} /* 181차: 비상벨 탈출은 end_c(같은 방식) */
+/* 영상 여러 개를 끊김 없이(사이 검은 화면 0.3초) — 앞 영상은 패널·일시정지를 그대로 두고 다음으로 */
+function cutSeq(list,done){const L=list.filter(it=>CUTB[it[0]]!==null);if(!L.length){if(done)done();return;}let i=0;const next=()=>{const it=L[i++],last=i>=L.length;cutPlay(it[0],Object.assign({},it[1]||{},last?{}:{keepPanel:true,noResume:true,keepMute:true}),last?done:()=>setTimeout(next,300));};next();}
 function jumpFloor(n){if(!DEV)return;if(G.state!=='play'||n<LAST_FLOOR||n>10)return;if(G.run)G.run.full=false;if(!modelsReady(n)){waitModels(n,()=>jumpFloor(n));return;}G.floor=n;P.hasSling=true;if(n<=5)P.shoes=true;P.tier=Math.max(P.tier,floorKit(n).tier);P.hp=Math.max(P.hp,100);REST_SAVE=null;FLOOR_SAVE=snapshot();saveGame();enterFloor(true);warmFloor();fadeIn(.8);toast(n+'층으로 이동 (개발용)',true);}
-function descend(){if(!modelsReady(G.floor-1)){waitModels(G.floor-1,descend);return;}G.floor--;if(G.floor<(META.reach||10)){META.reach=G.floor;metaSave();}REST_SAVE=null;FLOOR_SAVE=snapshot();saveGame();enterFloor(true);warmFloor();fadeIn(.8);toast(G.floor+'층 · 여기까지 저장됨',true);say('',G.floor+'층 비상계단. 구조는 같지만, 같은 층이 아니다.');floorCard();
+function descend(noCut){if(noCut!==true){const run=G.run||(G.run={d:OPT.diff,full:false}),tf=G.floor-1,hatch=noCut==='hatch';run.bd=run.bd||{};let seq=null;if(BOSS_DESC[tf]&&!run.bd[tf]){run.bd[tf]=1;seq=(hatch?[]:[['stair',{floorTxt:tf+'F'}]]).concat(BOSS_DESC[tf].map(n=>[n]));if(!hatch)run.sc=1;}else if(!hatch&&STAIR_CUT!=='off'&&(STAIR_CUT==='always'||!run.sc)){run.sc=1;seq=[['stair',{floorTxt:tf+'F'}]];}if(seq){cutSeq(seq,()=>descend(true));return;}} /* 178차: 계단 하강 영상 · 보스 층은 계단+보스 영상(배관 통로는 계단 영상 대신 통로 영상) */if(!modelsReady(G.floor-1)){waitModels(G.floor-1,()=>descend(true));return;}G.floor--;if(G.floor<(META.reach||10)){META.reach=G.floor;metaSave();}REST_SAVE=null;FLOOR_SAVE=snapshot();saveGame();enterFloor(true);warmFloor();fadeIn(.8);toast(G.floor+'층 · 여기까지 저장됨',true);say('',G.floor===1?'1층 비상계단. 천장 통로로 겨우 내려왔다.':G.floor+'층 비상계단. 구조는 같지만, 같은 층이 아니다.');floorCard();
   const ARR={4:'raidBase',3:'darkFloor',2:'hordeFloor',1:'lobby'};if(ARR[G.floor])setTimeout(()=>mono(ARR[G.floor],{prio:true}),2500);
   if(FLOORS[G.floor]&&FLOORS[G.floor].bench)setTimeout(()=>mono('benchHint',{prio:true}),2500);if(FLOORS[G.floor]&&FLOORS[G.floor].boss)setTimeout(()=>mono('bossHint',{prio:true}),2500);}
 // 층 만들기 + 시작 위치(10층: 내 집 / 그 아래: 비상계단 문 안쪽)
-function enterFloor(fromStairs){G.hbDown=false;G.frenzy=false;G.fightT=0;G.calmT=0;G.postShots=0;projs.forEach(p=>world&&world.remove(p.mesh));buildFloor();
-  if(fromStairs||G.floor<10){P.x=14.4;P.z=18.7;P.yaw=Math.PI;}else{const[sx,sz]=uMap(UNITS[1],1.6,4.6);P.x=sx;P.z=sz;P.yaw=.93;P.pitch=-.42;}
+function enterFloor(fromStairs){try{if(G.floor<=2){cutPrefetch('end_a');cutPrefetch('end_c');}(BOSS_DESC[G.floor-1]||[]).forEach(cutPrefetch);}catch(e){} /* 178차: 엔딩·보스 영상은 그 층 가까이 와서 미리 받음 */G.hbDown=false;G.frenzy=false;G.fightT=0;G.calmT=0;G.postShots=0;projs.forEach(p=>world&&world.remove(p.mesh));buildFloor();
+  if(G.floor===1){P.x=(HATCH1[0]+HATCH1[2])/2;P.z=(HATCH1[1]+HATCH1[3])/2+.05;P.yaw=Math.PI;} /* 181차: 1층은 천장 비상 통로 바로 아래에서 시작 */else if(fromStairs||G.floor<10){P.x=14.4;P.z=18.7;P.yaw=Math.PI;}else{const[sx,sz]=uMap(UNITS[1],1.6,4.6);P.x=sx;P.z=sz;P.yaw=.93;P.pitch=-.42;}
   if(fromStairs||G.floor<10)P.pitch=0;P.drawing=false;P.reloadT=0;G.holdCrow=null;G.ev={};tagFloor();lodNow();}
 // 새 게임 인트로 시작 전에 10층을 한 번 지어 셰이더·텍스처를 미리 올려 둠(안 하면 시작 첫 프레임에 수 초 멈칫)
-function prewarm(){try{restore(FLOOR_SAVE);enterFloor(false);renderer.compile(scene,camera);const st=G.state;G.state='play';const y0=P.yaw;for(let i=0;i<4;i++){P.yaw=y0+i*Math.PI/2;render();}P.yaw=y0;G.state=st;}catch(e){console.warn('prewarm',e);}}
+function prewarm(){try{restore(FLOOR_SAVE);enterFloor(false);renderer.compile(scene,camera);const st=G.state;G.state='play';const y0=P.yaw;for(let i=0;i<4;i++){P.yaw=y0+i*Math.PI/2;render();}P.yaw=y0;warmFx();G.state=st;}catch(e){console.warn('prewarm',e);}}
 
 
 /* 11/12 엔딩 갤러리: 본 엔딩 그림을 칭호 창에서 다시 보기(안 본 건 ???) */
@@ -4815,7 +5041,7 @@ function makeRest(){const r2=v=>Math.round(v*100)/100;
     inter:INTER.filter(t=>t._i!=null).map(t=>t._i),picks:pickups.filter(p=>p._pi!=null).map(p=>[p._pi,p.n]),dyn:pickups.filter(p=>p._pi==null).map(p=>[p.k,p.n,r2(p.x),r2(p.z),p.uses])}));}
 function applyRest(R){try{restore(R.s);P.x=R.x;P.z=R.z;P.yaw=R.yaw;P.pitch=0;G.hasKey=R.hasKey;if(R.visited)G.visited=new Set(Array.isArray(R.visited)?R.visited:[]);G.survIdx=R.survIdx||{};
   if(R.cont&&R.cont.length===CONTAINERS.length)CONTAINERS.forEach((c,i)=>{const[sr,l]=R.cont[i];c.loot=l||[];if(sr&&!c.searched){c.searched=true;if(typeof markSearched==='function')markSearched(c);}});
-  if(R.doors&&R.doors.length===DOORS.length)DOORS.forEach((d,i)=>{const[o,b,t]=R.doors[i];d.open=!!o;d.broken=!!b;if(t)d.type=t;d.ang=d.open?1:0;});
+  if(R.doors&&R.doors.length===DOORS.length)DOORS.forEach((d,i)=>{const[o,b,t]=R.doors[i];d.open=!!o||!!d.gone||!!d.crumpled;d.broken=!!b||!!d.crumpled;if(t)d.type=t;d.ang=d.open?1:0;});
   if(R.crN===G.crN0&&R.cr){const rm=[];const keyGone=!!R.hasKey||(R.dyn||[]).some(a=>a[0]==='stairKey');creatures.slice(0,G.crN0).forEach((c,i)=>{const v=R.cr[R.ci?c._ci:i];const boss=c.gor||c.boss||c.big||c.hidden;if(!v&&boss&&!R.ci&&!keyGone){} /* v1.0.27: 예전 휴식 저장은 순서가 어긋나 살아 있는 보스가 '죽음'으로 찍혀 있을 수 있음 → 열쇠를 얻기 전이면 보스는 남김 */else if(!v)rm.push(c);else if(v[0]==='p'&&c.crawl){c.x=v[1];c.z=v[2];c.dead=true;c.landed=true;c.fallY=0;c.deadT=1;c.deadAge=0;c.reviveT=Math.max(1,v[3]);c.twT=0;c.state='idle';} /* 11/20: 되살아날 거꾸리는 남은 시간 그대로 */else{if(c.crawl&&v[3]){crawlStalk(c);}if(!(c.gor||c.boss||c.big||c.hidden)){c.x=v[0];c.z=v[1];c.hp=Math.min(c.maxHp||v[2],v[2]);} /* v1.0.26: 보스는 잠든 시점 위치·체력 복원 안 함 → 원래 방에서 풀피로 다시(복도에 잠든 채로 남아 '보스 안 나옴' 버그) */c.state=c.state==='chase'?'idle':c.state;if(c.home){}}});
     rm.forEach(c=>{try{stopVoice(c,.02);}catch(e){}if(c.root)world.remove(c.root);creatures.splice(creatures.indexOf(c),1);});}
   const keepI=new Set(R.inter||[]);for(let i=INTER.length-1;i>=0;i--){const t=INTER[i];if(t._i!=null&&!keepI.has(t._i)&&t.kind!=='pick'){if(t.mesh)world.remove(t.mesh);INTER.splice(i,1);}}
@@ -4936,13 +5162,13 @@ function lobbyAct(act){
   else if(act==='rank'){if(typeof openRank==='function')openRank();}
 }
 function setupLobby(){
-  const wake=()=>{initAudio();if(AC&&AC.state==='suspended')AC.resume();if(AC&&G.state==='title'&&$('introP').hidden&&$('introV').hidden)lobbyMusic(true);const h=$('soundHint');if(h&&AC)h.hidden=true;};
+  const wake=()=>{initAudio();if(AC&&AC.state==='suspended')AC.resume();if(AC&&G.state==='title'&&$('introP').hidden&&$('introV').hidden&&$('cutV').hidden)lobbyMusic(true);const h=$('soundHint');if(h&&AC)h.hidden=true;};
   $('titleP').addEventListener('pointerdown',wake);$('titleP').addEventListener('touchend',wake);addEventListener('keydown',()=>{if(G.state==='title')wake();});
   const L=LOBBY_SRC;if(L.bg){$('lbg').src=L.bg;$('faceA').src=L.face;$('faceB').src=L.blink;}
   fitStage();G.lsel=0;
   lobbyItems().forEach((b,i)=>{b.addEventListener('mouseenter',()=>{if(G.lsel!==i){lobbySel(i);if(AC){if(sfx.uiSel)sfx.uiSel();else tone(600,500,.03,.04,'square');}}});b.addEventListener('click',()=>{lobbySel(i);lobbyAct(b.dataset.act);});});
   document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>{b.closest('.lmodal').hidden=true;}));
-  addEventListener('keydown',e=>{if(G.state!=='title'||!$('introP').hidden||!$('introV').hidden)return;
+  addEventListener('keydown',e=>{if(G.state!=='title'||!$('introP').hidden||!$('introV').hidden||!$('cutV').hidden)return;
     if(lobbyModalOpen()){if(e.code==='Escape'||e.code==='Enter'){document.querySelectorAll('.lmodal').forEach(m=>m.hidden=true);}return;}
     if(e.code==='ArrowDown'||e.code==='KeyS'||e.code==='ArrowRight'||e.code==='KeyD'){e.preventDefault();initAudio();lobbySel(G.lsel+1);if(AC){if(sfx.uiSel)sfx.uiSel();else tone(600,500,.03,.04,'square');}}
     else if(e.code==='ArrowUp'||e.code==='KeyW'||e.code==='ArrowLeft'||e.code==='KeyA'){e.preventDefault();initAudio();lobbySel(G.lsel-1);if(AC){if(sfx.uiSel)sfx.uiSel();else tone(600,500,.03,.04,'square');}}
@@ -4964,7 +5190,7 @@ function lobbyWalkers(){const cv=$('lwalk');if(!cv)return;const x=cv.getContext(
   let cur=null,wait=3,last=performance.now(),lastK='sh';
   const loop=now=>{requestAnimationFrame(loop);const dt=Math.min(.1,(now-last)/1000);last=now;if(G.state!=='title'||$('titleP').hidden)return;
     x.clearRect(0,0,418,235);
-    if(!cur){wait-=dt;if(wait<=0){const k=Math.random()<(lastK==='ls'?.4:.65)?'ls':'sh';lastK=k;const K=KIND[k],dir=Math.random()<.5?1:-1,T=K.cross[0]+Math.random()*(K.cross[1]-K.cross[0]);cur={k,dir,t:0,x:dir>0?CX0-14:CX1+14,spd:(CX1-CX0+28)/T};try{if(typeof fx==='function'&&lobbyModalOpen&&!lobbyModalOpen()&&$('introP').hidden&&$('introV').hidden&&$('credP').hidden)fx('lobby_breath',{gain:.7,jit:.03});}catch(e){}}return;} /* 11/12 사용자: 형체가 지나가는 순간에만 숨소리(GhostBreath 3개 번갈아) */
+    if(!cur){wait-=dt;if(wait<=0){const k=Math.random()<(lastK==='ls'?.4:.65)?'ls':'sh';lastK=k;const K=KIND[k],dir=Math.random()<.5?1:-1,T=K.cross[0]+Math.random()*(K.cross[1]-K.cross[0]);cur={k,dir,t:0,x:dir>0?CX0-14:CX1+14,spd:(CX1-CX0+28)/T};try{if(typeof fx==='function'&&lobbyModalOpen&&!lobbyModalOpen()&&$('introP').hidden&&$('introV').hidden&&$('cutV').hidden&&$('credP').hidden)fx('lobby_breath',{gain:.7,jit:.03});}catch(e){}}return;} /* 11/12 사용자: 형체가 지나가는 순간에만 숨소리(GhostBreath 3개 번갈아) */
     cur.t+=dt;cur.x+=cur.dir*cur.spd*dt;
     if(cur.dir>0?cur.x>CX1+16:cur.x<CX0-16){cur=null;wait=5+Math.random()*4;return;}
     const fr=SPR[cur.k],K=KIND[cur.k];if(!fr.length)return;const im=fr[Math.floor(cur.t*K.fps)%fr.length];if(!im||!im.complete||!im.naturalHeight)return;
@@ -4972,8 +5198,8 @@ function lobbyWalkers(){const cv=$('lwalk');if(!cv)return;const x=cv.getContext(
     x.save();x.beginPath();x.rect(CX0,CY0,CX1-CX0,FY-CY0+1);x.clip();x.translate(cur.x,FY);if(cur.dir>0)x.scale(-1,1); /* 그림은 왼쪽을 봄 */
     x.globalAlpha=.96;x.drawImage(im,-w/2,-h,w,h);x.restore();};
   if(TEST)window.__lw={force(px,dir,k){cur={k:k||'ls',dir:dir||1,t:.3,x:px,spd:0};}};requestAnimationFrame(loop);}
-function hideBossUI(){if(typeof drawRingTick==='function')drawRingTick(-1,1);['bossBar','evac','prog'].forEach(id=>{const el=$(id);if(el)el.hidden=true;});document.body.classList.remove('bossOn');}
-function toLobby(){if(typeof titleCardOff==='function')titleCardOff();G.state='title';$('endP').hidden=true;hideBossUI();stopEndMusic();setTimeout(()=>{if(G.state==='title')lobbyMusic(true);},600);$('hud').hidden=true;$('titleP').hidden=false;updateLogo();}
+function hideBossUI(){if(typeof drawRingTick==='function')drawRingTick(-1,1);['bossBar','prog'].forEach(id=>{const el=$(id);if(el)el.hidden=true;});document.body.classList.remove('bossOn');}
+function toLobby(){if(typeof eggBellOff==='function')eggBellOff();G.endDefer=false;if(typeof titleCardOff==='function')titleCardOff();G.state='title';$('endP').hidden=true;hideBossUI();stopEndMusic();setTimeout(()=>{if(G.state==='title')lobbyMusic(true);},600);$('hud').hidden=true;$('titleP').hidden=false;updateLogo();}
 $('endLobby').onclick=toLobby;
 
 /* ================= 부팅 ================= */
@@ -4981,8 +5207,9 @@ const _initAudio=initAudio;initAudio=function(){_initAudio();loadVoices();};
 // 11/6 로딩: 모델을 전부 받은 뒤 로비로(오래 걸려도 됨) · 바이트 진행률 + 번갈아 뜨는 팁. 실패하면 3번까지 다시 받음
 const MLIST=[['s2','비척이'],['ls','듣는 놈'],['bh','8층 보스'],['rb','빠따 약탈자'],['rt','병 던지는 놈'],['cw','천장 기어다니는 놈'],['ga','4층 고릴라'],['hb','1층 보스']];
 const ML={};let MLW=null;const MLB={got:0,tot:0,name:''};
-const TIPS_BOOT=['쇠구슬은 쏘고 나서 다시 주울 수 있다. 바닥에 떨어진 구슬을 챙겨라.','정면승부도 좋지만, 소리로 유인해라. 방법은… 말 안 해도 알겠지?','약탈자에겐 선제공격이 좋을 수도 있다. 놈들도 마찬가지로 물자를 탐한다.','옷장을 잘 활용하세요. 목숨을 보전할 수 있습니다. 물론… 운이 안 좋을 수도 있습니다.','걷거나 싸우는 동안엔 시간이 흐르지 않는다. 뒤지기·제작·잠·계단에서 시간이 흐른다.','웅크리면(C) 발소리가 작아진다. 듣는 놈 옆은 웅크려서 지나가자.','새총 구슬이 벽이나 문에 맞으면 소리가 난다. 그 소리로 놈들을 다른 곳으로 꾀어낼 수 있다.','쫓기면 집 안으로 들어가 문을 닫고 조용히 버텨 보자. 안에서 소리를 내면 문을 부순다.','옷장 앞에서 R로 숨는다. 숨는 걸 들키면 찾아낼 확률이 크게 오른다.','현관문 안쪽에서 문을 보고 R을 누르면 문구멍으로 복도를 내다볼 수 있다.','비상계단은 잠겨 있다. 잠긴 계단 문의 관리 메모가 열쇠가 있는 집을 알려 준다.','생존자 집 문 앞에서 계속 말을 걸면 열쇠 위치나 필요한 물건을 얻을 수 있다.','바닥의 붉은 부채꼴은 놈의 시야다. 헤드랜턴(F)을 끄면 들키는 거리가 확 줄어든다.','쇠구슬은 주워서 다시 쓸 수 있지만 잡철은 부서진다. 가방에서 잡철 5발을 쇠구슬 1발로 바꿀 수 있다.','머리를 맞히면 몸통보다 두 배 아프다.','가방(Tab)의 층 지도에서 다 뒤진 집과 아직 안 간 집을 볼 수 있다.','열흘이 지나면 바깥 공기에 감염된다. 창밖이 붉어질수록 시간이 없다.','냉장고엔 먹을 것이, 욕실장엔 붕대가 잘 나온다. 붕대는 H로 감는다.','섬광탄(G)은 근처 놈들을 잠깐 멈추지만, 큰 소리에 먼 놈들이 몰려온다.','빛나는 상자는 아직 안 뒤진 상자다. 다 뒤지면 빛이 꺼진다.','층마다 계단을 내려가는 순간 저장된다. 죽으면 그 층 처음부터 다시 한다.'];
-function bootTips(on){clearInterval(bootTips.t);const el=$('bootTip');if(!el)return;if(!on){el.textContent='';return;}const L=TIPS_BOOT.map(t=>TOUCH?t.replace(/\s?\([A-Z]\)|\(Tab\)/g,''):t);let i=Math.floor(Math.random()*L.length);el.textContent=L[i];
+const TIPS_BOOT=['쇠구슬은 주워서 다시 쓸 수 있지만 두 번 쏘면 찌그러진다. 잡철 5발은 가방에서 쇠구슬 1발로 바꿀 수 있다.','정면승부도 좋지만, 소리로 유인해라. 방법은… 말 안 해도 알겠지?','약탈자에겐 선제공격이 좋을 수도 있다. 놈들도 마찬가지로 물자를 탐한다.','옷장을 잘 활용하세요. 목숨을 보전할 수 있습니다. 물론… 운이 안 좋을 수도 있습니다.','걷거나 싸우는 동안엔 시간이 흐르지 않는다. 뒤지기·제작·잠·계단에서 시간이 흐른다.','웅크리면(C) 발소리가 작아진다. 단, 듣는 놈 코앞은 웅크려도 들킨다.','새총 구슬이 벽이나 문에 맞으면 소리가 난다. 그 소리로 놈들을 다른 곳으로 꾀어낼 수 있다.','문을 닫으면 잠깐 시간을 번다. 하지만 놈들은 결국 문을 부순다.','옷장 앞에서 R로 숨는다. 숨는 걸 들키면 찾아낼 확률이 크게 오른다.','현관문 안쪽에서 문을 보고 R을 누르면 문구멍으로 복도를 내다볼 수 있다.','비상계단은 잠겨 있다. 잠긴 계단 문의 관리 메모가 열쇠가 있는 집을 알려 준다.','생존자 집 문 앞에서 계속 말을 걸면 열쇠 위치나 필요한 물건을 얻을 수 있다.','바닥의 붉은 부채꼴은 놈의 시야다. 헤드랜턴(F)을 끄면 들키는 거리가 확 줄어든다.','머리를 맞히면 몸통보다 두 배 아프다.','가방(Tab)의 층 지도에서 다 뒤진 집과 아직 안 간 집을 볼 수 있다.','열흘이 지나면 바깥 공기에 감염된다. 창밖이 붉어질수록 시간이 없다.','냉장고엔 먹을 것이, 욕실장엔 붕대가 잘 나온다. 붕대는 H로 감는다.','섬광탄(G)은 근처 놈들을 잠깐 멈추지만, 큰 소리에 먼 놈들이 몰려온다.','빛나는 상자는 아직 안 뒤진 상자다. 다 뒤지면 빛이 꺼진다.','층에 들어서는 순간과 침대에서 잠들 때 저장된다. 죽으면 마지막 저장부터 다시 한다.','뛰거나 쏘며 소란을 피우면 집 안에 있던 놈들이 문을 열고 나온다.','복도를 빙빙 돌며 도망치면 놈이 반대편으로 돌아와 앞을 막는다.'];
+function tipTouch(t){return t.replace('웅크리면(C)','웅크리기 버튼을 누르면').replace('옷장 앞에서 R로 숨는다','옷장 앞에서 숨기 버튼으로 숨는다').replace('문을 보고 R을 누르면','문을 보고 숨기 버튼을 누르면').replace('헤드랜턴(F)을','랜턴 버튼으로 헤드랜턴을').replace('가방(Tab)의','가방 버튼의').replace('붕대는 H로 감는다','붕대는 붕대 버튼으로 감는다').replace('섬광탄(G)은','섬광탄(섬광 버튼)은').replace(/\s?\([A-Z]\)|\(Tab\)/g,'');}
+function bootTips(on){clearInterval(bootTips.t);const el=$('bootTip');if(!el)return;if(!on){el.textContent='';return;}const L=TIPS_BOOT.map(t=>TOUCH?tipTouch(t):t);let i=Math.floor(Math.random()*L.length);el.textContent=L[i];
   bootTips.t=setInterval(()=>{el.classList.add('fade');setTimeout(()=>{i=(i+1)%L.length;el.textContent=L[i];el.classList.remove('fade');},500);},5500);}
 function mb(n){return (n/1048576).toFixed(1);}
 function bootShow(txt,frac){const b=$('bootBar');if(b&&frac!=null)b.style.width=(Math.max(0,Math.min(1,frac))*100).toFixed(1)+'%';const tx=$('bootTxt');if(tx)tx.textContent=txt;}
@@ -5041,7 +5268,7 @@ async function boot(){try{if(location.protocol.startsWith('http')){const cur=((d
   initHands();installFx();warmFonts();try{setupTouch();}catch(e){console.warn(e);}
   if((!TOUCH||!DEV)&&$('devRow'))$('devRow').style.display='none';{const q=$('quitBtn');let arm=0,tm=0;q.onclick=e=>{e.stopPropagation();if(!arm){arm=1;q.textContent='한 번 더 누르면 로비로 (이 층 진행은 사라짐)';clearTimeout(tm);tm=setTimeout(()=>{arm=0;q.textContent='로비로 나가기';},3500);return;}arm=0;clearTimeout(tm);q.textContent='로비로 나가기';quitToLobby();};} /* 11/6 PC는 키 치트(ZZ 무적·ANG+숫자 층 이동)만, 폰은 버튼 유지 */
   document.querySelectorAll('[data-dev]').forEach(b=>b.addEventListener('click',()=>{const v=b.dataset.dev; /* 테스트용 임시: 무적·층 이동(폰에서도) */
-    if(v==='god'){P.god=!P.god;if(P.god)rankTaint();if(P.god)P.hp=100;toast(P.god?'무적 켬 (테스트용)':'무적 끔',true);}else jumpFloor(+v);}));buildTextures();FLOOR_SAVE=initialSave();restore(FLOOR_SAVE);resize();addEventListener('resize',resize);requestAnimationFrame(loop);updateLogo();applyOpt();G.booted=true;setTimeout(()=>{try{introPrefetch(DATA_Q);}catch(e){}},1500); /* 11/11 로딩 끝나기 전 Enter로 시작하면 텍스처가 없어 buildFloor 크래시 → 로딩 끝까지 로비 입력 막음 */
+    if(v==='god'){P.god=!P.god;if(P.god)rankTaint();if(P.god)P.hp=100;toast(P.god?'무적 켬 (테스트용)':'무적 끔',true);}else jumpFloor(+v);}));buildTextures();FLOOR_SAVE=initialSave();restore(FLOOR_SAVE);resize();addEventListener('resize',resize);requestAnimationFrame(loop);updateLogo();applyOpt();G.booted=true;setTimeout(()=>{try{introPrefetch(DATA_Q);}catch(e){}},1500);setTimeout(()=>{try{if(STAIR_CUT!=='off')cutPrefetch('stair');}catch(e){}},4000); /* 11/11 로딩 끝나기 전 Enter로 시작하면 텍스처가 없어 buildFloor 크래시 → 로딩 끝까지 로비 입력 막음 */
   const bp=$('bootP');if(bp){bp.classList.add('done');setTimeout(()=>bp.hidden=true,700);}
 }
 if(typeof THREE==='undefined'){const t=document.getElementById('bootTxt');if(t)t.textContent='3D 엔진(three.js)을 못 불러왔어요 · 새로고침해 주세요';}
