@@ -561,7 +561,7 @@ body.cineOn #drawRing{display:none}
     <div class="lui" id="lui">
     <div class="ltag"><h3>열흘 안에, 1층으로.</h3><p>문밖에서 들리는 발소리. 더는 이웃이 아니다.<br>남은 시간은 열흘. 이 건물에서 나가야 한다.</p></div>
     <div class="lhint">ENTER 시작 · ↑↓ 선택</div>
-    <div class="lver"><span id="lplay"></span> · v1.0.45 · 2026.11.27</div>
+    <div class="lver"><span id="lplay"></span> · v1.0.46 · 2026.11.27</div>
     <div class="llogo"><div class="lnum"><span id="logoF">10F</span><span class="sl">/</span><span class="dy" id="logoD">10DAY</span></div><div class="proj">project.<b>Jitz</b></div></div>
     <nav class="lmenu" id="lmenu" aria-label="메인 메뉴">
       <div class="lmain">
@@ -3768,11 +3768,25 @@ function placeTips(){G.tipsRead=G.tipsRead||[];if(G.floor===1){placeWallTip1();p
   const U2=UNITS.find(u=>u.num===1002),U3=UNITS.find(u=>u.num===1003);
   const HC=CONTAINERS.find(c=>c.hide&&c.U===U2),UR2=U2?uRect(U2,0,0,U2.W,U2.D):[0,0,0,0],cx2=(UR2[0]+UR2[2])/2,cz2=(UR2[1]+UR2[3])/2,hcL=HC?Math.hypot(cx2-HC.x,cz2-HC.z)||1:1; /* 11/24: 옷장 메모는 1002호 내 옷장 앞(예전 1003호는 빠루 문이라 처음엔 못 들어감) */
   const DR2=U2&&DOORS.find(d=>d.dk==='unit'&&d.unit===U2);if(DR2)placeDoorTip(DR2,0); /* 11/24 사용자: 문구멍 메모는 1002호 현관문 안쪽에 붙임 */
-  const spots=[!DR2&&U2&&uMap(U2,U2.W/2,1.4),HC?[HC.x+(cx2-HC.x)/hcL*.85,HC.z+(cz2-HC.z)/hcL*.85]:U3&&uMap(U3,U3.W/2,4.2),TIP_C,[13.5,20.6],[20.5,8.7],[12.4,12.2]],TI=[0,1,2,3,7,8];
+  const HH=HC&&HC.hide;if(HH)placeClosetTip(HH,1); /* 11/27 사용자: 옷장 메모는 옷장 문짝에, 계단·복도 벽 메모는 실제 벽에 */
+  if(!wallTip([13.5,20.6],3,[0,-1]))noteFloor([13.5,20.6],3);if(!wallTip([20.5,8.7],7))noteFloor([20.5,8.7],7);
+  const spots=[!DR2&&U2&&uMap(U2,U2.W/2,1.4),!HH&&(U3&&uMap(U3,U3.W/2,4.2)),TIP_C,null,null,[12.4,12.2]],TI=[0,1,2,3,7,8];
   spots.forEach((p,j)=>{if(!p)return;const i=TI[j];let[x,z]=p;if(blockedCircle(x,z,.2)){for(let k=0;k<30;k++){const a=k*2.4,r=.3+k*.06,nx=x+Math.cos(a)*r,nz=z+Math.sin(a)*r;if(!blockedCircle(nx,nz,.2)){x=nx;z=nz;break;}}}
     const m=noteMesh(x,.02,z,j*.7,true);INTER.push({kind:'tip',tip:i,x,z,r:1.4,hy:.12,mesh:m});});
   {const U2=UNITS.find(u=>u.num===1002);if(U2){let[x,z]=uMap(U2,U2.W/2+.55,2.4);if(blockedCircle(x,z,.2)){for(let k=0;k<30;k++){const a=k*2.4,r=.3+k*.06,nx=x+Math.cos(a)*r,nz=z+Math.sin(a)*r;if(!blockedCircle(nx,nz,.2)&&unitAt(nx,nz)===U2){x=nx;z=nz;break;}}}
     const m=noteMesh(x,.02,z,.4,true);INTER.push({kind:'tip',tip:9,x,z,r:1.4,hy:.12,mesh:m});}}} /* 172차: 10층 '싸우지 마' — 1002호 안, 새총 책상에서 현관 가는 길 바닥 */
+/* 11/27: 옷장 문짝 앞면(구멍 3개 아래)에 끼운 메모 · 가까운 벽(문 아님)에 압정으로 붙인 메모 */
+function noteFloor(p,i){let[x,z]=p;if(blockedCircle(x,z,.2)){for(let k=0;k<30;k++){const a=k*2.4,r=.3+k*.06,nx=x+Math.cos(a)*r,nz=z+Math.sin(a)*r;if(!blockedCircle(nx,nz,.2)){x=nx;z=nz;break;}}}const m=noteMesh(x,.02,z,i*.7,true);INTER.push({kind:'tip',tip:i,x,z,r:1.4,hy:.12,mesh:m});}
+function placeClosetTip(h,i){const tx=-h.nz,tz=h.nx,x=h.face[0]+h.nx*.018+tx*.03,z=h.face[1]+h.nz*.018+tz*.03,m=noteMesh(x,1.12,z,Math.atan2(h.nx,h.nz),false);m.rotateZ(.06);
+  INTER.push({kind:'tip',tip:i,x:h.face[0]+h.nx*.45,z:h.face[1]+h.nz*.45,r:1.4,hy:1.12,mesh:m});}
+function wallTip(p,i,pref){const[px,pz]=p;let best=null;
+  for(const[dx,dz]of[[1,0],[-1,0],[0,1],[0,-1]]){let s=0;while(s<1.8&&!wallAt(px+dx*s,pz+dz*s))s+=.01;if(s>=1.8)continue;
+    const g=gi(px+dx*(s+.02),pz+dz*(s+.02));if(g<0||grid[g]!==1)continue; /* 문(2)이면 건너뜀 */
+    const nx=-dx,nz=-dz,tx=-nz,tz=nx;let ok=true;for(const o of[-.3,-.15,0,.15,.3]){const qx=px+dx*s+tx*o,qz=pz+dz*s+tz*o,g2=gi(qx+dx*.03,qz+dz*.03);if(g2<0||grid[g2]!==1||wallAt(qx-dx*.05,qz-dz*.05))ok=false;}
+    if(!ok)continue;const sc=s-(pref&&pref[0]===dx&&pref[1]===dz?.6:0);if(!best||sc<best.sc)best={sc,x:px+dx*(s-.012),z:pz+dz*(s-.012),nx,nz};}
+  if(!best)return false;const m=noteMesh(best.x,1.45,best.z,Math.atan2(best.nx,best.nz),false);
+  const pin=new THREE.Mesh(new THREE.SphereGeometry(.012,6,4),phong(null,{color:0xb02020,shininess:60}));pin.position.set(best.x+best.nx*.008,1.57,best.z+best.nz*.008);pin.userData.keep=true;world.add(pin);
+  INTER.push({kind:'tip',tip:i,x:best.x+best.nx*.45,z:best.z+best.nz*.45,r:1.4,hy:1.45,mesh:m});return true;}
 /* 11/24: 현관문 안쪽 면(문짝 로컬 -z)에 붙인 메모 — 문짝 자식이라 문과 같이 움직임. 읽은 뒤엔 E가 문 열기로 가게 대상에서 뺌(currentTarget) */
 function placeDoorTip(d,i){const m=noteMesh(0,-50,0,0,true);world.remove(m);m.rotation.set(0,Math.PI,0);m.position.set(0,1.26-1.025,-.029);d.leaf.add(m);
   const t=new THREE.Mesh(new THREE.PlaneGeometry(.07,.02),new THREE.MeshBasicMaterial({color:0x9a9488}));t.material.userData.perFloor=true;t.position.set(0,1.395-1.025,-.031);t.rotation.y=Math.PI;d.leaf.add(t);
