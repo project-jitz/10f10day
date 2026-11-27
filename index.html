@@ -561,7 +561,7 @@ body.cineOn #drawRing{display:none}
     <div class="lui" id="lui">
     <div class="ltag"><h3>열흘 안에, 1층으로.</h3><p>문밖에서 들리는 발소리. 더는 이웃이 아니다.<br>남은 시간은 열흘. 이 건물에서 나가야 한다.</p></div>
     <div class="lhint">ENTER 시작 · ↑↓ 선택</div>
-    <div class="lver"><span id="lplay"></span> · v1.0.46 · 2026.11.27</div>
+    <div class="lver"><span id="lplay"></span> · v1.0.47 · 2026.11.27</div>
     <div class="llogo"><div class="lnum"><span id="logoF">10F</span><span class="sl">/</span><span class="dy" id="logoD">10DAY</span></div><div class="proj">project.<b>Jitz</b></div></div>
     <nav class="lmenu" id="lmenu" aria-label="메인 메뉴">
       <div class="lmain">
@@ -4925,7 +4925,7 @@ function cutPlay(n,o,done){o=o||{};const P0=$('cutV'),v=$('cutVid'),box=$('cutBo
   const stall=setTimeout(()=>{if(!started&&!fin)end();},8000); /* 8초 안에 재생이 안 시작되면 그냥 넘어감 */
   try{v.volume=Math.max(0,Math.min(1,(typeof VOL!=='undefined'?VOL.bgm:.6)*1.5));}catch(e){}v.muted=false;
   v.src=url||((CUT_FILES[n]||n+'.mp4')+(typeof DATA_Q!=='undefined'?DATA_Q:''));
-  const p=v.play();if(p&&p.catch)p.catch(()=>{v.muted=true;v.play().catch(()=>end());});
+  v.defaultPlaybackRate=v.playbackRate=o.rate||1;const p=v.play();if(p&&p.catch)p.catch(()=>{v.muted=true;v.play().catch(()=>end());});
   tick();}
 /* 탈출 엔딩 A(일반 탈출) — 영상 위에 글자를 한 줄씩. 쪽지 10장이면 영상 뒤 검은 화면에 숨은 줄 */
 function endCutA(done,egg){const nm=((typeof cleanName==='function'?cleanName(META.name):META.name)||'').trim()||'김수민';
@@ -4936,7 +4936,7 @@ function endCutA(done,egg){const nm=((typeof cleanName==='function'?cleanName(ME
 /* 영상 여러 개를 끊김 없이(사이 검은 화면 0.3초) — 앞 영상은 패널·일시정지를 그대로 두고 다음으로 */
 function cutSeq(list,done){const L=list.filter(it=>CUTB[it[0]]!==null);if(!L.length){if(done)done();return;}let i=0;const next=()=>{const it=L[i++],last=i>=L.length;cutPlay(it[0],Object.assign({},it[1]||{},last?{}:{keepPanel:true,noResume:true,keepMute:true}),last?done:()=>setTimeout(next,300));};next();}
 function jumpFloor(n){if(!DEV)return;if(G.state!=='play'||n<LAST_FLOOR||n>10)return;if(G.run)G.run.full=false;if(!modelsReady(n)){waitModels(n,()=>jumpFloor(n));return;}G.floor=n;P.hasSling=true;if(n<=5)P.shoes=true;P.tier=Math.max(P.tier,floorKit(n).tier);P.hp=Math.max(P.hp,100);REST_SAVE=null;FLOOR_SAVE=snapshot();saveGame();enterFloor(true);warmFloor();fadeIn(.8);toast(n+'층으로 이동 (개발용)',true);}
-function descend(noCut){if(noCut!==true){const run=G.run||(G.run={d:OPT.diff,full:false}),tf=G.floor-1,hatch=noCut==='hatch';run.bd=run.bd||{};let seq=null;if(BOSS_DESC[tf]&&!run.bd[tf]){run.bd[tf]=1;seq=(hatch?[]:[['stair',{floorTxt:tf+'F'}]]).concat(BOSS_DESC[tf].map(n=>[n]));if(!hatch)run.sc=1;}else if(!hatch&&STAIR_CUT!=='off'&&(STAIR_CUT==='always'||!run.sc)){run.sc=1;seq=[['stair',{floorTxt:tf+'F'}]];}if(seq){cutSeq(seq,()=>descend(true));return;}} /* 178차: 계단 하강 영상 · 보스 층은 계단+보스 영상(배관 통로는 계단 영상 대신 통로 영상) */if(!modelsReady(G.floor-1)){waitModels(G.floor-1,()=>descend(true));return;}G.floor--;if(G.floor<(META.reach||10)){META.reach=G.floor;metaSave();}REST_SAVE=null;FLOOR_SAVE=snapshot();saveGame();enterFloor(true);warmFloor();fadeIn(.8);toast(G.floor+'층 · 여기까지 저장됨',true);say('',G.floor===1?'1층 비상계단. 천장 통로로 겨우 내려왔다.':G.floor+'층 비상계단. 구조는 같지만, 같은 층이 아니다.');floorCard();
+function descend(noCut){if(noCut!==true){const run=G.run||(G.run={d:OPT.diff,full:false}),tf=G.floor-1,hatch=noCut==='hatch';run.bd=run.bd||{};let seq=null;if(BOSS_DESC[tf]&&!run.bd[tf]){run.bd[tf]=1;seq=(hatch?[]:[['stair',{floorTxt:tf+'F',rate:2}]]).concat(BOSS_DESC[tf].map(n=>[n]));if(!hatch)run.sc=1;}else if(!hatch&&STAIR_CUT!=='off'&&(STAIR_CUT==='always'||!run.sc)){run.sc=1;seq=[['stair',{floorTxt:tf+'F',rate:2}]];} /* 11/27 사용자: 계단 영상 2배속 */if(seq){cutSeq(seq,()=>descend(true));return;}} /* 178차: 계단 하강 영상 · 보스 층은 계단+보스 영상(배관 통로는 계단 영상 대신 통로 영상) */if(!modelsReady(G.floor-1)){waitModels(G.floor-1,()=>descend(true));return;}G.floor--;if(G.floor<(META.reach||10)){META.reach=G.floor;metaSave();}REST_SAVE=null;FLOOR_SAVE=snapshot();saveGame();enterFloor(true);warmFloor();fadeIn(.8);toast(G.floor+'층 · 여기까지 저장됨',true);say('',G.floor===1?'1층 비상계단. 천장 통로로 겨우 내려왔다.':G.floor+'층 비상계단. 구조는 같지만, 같은 층이 아니다.');floorCard();
   const ARR={4:'raidBase',3:'darkFloor',2:'hordeFloor',1:'lobby'};if(ARR[G.floor])setTimeout(()=>mono(ARR[G.floor],{prio:true}),2500);
   if(FLOORS[G.floor]&&FLOORS[G.floor].bench)setTimeout(()=>mono('benchHint',{prio:true}),2500);if(FLOORS[G.floor]&&FLOORS[G.floor].boss)setTimeout(()=>mono('bossHint',{prio:true}),2500);}
 // 층 만들기 + 시작 위치(10층: 내 집 / 그 아래: 비상계단 문 안쪽)
