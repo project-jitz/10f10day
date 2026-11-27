@@ -562,7 +562,7 @@ body.cineOn #drawRing{display:none}
     <div class="lui" id="lui">
     <div class="ltag"><h3>열흘 안에, 1층으로.</h3><p>문밖에서 들리는 발소리. 더는 이웃이 아니다.<br>남은 시간은 열흘. 이 건물에서 나가야 한다.</p></div>
     <div class="lhint">ENTER 시작 · ↑↓ 선택</div>
-    <div class="lver"><span id="lplay"></span> · v1.0.51 · 2026.11.27</div>
+    <div class="lver"><span id="lplay"></span> · v1.0.52 · 2026.11.27</div>
     <div class="llogo"><div class="lnum"><span id="logoF">10F</span><span class="sl">/</span><span class="dy" id="logoD">10DAY</span></div><div class="proj">project.<b>Jitz</b></div></div>
     <nav class="lmenu" id="lmenu" aria-label="메인 메뉴">
       <div class="lmain">
@@ -5264,7 +5264,7 @@ function setupLobby(){
   lobbyWalkers();lobbyFace();
 }
 /* 11/27 사용자: 로비 얼굴을 영상으로(힉스필드 Seedance Mini 4클립 → lf_*.mp4). 평소 반복 + 깜빡임, 메뉴에 마우스 = 쳐다보기, 복도에 형체 지나가거나 오래 가만히 = 뒤돌아보기, 새 게임 = 결심. 두 video를 0.25초 교차 페이드. 못 받으면 예전 그림 그대로 */
-const LF={ok:false,cur:'',f:0,acc:0,blinkAt:0,lastIn:0,cool:{},cb:null,q:null,M:{"w":130,"h":168,"c":16,"fps":24,"clips":{"idle":[0,25],"blink":[25,19],"glance":[44,49],"back":[93,68],"resolve":[161,65]}}}; /* 11/27: 로비 얼굴 = 도트 프레임 묶음(lf_atlas.png, 130×168 · 24fps)을 캔버스에 그림. 모든 클립의 처음·끝 프레임이 같은 정면 얼굴이라 넘어갈 때 안 끊김 */
+const LF={ok:false,cur:'',f:0,acc:0,blinkAt:0,lastIn:0,cool:{},cb:null,q:null,M:{"w":130,"h":168,"c":16,"fps":12,"clips":{"idle":[0,13],"blink":[13,10],"glance":[23,49],"back":[72,49],"resolve":[121,33]}}}; /* 11/27: 로비 얼굴 = 도트 프레임 묶음(lf_atlas.png, 130×168 · 24fps)을 캔버스에 그림. 모든 클립의 처음·끝 프레임이 같은 정면 얼굴이라 넘어갈 때 안 끊김 */
 function lobbyFace(){const cv=$('faceC');if(!cv)return;const cx=cv.getContext('2d');const im=new Image();
   im.onload=()=>{LF.ok=true;LF.im=im;lfPlay('idle');$('lface').classList.add('vid');};im.src='lf_atlas.png'+(typeof DATA_Q!=='undefined'?DATA_Q:'');
   LF.lastIn=performance.now();['pointermove','keydown','touchstart'].forEach(e=>addEventListener(e,()=>{LF.lastIn=performance.now();},{passive:true}));
