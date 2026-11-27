@@ -561,7 +561,7 @@ body.cineOn #drawRing{display:none}
     <div class="lui" id="lui">
     <div class="ltag"><h3>열흘 안에, 1층으로.</h3><p>문밖에서 들리는 발소리. 더는 이웃이 아니다.<br>남은 시간은 열흘. 이 건물에서 나가야 한다.</p></div>
     <div class="lhint">ENTER 시작 · ↑↓ 선택</div>
-    <div class="lver"><span id="lplay"></span> · v1.0.44 · 2026.11.27</div>
+    <div class="lver"><span id="lplay"></span> · v1.0.45 · 2026.11.27</div>
     <div class="llogo"><div class="lnum"><span id="logoF">10F</span><span class="sl">/</span><span class="dy" id="logoD">10DAY</span></div><div class="proj">project.<b>Jitz</b></div></div>
     <nav class="lmenu" id="lmenu" aria-label="메인 메뉴">
       <div class="lmain">
@@ -4049,9 +4049,9 @@ function events(dt){const E=G.ev;
 
 /* ================= 루프 ================= */
 let PT_ACC=0;
-/* 11/27 사용자: 순위 난이도 = 그 판에서 실제로 가장 오래 플레이한 난이도(같으면 쉬운 쪽). 일시정지·탭 숨김·20초 넘게 입력 없음은 안 셈 */
+/* 11/27 사용자: 순위 난이도 = 그 판에서 실제로 가장 오래 플레이한 난이도(같으면 어려운 쪽). 일시정지·탭 숨김·20초 넘게 입력 없음은 안 셈 */
 let LAST_IN=0;['keydown','mousedown','mousemove','touchstart','touchmove','wheel'].forEach(e=>addEventListener(e,()=>{LAST_IN=performance.now();},{passive:true,capture:true}));
-function rankDiff(){const r=G.run,t=r&&r.dt;if(!t)return (r&&r.d)||OPT.diff;let best=null,bv=-1;['easy','normal','hard'].forEach(k=>{const v=t[k]||0;if(v>bv+.001){bv=v;best=k;}});return bv>0?best:((r&&r.d)||OPT.diff);}
+function rankDiff(){const r=G.run,t=r&&r.dt;if(!t)return (r&&r.d)||OPT.diff;let best=null,bv=-1;['hard','normal','easy'].forEach(k=>{const v=t[k]||0;if(v>bv+.001){bv=v;best=k;}}) /* 같으면 어려운 쪽 */;return bv>0?best:((r&&r.d)||OPT.diff);}
 function runDt(o,d,dt){if(!o)return;o.dt=o.dt||{};o.dt[d]=(o.dt[d]||0)+dt;}
 function ptTick(dt){if(G.state!=='play'||G.paused||document.hidden)return;META.pt=(META.pt||0)+Math.min(dt,.1);PT_ACC+=dt;
   if(G.run&&performance.now()-LAST_IN<20000){const d=OPT.diff,x=Math.min(dt,.1);const seen=new Set();[G.run,FLOOR_SAVE&&FLOOR_SAVE.run,(typeof REST_SAVE!=='undefined'&&REST_SAVE&&REST_SAVE.s)?REST_SAVE.s.run:null].forEach(o=>{if(!o)return;o.dt=o.dt||{};if(seen.has(o.dt))return;seen.add(o.dt);o.dt[d]=(o.dt[d]||0)+x;});G.runDtAcc=(G.runDtAcc||0)+x;}
