@@ -561,7 +561,7 @@ body.cineOn #drawRing{display:none}
     <div class="lui" id="lui">
     <div class="ltag"><h3>열흘 안에, 1층으로.</h3><p>문밖에서 들리는 발소리. 더는 이웃이 아니다.<br>남은 시간은 열흘. 이 건물에서 나가야 한다.</p></div>
     <div class="lhint">ENTER 시작 · ↑↓ 선택</div>
-    <div class="lver"><span id="lplay"></span> · v1.0.43 · 2026.11.26</div>
+    <div class="lver"><span id="lplay"></span> · v1.0.44 · 2026.11.27</div>
     <div class="llogo"><div class="lnum"><span id="logoF">10F</span><span class="sl">/</span><span class="dy" id="logoD">10DAY</span></div><div class="proj">project.<b>Jitz</b></div></div>
     <nav class="lmenu" id="lmenu" aria-label="메인 메뉴">
       <div class="lmain">
@@ -2419,7 +2419,7 @@ const RANK_Q='f10_rankq';
 function rankOn(){return !!(RANK.url&&RANK.key);}
 function rankTaint(){if(G.run)G.run.cheat=true;if(typeof FLOOR_SAVE!=='undefined'&&FLOOR_SAVE&&FLOOR_SAVE.run)FLOOR_SAVE.run.cheat=true;}
 function cleanName(s){return String(s||'').replace(/[\u0000-\u001f<>]/g,'').trim().slice(0,12);}
-function rankEligible(){const r=G.run;if(!r||!r.full)return '층 선택으로 시작한 판';if(r.cheat)return '순위 조건에 맞지 않는 판';if(r.d!==OPT.diff)return '중간에 난이도를 바꾼 판';if(!cleanName(META.name))return '이름 없음';return '';}
+function rankEligible(){const r=G.run;if(!r||!r.full)return '층 선택으로 시작한 판';if(r.cheat)return '순위 조건에 맞지 않는 판';if(!cleanName(META.name))return '이름 없음';return '';}
 function rankHdr(x){const h={apikey:RANK.key,'Content-Type':'application/json'};if(/^eyJ/.test(RANK.key))h.Authorization='Bearer '+RANK.key; /* 예전 anon 키(JWT)만 Bearer, 새 sb_publishable 키는 apikey만 */return Object.assign(h,x||{});}
 function rankQ(){try{return JSON.parse(localStorage.getItem(RANK_Q)||'[]');}catch(e){return[];}}
 /* 145차: 난이도별 내 최고 기록을 기기에 남겨 순위 창 '내 기록' 줄에 씀 */
@@ -2434,14 +2434,14 @@ function rankDev(d){const t={phone:'PHONE',pc:'WEB',app:'APP'}[d]||'';return '<u
 function rankFmt(min){return (Math.floor(min/1440)+1)+'일차 '+fmtClock(min);}
 let RANK_TOK=0;function rankRender(html,tok){if(tok!=null&&tok!==RANK_TOK)return;const b=$('rankBox');if(b){b.hidden=false;b.innerHTML=html;}}
 async function rankOnEnd(kind){const tok=++RANK_TOK;const b=$('rankBox');if(b){b.hidden=true;b.innerHTML='';}if(kind!=='escape')return;
-  const D={easy:'쉬움',normal:'보통',hard:'어려움'}[OPT.diff]||OPT.diff,why=rankEligible();
+  const RD=rankDiff(),D={easy:'쉬움',normal:'보통',hard:'어려움'}[RD]||RD,why=rankEligible();
   if(why){rankRender('<div class="rkh">순위 · '+D+'</div><p class="rkn">이번 판은 순위에 안 올라가요 — '+why+'. 10층 새 게임부터 1층까지 탈출해야 해요.</p>');return;}
-  const rec={run_id:(G.run.id||(G.run.id=Date.now().toString(36)+Math.random().toString(36).slice(2,8))),name:cleanName(META.name),diff:OPT.diff,esc_min:Math.round(G.min),deaths:(G.run.deaths||0),kills:G.kills||0,notes:(G.notesRead||[]).length,egg:!!G.eggEnd,dev:TOUCH?'phone':(/Electron/.test(navigator.userAgent)?'app':'pc'),ver:((document.querySelector('.lver')||{}).textContent||'').replace(/.*?(v[\d.]+).*/,'$1')};
+  const rec={run_id:(G.run.id||(G.run.id=Date.now().toString(36)+Math.random().toString(36).slice(2,8))),name:cleanName(META.name),diff:RD,esc_min:Math.round(G.min),deaths:(G.run.deaths||0),kills:G.kills||0,notes:(G.notesRead||[]).length,egg:!!G.eggEnd,dev:TOUCH?'phone':(/Electron/.test(navigator.userAgent)?'app':'pc'),ver:((document.querySelector('.lver')||{}).textContent||'').replace(/.*?(v[\d.]+).*/,'$1')};
   const q=rankQ();if(!q.some(o=>o.run_id===rec.run_id)){q.push(rec);rankQSet(q);}rankMineSet(rec);
   if(!rankOn()){rankRender('<div class="rkh">순위 · '+D+'</div><p class="rkn">'+rec.name+' · '+rankFmt(rec.esc_min)+' 기록을 저장해 뒀어요. 순위표가 열리면 자동으로 올라가요.</p>');return;}
   rankRender('<div class="rkh">순위 · '+D+'</div><p class="rkn">순위 불러오는 중…</p>');
   try{await rankFlush();if(rankQ().some(o=>o.run_id===rec.run_id))throw new Error('queued');
-    const top=await rankTop(OPT.diff,10),better=await rankCount(OPT.diff,'or=(esc_min.lt.'+rec.esc_min+',and(esc_min.eq.'+rec.esc_min+',deaths.lt.'+rec.deaths+'))'),tot=await rankCount(OPT.diff,'');
+    const top=await rankTop(RD,10),better=await rankCount(RD,'or=(esc_min.lt.'+rec.esc_min+',and(esc_min.eq.'+rec.esc_min+',deaths.lt.'+rec.deaths+'))'),tot=await rankCount(RD,'');
     const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
     if(tok===RANK_TOK&&G.card){G.card.rank=better+1;G.card.rankTot=tot;}rankRender('<div class="rkh">순위 · '+D+' <span>내 순위 <b>'+(better+1)+'위</b> / '+tot+'명</span></div><ol class="rkl">'+top.map((o,i)=>'<li'+(o.run_id===rec.run_id?' class="me"':'')+'><i>'+(i+1)+'</i><em>'+esc(o.name)+'</em>'+rankDev(o.dev)+'<span>'+rankFmt(o.esc_min)+'</span><small>'+(o.deaths?o.deaths+'번 죽음':'노데스')+'</small></li>').join('')+'</ol>',tok);}
   catch(e){rankRender('<div class="rkh">순위 · '+D+'</div><p class="rkn">인터넷 연결이 안 돼서 기록을 저장해 뒀어요. 다음에 켤 때 자동으로 올라가요.</p>',tok);}}
@@ -2530,8 +2530,8 @@ function diffChanged(){ /* 11/24 사용자: 중간에 난이도를 바꿔도 순
   const early=G.floor===10&&(G.min-CFG.startMin)<=60,ch=!!(G.run&&G.run.d!==OPT.diff);
   const fix=o=>{if(o&&o.d!==OPT.diff){o.d=OPT.diff;if(!early)o.dmix=true;}};fix(G.run);if(FLOOR_SAVE)fix(FLOOR_SAVE.run);if(typeof REST_SAVE!=='undefined'&&REST_SAVE&&REST_SAVE.s)fix(REST_SAVE.s.run);
   ['f10_save','f10_best'].forEach(K=>{try{const o=JSON.parse(localStorage.getItem(K)||'null');if(o&&o.s&&o.s.run&&o.s.run.d!==OPT.diff){fix(o.s.run);localStorage.setItem(K,JSON.stringify(o));}}catch(e){}});
-  if(ch&&G.run.full&&G.state==='play')toast('난이도 변경 · 이번 판은 '+DK().name+' 순위로 기록됩니다'+(early?'':' (난이도 칭호는 제외)'),true);}
-function startAt(F){REST_SAVE=null;G.nameOk=false;if(F===10){lobbyAct('new10');return;}monoRunReset();G.floor=F;FLOOR_SAVE=floorKit(F);FLOOR_SAVE.run={d:OPT.diff,full:false};try{localStorage.setItem('f10_save',JSON.stringify({v:SAVE_V,floor:F,s:FLOOR_SAVE}));}catch(e){}bestUpdate(F,FLOOR_SAVE);
+  if(ch&&G.run.full&&G.state==='play')toast('난이도 변경 · 순위는 이 판에서 가장 오래 플레이한 난이도로 기록됩니다'+(early?'':' (난이도 칭호는 제외)'),true);}
+function startAt(F){REST_SAVE=null;G.nameOk=false;if(F===10){lobbyAct('new10');return;}monoRunReset();G.floor=F;FLOOR_SAVE=floorKit(F);FLOOR_SAVE.run={d:OPT.diff,full:false,id:Date.now().toString(36)+Math.random().toString(36).slice(2,8)};try{localStorage.setItem('f10_save',JSON.stringify({v:SAVE_V,floor:F,s:FLOOR_SAVE}));}catch(e){}bestUpdate(F,FLOOR_SAVE);
   $('titleP').hidden=true;if(typeof prewarm==='function')prewarm();startFloor();fadeIn(.8);lockPointer();setTimeout(()=>{if(!locked)toast('화면을 클릭하면 시점 조작이 시작됩니다');},400);}
 /* ================= 약탈자 (사람, 7층부터) =================
    빠따 든 놈(근접) + 던지는 놈(병·돌)이 짝으로 다닌다. 세대를 돌며 상자를 털고, 김수민을 보면 먼저 경고한 뒤 덤빈다.
@@ -4049,7 +4049,13 @@ function events(dt){const E=G.ev;
 
 /* ================= 루프 ================= */
 let PT_ACC=0;
-function ptTick(dt){if(G.state!=='play'||G.paused||document.hidden)return;META.pt=(META.pt||0)+Math.min(dt,.1);PT_ACC+=dt;if(PT_ACC>15){PT_ACC=0;metaSave();}}
+/* 11/27 사용자: 순위 난이도 = 그 판에서 실제로 가장 오래 플레이한 난이도(같으면 쉬운 쪽). 일시정지·탭 숨김·20초 넘게 입력 없음은 안 셈 */
+let LAST_IN=0;['keydown','mousedown','mousemove','touchstart','touchmove','wheel'].forEach(e=>addEventListener(e,()=>{LAST_IN=performance.now();},{passive:true,capture:true}));
+function rankDiff(){const r=G.run,t=r&&r.dt;if(!t)return (r&&r.d)||OPT.diff;let best=null,bv=-1;['easy','normal','hard'].forEach(k=>{const v=t[k]||0;if(v>bv+.001){bv=v;best=k;}});return bv>0?best:((r&&r.d)||OPT.diff);}
+function runDt(o,d,dt){if(!o)return;o.dt=o.dt||{};o.dt[d]=(o.dt[d]||0)+dt;}
+function ptTick(dt){if(G.state!=='play'||G.paused||document.hidden)return;META.pt=(META.pt||0)+Math.min(dt,.1);PT_ACC+=dt;
+  if(G.run&&performance.now()-LAST_IN<20000){const d=OPT.diff,x=Math.min(dt,.1);const seen=new Set();[G.run,FLOOR_SAVE&&FLOOR_SAVE.run,(typeof REST_SAVE!=='undefined'&&REST_SAVE&&REST_SAVE.s)?REST_SAVE.s.run:null].forEach(o=>{if(!o)return;o.dt=o.dt||{};if(seen.has(o.dt))return;seen.add(o.dt);o.dt[d]=(o.dt[d]||0)+x;});G.runDtAcc=(G.runDtAcc||0)+x;}
+  if(PT_ACC>15){PT_ACC=0;metaSave();const add=G.runDtAcc||0;G.runDtAcc=0;if(add>0){const d=OPT.diff;['f10_save','f10_best'].forEach(K=>{try{const o=JSON.parse(localStorage.getItem(K)||'null');if(o&&o.s&&o.s.run&&G.run&&o.s.run.id===G.run.id){runDt(o.s.run,d,add);localStorage.setItem(K,JSON.stringify(o));}}catch(e){}});}}}
 addEventListener('pagehide',()=>{try{metaSave();}catch(e){}});document.addEventListener('visibilitychange',()=>{if(document.hidden)try{metaSave();}catch(e){}});
 function fmtPT(s){s=Math.floor(s||0);const h=Math.floor(s/3600),m=Math.floor(s%3600/60);return h?h+'시간 '+m+'분':m+'분';}
 /* 11/12 최적화: 안내 문구를 매 프레임 innerHTML로 다시 써서 브라우저가 매 프레임 화면 배치를 다시 계산했음 → 문구가 바뀔 때만 씀(안내는 이 함수로만 쓸 것) */
@@ -5151,7 +5157,7 @@ function lobbyAct(act){
   if(!G.booted)return;initAudio();if(AC)tone(900,700,.05,.06,'square');
   if((act==='new'||act==='new10')&&!G.nameOk&&typeof askName==='function'){askName(()=>{G.nameOk=true;lobbyAct(act);});return;}
   if(act==='new'&&typeof META!=='undefined'&&(META.esc>=1||(META.reach||10)<10)){renderFloorPick();$('mFloor').hidden=false;return;}
-  if(act==='new'||act==='new10'){G.nameOk=false;if(typeof REST_SAVE!=='undefined')REST_SAVE=null;if(typeof monoRunReset==='function')monoRunReset();G.floor=10;FLOOR_SAVE=initialSave();FLOOR_SAVE.run={d:OPT.diff,full:true};try{localStorage.removeItem('f10_save');}catch(e){}if(typeof prewarm==='function')prewarm();playIntro(()=>{startFloor();lockPointer();setTimeout(()=>{if(!locked)toast('화면을 클릭하면 시점 조작이 시작됩니다');},400);});}
+  if(act==='new'||act==='new10'){G.nameOk=false;if(typeof REST_SAVE!=='undefined')REST_SAVE=null;if(typeof monoRunReset==='function')monoRunReset();G.floor=10;FLOOR_SAVE=initialSave();FLOOR_SAVE.run={d:OPT.diff,full:true,id:Date.now().toString(36)+Math.random().toString(36).slice(2,8)};try{localStorage.removeItem('f10_save');}catch(e){}if(typeof prewarm==='function')prewarm();playIntro(()=>{startFloor();lockPointer();setTimeout(()=>{if(!locked)toast('화면을 클릭하면 시점 조작이 시작됩니다');},400);});}
   else if(act==='cont'){let o=null;try{o=readSave();}catch(e){}
     if(o&&o.s){G.floor=o.floor;FLOOR_SAVE=o.s;REST_SAVE=o.rest||null;$('titleP').hidden=true;startFloor();lockPointer();setTimeout(()=>{if(!locked)toast('화면을 클릭하면 시점 조작이 시작됩니다');},400);}
     else{$('contText').textContent=(G.saveBroken?'저장 데이터가 손상돼 지웠습니다. ':'')+'저장된 진행이 없습니다. 비상계단으로 한 층 내려가면 그 층 진입 시점이 저장됩니다.';$('mCont').hidden=false;}}
